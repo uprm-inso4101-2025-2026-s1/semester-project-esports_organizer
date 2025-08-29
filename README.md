@@ -10,7 +10,9 @@
 ##
 - Teams are based on features and developers can be flexible in regards to what team they work on.
 - Have in mind a team pulled from the current established teams will be created to focus directly on Documentation.
-- Stack: Frontend->React (JavaScript) , Backend->Python (Firebase)
+- Stack:
+  - Frontend -> React (JavaScript)
+  - Backend -> Python (Firebase)
 ##
 # Resources:
 
