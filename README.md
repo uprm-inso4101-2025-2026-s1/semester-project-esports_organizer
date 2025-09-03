@@ -2,14 +2,14 @@
 ##
 # Teams:
 
-- User interface / User experience (7 personas)
-- Authentication / Database (7 personas)
-- Post Creation / Community (7 personas)
-- Event Finder / Event Notification (7 personas)
-- Profiles (7 personas)
+- Experience Design Team (7 people)
+- Identity and Data Systems Team (7 people)
+- Communities and Social Features Team (7 people)
+- Events and Notifications Team (4 people)
+- Player and Team Profiles Team (7 people)
 ##
 - Teams are based on features and developers can be flexible in regards to what team they work on.
-- Have in mind a team pulled from the current established teams will be created to focus directly on Documentation.
+- Have in mind each team will have 2 developers that focus directly on Documentation. 
 - Stack:
   - Frontend -> React (JavaScript)
   - Backend -> Python (Firebase)
