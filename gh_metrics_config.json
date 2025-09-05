@@ -1,7 +1,7 @@
 {
   "version": "2.0",
   "projectName": "semester-project-esports_organizer",
-  "managers": ["Poggecci", "Schutz", "WilsonMorales8", "sorimerlinsantos", "fantauzzimartin", "SebasJoel"],
+  "managers": ["WilsonMorales8", "sorimerlinsantos", "fantauzzimartin", "SebasJoel"],
   "milestones": {
     "Milestone #1": {
       "startDate": "2025-08-25T08:00:00-04:00",
