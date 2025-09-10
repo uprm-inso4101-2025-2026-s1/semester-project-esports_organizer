@@ -1,4 +1,15 @@
-# Hosting the project Locally
+= Hosting the Project Locally
+Yadriel Rivera <yadriel.rivera@upr.edu>
+
+
+== Requirements
+
+* [Node.js](https://nodejs.org/) (version 18+ recommended)
+* npm (comes with Node.js)
+* Git
+
+== Steps
+
 
 1. Clone the repository to your local machine:
    ```
