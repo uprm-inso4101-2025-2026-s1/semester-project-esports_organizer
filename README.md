@@ -12,7 +12,7 @@
 - Have in mind each team will have 2 developers that focus directly on Documentation. 
 - Stack:
   - Frontend -> React (JavaScript)
-  - Backend -> Python (Firebase)
+  - Backend -> JavaScript (Firebase)
 ##
 # Resources:
 
