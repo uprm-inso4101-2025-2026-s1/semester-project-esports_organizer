@@ -1,0 +1,80 @@
+= Vite for React
+
+== What is Vite?
+
+Vite  is a modern build tool that provides:
+
+* Instant server startup
+* Ultra-fast Hot Module Replacement (HMR)
+* Optimized production builds
+* Out-of-the-box support for React, TypeScript, JSX, and CSS
+
+== Quick Start
+
+[source,bash]
+----
+# Create new React project
+npm create vite@latest my-app -- --template react
+
+# Navigate to project
+cd my-app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+----
+
+== Project Structure
+
+[source,text]
+----
+my-app/
+├── src/
+│   ├── App.jsx          # Main component
+│   └── main.jsx         # Application entry point
+├── index.html           # HTML template
+├── package.json         # Dependencies and scripts
+└── vite.config.js       # Vite configuration
+----
+
+
+== Key Commands
+
+[source,bash]
+----
+npm run dev      # Start development server
+npm run build    # Create production build
+npm run preview  # Preview production build locally
+----
+
+== Environment Variables
+
+Create `.env` files with `VITE_` prefix:
+
+[source,text]
+----
+VITE_API_URL=https://api.example.com
+VITE_APP_TITLE=My App
+----
+
+Access in code:
+
+[source,javascript]
+----
+const apiUrl = import.meta.env.VITE_API_URL
+----
+
+== Why Choose Vite?
+
+* *Speed*: 10-100x faster HMR than traditional bundlers
+* *Simplicity*: Minimal configuration required
+* *Modern*: Native ES modules support
+* *Flexible*: Rich plugin ecosystem
+
+== Resources
+
+* Official Docs: https://vitejs.dev/
+* React Plugin: https://github.com/vitejs/vite-plugin-react
+* Community Plugins: https://github.com/vitejs/awesome-vite
