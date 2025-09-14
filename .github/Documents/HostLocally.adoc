@@ -1,0 +1,35 @@
+= Hosting the Project Locally
+Yadriel Rivera <yadriel.rivera@upr.edu>
+
+
+== Requirements
+
+* [Node.js](https://nodejs.org/) (version 18+ recommended)
+* npm (comes with Node.js)
+* Git
+* Allow script running on your system (for Windows, you might need to set the execution policy)
+
+== Steps
+
+
+1. Clone the repository to your local machine:
+   ```
+   git clone https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer.git
+   ```
+
+2. Once inside the repository, enter the directory that contains the source code:
+   ```
+   cd .github/esports-organizer
+   ```
+
+3. Install the required dependencies:
+   ```
+   npm install
+   ```
+
+4. Start the development server:
+   ```
+   npm run dev
+   ```
+
+5. Follow the localhost link provided in the terminal to view the extension
