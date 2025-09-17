@@ -19,8 +19,10 @@ jobs:
 
       - name: Build PDF
         run: |
-          cd docs
-          asciidoctor-pdf main.adoc -o build/documentation.pdf
+          cd Documents
+          asciidoctor-pdf mainDoc.adoc -o Documentation/documentation.pdf
+
+
 
       - name: Commit PDF
         run: |
