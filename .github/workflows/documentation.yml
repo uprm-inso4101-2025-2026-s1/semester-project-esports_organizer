@@ -37,6 +37,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add Documents/Documentation/documentation.pdf
+          git add .github/Documents/Documentation/documentation.pdf
           git commit -m "Update generated documentation.pdf" || echo "No changes to commit"
           git push
