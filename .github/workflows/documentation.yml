@@ -28,7 +28,7 @@ jobs:
       - name: Build PDF
         run: |
           ls -R Documents/Documentation
-          asciidoctor-pdf Documents/Documentation/mainDoc.adoc -o Documents/Documentation/documentation.pdf
+          asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc -o Documents/Documentation/documentation.pdf
 
 
 
