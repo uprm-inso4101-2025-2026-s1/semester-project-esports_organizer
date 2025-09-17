@@ -22,8 +22,9 @@ jobs:
 
       - name: Build PDF
         run: |
-          cd Documents
-          asciidoctor-pdf mainDoc.adoc -o Documentation/documentation.pdf
+          mkdir -p docs/build
+          asciidoctor-pdf docs/mainDoc.adoc -o docs/build/documentation.pdf
+
 
 
 
