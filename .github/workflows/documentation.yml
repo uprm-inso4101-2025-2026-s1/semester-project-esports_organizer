@@ -12,10 +12,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Asciidoctor PDF
+      - name: Install Ruby and Asciidoctor
         run: |
           sudo apt-get update
-          sudo apt-get install -y asciidoctor asciidoctor-pdf
+          sudo apt-get install -y ruby ruby-dev build-essential
+          gem install asciidoctor
+          gem install asciidoctor-pdf
 
       - name: Build PDF
         run: |
