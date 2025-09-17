@@ -20,6 +20,11 @@ jobs:
           gem install --user-install asciidoctor-pdf
           echo "$HOME/.local/share/gem/ruby/3.2.0/bin" >> $GITHUB_PATH
 
+      - name: Show repo tree
+        run: |
+          pwd
+          ls -R
+
       - name: Build PDF
         run: |
           ls -R Documents/Documentation
@@ -32,6 +37,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add docs/build/documentation.pdf
+          git add Documents/Documentation/documentation.pdf
           git commit -m "Update generated documentation.pdf" || echo "No changes to commit"
           git push
