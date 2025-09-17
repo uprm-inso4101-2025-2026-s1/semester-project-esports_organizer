@@ -1,0 +1,21 @@
+= Contribution Guidelines
+
+== Folder Structure
+- Informative documents → /Documentation/Informative
+- Descriptive documents → /Documentation/Descriptive
+- Analytic documents → /Documentation/Analytic
+
+== Naming Convention
+- Sub-sections: {part}-{number}.adoc (e.g., 1-1.adoc, 2-3.adoc)
+- Part documents: informativeDoc.adoc, descriptiveDoc.adoc, analyticDoc.adoc
+- Main document: mainDoc.adoc
+
+== How to Add a New Section
+1. Create a new `.adoc` file under the right folder/or open the one alredy created.
+2. Add your content.
+3. Include it in the parent `.adoc` file.
+
+== How to preview a .adoc file
+
+- Install (asciidoctor.asciidoctor-vscode).
+- Click the top right Icon to preview.
