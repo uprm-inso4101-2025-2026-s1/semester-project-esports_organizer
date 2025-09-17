@@ -1,5 +1,6 @@
 = Project Documentation
-Author Name
-:toc: left
-:sectnums:
-trial 2
+
+
+include::Informative/informativeDoc.adoc[]
+include::Descriptive/descriptiveDoc.adoc[]
+include::Analytic/analyticDoc.adoc[]
