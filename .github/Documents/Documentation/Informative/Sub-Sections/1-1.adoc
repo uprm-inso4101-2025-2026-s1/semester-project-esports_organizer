@@ -1,1 +1,17 @@
 = 1.1 Informative Section
+
+== 1.Name, Place and Date 
+- E-sports Team
+- University of Puerto Rico Mayagüez 
+- Fall 2025
+
+== 1.1 Team Members 
+Our project team is composed entirely of students participating in the E-sport project. Every team member is directly involved in the development, design, and decision-making processes. At this stage, we do not have external partners (such as external experts, sponsors, or client organizations). Since the project is academic in nature, it is fully carried out by the student team without additional stakeholders.
+
+Roles and responsibilities are distributed among the team members as follows:
+
+- Experience Design Team - Responsible for ensuring that the website interface looks good, obtaining a pleasant experience. Focusing on how people would use the page.
+- Identity and Data Systems Team - Responsible of data and all the backend that support the website and the user information.
+- Events and Notifications - Responsible of how the events and notifications of said events are handled in the web.
+- Player and Teams Profiles Team - 
+
