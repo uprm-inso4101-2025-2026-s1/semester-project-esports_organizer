@@ -18,7 +18,7 @@ jobs:
           sudo apt-get install -y ruby ruby-dev build-essential
           gem install --user-install asciidoctor
           gem install --user-install asciidoctor-pdf
-          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"
+          echo "$HOME/.local/share/gem/ruby/3.2.0/bin" >> $GITHUB_PATH
 
       - name: Build PDF
         run: |
