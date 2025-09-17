@@ -23,7 +23,7 @@ jobs:
       - name: Build PDF
         run: |
           mkdir -p Documents/Documentation
-          asciidoctor-pdf Documents/mainDoc.adoc -o Documents/Documentation/documentation.pdf
+          asciidoctor-pdf Documents/Documentation/mainDoc.adoc -o Documents/Documentation/documentation.pdf
 
 
 
