@@ -2,7 +2,4 @@
 Author Name
 :toc: left
 :sectnums:
-
-include::Informative/informativeDoc.adoc[]
-include::Descriptive/descriptiveDoc.adoc[]
-include::Analytic/analyticDoc.adoc[]
+trial
