@@ -1,0 +1,5 @@
+= Descriptive Document
+
+include::Sub-Sections/2-1.adoc[]
+include::Sub-Sections/2-2.adoc[]
+include::Sub-Sections/2-3.adoc[]
