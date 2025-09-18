@@ -1,1 +1,60 @@
-= 2.2 Descriptive Section
+== 2.2 Requirements
+
+=== 2.2.1 User Stories, Epics, Features
+
+==== Epics
+* As a gamer, I want to discover local tournaments and communities, so that I can participate on the tournaments and meet players with similar interests to myself.  
+* As a tournament organizer, I want to announce and manage events so that I can attract the maximun number of participants and grow the competitive scene.  
+* As a competitive player, I want to track my performance and rankings, so that I can measure progress and compare myself with others.  
+* As a casual player, I want to join or create teams for my favorite games so that I can play cooperatively and find new friends to play my favorite games.  
+
+==== User Stories 
+* As a gamer, I want to follow specific communities so that I receive notifications about upcoming events.  
+* As a gamer, I want to create a new community for a game without an existing one so that I can gather players with similar interests. 
+* As a competitive player, I want to view my local ranking so that I can see how I compare with others in my region.  
+* As a competitive gamer, I want to join a team for my favorite game so that I can participate in team-based competitions.  
+* As an organizer, I want to create tournament brackets so that matches are structured and easy to follow.  
+* As an organizer, I want to notify users about new tournaments so that they are aware and can sign up.   
+
+==== Features
+* Tournament and event search by both game and location.  
+* Community following and customizable notifications.  
+* Local and regional ranking system based on tournament results.  
+* Team creation and management tools.  
+* Bracket generation for competitions.  
+* Organizer tools for posting and updating events.  
+* Option to create new communities for games without an existing competitive scene.  
+
+
+=== 2.2.2 Personas
+
+==== Persona 1: Alex the Competitive Player
+* **Age:** 21  
+* **Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.  
+* **Goals:**  
+  - Find tournaments to test and improve skills.  
+  - Track rankings and stats across games.  
+* **Frustrations:**  
+  - Difficult to keep up with scattered tournament announcements.  
+  - Lacks a centralized platform to measure performance.  
+
+==== Persona 2: Maria the Organizer
+* **Age:** 34  
+* **Background:** Works in event management, organizes local gaming tournaments on weekends.  
+* **Goals:**  
+  - Announce tournaments easily to the right audience.  
+  - Manage brackets and notify participants quickly.  
+* **Frustrations:**  
+  - Promotion spread thin across many platforms.  
+  - Hard to build consistent communities for recurring events.  
+
+==== Persona 3: Liam the Casual Gamer
+* **Age:** 26  
+* **Background:** Plays games for fun after work, sometimes interested in casual competitions.  
+* **Goals:**  
+  - Discover local communities for his favorite games.  
+  - Join teams to participate in friendly competitions.  
+* **Frustrations:**  
+  - Overwhelmed by too many platforms and event sources.  
+  - Wants simple notifications without constantly monitoring social media.  
+
