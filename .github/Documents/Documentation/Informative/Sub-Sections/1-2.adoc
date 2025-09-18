@@ -24,3 +24,12 @@ Our project aims to address these needs by implementing the following features:
 * A community-driven interface that allows players to connect with others, share interests, and follow ongoing competitions.
 
 These ideas were designed to reduce fragmentation, improve the visibility of events, and create a stronger and more connected E-sports community. 
+
+Countermeasures:
+
+* Domain engineering: analyze the e-sports ecosystem, players, and tournament organizers.
+* Requirements engineering: clearly define the minimum functionalities that the platform requires.
+* Software design and architecture: design a modular architecture that allows for scalability and future integrations.
+* Implementation: frontend (UI/UX) and backend (event management, users, notifications) development.
+* Testing: unit and integration tests to ensure quality.
+* Deployment: deployment on a server accessible to test users.
