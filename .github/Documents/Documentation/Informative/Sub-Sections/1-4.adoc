@@ -1,1 +1,5 @@
 = 1.4 Informative Section
+
+= 1.4 Other activities than just developing a source code  
+
+Our project is not limited to just source code. Behind everything each team did the respective research in order to develop a system that is meaningful and effective for the gaming community, helping resolved problems that affect other platforms. 
