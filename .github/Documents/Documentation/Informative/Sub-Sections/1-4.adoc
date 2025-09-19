@@ -10,7 +10,7 @@ Our project is not limited to just source code. Behind everything each team did 
 
 *	Need: Developers require a structured understanding of the domain in order to identify relevant actors, workflows, and challenges.
 
-*	Implementation: Conduct domain research and analysis before implementation.
+*	Implementation: Conducted research on existing platforms (e.g., Start.gg, Battlefy, Toornament) to understand current solutions.
 
 == *Requirements engineering* 
 
@@ -18,7 +18,7 @@ Our project is not limited to just source code. Behind everything each team did 
 
 * Need: Developers need precise requirements to define what functionalities the system must provide.
 
-* Implementation: Gather requirements through research, observation of others platform, and discussions, and translate them into functional and non-functional requirements.
+* Implementation: Gather requirements through research, observation of others platform, and discussions, and translate them into functional and non-functional requirements. Collecting and documenting needs from players, organizers, and communities.
 
 == *Software architecture and component design*
 
@@ -26,7 +26,7 @@ Our project is not limited to just source code. Behind everything each team did 
 
 * Need: A structured design that organizes the system into clear components and ensures maintainability.
 
-* Implementation: Define an architecture/workflow that supports tournament management (data team), communication and events, and user access in a modular way.
+* Implementation: Planning the system’s structure, including front-end, back-end, and database interactions.
 
 == *Implementation*
 
@@ -34,7 +34,7 @@ Our project is not limited to just source code. Behind everything each team did 
 
 * Need: To build a working system that satisfies the requirements.
 
-* Implementation: Implement the modules incrementally, following good coding practices and version control.
+* Implementation: Setting up the React environment with Vite, researching rendering strategies (CSR, SSR, SSG), and creating UI components.
 
 == *Testing*
 
@@ -42,15 +42,21 @@ Our project is not limited to just source code. Behind everything each team did 
 
 * Need: To validate correctness, performance, and user experience.
 
-* Idea: Perform unit testing, integration testing, and user testing before deployment
+* Idea: Planning for future milestones to ensure usability, accessibility, and reliability.
 
-== *Deployment and maintenance*
+== *Documentation*
 
-* Current situation: The system must eventually be made available to real users.
+* Establishing AsciiDoc for documentation as code and summarizing research.
 
-* Need: Ensure the system can be accessed by the intended audience and remain functional over time.
+== *Collaboration & Team Organization*
 
-* Idea: Plan deployment (initially in a limited scope, etc, for a student or local gaming community) and establish a process for updates and maintenance.
+* Teams divided into UI/UX, Communities & Social Features, Events & Notifications, Identity & Data Systems, and Player/Team Profiles. Each team performed initial research, role assignment, and task planning.
+
 
 By addressing these activities alongside source code development, the project ensures a complete and professional software engineering process that increases the chances of success and usability of the final system.
 
+*The Milestone 1 accomplishments included:*
+
+* UI/UX team - branding, style guides, Figma mockups, user journeys, and feature page prototypes.
+* Communities & Social Features, Data Backend- React setup, research on JSX, Virtual DOM, props vs. state, localization, and documentation workflow.
+* All teams - established project repository, did their corresponding research, GitHub workflows, and cross-team communication for requirements.
