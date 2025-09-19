@@ -1,1 +1,23 @@
-= 1.1 Informative Section
+= 3.1 Informative Section
+
+== 3.1 Concept Analysis
+
+=== Concept Formation and Analysis
+
+Based on our understanding of the esports domain and the problem space, we identify the following key concepts:
+
+**Game vs Gaming Community:**
+*Games* are the software titles (Tekken, Valorant), while *Gaming Communities* are groups of players who compete in specific games within geographic regions. 
+
+**Tournament vs Match:**
+*Tournaments* are organized competitive events with multiple participants, while *Matches* are individual competitions between players/teams within tournaments. The bracket reference indicates tournaments contain structured match progressions.
+
+**Geographic Locality:**
+Multiple references to "local," "in our city," and "geographic areas" reveal that competitive gaming operates within *Local Competitive Scenes* - geographically-bounded communities where players can feasibly attend in-person events.
+
+**Performance and Rankings:**
+The "3rd place" and "ranking across events" statements show that *Competition Results* and *Player Rankings* are important domain concepts that currently exist in fragmented form.
+
+*Individual vs Team Competition:* Some games support both individual and team play (e.g., fighting games typically individual, MOBAs typically team-based). Our domain model must accommodate both.
+
+*Casual vs Competitive Players:* The distinction between someone who "plays games" and someone who "competes in tournaments" is crucial for our domain focus.
