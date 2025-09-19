@@ -1,37 +1,26 @@
 = 1.2 Informative Section
 
 == 1.2 Current situations, needs, ideas
-=== Current situation 
 
-Video games are a widely popular form of entertainment where people can either enjoy casual fun with friends or compete in more structured, competitive settings. However, the competitive gaming scene is broad and diverse, which makes it harder for players to navigate.Most of the information about E-sports events is scatted across many platforms and communities, and because preferences in games genres vary widely, a lot of events go unnoticed. This lack of variety prevents player from discovering tournaments, joining them, or join the community of that game. Reducing opportunities for players to connect with others who share similar interests.
+=== Current situation 
+Video games are a widely popular form of entertainment where people can either enjoy casual fun with friends or compete in more structured, competitive settings. However, the competitive gaming scene is broad and diverse, which makes it harder for players to navigate. Most of the information about esports events is scattered across multimple platforms and communities, and because genre preferences vary widely, a lot of events go unnoticed. This lack of variety prevents player from discovering tournaments, joining them, or finding a community they like, reducing opportunities for players to connect with others who share similar interests.
 
 === Needs 
-
 From this situation a few needs were identified.
 
-* Players need a **clear, reliable and centralized** where they can easily discover and register for E-sports events.
-* Organizers need a reliable and effective channel to promote their events and reach their audience effectively.
+* Players need a **clear, reliable and centralized** platform where they can easily discover and register foresports events.
+* Organizers need a reliable and effective channel to promote their events and reach their audience.
 * Communities need more visibility for their events so they can attract new members and maintain engagement. 
 * Spectators and fans need an accessible way to follow competitions, track results, and feel part of the event experience.
 
 === Ideas 
+Our project aims to address these needs by implementing a digital platform for esports tournamnets. This include the following features: 
 
-Our project aims to address these needs by implementing a digital platform for E-sports tournamnets. This include the following features: 
-
-* Conducting domain engineering to describe how grassroots and student E-sports events currently operate.
+* Conducting domain engineering to describe how grassroots and student esports events currently operate.
 * Implementing a web-based platform with UI/UX principles that ensure accessibility, adaptability, and usability.
-*	A centralized events hub where player can *browser and discover* tournaments by game, date, community. 
-* A registration and management system to simplify how participants sign up and how organizers handle teams and brackets.
-* A notification and updates feature to keep participants and spectators informed in real time.
-* A community-driven interface that allows players to connect with others, share interests, and follow ongoing competitions.
+* Centralized events hub where player can *browse and discover* tournaments by game, date, community. 
+* Registration and management system to simplify how participants sign up and how organizers handle teams and brackets.
+* Notification and updates feature to keep participants and spectators informed in real time.
+* Community-driven interface that allows players to connect with others, share interests, and follow ongoing competitions.
 
-These ideas were designed to reduce fragmentation, improve the visibility of events, and create a stronger and more connected E-sports community. 
-
-Countermeasures:
-
-* Domain engineering: analyze the e-sports ecosystem, players, and tournament organizers.
-* Requirements engineering: clearly define the minimum functionalities that the platform requires.
-* Software design and architecture: design a modular architecture that allows for scalability and future integrations.
-* Implementation: frontend (UI/UX) and backend (event management, users, notifications) development.
-* Testing: unit and integration tests to ensure quality.
-* Deployment: deployment on a server accessible to test users.
+These ideas were designed to reduce fragmentation, improve the visibility of events, and create a stronger and more connected esports community.
