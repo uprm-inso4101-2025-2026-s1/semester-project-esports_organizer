@@ -1,1 +1,10 @@
 = 1.5 Informative Section
+
+== 1.5 Derived Goals
+In addition to its main goals of centralizing event discovery, simplifying registration, and strengthening community engagement, the Esports Organizer project also seeks to achieve several secondary goals.
+
+* Promote fair play and inclusivity in all competitive tournaments.
+* Increase the visibility of local and student-led esports initiatives.
+* Encourage partnerships among various gaming communities.
+* Support the learning process and skill development for players and teams.
+* Raise consciousness about esports culture and its values.
