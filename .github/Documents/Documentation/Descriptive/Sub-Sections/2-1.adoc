@@ -1,16 +1,17 @@
-= 2.1 Descriptive Section
-Esports Organizer
-Team X
+= 2. Descriptive Part
 
-== Rough Sketch
-- Esports tournaments need an organized platform.
-- Players must be able to register and join teams.
-- Teams must be able to participate in tournaments with clear rules.
-- Organizers need to schedule matches and manage results.
-- Spectators want to see standings and tournament progress in real time.
-- The platform should support multiple games and formats.
+== 2.1 Domain Description
 
-== Terminology
+=== 2.1.1 Rough Sketch
+* Organizers announce registration with eligibility rules (age, roster size, region).
+* Teams submit rosters with captains before deadlines; some events allow roster changes.
+* Seeding is set by rankings, past results, or qualifiers.
+* Tournaments use formats like single-elimination, double-elimination, Swiss, or round-robin.
+* Teams must check in before matches; missing a grace period may cause a forfeit.
+* Results are recorded; tiebreakers decide standings in round-robins or Swiss.
+* Spectators and media follow brackets, standings, and schedules.
+
+=== 2.1.2 Terminology
 - **Player**: An individual who registers on the platform to participate in esports tournaments.
 - **Team**: A group of players who join together to compete in tournaments.
 - **Tournament**: A competitive event where teams compete against each other in a structured format.
@@ -18,15 +19,39 @@ Team X
 - **Organizer**: An individual or group responsible for setting up and managing tournaments.
 - **Spectator**: An individual who watches the tournaments and follows the progress of teams and matches.
 
-== Narrative
-The Esports domain includes organizing tournaments where teams compete in online games. Organizers need to register teams, schedult matches, and display results to players and the public. Players expect to receive notifications about schedules and results. Spectators want to follow the action live and see standings. The platform must handle various game types and formats, ensuring a smooth experience for all users.
+=== 2.1.3 domain terminology in relation to domain rough sketch
+The rough sketch captures raw specifics (e.g., “15-minute grace period,” “map veto order”). The terminology abstracts those specifics into stable concepts (e.g., Check-in, Forfeit, Map Pool, Tiebreaker Policy). Definitions arise after analyzing rough notes; they are not part of the rough sketch itself.
 
-== Events, Actions, Behaviors
-- **Event**: start of a tournament
-- **Action**: Teams register for the tournament
-- **Behavior**: The system validates team registrations, confirms participation and updates the leaderboard.
+=== 2.1.4 Narrative
+Organizers announce a tournament with a published ruleset, format, schedule, and prize pool. Teams register during the registration window, declare a roster, and ensure all players meet eligibility requirements. Seeds are assigned by prior results, qualifiers, or draw. Matches are scheduled by round according to the format. Before each match, both teams check in; if a team fails to appear within the grace period, the opponent advances by forfeit. During play, referees enforce the ruleset, including pauses, coach timeouts, and server/side selections. Infractions result in penalties as outlined by the rules. After a match, the result is recorded and the bracket or standings advance accordingly. When group stages end, tiebreakers determine placement. The tournament concludes with final placements and prize payouts according to the payout schedule.
 
-== Function Signatures
-- `registerTeam(teamName, players) --> confirmation`
-- `scheduleMatch(teamA, teamB, dateTime) --> matchID`
-- `reportResult(matchID, teamAScore, teamBScore) --> updatedStandings`
+=== 2.1.5 Events, Actions, Behaviors
+* *Event* (instantaneous state change)
+** "Team A has just become eligible."
+** "Match 3 has just concluded 2–1."
+** "Forfeit recorded after grace period."
+
+* *Action* (an act carried out once)
+** Register a team
+** Apply a penalty
+** Record a result
+** Perform map veto
+
+* *Behavior* (multi-step process composed of actions/events)
+** Run a double-elimination bracket: seed → schedule rounds → play matches → move winners/losers → repeat until champion.
+** Conduct a Swiss stage: pair by score groups each round → play → update scores/OMW/SOS → repeat for R rounds.
+
+=== 2.1.6 Function Signatures
+Function signatures describe what information is needed to perform an action
+and what result comes out of it. They make clear:
+
+* **Inputs**: what the action needs (team, player, tournament, match, etc.)
+* **Outputs**: what the action produces (confirmation, updated standings, match record, etc.)
+* **Failures**: some actions may fail (e.g., late registration), so the signature should allow for that.
+
+=== Examples
+- `registerTeam(team, roster, tournament) → Confirmation | Failure`
+- `scheduleMatch(teamA, teamB, time) → Match`
+- `recordResult(match, score) → UpdatedStandings`
+
+In short, function signatures show the inputs, outputs, and whether the action can fail.

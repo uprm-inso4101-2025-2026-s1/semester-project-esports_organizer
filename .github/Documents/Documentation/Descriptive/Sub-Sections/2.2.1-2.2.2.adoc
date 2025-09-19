@@ -1,6 +1,6 @@
-== 2.2 Requirements
+=== 2.2 Requirements
 
-=== 2.2.1 User Stories, Epics, Features
+==== 2.2.1 User Stories, Epics, Features
 
 ==== Epics
 * As a gamer, I want to discover local tournaments and communities, so that I can participate on the tournaments and meet players with similar interests to myself.  
@@ -26,7 +26,7 @@
 * Option to create new communities for games without an existing competitive scene.  
 
 
-=== 2.2.2 Personas
+==== 2.2.2 Personas
 
 ==== Persona 1: Alex the Competitive Player
 * **Age:** 21  

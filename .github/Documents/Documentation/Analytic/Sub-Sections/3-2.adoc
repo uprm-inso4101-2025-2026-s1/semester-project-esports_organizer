@@ -1,8 +1,4 @@
-= 3.2 Informative Section
-
-== 3.2 Validation and Verification
-
-=== Validation Strategy
+=== 3.2 validation and verification
 
 Validation determines whether stakeholders agree with our understanding of the esports domain as we have documented it.
 
@@ -27,11 +23,11 @@ Present our terminology definitions to stakeholders and ask for confirmation:
 - Confirm that our definition of *Match* as individual competitions within tournaments aligns with how stakeholders use this term
 - Check that our concept boundaries between different domain entities match stakeholder understanding
 
-=== Verification Strategy
+==== Verification Strategy
 
 All concepts in the domain are used consistently across documentation, requirements, and architecture. Requirements clearly trace back to domain properties, and every property that affects the system generates the right requirements. The software architecture covers all specified requirements without gaps, with components having clear responsibilities. The data model represents all domain concepts without conflicts. Implementation matches the design, with unit tests covering all components and interfaces working as specified. Finally, every requirement has a matching test case, and testing environments reflect the operational conditions defined.
 
-=== Success Criteria
+==== Success Criteria
 
 **Validation Success Indicators:**
 - Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate

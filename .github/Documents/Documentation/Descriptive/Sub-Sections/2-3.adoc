@@ -1,4 +1,4 @@
-== 2.3 Implementation
+=== 2.3 Implementation
 
 The implementation stage translates the requirements described in
 Section 2.2 into a working system. While requirements define *what*
@@ -33,7 +33,7 @@ Diagrams and screen mockups complement the text:
   creation.
 * Figma mockups illustrate how the interface supports usage scenarios.
 
-=== 2.3.1 Selected Fragments of the Implementation
+==== 2.3.1 Selected Fragments of the Implementation
 
 Selected fragments are only included when they clarify explanations
 and complement the documentation. By themselves, they are not useful.

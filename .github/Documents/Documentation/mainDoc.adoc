@@ -1,6 +1,3 @@
-= Project Documentation
-
-
 include::Informative/informativeDoc.adoc[]
 include::Descriptive/descriptiveDoc.adoc[]
 include::Analytic/analyticDoc.adoc[]
