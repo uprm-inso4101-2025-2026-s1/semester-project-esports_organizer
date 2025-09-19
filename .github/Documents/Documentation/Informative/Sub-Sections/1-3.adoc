@@ -8,16 +8,16 @@ This project belongs to the big domain of entertainment, gaming and event organi
 
 === Span
 
-While the domain of the project is the global E-sports community, the specific focus (span) of this web is on small to medium scale tournaments organized by local communities, including the student’s group and other independent gaming community. The platform is designed to help these organizers manage registration, brackets, communications and visibility in a way that is easy to use. Unlike large scale E-sport platforms, this projects emphasis inclusivity, adaptability, and simplicity making it suitable for grassroots and semi-formal competitions.
+While the domain of the project is the global E-sports community, the specific focus (span) of this web is on small to medium scale tournaments organized by local communities, including the student’s group and other independent gaming community. The platform is designed to help these organizers manage registration, brackets, communications and visibility in a way that is easy to use. Unlike large scale E-sport platforms, this projects emphasis inclusivity, adaptability, and simplicity making it suitable for semi-formal competitions.
 
 === 1.3.2	Synopsis 
 
-This project aims to design and develop a digital platform that facilitate the organization and participation of E-sports tournaments. The system will centralize key process like event discover, player registration, tournament registration and schedule. It will also provide real time notifications, and public results for spectators.  
+This project aims to design and develop a web-based platform that facilitate the organization and participation of E-sports tournaments. The system will centralize key process like event discover, player registration, tournament registration and schedule. It will also provide real time notifications, and public results for spectators.  
 
-The project will be conducted through standard software engineering activities:
+The project will be conducted through standard software engineering phases:
 
 * Domain description to understand the current practices of student E-sport events.
-* Requirements prescription to capture user and stakeholder needs.
+* Requirements analysys to capture user and stakeholder needs.
 * Software architecture and design to define the system’s structure and components.
 * Implementation of core features in line with the defined requirements.
 * Testing and validation to ensure functionality, usability, and reliability.
