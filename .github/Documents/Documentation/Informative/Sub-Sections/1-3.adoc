@@ -1,1 +1,25 @@
 = 1.3 Informative Section
+
+== 1.3 Scope, Span, and Synopsis 
+
+=== Scope
+
+This project belongs to the big domain of entertainment, gaming and event organization, with a focus on the growing field of E-sports. This includes players, organizer, or just spectators who participate or follow gaming tournaments and events, whether its online or in person.  The scope covers all phases of the software engineering required for the project, including domain description, requirements engineering, software architecture, component design, implementation, and finally testing. It also considers aspects of user experience, communication, and community engagement, as these are important for the competitive gaming environment.
+
+=== Span
+
+While the domain of the project is the global E-sports community, the specific focus (span) of this web is on small to medium scale tournaments organized by local communities, including the student’s group and other independent gaming community. The platform is designed to help these organizers manage registration, brackets, communications and visibility in a way that is easy to use. Unlike large scale E-sport platforms, this projects emphasis inclusivity, adaptability, and simplicity making it suitable for semi-formal competitions.
+
+=== 1.3.2	Synopsis 
+
+This project aims to design and develop a web-based platform that facilitate the organization and participation of E-sports tournaments. The system will centralize key process like event discover, player registration, tournament registration and schedule. It will also provide real time notifications, and public results for spectators.  
+
+The project will be conducted through standard software engineering phases:
+
+* Domain description to understand the current practices of student E-sport events.
+* Requirements analysys to capture user and stakeholder needs.
+* Software architecture and design to define the system’s structure and components.
+* Implementation of core features in line with the defined requirements.
+* Testing and validation to ensure functionality, usability, and reliability.
+
+In summary, this project delivers not only a working system but also serve as a solution to improve the way other E-sports platform organize tournaments and user’s experiences.  
