@@ -1,1 +1,32 @@
 = 2.1 Descriptive Section
+Esports Organizer
+Team X
+
+== Rough Sketch
+- Esports tournaments need an organized platform.
+- Players must be able to register and join teams.
+- Teams must be able to participate in tournaments with clear rules.
+- Organizers need to schedule matches and manage results.
+- Spectators want to see standings and tournament progress in real time.
+- The platform should support multiple games and formats.
+
+== Terminology
+- **Player**: An individual who registers on the platform to participate in esports tournaments.
+- **Team**: A group of players who join together to compete in tournaments.
+- **Tournament**: A competitive event where teams compete against each other in a structured format.
+- **Match**: A single game or series of games played between two teams within a tournament
+- **Organizer**: An individual or group responsible for setting up and managing tournaments.
+- **Spectator**: An individual who watches the tournaments and follows the progress of teams and matches.
+
+== Narrative
+The Esports domain includes organizing tournaments where teams compete in online games. Organizers need to register teams, schedult matches, and display results to players and the public. Players expect to receive notifications about schedules and results. Spectators want to follow the action live and see standings. The platform must handle various game types and formats, ensuring a smooth experience for all users.
+
+== Events, Actions, Behaviors
+- **Event**: start of a tournament
+- **Action**: Teams register for the tournament
+- **Behavior**: The system validates team registrations, confirms participation and updates the leaderboard.
+
+== Function Signatures
+- `registerTeam(teamName, players) --> confirmation`
+- `scheduleMatch(teamA, teamB, dateTime) --> matchID`
+- `reportResult(matchID, teamAScore, teamBScore) --> updatedStandings`
