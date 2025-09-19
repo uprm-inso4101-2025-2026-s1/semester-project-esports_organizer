@@ -1,0 +1,56 @@
+= 1.4 Informative Section
+
+= 1.4 Other activities than just developing a source code  
+
+Our project is not limited to just source code. Behind everything each team did the respective research in order to develop a system that is meaningful and effective for the gaming community, helping resolved problems that affect other platforms. 
+
+== *Domain Engineering*
+
+* Situation: The E-sports and gaming community is broad and diverse, with many different stakeholders (players, organizers, spectators). Without a clear description of the domain, the team risks misunderstanding the environment.
+
+*	Need: Developers require a structured understanding of the domain in order to identify relevant actors, workflows, and challenges.
+
+*	Implementation: Conduct domain research and analysis before implementation.
+
+== *Requirements engineering* 
+
+* Situation: There is no formal list of user needs or expectations for this system.
+
+* Need: Developers need precise requirements to define what functionalities the system must provide.
+
+* Implementation: Gather requirements through research, observation of others platform, and discussions, and translate them into functional and non-functional requirements.
+
+== *Software architecture and component design*
+
+* Situation: Without a defined architecture, the system could become inconsistent or unscalable.
+
+* Need: A structured design that organizes the system into clear components and ensures maintainability.
+
+* Implementation: Define an architecture/workflow that supports tournament management (data team), communication and events, and user access in a modular way.
+
+== *Implementation*
+
+* Current Situation: The functionalities identified in the requirements do not yet exist.
+
+* Need: To build a working system that satisfies the requirements.
+
+* Implementation: Implement the modules incrementally, following good coding practices and version control.
+
+== *Testing*
+
+* Current Situation: Without testing, errors and usability issues may remain hidden.
+
+* Need: To validate correctness, performance, and user experience.
+
+* Idea: Perform unit testing, integration testing, and user testing before deployment
+
+== *Deployment and maintenance*
+
+* Current situation: The system must eventually be made available to real users.
+
+* Need: Ensure the system can be accessed by the intended audience and remain functional over time.
+
+* Idea: Plan deployment (initially in a limited scope, etc, for a student or local gaming community) and establish a process for updates and maintenance.
+
+By addressing these activities alongside source code development, the project ensures a complete and professional software engineering process that increases the chances of success and usability of the final system.
+

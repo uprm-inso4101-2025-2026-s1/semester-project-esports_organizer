@@ -10,8 +10,8 @@ Our project team is composed entirely of students participating in the E-sport p
 
 Roles and responsibilities are distributed among the team members as follows:
 
-- Experience Design Team - Responsible for ensuring that the website interface looks good, obtaining a pleasant experience. Focusing on how people would use the page.
-- Identity and Data Systems Team - Responsible of data and all the backend that support the website and the user information.
-- Events and Notifications - Responsible of how the events and notifications of said events are handled in the web.
-- Player and Teams Profiles Team - 
+- Experience Design Team - Responsible for the user interface and overall user experience of the platform. This includes designing intuitive layouts, ensuring visual appeal, and optimizing how users interact with the system to create a seamless and pleasant experience.
+- Identity and Data Systems Team - Responsible for managing the backend infrastructure, and the data handling. This team ensures that the system can securely store, process, and retrieve user and event information while maintaining performance and reliability.
+- Events and Notifications - Responsible for the functionality related to event management and notifications. This includes handling event creation, scheduling, and ensuring timely notifications and updates are delivered to participants and spectators.
+- Player and Teams Profiles Team - Responsible for managing features related to player and team identity within the platform. This includes profile creation, team registration, and ensuring accurate representation of players and teams across tournaments and events.
 
