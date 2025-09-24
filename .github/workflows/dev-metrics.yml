@@ -11,28 +11,17 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    steps:
-      # 1) Try to checkout the metrics branch (keep its files in workspace)
-      - name: Checkout metrics branch (or create it)
-        shell: bash
-        run: |
-          set -euxo pipefail
-          # Checkout default branch first just to have a repo
-          git init .
-          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
-          git fetch --depth=1 origin
-          # Try to checkout existing metrics branch; if missing, create from default
-          if git ls-remote --heads origin inso-metrics | grep -q inso-metrics; then
-            git fetch origin inso-metrics:inso-metrics
-            git checkout inso-metrics
-          else
-            # detect default branch
-            DEFAULT_BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
-            git checkout -b inso-metrics origin/${DEFAULT_BRANCH}
-          fi
 
-      - name: Checkout INSO GH Metrics code
-        uses: actions/checkout@v4
+    steps:
+      # Checkout the metrics branch (keeps previous milestone files)
+      - uses: actions/checkout@v4
+        with:
+          ref: inso-metrics
+          fetch-depth: 0
+          persist-credentials: true
+
+      # Checkout the metrics generator code
+      - uses: actions/checkout@v4
         with:
           repository: Poggecci/INSO-GH-API-QUERY
           path: inso-gh-query-metrics
@@ -73,9 +62,7 @@ jobs:
 
       - name: Move Generated Metrics to Source Repo
         run: |
-          set -euxo pipefail
           mkdir -p ./metrics
-          # Copy the new files into the existing metrics folder without nuking old ones
           cp inso-gh-query-metrics/*${{ github.repository_owner }}.md metrics/ || true
         shell: bash
 
@@ -88,11 +75,16 @@ jobs:
           commit_user_name: GitHub Action
           commit_user_email: action@github.com
           commit_author: GitHub Action <action@github.com>
-          # IMPORTANT: do NOT force push, do NOT create_branch here
+          token: ${{ github.token }}
 
       - name: Create Pull Request
         run: |
-          gh pr create --base ${{ github.ref }} --head "inso-metrics" --title "[Automated] Milestone Metrics Update" --body "This is an automated pull request to update the milestone metrics." --repo ${{ github.repository }} || echo "Command failed: Unable to create pull request. It might be due to the branch already existing or lack of permissions."
+          gh pr create \
+            --base ${{ github.ref }} \
+            --head "inso-metrics" \
+            --title "[Automated] Milestone Metrics Update" \
+            --body "This is an automated pull request to update the milestone metrics." \
+            --repo ${{ github.repository }} || echo "Command failed: Unable to create pull request. It might be due to the branch already existing or lack of permissions."
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
