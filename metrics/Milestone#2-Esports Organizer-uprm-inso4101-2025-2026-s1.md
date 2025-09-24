@@ -79,42 +79,42 @@
 
 | Developer | Week #1 | Week #2 | Week #3 | Week #4 | Penalty |
 |---|---|---|---|---|---|
-| RicardoBurgoss | No | No | No | No | 14.0 |
-| TomasGomez04 | No | No | No | No | 14.0 |
-| ronaldoflores9 | No | No | No | No | 14.0 |
-| Programian | No | No | No | No | 14.0 |
-| OSCAR-A-SANTANA | No | No | No | No | 14.0 |
-| YasserAlonso | No | No | No | No | 14.0 |
-| Juan80-12 | No | No | No | No | 14.0 |
-| WilsonMorales8 | No | No | No | No | 14.0 |
-| isai-padin8 | No | No | No | No | 14.0 |
-| jaelrod3 | No | No | No | No | 14.0 |
-| sorimerlinsantos | No | No | No | No | 14.0 |
+| andres-cruz-zapata | No | No | No | No | 14.0 |
+| Dylan-Oliver04 | No | No | No | No | 14.0 |
+| AlejandroMB05 | No | No | No | No | 14.0 |
 | jaydensanchez12 | No | No | No | No | 14.0 |
+| GerardoSotoRios | No | No | No | No | 14.0 |
+| Juan80-12 | No | No | No | No | 14.0 |
+| seba-15 | No | No | No | No | 14.0 |
+| eliel-hernandez | No | No | No | No | 14.0 |
+| Jeremy-Jasser-Grafals-Barreto | No | No | No | No | 14.0 |
+| abby-gotay | No | No | No | No | 14.0 |
+| OSCAR-A-SANTANA | No | No | No | No | 14.0 |
+| isai-padin8 | No | No | No | No | 14.0 |
+| Programian | No | No | No | No | 14.0 |
+| YasserAlonso | No | No | No | No | 14.0 |
+| SebasJoel | No | No | No | No | 14.0 |
+| fantauzzimartin | No | No | No | No | 14.0 |
+| sorimerlinsantos | No | No | No | No | 14.0 |
 | SebastianSuarez0429 | No | No | No | No | 14.0 |
 | itsgabrielamartinez | No | No | No | No | 14.0 |
-| Dylan-Oliver04 | No | No | No | No | 14.0 |
-| hector-rivera15 | No | No | No | No | 14.0 |
-| YadrielRivera | No | No | No | No | 14.0 |
-| AdrianaFigueroa9 | No | No | No | No | 14.0 |
-| Pedro-Juan-Bonilla | No | No | No | No | 14.0 |
-| yeudeedleCS | No | No | No | No | 14.0 |
-| Kay9876 | No | No | No | No | 14.0 |
-| andres-cruz-zapata | No | No | No | No | 14.0 |
 | gabrielrivera0 | No | No | No | No | 14.0 |
-| FabianAcevedo1 | No | No | No | No | 14.0 |
-| abby-gotay | No | No | No | No | 14.0 |
-| Jeremy-Jasser-Grafals-Barreto | No | No | No | No | 14.0 |
+| jaelrod3 | No | No | No | No | 14.0 |
 | Edgar-glz | No | No | No | No | 14.0 |
-| anthony-garcia-oquendo | No | No | No | No | 14.0 |
-| SebasJoel | No | No | No | No | 14.0 |
 | VictorSantos6 | No | No | No | No | 14.0 |
-| eliel-hernandez | No | No | No | No | 14.0 |
-| seba-15 | No | No | No | No | 14.0 |
-| GerardoSotoRios | No | No | No | No | 14.0 |
-| AlejandroMB05 | No | No | No | No | 14.0 |
+| anthony-garcia-oquendo | No | No | No | No | 14.0 |
+| hector-rivera15 | No | No | No | No | 14.0 |
+| Pedro-Juan-Bonilla | No | No | No | No | 14.0 |
+| WilsonMorales8 | No | No | No | No | 14.0 |
+| RicardoBurgoss | No | No | No | No | 14.0 |
+| YadrielRivera | No | No | No | No | 14.0 |
+| Kay9876 | No | No | No | No | 14.0 |
+| AdrianaFigueroa9 | No | No | No | No | 14.0 |
 | Yamiilet | No | No | No | No | 14.0 |
-| fantauzzimartin | No | No | No | No | 14.0 |
+| FabianAcevedo1 | No | No | No | No | 14.0 |
+| ronaldoflores9 | No | No | No | No | 14.0 |
+| yeudeedleCS | No | No | No | No | 14.0 |
+| TomasGomez04 | No | No | No | No | 14.0 |
 
 ## Point Percent by Label
 
