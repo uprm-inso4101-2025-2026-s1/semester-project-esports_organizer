@@ -75,7 +75,6 @@ jobs:
           commit_user_name: GitHub Action
           commit_user_email: action@github.com
           commit_author: GitHub Action <action@github.com>
-          token: ${{ github.token }}
 
       - name: Create Pull Request
         run: |
