@@ -33,6 +33,10 @@ function runBracket(teams){
         throw new Error("Not enough teams to run a tournament.");
     }
 
+    if (teams.some(team => team == null)) {
+        throw new Error("There are null or undefined team objects in the array.");
+    }
+
     let round = 1;
     let currentTeams = teams.slice();
 
