@@ -23,9 +23,16 @@ let teams = [team1,team2,team3,team4,team5,team6];
  * It pairs teams, compares their scores, and advances winners to the next round
  * In case of a tie, it randomly selects a winner (to be improved later)
  * Continues until one champion remains
+ * 
+ * NOTE: in order to have every team play, the number of teams should ideally be a power of two (2, 4, 8, 16, etc.)
+ * If not, some teams will just pass in the first round or others.
  */
 function runBracket(teams){    
-    
+
+    if(teams.isEmpty || teams.length < 2){
+        throw new Error("Not enough teams to run a tournament.");
+    }
+
     let round = 1;
     let currentTeams = teams.slice();
 
