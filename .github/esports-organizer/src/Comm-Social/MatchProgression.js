@@ -19,7 +19,7 @@ let teams = [team1,team2,team3,team4,team5,team6];
 /**
  * 
  * @param {Array<Teams>} teams is an array of team objects with name and score properties
- * @returns {Teams} returns the champion of the tournament
+ * @returns {Array<Teams>} returns the champion of the tournament
  * This function runs a single-elimination bracket tournament
  * It pairs teams, compares their scores, and advances winners to the next round
  * In case of a tie, it randomly selects a winner (to be improved later)
@@ -40,6 +40,7 @@ export function runBracket(teams){
 
     let round = 1;
     let currentTeams = teams.slice();
+    let finalTeamList = [];
 
     while (currentTeams.length > 1) {
         console.log(`\n--- Round ${round} ---`);
@@ -57,6 +58,7 @@ export function runBracket(teams){
                     console.log(`${teamA.name} wins with score ${teamA.score}`);
                     teamA.score += 1; 
                     winners.push(teamA);
+                    finalTeamList.push(teamB);
 
                 } 
                 else if (teamA.score < teamB.score) {
@@ -65,6 +67,7 @@ export function runBracket(teams){
                     console.log(`${teamB.name} wins with score ${teamB.score}`);
                     teamB.score += 1;
                     winners.push(teamB);
+                    finalTeamList.push(teamA);
 
                 } 
                 else {
@@ -72,6 +75,7 @@ export function runBracket(teams){
                     const winner = Math.random() < 0.5 ? teamA : teamB;
                     console.log(`Tie! Randomly selected ${winner.name} as winner`);
                     winners.push(winner);
+                    finalTeamList.push(winner === teamA ? teamB : teamA);
                 }
             } else {
                 // Odd team advances automatically
@@ -85,9 +89,13 @@ export function runBracket(teams){
     }
 
     console.log(`\nChampion: ${currentTeams[0].name}`);
-    return currentTeams[0];
+    finalTeamList.push(currentTeams[0]);
+    return finalTeamList;
 
 }
+//testing the function 
 
-
-runBracket(teams);
+// let tournamentResults = runBracket(teams);
+// for(let i =  tournamentResults.length; i > 0; i--){
+//     console.log(`Position ${tournamentResults.length - i + 1}: ${tournamentResults[i - 1].name}`);
+// }
