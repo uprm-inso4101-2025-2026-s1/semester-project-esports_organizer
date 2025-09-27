@@ -1,0 +1,65 @@
+.btn {
+  display: flex;
+  padding: 12px 24px;
+  height: 53px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  aspect-ratio: 5/2;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+p {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+button {
+  border: 1px solid transparent;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.btn.primary {
+  background: var(--light-link);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #7d5ba6;
+}
+
+.btn.primary:active {
+  background: #7d5ba6;
+  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
+}
+
+.btn.primary:disabled {
+  background: #8f8f8f;
+  color: #505256;
+}
+
+.btn.secondary {
+  background: #7f7f7f;
+  color: white;
+}
+
+.btn.secondary:hover {
+  background: #b1b1b1;
+}
+
+.btn.secondary:active {
+  background: #d5bcf3;
+  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
+}
+
+.btn.secondary:disabled {
+  background: #4e4e4e;
+  color: black;
+}
