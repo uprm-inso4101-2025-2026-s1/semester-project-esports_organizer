@@ -1,6 +1,6 @@
 # Milestone Data
 
-## Date Generated: 2025-09-27
+## Date Generated: 2025-09-28
 | Developer | Points Closed | Percent Contribution | Indivudal Grade | Milestone Grade | Lecture Topic Tasks |
 | --------- | ------------- | -------------------- | --------------- | --------------- | ------------------- |
 | Jeremy-Jasser-Grafals-Barreto | 0.0 | 0.0% | 0.0% | 40.0% | 0 |
@@ -79,46 +79,46 @@
 
 | Developer | Week #1 | Week #2 | Week #3 | Week #4 | Penalty |
 |---|---|---|---|---|---|
+| VictorSantos6 | Yes | No | No | No | 9.0 |
 | Pedro-Juan-Bonilla | Yes | No | No | No | 9.0 |
+| TomasGomez04 | Yes | No | No | No | 9.0 |
+| eliel-hernandez | Yes | No | No | No | 9.0 |
+| jaydensanchez12 | Yes | No | No | No | 9.0 |
+| SebasJoel | Yes | No | No | No | 9.0 |
+| AlejandroMB05 | Yes | No | No | No | 9.0 |
+| Juan80-12 | Yes | No | No | No | 9.0 |
 | WilsonMorales8 | Yes | No | No | No | 9.0 |
 | gabrielrivera0 | Yes | No | No | No | 9.0 |
-| YasserAlonso | No | No | No | No | 14.0 |
-| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
-| Programian | Yes | No | No | No | 9.0 |
-| YadrielRivera | Yes | No | No | No | 9.0 |
-| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
-| Yamiilet | Yes | No | No | No | 9.0 |
-| VictorSantos6 | Yes | No | No | No | 9.0 |
-| seba-15 | No | No | No | No | 14.0 |
-| andres-cruz-zapata | Yes | No | No | No | 9.0 |
-| ronaldoflores9 | Yes | No | No | No | 9.0 |
-| eliel-hernandez | Yes | No | No | No | 9.0 |
-| yeudeedleCS | Yes | No | No | No | 9.0 |
-| abby-gotay | Yes | No | No | No | 9.0 |
-| hector-rivera15 | Yes | No | No | No | 9.0 |
-| sorimerlinsantos | Yes | No | No | No | 9.0 |
-| OSCAR-A-SANTANA | Yes | No | No | No | 9.0 |
-| Edgar-glz | Yes | No | No | No | 9.0 |
-| anthony-garcia-oquendo | Yes | No | No | No | 9.0 |
-| isai-padin8 | Yes | No | No | No | 9.0 |
 | Jeremy-Jasser-Grafals-Barreto | Yes | No | No | No | 9.0 |
-| TomasGomez04 | Yes | No | No | No | 9.0 |
-| AdrianaFigueroa9 | Yes | No | No | No | 9.0 |
-| AlejandroMB05 | Yes | No | No | No | 9.0 |
-| Kay9876 | No | No | No | No | 14.0 |
-| Juan80-12 | Yes | No | No | No | 9.0 |
-| SebasJoel | No | No | No | No | 14.0 |
-| jaelrod3 | Yes | No | No | No | 9.0 |
-| fantauzzimartin | Yes | No | No | No | 9.0 |
 | RicardoBurgoss | Yes | No | No | No | 9.0 |
-| itsgabrielamartinez | Yes | No | No | No | 9.0 |
-| FabianAcevedo1 | Yes | No | No | No | 9.0 |
-| jaydensanchez12 | Yes | No | No | No | 9.0 |
+| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
+| abby-gotay | Yes | No | No | No | 9.0 |
+| yeudeedleCS | Yes | No | No | No | 9.0 |
 | GerardoSotoRios | Yes | No | No | No | 9.0 |
+| jaelrod3 | Yes | No | No | No | 9.0 |
+| Programian | Yes | No | No | No | 9.0 |
+| seba-15 | No | No | No | No | 14.0 |
+| ronaldoflores9 | Yes | No | No | No | 9.0 |
+| Yamiilet | Yes | No | No | No | 9.0 |
+| fantauzzimartin | Yes | No | No | No | 9.0 |
+| Edgar-glz | Yes | No | No | No | 9.0 |
+| sorimerlinsantos | Yes | No | No | No | 9.0 |
+| isai-padin8 | Yes | No | No | No | 9.0 |
+| itsgabrielamartinez | Yes | No | No | No | 9.0 |
+| OSCAR-A-SANTANA | Yes | No | No | No | 9.0 |
+| andres-cruz-zapata | Yes | No | No | No | 9.0 |
+| hector-rivera15 | Yes | No | No | No | 9.0 |
+| YasserAlonso | No | No | No | No | 14.0 |
+| anthony-garcia-oquendo | Yes | No | No | No | 9.0 |
+| AdrianaFigueroa9 | Yes | No | No | No | 9.0 |
+| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
+| YadrielRivera | Yes | No | No | No | 9.0 |
+| FabianAcevedo1 | Yes | No | No | No | 9.0 |
+| Kay9876 | No | No | No | No | 14.0 |
 
 ## Point Percent by Label
 
-| Developer | TL approved | Completed | Communities & Social Features | Milestone #2 | Approved |
+| Developer | Completed | Milestone #2 | TL approved | Communities & Social Features | Approved |
 |---|---|---|---|---|---|
 | Jeremy-Jasser-Grafals-Barreto | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | Kay9876 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
