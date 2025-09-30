@@ -1,6 +1,6 @@
 # Milestone Data
 
-## Date Generated: 2025-09-29
+## Date Generated: 2025-09-30
 | Developer | Points Closed | Percent Contribution | Indivudal Grade | Milestone Grade | Lecture Topic Tasks |
 | --------- | ------------- | -------------------- | --------------- | --------------- | ------------------- |
 | Jeremy-Jasser-Grafals-Barreto | 0.0 | 0.0% | 0.0% | 40.0% | 0 |
@@ -79,46 +79,46 @@
 
 | Developer | Week #1 | Week #2 | Week #3 | Week #4 | Penalty |
 |---|---|---|---|---|---|
+| YasserAlonso | No | No | No | No | 14.0 |
 | AdrianaFigueroa9 | Yes | No | No | No | 9.0 |
-| gabrielrivera0 | Yes | No | No | No | 9.0 |
-| yeudeedleCS | Yes | No | No | No | 9.0 |
-| OSCAR-A-SANTANA | Yes | No | No | No | 9.0 |
-| Kay9876 | No | No | No | No | 14.0 |
+| seba-15 | No | No | No | No | 14.0 |
+| sorimerlinsantos | Yes | No | No | No | 9.0 |
+| hector-rivera15 | Yes | No | No | No | 9.0 |
 | TomasGomez04 | Yes | No | No | No | 9.0 |
-| jaelrod3 | Yes | No | No | No | 9.0 |
-| SebasJoel | Yes | No | No | No | 9.0 |
-| itsgabrielamartinez | Yes | No | No | No | 9.0 |
+| Edgar-glz | Yes | No | No | No | 9.0 |
 | RicardoBurgoss | Yes | No | No | No | 9.0 |
+| Programian | Yes | No | No | No | 9.0 |
+| andres-cruz-zapata | Yes | No | No | No | 9.0 |
+| itsgabrielamartinez | Yes | No | No | No | 9.0 |
+| WilsonMorales8 | Yes | No | No | No | 9.0 |
+| Pedro-Juan-Bonilla | Yes | No | No | No | 9.0 |
+| VictorSantos6 | Yes | No | No | No | 9.0 |
+| SebasJoel | Yes | No | No | No | 9.0 |
+| OSCAR-A-SANTANA | Yes | No | No | No | 9.0 |
+| jaelrod3 | Yes | No | No | No | 9.0 |
+| FabianAcevedo1 | Yes | No | No | No | 9.0 |
+| GerardoSotoRios | Yes | No | No | No | 9.0 |
+| yeudeedleCS | Yes | No | No | No | 9.0 |
 | YadrielRivera | Yes | No | No | No | 9.0 |
+| isai-padin8 | Yes | No | No | No | 9.0 |
+| AlejandroMB05 | Yes | No | No | No | 9.0 |
+| eliel-hernandez | Yes | No | No | No | 9.0 |
+| abby-gotay | Yes | No | No | No | 9.0 |
+| fantauzzimartin | Yes | No | No | No | 9.0 |
+| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
+| Juan80-12 | Yes | No | No | No | 9.0 |
+| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
+| Kay9876 | No | No | No | No | 14.0 |
+| Yamiilet | Yes | No | No | No | 9.0 |
+| jaydensanchez12 | Yes | No | No | No | 9.0 |
+| ronaldoflores9 | Yes | No | No | No | 9.0 |
 | anthony-garcia-oquendo | Yes | No | No | No | 9.0 |
 | Jeremy-Jasser-Grafals-Barreto | Yes | No | No | No | 9.0 |
-| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
-| sorimerlinsantos | Yes | No | No | No | 9.0 |
-| seba-15 | No | No | No | No | 14.0 |
-| abby-gotay | Yes | No | No | No | 9.0 |
-| WilsonMorales8 | Yes | No | No | No | 9.0 |
-| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
-| hector-rivera15 | Yes | No | No | No | 9.0 |
-| VictorSantos6 | Yes | No | No | No | 9.0 |
-| jaydensanchez12 | Yes | No | No | No | 9.0 |
-| fantauzzimartin | Yes | No | No | No | 9.0 |
-| Programian | Yes | No | No | No | 9.0 |
-| YasserAlonso | No | No | No | No | 14.0 |
-| Edgar-glz | Yes | No | No | No | 9.0 |
-| Pedro-Juan-Bonilla | Yes | No | No | No | 9.0 |
-| FabianAcevedo1 | Yes | No | No | No | 9.0 |
-| andres-cruz-zapata | Yes | No | No | No | 9.0 |
-| AlejandroMB05 | Yes | No | No | No | 9.0 |
-| ronaldoflores9 | Yes | No | No | No | 9.0 |
-| eliel-hernandez | Yes | No | No | No | 9.0 |
-| Juan80-12 | Yes | No | No | No | 9.0 |
-| isai-padin8 | Yes | No | No | No | 9.0 |
-| Yamiilet | Yes | No | No | No | 9.0 |
-| GerardoSotoRios | Yes | No | No | No | 9.0 |
+| gabrielrivera0 | Yes | No | No | No | 9.0 |
 
 ## Point Percent by Label
 
-| Developer | TL approved | Milestone #2 | Approved | Communities & Social Features | Completed |
+| Developer | Milestone #2 | Completed | TL approved | Approved | Communities & Social Features |
 |---|---|---|---|---|---|
 | Jeremy-Jasser-Grafals-Barreto | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | Kay9876 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
@@ -158,10 +158,8 @@
 | ------- |
 | INFO: Found Project(name='Esports Organizer', number=4, url='https://github.com/orgs/uprm-inso4101-2025-2026-s1/projects/4', public=False) |
 | WARNING: Project visibility is set to private. This can lead to issues not being found if the Personal Access Token doesn't have permissions for viewing private projects. |
-| WARNING: [Issue #182](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/182) is not associated with a milestone. |
 | WARNING: [Issue #185](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/185) is not associated with a milestone. |
-| WARNING: [Issue #156](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/156) is not associated with a milestone. |
-| WARNING: [Issue #157](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/157) is not associated with a milestone. |
+| WARNING: [Issue #204](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/204) does not have the Urgency and/or Difficulty fields populated |
 | WARNING: Jeremy-Jasser-Grafals-Barreto hasn't completed the minimum 1 task(s) required for sprint 2025/09/24-2025/10/04 |
 | WARNING: Kay9876 hasn't completed the minimum 1 task(s) required for sprint 2025/09/24-2025/10/04 |
 | WARNING: seba-15 hasn't completed the minimum 1 task(s) required for sprint 2025/09/24-2025/10/04 |
