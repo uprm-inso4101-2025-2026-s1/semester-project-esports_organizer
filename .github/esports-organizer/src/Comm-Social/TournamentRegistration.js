@@ -14,25 +14,30 @@ let eventStarted = false;
 /**
  * Starts the event and does not allow any more registrations. 
  * @returns {void} 
- * Activates the event with a boolean and allows for the Tournamet Registration to start.
+ * Activates the event with a boolean and allows does not allow more registrations.
  */
 export function startEvent() {
   eventStarted = true;
   console.log("Registration is not allowed, No more teams can join.\n");
 }
 
-
+/**
+ * Reopens the event and does allows more registrations. 
+ * @returns {void} 
+ * ReActivates the event with a boolean and allows for tournament registration again.
+ */
 export function ReOpenEvent() {
     eventStarted = false;
-    console.log("Registration is open again!.\n");
+    console.log("Registration for tournament is open again!.\n");
   }
 
 /**
  * Registers a team valid and event has not started.
- * @param {string} teamName - The name of the team to confirm attendance for.
+ * @param {string} team - The name of the team to confirm attendance for.
  * @returns {void} 
  * Checks if avent is ready for registering. 
  * Registers a team if valid and checks if it is not already registered for the event.
+ * @throws {Error} If inserted an invalid form of a team.
  */
 export function registerTeam(team) {
   if (eventStarted) {
@@ -57,7 +62,7 @@ export function registerTeam(team) {
  * Confirms attendance for a registered team.
  * @param {string} teamName - The name of the team to confirm attendance for.
  * @returns {void} 
- * Registers a team if valid and check if it is not already registered for the event.
+ * Confirms a team if valid and validates the attendance of the team and notifies if the team is not registered.
  */
 export function confirmAttendance(teamName) {
   const team = registeredTeams.find((team) => team.name === teamName);
@@ -74,8 +79,9 @@ export function confirmAttendance(teamName) {
 
 /**
  * Creates team Brackets for the tournament.
- * @returns {void} 
+ * @returns {any[][]} An array of brackets with each bracket containing 2 teams.
  * Separates teams in brackets of 2 each if the team is confirmed for the Tournament.
+ * @throws {Error} If less than two teams have confirmed attendance.
  */
 export function assignBrackets() {
   const confirmedTeams = registeredTeams.filter((team) => team.confirmed);
@@ -94,7 +100,7 @@ export function assignBrackets() {
   return brackets;
 }
 
-//TEST CODE
+// // TEST CODE
 
 // //Registering teams and starting event test
 // console.log("Test\n");
