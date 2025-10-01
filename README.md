@@ -12,7 +12,7 @@
 - Have in mind each team will have 2 developers that focus directly on Documentation. 
 - Stack:
   - Frontend -> React (JavaScript)
-  - Backend -> JavaScript (Firebase)
+  - Backend -> Firebase (JavaScript)
 ##
 # Resources:
 
@@ -22,6 +22,6 @@ Frontend:
 - https://react.dev
 
 Backend:
-- https://firebase.google.com/docs/reference/admin/python
-- https://www.w3schools.com/python/default.asp
+- https://firebase.google.com/docs/reference/js
+- https://www.w3schools.com/js/default.asp
   
