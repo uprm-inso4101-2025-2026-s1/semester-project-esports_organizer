@@ -45,9 +45,10 @@ export function registerTeam(team) {
     return;
   }
 
-  if (!team || !(team instanceof Team)) {
-    throw new Error("Invalid team object.\n");
-  }
+  // will be implemented once Player and Team profiles provide the classes
+  // if (!team || !(team instanceof Team)) {
+  //   throw new Error("Invalid team object.\n");
+  // }
 
   if (registeredTeams.some((t) => t.name === team.name)) {
     console.log(`${team.name} is already registered.\n`);
@@ -96,7 +97,7 @@ export function assignBrackets() {
     brackets.push(bracket);
   }
 
-  console.log("Team Brackets\n");
+  console.log("Team Brackets Initialized\n");
   return brackets;
 }
 

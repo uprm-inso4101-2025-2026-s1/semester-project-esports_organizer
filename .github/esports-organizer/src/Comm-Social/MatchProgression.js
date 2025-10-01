@@ -1,3 +1,4 @@
+import { assignBrackets, confirmAttendance, registerTeam, startEvent } from "./TournamentRegistration.js"; 
 
 //Assume we have teams made
 class Teams{
@@ -18,7 +19,7 @@ let teams = [team1,team2,team3,team4,team5,team6];
 
 /**
  * 
- * @param {Array<Teams>} teams is an array of team objects with name and score properties
+ * @param {Array<Array<Teams>>} brackets is an array of team objects with name and score properties
  * @returns {Array<Teams>} returns the champion of the tournament
  * This function runs a single-elimination bracket tournament
  * It pairs teams, compares their scores, and advances winners to the next round
@@ -28,8 +29,8 @@ let teams = [team1,team2,team3,team4,team5,team6];
  * NOTE: in order to have every team play, the number of teams should ideally be a power of two (2, 4, 8, 16, etc.)
  * If not, some teams will just pass in the first round or others.
  */
-export function runBracket(teams){    
-
+export function runBracket(brackets){    
+    teams = brackets.flat(); //flatten the brackets into a single array of teams
     if(teams.isEmpty || teams.length < 2){
         throw new Error("Not enough teams to run a tournament.");
     }
@@ -94,8 +95,20 @@ export function runBracket(teams){
 
 }
 //testing the function 
+registerTeam(team1);
+confirmAttendance(team1.name);
+registerTeam(team2);
+confirmAttendance(team2.name);
+registerTeam(team3);
+confirmAttendance(team3.name);
+registerTeam(team4);
+confirmAttendance(team4.name);
+registerTeam(team5);
+confirmAttendance(team5.name);
+registerTeam(team6);
+confirmAttendance(team6.name);
+startEvent();
+const brackets = assignBrackets();
+console.log("\nBrackets:", brackets);
+runBracket(brackets);
 
-// let tournamentResults = runBracket(teams);
-// for(let i =  tournamentResults.length; i > 0; i--){
-//     console.log(`Position ${tournamentResults.length - i + 1}: ${tournamentResults[i - 1].name}`);
-// }
