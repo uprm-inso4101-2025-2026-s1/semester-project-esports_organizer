@@ -7,16 +7,17 @@
   align-items: center;
   gap: 10px;
   aspect-ratio: 5/2;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
 }
 
 p {
   font-family: "Ubuntu", sans-serif;
-  font-size: 16px;
+  font-size: 23px;
   font-style: normal;
   font-weight: 700;
   line-height: 120%;
+  white-space: nowrap;
 }
 
 button {
@@ -46,16 +47,16 @@ button {
 }
 
 .btn.secondary {
-  background: #7f7f7f;
+  background: #3E4C59;
   color: white;
 }
 
 .btn.secondary:hover {
-  background: #b1b1b1;
+  background: #7d5ba6;
 }
 
 .btn.secondary:active {
-  background: #d5bcf3;
+  background: #7d5ba6;
   box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
 }
 

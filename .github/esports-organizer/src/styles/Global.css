@@ -45,7 +45,7 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 0;
 }
 
 html, body {
