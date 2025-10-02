@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // LOCAL ONLY: open rules for rapid prototyping with the emulator
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
