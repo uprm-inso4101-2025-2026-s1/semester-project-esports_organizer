@@ -17,6 +17,7 @@
     "dayjs": "^1.11.18",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "firebase": "^11.0.1"
     "react-router-dom": "^7.9.3"
   },
   "devDependencies": {
