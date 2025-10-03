@@ -1,0 +1,84 @@
+.community-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* Match EventCard width so they align nicely in the same row */
+  flex: 0 0 260px;
+  width: 260px;
+  background: var(--light-container);
+  color: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Media */
+.ccard__media {
+  padding: 8px;
+}
+.ccard__media img,
+.ccard__media-placeholder {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Body */
+.ccard__body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.ccard__title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.ccard__stats {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ccard__label {
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+.ccard__value {
+  margin-left: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+/* Footer with join button (same style language as EventCard) */
+.ccard__footer {
+  margin-top: auto;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.ccard__join-btn {
+  flex: 1;
+  background: var(--light-link);
+  color: #fff;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+.ccard__join-btn:hover {
+  filter: brightness(1.05);
+}
