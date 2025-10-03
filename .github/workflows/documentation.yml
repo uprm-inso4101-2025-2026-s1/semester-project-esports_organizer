@@ -2,8 +2,7 @@ name: Build Documentation PDF
 
 on:
   push:
-    branches: [ AsciiDoc-File ]
-  pull_request:
+    branches: [ documantation-branch ]
 permissions:
   contents: write
 jobs:
