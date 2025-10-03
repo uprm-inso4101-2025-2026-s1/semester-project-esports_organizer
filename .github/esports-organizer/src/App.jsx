@@ -31,18 +31,24 @@ function App() {
   }, [])
 
   return (
-    <>
-      <div>Hello World!</div>
+    <div style={{ padding: 20 }}>
+      <h1>Hello World!</h1>
+
       <div style={{ marginTop: 16 }}>
         <strong>Firestore check:</strong>
         {loading && <div>Contacting Firestore…</div>}
         {!loading && error && <div style={{ color: 'red' }}>Error: {error}</div>}
-        {!loading && !error && (
-          data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <div>No data yet.</div>
-        )}
+        {!loading && !error &&
+          (data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <div>No data yet.</div>)
+        }
       </div>
-    </>
-  )
+
+        
+      {/* Agregamos el componente de notificaciones, esto enviara al firebase */}
+      <notificationsUI />
+    </div>
+  );
+
 }
 
-export default App
+export default App;
