@@ -2,7 +2,7 @@ name: Build Documentation PDF
 
 on:
   push:
-    branches: [ documantation-branch ]
+    branches: [ documentation-branch ]
 permissions:
   contents: write
 jobs:
