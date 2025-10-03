@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "emu": "firebase emulators:start --only firestore --project local-esports-organizer"
+    "emu": "firebase emulators:start --only firestore --project local-esports-organizer",
+    "emu:health": "node emulator-health.js"
   },
   "devDependencies": {
-    "firebase-tools": "^13.30.0"
+    "firebase-tools": "^13.35.1"
   }
 }
