@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { db } from './lib/firebase'
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'
+import ProfileForm from './ProfileForm';
 
 function App() {
   const [loading, setLoading] = useState(false)
