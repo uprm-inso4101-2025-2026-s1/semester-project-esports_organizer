@@ -4,6 +4,7 @@ import TournamentsPage from "./pages/TournamentsPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
+import PlayerProfile from "./pages/PlayerProfile";
 
 const TeamsPage = () => (
   <div style={{ 
@@ -46,6 +47,7 @@ function App() {
       <Route path="/create-event" element={<CreateEventPage />} />
       <Route path="/teams" element={<TeamsPage />} />
       <Route path="/community" element={<CommunityPage />} />
+      <Route path="/profile" element={<PlayerProfile />} />
     </Routes>
   );
 }

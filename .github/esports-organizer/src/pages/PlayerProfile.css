@@ -1,0 +1,580 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400..700&display=swap");
+
+/* ==========================================================================
+   PLAYER PROFILE
+   ========================================================================== */
+
+:root {
+  --top-offset: clamp(24px, 8vh, 96px);
+}
+
+/* ==========================================================================
+   GRID LAYOUT (matches app spacing + navbar offset)
+   ========================================================================== */
+
+.player-profile {
+  --gap: 2rem;
+  color: var(--text, rgba(255, 255, 255, 0.87));
+  padding: 2rem;
+  padding-top: calc(var(--top-offset) + env(safe-area-inset-top) + 60px);
+  min-height: 100svh;
+  background: var(--light-gradient);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-rows: auto;
+  gap: var(--gap);
+  justify-items: center;
+  align-items: start;
+  grid-auto-rows: min-content;
+}
+
+/* ==========================================================================
+   COLUMNS (L / HERO / R)
+   ========================================================================== */
+
+.left-col {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 15px;
+}
+
+.profile-hero { grid-column: 2; grid-row: 1; }
+.games-played { grid-column: 3; grid-row: 1; }
+
+/* ==========================================================================
+   PROFILE CARD (top-left)
+   ========================================================================== */
+
+.profile-card {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 2rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  border-radius: 15px;
+  background: transparent;
+}
+
+.flag-and-name {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.flag {
+  background: var(--light-container);
+  width: 90px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  display: grid;
+  place-items: center;
+  font-size: 50px;
+}
+
+.username {
+  background: var(--light-container);
+  width: 255px;
+  height: 75px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text, rgba(255, 255, 255, 0.87));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   BIOGRAPHY
+   ========================================================================== */
+
+.bio {
+  background: var(--light-container);
+  width: 353px;
+  height: 248px;
+  border-radius: 15px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-family: var(--font-body);
+  color: var(--text, rgba(255, 255, 255, 0.87));
+  line-height: 1.45;
+  font-size: 16px;
+  margin: 0.15rem 0 0.2rem;
+  position: relative;
+  text-align: left;
+}
+
+.bio-counter {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  font-size: 0.78rem;
+  color: #aeb9d1;
+  background: rgba(0,0,0,0.18);
+  padding: 2px 6px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CHIPS (years active + role select)
+   ========================================================================== */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.chip {
+  width: 172.5px;
+  height: 75px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--light-container);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  border-radius: 15px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   ACTIONS (some local buttons)
+   ========================================================================== */
+
+.actions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.player-profile .btn {
+  cursor: pointer;
+  width: auto;
+  white-space: nowrap;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.player-profile .btn:hover { filter: brightness(1.1); }
+
+.player-profile .btn.success {
+  background: rgba(34, 197, 94, 0.18);
+  border-color: rgba(34, 197, 94, 0.45);
+}
+
+.player-profile .btn.success:active { box-shadow: inset 0 2px 30px rgba(0,0,0,0.4); }
+
+.player-profile .btn.secondary {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.18);
+}
+
+/* ==========================================================================
+   ACHIEVEMENTS (carousel w left/right arrows)
+   ========================================================================== */
+
+.achievements {
+  position: relative;
+  margin-top: 25px;
+  background: var(--light-container);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 15px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  display: grid;
+  gap: 0.75rem;
+  width: 425px;
+}
+
+/* Section heading */
+.ach-title-center {
+  margin: 4px;
+  text-align: center;
+  font-size: 22px;
+  font-family: var(--font-heading);
+}
+
+.ach-viewport {
+  margin-top: -20px;
+  position: relative;
+  min-height: 150px;
+}
+
+/* Slide states */
+.ach-item {
+  position: absolute;
+  inset: 0;
+  padding: 0.5rem 0.6rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 1;
+}
+.ach-item.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Badge icon */
+.ach-icon-img {
+  margin-top: 5px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Single-line description */
+.ach-desc {
+  margin-top: 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+/* Prev/Next arrows */
+.ach-nav-btn {
+  position: absolute;
+  top: 45px;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 60px;
+  line-height: 1;
+  cursor: pointer;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.65);
+  transition: transform .12s ease, filter .2s ease;
+  padding: 0;
+  z-index: 2;
+}
+.ach-nav-btn:hover { filter: brightness(1.15); transform: translateY(-50%) scale(1.05); }
+.ach-nav-btn:active { transform: translateY(-50%) scale(0.95); }
+.ach-nav-left { left: -4px; }
+.ach-nav-right { right: -4px; }
+
+/* ==========================================================================
+   HERO (center column)
+   ========================================================================== */
+
+.profile-hero {
+  padding: 1.25rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  justify-items: center;
+}
+
+/* Oversized title */
+.profile-hero-title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(65px, 6vw, 75px);
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--light-container);
+  margin: 0 0 -2.25rem 0;
+}
+
+/* ==========================================================================
+   PROFILE PICTURE
+   ========================================================================== */
+
+.avatar-circle {
+  width: min(65vw, 500px);
+  aspect-ratio: 1/1;
+  border-radius: 999px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background-color: #a0a5ad;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #0a1430;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(255,255,255,0.08);
+  transition: box-shadow .2s ease, transform .12s ease, filter .2s ease;
+}
+.avatar-circle:hover { transform: translateY(-2px); filter: brightness(1.03); }
+.avatar-circle.has-image { background-color: transparent; }
+
+.avatar-hint {
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.2;
+  font-family: var(--font-heading);
+  font-size: clamp(14px, 2vw, 24px);
+  color: rgba(255,255,255,0.87);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+
+/* LOGO sits at bottom-right */
+.avatar-badge {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: clamp(90px, 12vw, 160px);
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4));
+  user-select: none;
+  pointer-events: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+/* ==========================================================================
+   GAMES LIST (right column)
+   ========================================================================== */
+
+.games-played {
+  background: var(--light-container);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 15px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 4.15rem;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle fade at bottom of list */
+.games-played::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 200px;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--light-container) 100%, transparent) 0%,
+    color-mix(in srgb, var(--light-container) 53%, transparent) 72%,
+    color-mix(in srgb, var(--light-container) 0%,  transparent) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Section heading for games */
+.games-played h2 {
+  margin-top: 15px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  text-align: center;
+}
+
+.games-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  max-height: 68vh;
+  overflow-y: auto;
+  padding-right: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Individual game card */
+.game-card {
+  position: relative;
+  height: 190px;
+  width: 340px;
+  border-radius: 15px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.game-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10,14,25,0.28);
+  opacity: 1;
+  transition: background 180ms ease;
+}
+.game-card:hover::after,
+.game-card:focus-within::after { background: rgba(10,14,25,0.55); }
+
+.game-center {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  z-index: 1;
+}
+.game-center h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+  padding: 0 1rem;
+}
+
+/* Reveal description on hover */
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: end;
+  padding: 1rem 1rem 0.75rem;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.game-card:hover .game-overlay,
+.game-card:focus-within .game-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.game-desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text, rgba(255, 255, 255, 0.87));
+  line-height: 1.35;
+  text-wrap: pretty;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   EDITABLE PATTERN
+   ========================================================================== */
+
+.editable { position: relative; }
+
+.display-layer {
+  pointer-events: none;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.edit-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: inherit;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  border: none;
+  outline: none;
+}
+
+/* Selects for role/flag edit */
+.edit-select--chip,
+.edit-select--compact {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 50%;
+  padding: 0 1.5rem 0 0.5rem;
+  border-radius: inherit;
+  background: rgba(255,255,255,0.06);
+  color: #eaf0ff;
+  border: 1px solid rgba(255,255,255,0.18);
+  text-align: center;
+  font-family: var(--font-body, system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.bio.editable .edit-layer {
+  resize: none;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .player-profile { grid-template-columns: 0.9fr 1.1fr 0.9fr; }
+}
+
+@media (max-width: 1024px) {
+  .player-profile { grid-template-columns: 1fr; }
+  .left-col, .profile-hero, .games-played { grid-column: 1; }
+  .left-col { grid-row: 1; }
+  .profile-hero { grid-row: 2; justify-items: center; margin-bottom: clamp(16px, 5vw, 32px); }
+  .games-played { grid-row: 3; margin-top: 0; justify-self: center; }
+  .bio { width: 353px; }
+  .achievements { width: 420px; }
+  .username { font-size: 24px; }
+  .avatar-circle { width: min(75vw, 400px); }
+}
+
+@media (max-width: 600px) {
+  .avatar-circle { width: min(80vw, 300px); }
+}
+
+@media (max-width: 380px) {
+  .bio, .achievements { width: 100%; max-width: 420px; }
+  .game-card { width: 100%; }
+}
+
+.bio .display-layer { text-align: left; }
+.edit-layer--center { text-align: center; }
