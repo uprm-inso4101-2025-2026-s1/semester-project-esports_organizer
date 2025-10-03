@@ -4,6 +4,11 @@
   flex-direction: column;
   gap: 40px;
   background: var(--light-gradient);
+  font-family: var(--font-body);
+  font-size: 1rem; /* 16px base for rem units */
+  font-weight: 400; /* not bold by default */
+  color: var(--dark-primary);
+  
 }
 
 .container {

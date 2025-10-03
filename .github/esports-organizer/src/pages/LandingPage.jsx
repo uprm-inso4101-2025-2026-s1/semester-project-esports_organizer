@@ -1,11 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
 import EventCard from "../components/EventCard.jsx";
 import CommunityCard from "../components/CommunityCard.jsx";
-
+import {
+  TagIcon,
+  CalendarIcon,
+  LocationIcon,
+  GamepadIcon,
+  BookmarkIcon,
+} from "../assets/Icons"; // not used here directly, but keeping for reference
 
 // Demo images
-import logo from "../assets/images/Logo.jpg";
 import fortniteCover from "../assets/images/Fortnite.png";
 import valorantCover from "../assets/images/Valorant.png";
 import apexCover from "../assets/images/Apex.png";
@@ -72,7 +78,7 @@ export default function LandingPage() {
   return (
     <div className="lp">
       {/* Top nav / header */}
-      <header className="lp__nav container">
+     <header className="lp__nav container">
         <div className="lp__brand">
           {/* Logo placeholder */}
           <div
@@ -81,9 +87,17 @@ export default function LandingPage() {
           />
           <span className="lp__brand-text">esports organizer</span>
         </div>
-        <a href="#login" className="lp__auth-link">
-          Login/Sign Up
-        </a>
+        <nav className="lp__auth" aria-label="Authentication">
+          <a href="/login" className="lp__auth-link">
+            Login
+          </a>
+          <span aria-hidden="true">
+            /
+          </span>
+          <a href="/signup" className="lp__auth-link">
+            Sign Up
+          </a>
+        </nav>
       </header>
 
       {/* Hero section */}
@@ -106,7 +120,7 @@ export default function LandingPage() {
         </div>
 
         {/* Right graphic area (reserve space for logo/illustration) */}
-         <div className="lp__hero-right">
+        <div className="lp__hero-right">
           <div className="lp__illustration-skeleton" aria-hidden />
         </div>
 
