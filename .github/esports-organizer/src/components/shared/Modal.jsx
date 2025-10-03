@@ -1,4 +1,5 @@
 import "./Modal.css";
+import { useNavigate } from "react-router-dom";
 
 function Modal({
   title,
@@ -7,16 +8,26 @@ function Modal({
   buttonsDirection = "row",
   showLogo = false,
 }) {
+  const navigate = useNavigate();
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
   return (
-    <div className="modal-overlay">
+    <div className="auth-modal-overlay">
       {showLogo && (
         <>
-          <div className="logo-container">logo</div>
+          <div className="logo-container" onClick={() => handleNavigation("/")}>
+            <img
+              src="/assets/images/LOGO.png"
+              alt="Esport Organizer Logo"
+              className="auth-logo-image"
+            />
+          </div>
         </>
       )}
-      <div className="modal-container">
+      <div className="auth-modal-container">
         <h1>{title}</h1>
-        <div className="modal-content">{children}</div>
+        <div className="auth-modal-content">{children}</div>
 
         {/* Footer para botones */}
         {buttons && (

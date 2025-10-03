@@ -50,7 +50,7 @@ function LoginForm() {
         />
       </form>
       <div id="invalid-data-forgotPassword">
-        <Link to={"/recover"} className=".links">
+        <Link to={"/recover"} className=".link">
           Forgot Password?
         </Link>
       </div>

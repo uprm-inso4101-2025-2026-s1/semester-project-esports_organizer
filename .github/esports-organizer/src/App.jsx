@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import TournamentsPage from "./pages/TournamentsPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import AuthPage from "./pages/authPages/AuthPage";
+import AccountRecovery from "./pages/authPages/AccountRecovery";
 
 const TeamsPage = () => (
   <div style={{ 
@@ -40,6 +41,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<AuthPage mode="login" />} />
       <Route path="/signup" element={<AuthPage mode="signup" />} />
+      <Route path="/recover" element={<AccountRecovery />} />
       <Route path="/tournaments" element={<TournamentsPage />} />
       <Route path="/create-event" element={<CreateEventPage />} />
       <Route path="/teams" element={<TeamsPage />} />
