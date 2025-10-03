@@ -1,5 +1,5 @@
 import { assignBrackets, confirmAttendance, registerTeam, startEvent } from "./TournamentRegistration.js"; 
-
+// import { resultReport } from "./ResultReport.js";   //only for testing purposes
 //Assume we have teams made
 class Teams{
     
@@ -89,26 +89,26 @@ export function runBracket(brackets){
         round++;
     }
 
-    console.log(`\nChampion: ${currentTeams[0].name}`);
+    console.log(`\nChampion: ${currentTeams[0].name}\n`);
     finalTeamList.push(currentTeams[0]);
     return finalTeamList;
 
 }
-//testing the function 
-registerTeam(team1);
-confirmAttendance(team1.name);
-registerTeam(team2);
-confirmAttendance(team2.name);
-registerTeam(team3);
-confirmAttendance(team3.name);
-registerTeam(team4);
-confirmAttendance(team4.name);
-registerTeam(team5);
-confirmAttendance(team5.name);
-registerTeam(team6);
-confirmAttendance(team6.name);
-startEvent();
-const brackets = assignBrackets();
-console.log("\nBrackets:", brackets);
-runBracket(brackets);
+//testing the functions 
+// registerTeam(team1);
+// confirmAttendance(team1.name);
+// registerTeam(team2);
+// confirmAttendance(team2.name);
+// registerTeam(team3);
+// confirmAttendance(team3.name);
+// registerTeam(team4);
+// confirmAttendance(team4.name);
+// registerTeam(team5);
+// confirmAttendance(team5.name);
+// registerTeam(team6);
+// confirmAttendance(team6.name);
+// startEvent();
+// const brackets = assignBrackets();
+// console.log("\nBrackets:", brackets);
+// resultReport(runBracket(brackets));
 

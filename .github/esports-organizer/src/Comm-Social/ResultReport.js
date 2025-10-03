@@ -1,5 +1,5 @@
 //Import the runBracket function from Match Progression that provides the list of teams
-import { runBracket } from "./MatchProgression";
+import { runBracket } from "./MatchProgression.js";
 
 export function resultReport(brackets){
 
@@ -36,7 +36,7 @@ export function resultReport(brackets){
             }
 
             //Log to the console and push to the array
-            console.log(placement + "Place: " + rankingList[i]);
+            console.log(placement + " Place: " + rankingList[i].name);
             finalPlacements.push([placement,rankingList[i]]);
         }
         
