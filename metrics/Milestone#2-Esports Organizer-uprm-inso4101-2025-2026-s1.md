@@ -79,62 +79,62 @@
 
 | Developer | Week #1 | Week #2 | Week #3 | Week #4 | Penalty |
 |---|---|---|---|---|---|
-| sorimerlinsantos | Yes | No | No | No | 9.0 |
-| OSCAR-A-SANTANA | Yes | No | No | No | 9.0 |
 | VictorSantos6 | Yes | No | No | No | 9.0 |
-| Pedro-Juan-Bonilla | Yes | No | No | No | 9.0 |
-| ronaldoflores9 | Yes | No | No | No | 9.0 |
-| gabrielrivera0 | Yes | No | No | No | 9.0 |
-| itsgabrielamartinez | Yes | No | No | No | 9.0 |
-| Kay9876 | No | No | No | No | 14.0 |
-| FabianAcevedo1 | Yes | No | No | No | 9.0 |
-| AdrianaFigueroa9 | Yes | No | No | No | 9.0 |
-| AlejandroMB05 | Yes | No | No | No | 9.0 |
-| SebasJoel | Yes | No | No | No | 9.0 |
-| YasserAlonso | No | No | No | No | 14.0 |
-| YadrielRivera | Yes | No | No | No | 9.0 |
-| Juan80-12 | Yes | No | No | No | 9.0 |
-| andres-cruz-zapata | Yes | No | No | No | 9.0 |
-| Yamiilet | Yes | No | No | No | 9.0 |
-| Programian | Yes | No | No | No | 9.0 |
-| jaydensanchez12 | Yes | No | No | No | 9.0 |
-| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
-| abby-gotay | Yes | No | No | No | 9.0 |
-| WilsonMorales8 | Yes | No | No | No | 9.0 |
-| Edgar-glz | Yes | No | No | No | 9.0 |
-| TomasGomez04 | Yes | No | No | No | 9.0 |
-| RicardoBurgoss | Yes | No | No | No | 9.0 |
-| GerardoSotoRios | Yes | No | No | No | 9.0 |
-| fantauzzimartin | Yes | No | No | No | 9.0 |
-| isai-padin8 | Yes | No | No | No | 9.0 |
-| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
 | eliel-hernandez | Yes | No | No | No | 9.0 |
-| jaelrod3 | Yes | No | No | No | 9.0 |
-| seba-15 | No | No | No | No | 14.0 |
-| yeudeedleCS | Yes | No | No | No | 9.0 |
-| hector-rivera15 | Yes | No | No | No | 9.0 |
-| Jeremy-Jasser-Grafals-Barreto | Yes | No | No | No | 9.0 |
 | anthony-garcia-oquendo | Yes | No | No | No | 9.0 |
+| fantauzzimartin | Yes | No | No | No | 9.0 |
+| itsgabrielamartinez | Yes | No | No | No | 9.0 |
+| hector-rivera15 | Yes | No | No | No | 9.0 |
+| OSCAR-A-SANTANA | Yes | No | No | No | 9.0 |
+| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
+| ronaldoflores9 | Yes | No | No | No | 9.0 |
+| Jeremy-Jasser-Grafals-Barreto | Yes | No | No | No | 9.0 |
+| Edgar-glz | Yes | No | No | No | 9.0 |
+| abby-gotay | Yes | No | No | No | 9.0 |
+| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
+| Yamiilet | Yes | No | No | No | 9.0 |
+| Kay9876 | No | No | No | No | 14.0 |
+| WilsonMorales8 | Yes | No | No | No | 9.0 |
+| AlejandroMB05 | Yes | No | No | No | 9.0 |
+| GerardoSotoRios | Yes | No | No | No | 9.0 |
+| YasserAlonso | No | No | No | No | 14.0 |
+| andres-cruz-zapata | Yes | No | No | No | 9.0 |
+| Pedro-Juan-Bonilla | Yes | No | No | No | 9.0 |
+| jaydensanchez12 | Yes | No | No | No | 9.0 |
+| Juan80-12 | Yes | No | No | No | 9.0 |
+| sorimerlinsantos | Yes | No | No | No | 9.0 |
+| YadrielRivera | Yes | No | No | No | 9.0 |
+| AdrianaFigueroa9 | Yes | No | No | No | 9.0 |
+| gabrielrivera0 | Yes | No | No | No | 9.0 |
+| seba-15 | No | No | No | No | 14.0 |
+| RicardoBurgoss | Yes | No | No | No | 9.0 |
+| TomasGomez04 | Yes | No | No | No | 9.0 |
+| isai-padin8 | Yes | No | No | No | 9.0 |
+| yeudeedleCS | Yes | No | No | No | 9.0 |
+| FabianAcevedo1 | Yes | No | No | No | 9.0 |
+| Programian | Yes | No | No | No | 9.0 |
+| SebasJoel | Yes | No | No | No | 9.0 |
+| jaelrod3 | Yes | No | No | No | 9.0 |
 
 ## Point Percent by Label
 
-| Developer | Experience Design (UI / UX) | Approved | TL approved | Player & Team Profiles | Milestone #2 | Completed | Communities & Social Features |
+| Developer | Completed | Milestone #2 | Communities & Social Features | Experience Design (UI / UX) | TL approved | Player & Team Profiles | Approved |
 |---|---|---|---|---|---|---|---|
 | Jeremy-Jasser-Grafals-Barreto | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | Kay9876 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | seba-15 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | SebastianSuarez0429 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | RicardoBurgoss | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| Edgar-glz | 0.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.0% |
+| Edgar-glz | 100.0% | 100.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% |
 | AlejandroMB05 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | itsgabrielamartinez | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | gabrielrivera0 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| YadrielRivera | 0.0% | 100.0% | 100.0% | 0.0% | 100.0% | 100.0% | 100.0% |
-| GerardoSotoRios | 0.0% | 100.0% | 100.0% | 0.0% | 100.0% | 100.0% | 100.0% |
+| YadrielRivera | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 100.0% |
+| GerardoSotoRios | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 100.0% |
 | TomasGomez04 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | Programian | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | YasserAlonso | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| isai-padin8 | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 100.0% | 0.0% |
+| isai-padin8 | 100.0% | 100.0% | 0.0% | 100.0% | 100.0% | 0.0% | 100.0% |
 | abby-gotay | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | jaelrod3 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
 | VictorSantos6 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
@@ -164,6 +164,7 @@
 | WARNING: [Issue #204](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/204) does not have the Urgency and/or Difficulty fields populated |
 | WARNING: [Issue #212](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/212) is not associated with a milestone. |
 | WARNING: [Issue #213](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/213) is not associated with a milestone. |
+| WARNING: [Issue #214](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/214) does not have the Urgency and/or Difficulty fields populated |
 | WARNING: [Issue #224](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/224) is not associated with a milestone. |
 | WARNING: [Issue #225](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/225) is not associated with a milestone. |
 | WARNING: [Issue #231](https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer/issues/231) is not associated with a milestone. |
