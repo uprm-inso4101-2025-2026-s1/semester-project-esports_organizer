@@ -1,0 +1,33 @@
+.team-img-wrapper.light {
+	background: lightgray;
+}
+.team-img-wrapper {
+	display: flex;
+	align-items: center;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+	padding: 4px 10px;
+	min-width: 120px;
+	max-width: 160px;
+	font-size: 1rem;
+	font-weight: 500;
+	color: #333;
+}
+
+.team-img-wrapper img {
+	width: 32px;
+	height: 32px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-right: 8px;
+	background: #bdbdbd;
+	padding: 2px;
+	box-sizing: border-box;
+	border: 1px solid #e0e0e0;
+}
+
+.team-name {
+	flex: 1;
+	text-align: left;
+}

@@ -27,9 +27,9 @@ Yadriel Rivera <yadriel.rivera@upr.edu>
    npm install
    ```
 
-4. Start the development server:
+4. Start the development server and the database server:
    ```
    npm run dev
    ```
 
-5. Follow the localhost link provided in the terminal to view the extension
+5. Follow the localhost link provided in the terminal to view both the database UI and the website.

@@ -1,0 +1,111 @@
+.modal-overlay {
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  background: var(--light-primary);
+  width: 50%;
+  max-width: 700px;
+  min-width: 400px;
+  height: 85vh;
+  border-radius: 31px;
+  box-shadow: 11px 11px 32px 11px rgba(0, 0, 0, 0.25);
+  transition: width 0.3s ease;
+}
+
+.modal-content {
+  padding: 4.5%;
+  padding-top: 10%;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+  border-top: 5px solid white;
+  border-radius: 0;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #3e4c59;
+  border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #00a8e8;
+  border-radius: 8px;
+  border: 2px solid #3e4c59;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #7d5ba6;
+}
+
+.modal-buttons {
+  padding-inline: 3%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-buttons.row button {
+  flex-shrink: 1;
+  flex-basis: auto;
+  max-width: 45%;
+}
+
+.modal-buttons.row {
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.modal-buttons.column {
+  flex-direction: column;
+}
+
+/* TODO: Cambiar/Borrar propiedades de texto para imagen */
+.logo-container {
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 122px;
+  width: 122px;
+  background: #d9d9d9;
+  margin-bottom: -25px;
+  z-index: 1;
+}
+
+label {
+  margin-bottom: -10px;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+input {
+  background: white;
+  color: black;
+  border-radius: 9px;
+  padding: 3.5%;
+}
+
+/* Specific Rules for children Modal */
+#invalid-data-forgotPassword {
+  display: flex;
+}
