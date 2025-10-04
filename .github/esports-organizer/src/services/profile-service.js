@@ -1,4 +1,4 @@
-import { db } from '../lib/firebase';
+import { db } from '../lib/firebase.js';
 import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 
 /**
