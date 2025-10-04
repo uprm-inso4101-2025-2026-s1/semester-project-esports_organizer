@@ -1,20 +1,13 @@
-import { assignBrackets, confirmAttendance, registerTeam, startEvent } from "./TournamentRegistration.js"; 
-// import { resultReport } from "./ResultReport.js";   //only for testing purposes
-//Assume we have teams made
-class Teams{
-    
-    constructor(name,score){
-        this.name = name;
-        this.score = score;
-    }
-}
+import { assignBrackets,confirmAttendance, registerTeam, startEvent } from "./TournamentRegistration.js"; 
+import { resultReport } from "./ResultReport.js";   //only for testing purposes
+import Team from "../team.js";
 
-const team1 = new Teams("Los duros", Math.round(Math.random()*150));
-const team2 = new Teams("Los marcianos", Math.round(Math.random()*150));
-const team3 = new Teams("Los yanki", Math.round(Math.random()*150));
-const team4 = new Teams("Los monki", Math.round(Math.random()*150));
-const team5 = new Teams("Los solos", Math.round(Math.random()*150));
-const team6 = new Teams("Los lokos", Math.round(Math.random()*150));
+const team1 = new Team("Los duros", Math.round(Math.random()*150));
+const team2 = new Team("Los marcianos", Math.round(Math.random()*150));
+const team3 = new Team("Los yanki", Math.round(Math.random()*150));
+const team4 = new Team("Los monki", Math.round(Math.random()*150));
+const team5 = new Team("Los solos", Math.round(Math.random()*150));
+const team6 = new Team("Los lokos", Math.round(Math.random()*150));
 let teams = [team1,team2,team3,team4,team5,team6];
 
 /**
@@ -97,16 +90,22 @@ export function runBracket(brackets){
 //testing the functions 
 // registerTeam(team1);
 // confirmAttendance(team1.name);
+// team1.confirmTeam();
 // registerTeam(team2);
 // confirmAttendance(team2.name);
+// team2.confirmTeam();
 // registerTeam(team3);
 // confirmAttendance(team3.name);
+// team3.confirmTeam();
 // registerTeam(team4);
 // confirmAttendance(team4.name);
+// team4.confirmTeam();
 // registerTeam(team5);
 // confirmAttendance(team5.name);
+// team5.confirmTeam();
 // registerTeam(team6);
 // confirmAttendance(team6.name);
+// team6.confirmTeam();
 // startEvent();
 // const brackets = assignBrackets();
 // console.log("\nBrackets:", brackets);

@@ -1,11 +1,4 @@
-//Assuming teams are already created.
-
-class Team {
-  constructor(name) {
-    this.name = name;
-    this.confirmed = false;
-  }
-}
+import Team from "../team.js";;
 
 const registeredTeams = [];
 let eventStarted = false;
