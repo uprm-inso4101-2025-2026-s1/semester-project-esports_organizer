@@ -1,54 +1,51 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import { db } from './lib/firebase'
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import TournamentsPage from "./pages/TournamentsPage";
+import CreateEventPage from "./pages/CreateEventPage";
+import AuthPage from "./pages/authPages/AuthPage";
+
+const TeamsPage = () => (
+  <div style={{
+    minHeight: '100vh',
+    background: 'var(--light-gradient)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontFamily: 'var(--font-heading)',
+    fontSize: '2rem'
+  }}>
+    Teams Page - Coming Soon
+  </div>
+);
+
+const CommunityPage = () => (
+  <div style={{
+    minHeight: '100vh',
+    background: 'var(--light-gradient)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontFamily: 'var(--font-heading)',
+    fontSize: '2rem'
+  }}>
+    Community Page - Coming Soon
+  </div>
+);
 
 function App() {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const run = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const ref = doc(db, 'samples', 'hello')
-        await setDoc(
-          ref,
-          { message: 'Hello from Firestore (emulator expected)', updatedAt: serverTimestamp() },
-          { merge: true }
-        )
-        const snap = await getDoc(ref)
-        setData(snap.exists() ? snap.data() : null)
-      } catch (e) {
-        setError(e?.message || String(e))
-      } finally {
-        setLoading(false)
-      }
-    }
-    run()
-  }, [])
-
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Hello World!</h1>
-
-      <div style={{ marginTop: 16 }}>
-        <strong>Firestore check:</strong>
-        {loading && <div>Contacting Firestore…</div>}
-        {!loading && error && <div style={{ color: 'red' }}>Error: {error}</div>}
-        {!loading && !error &&
-          (data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <div>No data yet.</div>)
-        }
-      </div>
-
-        
-      {/* Agregamos el componente de notificaciones, esto enviara al firebase */}
-      <notificationsUI />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<AuthPage mode="login" />} />
+      <Route path="/signup" element={<AuthPage mode="signup" />} />
+      <Route path="/tournaments" element={<TournamentsPage />} />
+      <Route path="/create-event" element={<CreateEventPage />} />
+      <Route path="/teams" element={<TeamsPage />} />
+      <Route path="/community" element={<CommunityPage />} />
+    </Routes>
   );
-
 }
 
 export default App;
