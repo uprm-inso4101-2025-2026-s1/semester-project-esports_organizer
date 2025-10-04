@@ -24,3 +24,5 @@ class User {
         return new User(data.uID, data.email, data.username, data.createdAt.toDate ? data.createdAt.toDate() : data.createdAt);
     }
 }
+
+export default User;

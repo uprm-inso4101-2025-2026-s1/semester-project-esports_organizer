@@ -3,6 +3,7 @@ import Team from "./Teams.js";
 import Event from "./Events.js";
 import User from "./UsersColection.js";
 import { app, db } from "./firebase.js";
+
 /* For storage management */
 import {
     doc,
@@ -13,8 +14,15 @@ import {
     deleteDoc
 } from "firebase/firestore";
 
+/* Authentication imports */
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+} from "firebase/auth";
 
-/* Test Firestore Configuration; can be changed later on or used as the main database. */
+/* Cloud database configuration. */
 // const firebaseConfig = {
 //     apiKey: "AIzaSyD5pc3hP6U0UiaNTFJSgth8AfPKbX5IFwA",
 //     authDomain: "test-4c574.firebaseapp.com",
@@ -475,15 +483,15 @@ class Database {
         }
     }
 
-    //We can use this to implement logic that triggers when the user signs in or out
+    /* We can use this to implement logic that triggers when the user signs in or out */
     async listenToAuthChanges() {
         onAuthStateChanged(this.auth, (user) => {
             if (user) {
                 // User is signed in
-               console.log("User signed in: ", user.uid);
+                console.log("User signed in: ", user.uid);
             } else {
                 // User is signed out
-               console.log("User signed out");
+                console.log("User signed out");
             }
         });
     }
