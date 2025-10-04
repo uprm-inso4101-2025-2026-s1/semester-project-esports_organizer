@@ -1,10 +1,12 @@
 import { Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import TournamentsPage from "./pages/TournamentsPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
+
 
 const TeamsPage = () => (
   <div style={{ 
@@ -39,7 +41,8 @@ const CommunityPage = () => (
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<LandingPage/>} />
+      <Route path="/homepage" element={<HomePage />} />
       <Route path="/login" element={<AuthPage mode="login" />} />
       <Route path="/signup" element={<AuthPage mode="signup" />} />
       <Route path="/recover" element={<AccountRecovery />} />
