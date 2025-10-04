@@ -1,6 +1,7 @@
 /* Class Imports */
 import Team from "./Teams.js";
 import Event from "./Events.js";
+import User from "./UsersColection.js";
 import { app, db } from "./firebase.js";
 
 /* For storage management */
@@ -13,8 +14,15 @@ import {
     deleteDoc
 } from "firebase/firestore";
 
+/* Authentication imports */
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+} from "firebase/auth";
 
-/* Test Firestore Configuration; can be changed later on or used as the main database. */
+/* Cloud database configuration. */
 // const firebaseConfig = {
 //     apiKey: "AIzaSyD5pc3hP6U0UiaNTFJSgth8AfPKbX5IFwA",
 //     authDomain: "test-4c574.firebaseapp.com",
@@ -36,6 +44,8 @@ class Database {
     teams = [];     // Array of team objects in the database.
     users = [];     // Array of user objects in the database.
     events = [];    // Array of event objects in the database.
+    auth;           // Authentication object.
+    user = null;    // Currently logged in user.
 
     constructor() {
         /* App and database initialization*/
@@ -43,6 +53,13 @@ class Database {
         // this.firestore = getFirestore(this.app);
         this.app = app;
         this.firestore = db;
+
+        // This allows us to interact will all of the authentication methods
+        this.auth = getAuth(this.app);
+
+        //keeps track of the current user logged in, and checks if its signed in or out, \
+        // the logic for this function is implemented at the bottom 
+        this.listenToAuthChanges();
     }
 
     /* Use this function instead of the constructor to create a database object, this one retrieves data previously stored in the database */
@@ -50,9 +67,9 @@ class Database {
         const db = new Database();
         await db.buildTeamList();
         await db.buildEventList();
+        await db.buildUserList();
         return db;
     }
-
     /* Functions related to Teams and their management */
 
     /* 
@@ -347,5 +364,135 @@ class Database {
         } catch (error) {
             console.error("Error deleting Event: ", error);
         }
+    }
+    /* Functions related to Users and their management */
+
+    /* 
+    Finds and returns the index of a user object in the database given a userID, returns -1 otherwise. 
+    Should not be used to alter the user at the output index.
+    */
+    findUserByID(userID) {
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].uID === userID) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /* Checks if a given user is in the database. */
+    isUserInDataBase(user) {
+        for (const u of this.users) {
+            if (u.uID === user.uID) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /* Given an Event object, adds a key value pair array to the database. Event names must be unique. */
+    async addUserToDatabase(user) {
+        if (!this.isEventInDataBase(user)) {
+            await setDoc(doc(this.firestore, "Users", user.uID), user.toFirestore());
+            this.users.push(user);
+        } else {
+            console.log("User already exists.");
+        }
+    }
+
+    /* Given a User ID, searches for the user and returns it if it was found and returns null if not. */
+    async getUserFromFireStore(uID) {
+        const snap = await getDoc(doc(this.firestore, "Users", uID));
+        if(snap.exists()){
+            return User.fromFirestore(snap.data());
+        }
+        return null;
+    }
+
+    /* Retrieves users from Firestore. Not needed to have the user list; simply database.users will sufice. */
+    async getAllUsersFromDatabase() {
+        const userCollection = collection(this.firestore, "Users");
+        const userSnapshot = await getDocs(userCollection);
+        return userSnapshot.docs.map(doc => User.fromFirestore(doc.data()));
+    }
+
+    async buildUserList() {
+        let usersFromDatabase = await this.getAllUsersFromDatabase();
+        for (const u of usersFromDatabase) {
+            this.users.push(User.fromFirestore(u));
+        }
+    }
+
+    /* Deletes a User given its ID. Proper cleanup should be in place in order to avoid users accessing null User values. */
+    async deleteUser(uID) {
+        try {
+            let userIndex = this.findUserByID(uID);
+            if (userIndex !== -1) {
+                const userRef = doc(this.firestore, "Users", uID);
+                await deleteDoc(userRef);
+                console.log("User ${uID} deleted successfully.");
+                this.users.splice(userIndex, 1);
+            } else {
+                console.log("User does not exist.");
+            }
+        } catch (error) {
+            console.error("Error deleting user: ", error);
+        }
+    }
+    
+    async signUpUser(email, password) {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+            const uid = userCredential.user.uid;
+            const newUser = new User(uid, email, userCredential.user.displayName);
+            await this.addUserToDatabase(newUser);
+            return newUser;
+        } catch (error) {
+            if (userCredential?.user) {
+                try {   
+                    await userCredential.user.delete();
+                } catch (deleteError) {
+                    console.error("Error deleting user after failed signup: ", deleteError);
+                }
+            }
+            return null;
+        }
+    }
+
+    async logInUser(email, password) {
+        try {
+            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+            const uid = userCredential.user.uid;
+            const user = await this.getUserFromFireStore(uid);
+            return user;
+        } catch(error){
+            console.error("Error logging in user: ", error);
+            return null;
+        }
+    }
+
+    async logOutUser() {
+        try {
+            this.user = null;
+            await this.auth.signOut();
+            console.log("User signed out successfully.");
+        } catch (error) {
+            console.error("Error signing out user: ", error);
+        }
+    }
+
+    /* We can use this to implement logic that triggers when the user signs in or out */
+    async listenToAuthChanges() {
+        onAuthStateChanged(this.auth, (user) => {
+            if (user) {
+                // User is signed in
+                console.log("User signed in: ", user.uid);
+            } else {
+                // User is signed out
+                console.log("User signed out");
+            }
+        });
     }
 }
