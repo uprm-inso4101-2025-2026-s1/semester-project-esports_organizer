@@ -6,7 +6,6 @@
   /* Match EventCard width so they align nicely in the same row */
   flex: 0 0 260px;
   width: 260px;
-  background: var(--light-container);
   color: #fff;
   border-radius: 14px;
   overflow: hidden;
