@@ -6,6 +6,8 @@ import CreateEventPage from "./pages/CreateEventPage";
 import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
+import CreateProfile from "./pages/authPages/CreateProfile";
+
 
 
 const TeamsPage = () => (
@@ -45,6 +47,7 @@ function App() {
       <Route path="/homepage" element={<HomePage />} />
       <Route path="/login" element={<AuthPage mode="login" />} />
       <Route path="/signup" element={<AuthPage mode="signup" />} />
+      <Route path="/create-profile" element={<CreateProfile />}/>
       <Route path="/recover" element={<AccountRecovery />} />
       <Route path="/tournaments" element={<TournamentsPage />} />
       <Route path="/create-event" element={<CreateEventPage />} />

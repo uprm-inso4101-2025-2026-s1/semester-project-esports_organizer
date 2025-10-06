@@ -1,12 +1,14 @@
 .btn {
   display: flex;
-  padding: 12px 24px;
+  box-sizing: border-box;
+  padding: 2%;
   height: 53px;
   width: 100%;
+  aspect-ratio: 5/2;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  aspect-ratio: 5/2;
+  overflow-wrap: break-word;
   border-radius: 6px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
 }
