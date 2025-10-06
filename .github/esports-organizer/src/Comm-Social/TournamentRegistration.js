@@ -38,10 +38,9 @@ export function registerTeam(team) {
     return;
   }
 
-  // will be implemented once Player and Team profiles provide the classes
-  // if (!team || !(team instanceof Team)) {
-  //   throw new Error("Invalid team object.\n");
-  // }
+  if (!(team instanceof Team)) {
+    throw new Error("Invalid team object.\n");
+  }
 
   if (registeredTeams.some((t) => t.name === team.name)) {
     console.log(`${team.name} is already registered.\n`);
@@ -66,10 +65,41 @@ export function confirmAttendance(teamName) {
     return;
   }
 
-  team.confirmed = true;
-  console.log(`${teamName} has confirmed attendance to Tournament.\n`);
+  if (team.isConfirmed) {
+    console.log(`${teamName} is already confirmed.\n`);
+    return;
+  }
+
+  team.confirmTeam();
+  console.log(`${teamName} has confirmed attendance to the tournament.\n`);
 }
 
+/**
+ * Unconfirms attendance for a registered team.
+ * @param {string} teamName - The name of the team to unconfirm attendance for.
+ * @returns {void}
+ * Unconfirms a team if it confirmed and was registered.
+ */
+export function unconfirmAttendance(teamName) {
+  const team = registeredTeams.find((team) => team.name === teamName);
+
+  if(eventStarted && team.isConfirmed){
+    console.log(`Unconfirming is not posible. the event started and the team ${teamName} has already confirmed attendance.\n`);
+    return;
+  }
+  if (!team) {
+    console.log(`${teamName} has not been registered.\n`);
+    return;
+  }
+
+  if (!team.isConfirmed) {
+    console.log(`${teamName} is not confirmed yet.\n`);
+    return;
+  }
+
+  team.unconfirmTeam();
+  console.log(`${teamName} has unconfirmed attendance to the tournament.\n`);
+}
 
 /**
  * Creates team Brackets for the tournament.
@@ -78,7 +108,7 @@ export function confirmAttendance(teamName) {
  * @throws {Error} If less than two teams have confirmed attendance.
  */
 export function assignBrackets() {
-  const confirmedTeams = registeredTeams.filter((team) => team.confirmed);
+  const confirmedTeams = registeredTeams.filter((team) => team.isConfirmed);
 
   if (confirmedTeams.length < 2) {
     throw new Error("Not enough teams have confirmed attendance to start the tournament.\n");
@@ -86,7 +116,7 @@ export function assignBrackets() {
 
   const brackets = [];
   while (confirmedTeams.length > 0) {
-    const bracket = confirmedTeams.splice(0, 2); 
+    const bracket = confirmedTeams.splice(0, 2);
     brackets.push(bracket);
   }
 
@@ -130,8 +160,17 @@ export function assignBrackets() {
 // registerTeam(team6);
 // startEvent();
 
+// //Unconfirming before even confirming test
+// unconfirmAttendance("Jibaros");
+
 // confirmAttendance("Jibaros");
 // confirmAttendance("Incredibles");
+
+// //Double confirm test
+// confirmAttendance("Faze");
+
+// //Team Unconfirmation test
+// unconfirmAttendance("Incredibles");
 
 // const brackets2 = assignBrackets();
 // console.log("Brackets:", brackets2);
