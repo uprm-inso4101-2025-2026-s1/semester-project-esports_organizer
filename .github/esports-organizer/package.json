@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"vite\" \"firebase --config src/database/firebase.json emulators:start --only firestore --project local-esports-organizer\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^11.0.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.3",
@@ -17,7 +18,6 @@
     "dayjs": "^1.11.18",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "firebase": "^11.0.1",
     "react-router-dom": "^7.9.3"
   },
   "devDependencies": {
@@ -25,6 +25,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.2.1",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
