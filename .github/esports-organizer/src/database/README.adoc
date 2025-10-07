@@ -1,0 +1,28 @@
+= Firestore Emulator (Local)
+
+== What this is
+A minimal, local Firestore emulator setup so the team can run a Firebase-like database without any cloud account.
+
+== Prereqs
+- Node.js 18+
+- java (for the Firestore emulator)
+https://download.oracle.com/java/25/latest/jdk-25_macos-aarch64_bin.dmg (macOS)
+https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.exe (Windows)
+https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz (Linux)
+
+== Install (local to this folder)
+Follow the HostLocally.adoc instructions in the Documents folder
+
+== Start
+cd .github/esports-organizer (Always go here when using commands)
+
+Run the npm run dev command (This should start both the web server and the database emulator)
+
+It may open a command prompt window. If this happens just leave it open.
+
+In order to view the UI emulator just click the links in your terminal.
+
+== Stop
+Press Ctrl+C in the emulator terminal.
+Also close the window command prompt in order to fully close it.
+

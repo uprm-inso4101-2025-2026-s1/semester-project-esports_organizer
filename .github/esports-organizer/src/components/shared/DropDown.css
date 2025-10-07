@@ -1,0 +1,12 @@
+.dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+select {
+  background: white;
+  color: black;
+  padding: 3.5%;
+  border-radius: 9px;
+}
