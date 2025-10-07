@@ -11,7 +11,7 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
 }
 
-p {
+.pstyle {
   font-family: "Ubuntu", sans-serif;
   font-size: 23px;
   font-style: normal;
