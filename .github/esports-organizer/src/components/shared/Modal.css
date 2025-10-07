@@ -1,4 +1,4 @@
-.modal-overlay {
+.auth-modal-overlay {
   padding: 3%;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.modal-container {
+.auth-modal-container {
   display: flex;
   flex-direction: column;
   padding: 3%;
@@ -22,7 +22,7 @@
   transition: width 0.3s ease;
 }
 
-.modal-content {
+.auth-modal-content {
   padding: 4.5%;
   padding-top: 10%;
   display: flex;
@@ -34,22 +34,22 @@
   border-radius: 0;
 }
 
-.modal-content::-webkit-scrollbar {
+.auth-modal-content::-webkit-scrollbar {
   width: 10px;
 }
 
-.modal-content::-webkit-scrollbar-track {
+.auth-modal-content::-webkit-scrollbar-track {
   background: #3e4c59;
   border-radius: 8px;
 }
 
-.modal-content::-webkit-scrollbar-thumb {
+.auth-modal-content::-webkit-scrollbar-thumb {
   background: #00a8e8;
   border-radius: 8px;
   border: 2px solid #3e4c59;
 }
 
-.modal-content::-webkit-scrollbar-thumb:hover {
+.auth-modal-content::-webkit-scrollbar-thumb:hover {
   background: #7d5ba6;
 }
 
@@ -77,17 +77,26 @@
   flex-direction: column;
 }
 
-/* TODO: Cambiar/Borrar propiedades de texto para imagen */
 .logo-container {
-  color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 122px;
-  width: 122px;
-  background: #d9d9d9;
+  width: fit-content;
+  background: gray;
   margin-bottom: -25px;
   z-index: 1;
+  border-radius: 40px;
+}
+
+.auth-logo-image {
+    object-fit: contain;
+    border-radius: 8px;
+    width: 90px;
+}
+
+.auth-logo-image:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 label {

@@ -14,7 +14,7 @@ function AccountRecovery() {
 
   const handleSubmitStep1 = (e) => {
     e.preventDefault();
-    // validar email/username (mock)
+    // validate email/username (mock)
     if (email.trim() !== "") {
       setStep(2);
     }
@@ -22,7 +22,7 @@ function AccountRecovery() {
 
   const handleSubmitStep2 = (e) => {
     e.preventDefault();
-    // validar respuesta (mock)
+    // validate respuesta (mock)
     if (securityAnswer.trim() !== "") {
       setStep(3);
     }
@@ -30,7 +30,7 @@ function AccountRecovery() {
 
   const handleSubmitStep3 = (e) => {
     e.preventDefault();
-    // validar contraseñas iguales
+    // validate contraseñas iguales
     if (newPassword === confirmPassword && newPassword.trim() !== "") {
       setStep(4);
     } else {
@@ -47,6 +47,7 @@ function AccountRecovery() {
     navigate("/login");
   };
   return (
+    // Center Form
     <div className="auth-page centered">
       <div className="form-section">
         <Modal
@@ -59,6 +60,7 @@ function AccountRecovery() {
               ? "Reset Password"
               : "Success"
           }
+          // Navigation Buttons
           buttons={
             step < 4
               ? [
@@ -89,6 +91,8 @@ function AccountRecovery() {
                 ]
           }
         >
+
+          {/* Email validation */}
           {step === 1 && (
             <>
               <h2>
@@ -109,6 +113,7 @@ function AccountRecovery() {
             </>
           )}
 
+          {/* Security Question validation */}
           {step === 2 && (
             <>
               <h2>What is the name of your first pet?</h2>
@@ -125,6 +130,7 @@ function AccountRecovery() {
             </>
           )}
 
+          {/* New Password entry */}
           {step === 3 && (
             <>
               <h2>Enter your new password</h2>
@@ -149,7 +155,8 @@ function AccountRecovery() {
               </form>
             </>
           )}
-
+          
+          {/* Confirmation */}
           {step === 4 && (
             <>
               <h2>Your password has been successfully reset.</h2>

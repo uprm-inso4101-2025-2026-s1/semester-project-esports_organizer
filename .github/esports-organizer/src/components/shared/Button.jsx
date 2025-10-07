@@ -3,7 +3,7 @@ import "./Button.css";
 function Button({ text, onClick, variant = "primary" }) {
   return (
     <button className={`btn ${variant}`} onClick={onClick}>
-      <p>{text}</p>
+      <p className="pstyle"> {text}</p>
     </button>
   );
 }
