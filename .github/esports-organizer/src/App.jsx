@@ -11,11 +11,11 @@ import CreateProfile from "./pages/authPages/CreateProfile";
 
 
 const TeamsPage = () => (
-  <div style={{ 
-    minHeight: '100vh', 
-    background: 'var(--light-gradient)', 
-    display: 'flex', 
-    alignItems: 'center', 
+  <div style={{
+    minHeight: '100vh',
+    background: 'var(--light-gradient)',
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
     fontFamily: 'var(--font-heading)',
@@ -26,11 +26,11 @@ const TeamsPage = () => (
 );
 
 const CommunityPage = () => (
-  <div style={{ 
-    minHeight: '100vh', 
-    background: 'var(--light-gradient)', 
-    display: 'flex', 
-    alignItems: 'center', 
+  <div style={{
+    minHeight: '100vh',
+    background: 'var(--light-gradient)',
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
     fontFamily: 'var(--font-heading)',
