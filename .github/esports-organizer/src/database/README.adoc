@@ -27,7 +27,8 @@ In order to view the UI emulator just click the links in your terminal.
 Press Ctrl+C in the emulator terminal.
 Also close the window command prompt in order to fully close it.
 
-== in case it doesn't work try
+== in case it doesn't work try:
+
 rm -rf node_modules package-lock.json
 cd .github/esports-organizer
 npm install
