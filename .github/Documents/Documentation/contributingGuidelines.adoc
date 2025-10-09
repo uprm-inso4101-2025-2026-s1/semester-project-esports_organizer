@@ -13,6 +13,10 @@
 - Part documents: introductionDoc.adoc, informativeDoc.adoc, descriptiveDoc.adoc, analyticDoc.adoc, appOfTopics.adoc, logBook.adoc
 - Main document: mainDoc.adoc
 
+== Logbook addition
+- To input your work you will follow this structure:
+- | Section Name | Member | Added or Modified | Description
+
 == How to Add a New Section
 1. Create a new `.adoc` file under the right folder/or open the one alredy created.
 2. Add your content.

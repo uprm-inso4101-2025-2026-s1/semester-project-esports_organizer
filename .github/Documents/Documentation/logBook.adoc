@@ -1,2 +1,10 @@
 == LogBook
-*TO DO*
+
+[width="100%", cols="4*", options="header", frame=all, grid=all, halign=center]
+|===
+| Section Name | Member | Added or Modified | Description
+
+| Terminology | Juan del Pueblo | Added | Added the categories to the concepts
+| Narrative | Pepe Ganga | Modified | Updated the narrative to be more aligned with the goal of the application
+
+|===
