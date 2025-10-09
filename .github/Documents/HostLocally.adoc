@@ -33,3 +33,9 @@ Yadriel Rivera <yadriel.rivera@upr.edu>
    ```
 
 5. Follow the localhost link provided in the terminal to view both the database UI and the website.
+
+== in case it doesn't work try:
+
+rm -rf node_modules package-lock.json
+cd .github/esports-organizer
+npm install
