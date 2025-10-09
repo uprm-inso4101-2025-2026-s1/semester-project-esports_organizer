@@ -22,7 +22,7 @@ function Navbar() {
       <header className="nav-header">
         <div className="nav-container">
           <div className="nav-left">
-            <div className="nav-logo" onClick={() => handleNavigation("/")}>
+            <div className="nav-logo" onClick={() => handleNavigation("/homepage")}>
               <div className="logo-icon">
                 <img 
                   src="/assets/images/LOGO.png" 

@@ -1,0 +1,19 @@
+/* ==========================================================================
+    Label Layouts for forms
+   ========================================================================== */
+
+.form-label {
+    color: white;
+    margin-bottom: -10px;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+  }
+  
+  .required {
+    color: #ff4d4f;
+    font-weight: bold;
+    margin-left: 4px;
+  }
+  

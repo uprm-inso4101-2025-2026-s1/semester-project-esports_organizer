@@ -30,4 +30,6 @@
 .team-name {
 	flex: 1;
 	text-align: left;
+	color: #111;
+	font-size: 1rem;
 }
