@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite\" \"firebase --config src/database/firebase.json emulators:start --only firestore --project local-esports-organizer\"",
+    "dev": "concurrently \"vite --host 0.0.0.0\" \"firebase --config src/database/firebase.json emulators:start --only firestore --project local-esports-organizer\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
