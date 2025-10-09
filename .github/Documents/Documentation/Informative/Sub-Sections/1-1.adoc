@@ -1,11 +1,6 @@
-= 1.1 Informative Section
+== 1 Informative Part
 
-== 1. Name, Place and Date 
-- Esports Organizer
-- University of Puerto Rico, Mayagüez 
-- Fall 2025
-
-== 1.1 Team Members
+=== 1.1 Team Members
 Our project's team is composed entirely of students participating in the Esports Organizer project. Every team member is directly involved in the development, design, and decision-making processes. At this stage, we do not have external partners (such as external experts, sponsors, or client organizations). Since the project is academic in nature, it is fully carried out by the student team without additional stakeholders.
 
 Roles and responsibilities are distributed among the team members as follows:

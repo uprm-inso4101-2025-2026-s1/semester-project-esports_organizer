@@ -1,4 +1,4 @@
-==== 2.2.3 Domain Requirements
+=== 2.2.3 Domain Requirements
 - Events must be associated with an existing videogame.
 - Every event created must have at least one organizer.
 - Only the event organizer should have permission to edit or cancel their events.
@@ -10,7 +10,7 @@
 - The results of an event must be recorded once the event is finished.
 - Appropriate ranking updates must be done based on the results of finished events.
 
-==== 2.2.4 Interface Requirements
+=== 2.2.4 Interface Requirements
 - The system must allow for users to create and manage events.
 - The system must allow users to search for events and communities within specific locations.
 - The system must track, and update user rankings as needed.
@@ -21,7 +21,7 @@
 - The system must allow event organizers to record event results once the event has finished.
 - The system must notify users of new events relevant to their interests.
 
-==== 2.2.5 Machine Requirements
+=== 2.2.5 Machine Requirements
 - The system must support at least 450 users at a time with an average response time of 2 seconds or less.
 - The system must be available at least 99% of the time per month.
 - The system must be able to keep user data secure within the website.

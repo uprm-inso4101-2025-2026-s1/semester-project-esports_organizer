@@ -1,6 +1,7 @@
-= 2. Descriptive Part
+== 2 Descriptive Part
 
-== 2.1 Domain Description
+=== 2.1 Domain Description
+*TO DO*
 
 === 2.1.1 Rough Sketch
 * Organizers announce registration with eligibility rules (age, roster size, region).
@@ -49,7 +50,7 @@ and what result comes out of it. They make clear:
 * **Outputs**: what the action produces (confirmation, updated standings, match record, etc.)
 * **Failures**: some actions may fail (e.g., late registration), so the signature should allow for that.
 
-=== Examples
+==== Examples
 - `registerTeam(team, roster, tournament) → Confirmation | Failure`
 - `scheduleMatch(teamA, teamB, time) → Match`
 - `recordResult(match, score) → UpdatedStandings`

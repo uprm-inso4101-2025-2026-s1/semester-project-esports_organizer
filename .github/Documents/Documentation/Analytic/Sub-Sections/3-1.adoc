@@ -1,4 +1,4 @@
-== 3. Analytic Part
+== 3 Analytic Part
 === 3.1 Concept Analysis
 
 Based on our understanding of the esports domain and the problem space, we identify the following key concepts:

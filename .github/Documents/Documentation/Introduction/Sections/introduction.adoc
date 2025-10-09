@@ -1,0 +1,7 @@
+== 0 Introductory Part
+
+=== 0.1 Purpose
+*TO DO*
+
+=== 0.2 Skeleton
+*TO DO*
