@@ -1,4 +1,4 @@
-import Team from "../team.js";;
+import Team from "../team.js";
 
 const registeredTeams = [];
 let eventStarted = false;
