@@ -182,7 +182,6 @@ function CreateProfile() {
               rows="5"
               placeholder="Add your Bio..."
             />
-            <span className="bio-counter">{remainingBio}</span>
             {errors.bio && <p className="error">{errors.bio}</p>}
           </form>
         </Modal>
