@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../styles/LandingPage.css";
+import "./LandingPage.css";
 import EventCard from "../components/EventCard.jsx";
 import CommunityCard from "../components/CommunityCard.jsx";
 import {
@@ -154,9 +154,9 @@ export default function LandingPage() {
             </a>{" "}
             gathers it all together in a single platform.
           </p>
-          <a href="#events" className="lp__cta">
+          <Link to="/homepage" className="lp__cta">
             Join Communities and Events Now
-          </a>
+          </Link>
         </div>
       </section>
 

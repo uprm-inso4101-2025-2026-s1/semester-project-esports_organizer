@@ -59,7 +59,7 @@ function HomePage() {
 
   // Navigation menu items
   const navItems = [
-    { path: "/", label: "Home" },
+    { path: "/homepage", label: "Home" },
     { path: "/tournaments", label: "Tournaments" },
     { path: "/teams", label: "Teams" },
     { path: "/community", label: "Community" }
@@ -179,7 +179,7 @@ function HomePage() {
       <header className="nav-header">
         <div className="nav-container">
           <div className="nav-left">
-            <div className="nav-logo" onClick={() => handleNavigation("/")}>
+            <div className="nav-logo" onClick={() => handleNavigation("/homepage")}>
               <div className="logo-icon">
                 <img 
                   src="/assets/images/LOGO.png" 
@@ -252,7 +252,7 @@ function HomePage() {
           <div className="hero-buttons">
             <Button
               text="Discover communities"
-              onClick={() => {}}
+              onClick={() => handleNavigation("/community")}
               variant="secondary"
             />
             <Button
