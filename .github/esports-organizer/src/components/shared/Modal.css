@@ -1,3 +1,7 @@
+/* ==========================================================================
+   Modal Layouts
+   ========================================================================== */
+
 .auth-modal-overlay {
   padding: 3%;
   display: flex;
@@ -11,18 +15,24 @@
 .auth-modal-container {
   display: flex;
   flex-direction: column;
-  padding: 3%;
+  padding: clamp(3%, 2vh, 5%);
   background: var(--light-primary);
+  color: rgba(255, 255, 255, 0.92);
   width: 50%;
   max-width: 700px;
   min-width: 400px;
-  height: 85vh;
+  min-height: 85vh;
   border-radius: 31px;
   box-shadow: 11px 11px 32px 11px rgba(0, 0, 0, 0.25);
   transition: width 0.3s ease;
 }
 
+.auth-modal-container h1 {
+  color: white;
+}
+
 .auth-modal-content {
+  color: white;
   padding: 4.5%;
   padding-top: 10%;
   display: flex;
@@ -53,8 +63,9 @@
   background: #7d5ba6;
 }
 
+/* Buttons section */
 .modal-buttons {
-  padding-inline: 3%;
+  padding: 3%;
   margin-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -77,21 +88,22 @@
   flex-direction: column;
 }
 
+/* Logo on top (used in LogIn/SignUp */
 .logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: fit-content;
   background: gray;
-  margin-bottom: -25px;
+  margin-bottom: -3%;
   z-index: 1;
   border-radius: 40px;
 }
 
 .auth-logo-image {
-    object-fit: contain;
-    border-radius: 8px;
-    width: 90px;
+  object-fit: contain;
+  border-radius: 8px;
+  width: 90px;
 }
 
 .auth-logo-image:hover {
@@ -99,15 +111,8 @@
   cursor: pointer;
 }
 
-label {
-  margin-bottom: -10px;
-  font-size: 21px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 130%;
-}
-
-input {
+input,
+textarea {
   background: white;
   color: black;
   border-radius: 9px;
@@ -115,6 +120,88 @@ input {
 }
 
 /* Specific Rules for children Modal */
-#invalid-data-forgotPassword {
+#forgotPassword {
   display: flex;
 }
+
+/* ==========================================================================
+   UPLOAD PICTURE STYLES
+   ========================================================================== */
+
+/* Circular Pictures (e.g. profile pictures) */
+
+.circular-picture-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circular-picture-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  border: 3px solid var(--light-link);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.circular-picture-container:hover {
+  transform: scale(1.05);
+  border-color: var(--light-hover);
+}
+
+.upload-placeholder {
+  font-size: 48px;
+  color: #888;
+  user-select: none;
+}
+
+.circular-picture-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   Error styles
+   ========================================================================== */
+
+.error {
+  color: #FB3836;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.error-input {
+  border: 1.5px solid #FB3836;
+  outline: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error {
+  animation: fadeIn 0.25s ease;
+}
+
+@media (max-width: 900px) {
+  .auth-modal-container{
+    min-width: 90vw;
+  }
+}
+
