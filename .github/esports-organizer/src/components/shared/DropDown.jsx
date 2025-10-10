@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "./DropDown.css";
 
-function Dropdown({ label, options = [], value, onChange, required = false }) {
+function Dropdown({ label, options = [], value, onChange, required = false, error }) {
   return (
     <div className="dropdown-wrapper">
       <label>
@@ -10,6 +9,7 @@ function Dropdown({ label, options = [], value, onChange, required = false }) {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        className={error ? "error-input" : ""}
         required={required}
       >
         <option value="" disabled>
