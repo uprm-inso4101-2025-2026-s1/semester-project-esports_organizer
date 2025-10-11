@@ -32,7 +32,7 @@ class Tournament {
     constructor(title, game) {
         this.title = title;
         this.game = game;
-        // Im not sure it's necessary to store events in a tournament for now
+        // It's not necessary to store events in a tournament for now
     }
 }
 
@@ -47,6 +47,7 @@ class Event {
         dateTime,
         participants,
         game,
+        location, 
         createdBy, // UserProfile object
         community = null, // Community object
         tournament = null // Tournament object
@@ -54,16 +55,17 @@ class Event {
         // Required fields
         this.title = title;
         this.description = description;
-        this.dateTime = dateTime; // could be Date object or string, update this when implenting into main
-        this.participants = participants; // just a number for now, can be changed to a list of users later
+        this.dateTime = dateTime; // could be Date object or string, update this when implementing into main
+        this.participants = participants; // number for now
         this.game = game;
+        this.location = location || "TBD"; // default to "TBD" if not specified
 
-        // Relations to other features (update when implenting)
+        // Relations to other features
         this.createdBy = createdBy;
         this.community = community;
         this.tournament = tournament;
 
-        // Unique ID for event (placeholder, can be changed to different type later)
+        // Unique ID for event
         this.eventId = Date.now();
     }
 
@@ -78,7 +80,7 @@ class Event {
         community.addEvent(this);
     }
 
-    // Links the event to a tournament, for now only accepts one tournament per event (can be changed later)
+    // Links the event to a tournament
     assignTournament(tournament) {
         this.tournament = tournament;
     }
@@ -92,6 +94,7 @@ class Event {
             dateTime: this.dateTime,
             participants: this.participants,
             game: this.game,
+            location: this.location, 
             createdBy: this.createdBy.username,
             community: this.community ? this.community.name : "None",
             tournament: this.tournament ? this.tournament.title : "None"
@@ -116,9 +119,10 @@ const tour1 = new Tournament("Street Fighter V Cup", "Street Fighter V");
 const newEvent = new Event({
     title: "Friday Night Esports",
     description: "Weekly meetup and matches! M. Bison is banned (looking at you Antonio).",
-    dateTime: "2025-09-26T20:00:00", // ISO string format (easy to parse later)
+    dateTime: "2025-09-26T20:00:00",
     participants: 32,
     game: "Street Fighter V",
+    location: "Arcade Lounge, San Juan",
     createdBy: user1
 });
 
@@ -127,7 +131,7 @@ user1.addEvent(newEvent);
 newEvent.assignCommunity(comm1);
 newEvent.assignTournament(tour1);
 
-// Print event summary (shows how data is structured)
+// Print event summary
 console.log(newEvent.getEventSummary());
 
 /* 
@@ -135,10 +139,11 @@ Expected output (object):
 {
     id: 1695753600000,
     title: "Friday Night Esports",
-    description: "Weekly meetup and matches",
+    description: "Weekly meetup and matches! M. Bison is banned (looking at you Antonio).",
     dateTime: "2025-09-26T20:00:00",
     participants: 32,
     game: "Street Fighter V",
+    location: "Arcade Lounge, San Juan",   
     createdBy: "Oscar",
     community: "Fighting Games Enthusiasts",
     tournament: "Street Fighter V Cup"
