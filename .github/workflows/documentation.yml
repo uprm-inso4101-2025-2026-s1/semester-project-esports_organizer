@@ -26,9 +26,11 @@ jobs:
           ls -R
 
       - name: Build PDF
+        working-directory: .github/Documents/Documentation
         run: |
-          ls -R .github/Documents/Documentation
-          asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc -o .github/Documents/Documentation/documentation.pdf
+          ls -R
+          asciidoctor-pdf mainDoc.adoc -o documentation.pdf
+      
 
 
 
