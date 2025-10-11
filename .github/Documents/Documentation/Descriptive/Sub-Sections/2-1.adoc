@@ -13,7 +13,7 @@
 * Results are recorded; tiebreakers decide standings in round-robins or Swiss.
 * Spectators and media follow brackets, standings, and schedules.
 
-image::Simple_Example_Flowchart_Communities.JPG[align=center]
+image::Simple_Example_Flowchart_Communities.jpg[align=center]
 Figure 2.1.1 – Tournament and Community Interaction Flow.
 This diagram illustrates how players, organizers, and communities interact in the platform — showing how tournaments and teams are created, advertised, and connected.
 
