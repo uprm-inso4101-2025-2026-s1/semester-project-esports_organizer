@@ -24,7 +24,15 @@ jobs:
         run: |
           pwd
           ls -R
-
+      - name: Debug image path
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Listing Documentation contents:"
+          ls -la .github/Documents/Documentation
+          echo "Searching for the image file:"
+          find . -name "Simple_Example_Flowchart_Communities.jpg" -print
+          
       - name: Build PDF
         run: |
           asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc -o .github/Documents/Documentation/documentation.pdf
