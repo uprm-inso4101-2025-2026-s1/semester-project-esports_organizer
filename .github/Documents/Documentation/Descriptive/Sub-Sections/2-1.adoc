@@ -4,6 +4,7 @@
 *TO DO*
 
 === 2.1.1 Rough Sketch
+* Players join a communitie and have the ability to create and join teams advertized on it.
 * Organizers announce registration with eligibility rules (age, roster size, region).
 * Teams submit rosters with captains before deadlines; some events allow roster changes.
 * Seeding is set by rankings, past results, or qualifiers.
@@ -11,6 +12,10 @@
 * Teams must check in before matches; missing a grace period may cause a forfeit.
 * Results are recorded; tiebreakers decide standings in round-robins or Swiss.
 * Spectators and media follow brackets, standings, and schedules.
+
+image::Simple Example Flowchart about the communities.JPG[]
+Figure 2.1.1 – Tournament and Community Interaction Flow.
+This diagram illustrates how players, organizers, and communities interact in the platform — showing how tournaments and teams are created, advertised, and connected.
 
 === 2.1.2 Terminology
 - **Player**: An individual who registers on the platform to participate in esports tournaments.
