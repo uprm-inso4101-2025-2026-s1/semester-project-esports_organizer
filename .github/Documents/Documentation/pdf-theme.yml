@@ -2,13 +2,13 @@ extends: default
 
 role:
   hl-green:
-    background-color: #ccffcc
-    font_color: #000000
+    background_color: ccffcc
+    font_color: 000000
 
   hl-yellow:
-    background-color: #fffacc
-    font_color: #000000
+    background_color: ffffcc
+    font_color: 000000
 
   hl-red:
-    background-color: #ffcccc
-    font_color: #000000
+    background_color: ffcccc
+    font_color: 000000
