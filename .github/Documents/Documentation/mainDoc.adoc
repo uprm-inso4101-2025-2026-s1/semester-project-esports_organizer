@@ -1,18 +1,19 @@
 :imagesdir: .
-[example,hl-green]
-====
-New content introduced in Milestone 2.
-====
+== Highlights
 
-[example,hl-yellow]
-====
-Paraphrased content from previous draft.
-====
+[cols="1,2", options="header"]
+|===
+|Change Type |Content
 
-[example,hl-red]
-====
-Removed content from earlier versions.
-====
+|New content
+|[%hardbreaks, role="hl-green"]This is new content introduced in Milestone 2.
+
+|Paraphrased content
+|[%hardbreaks, role="hl-yellow"]This text was reworded from the previous draft.
+
+|Removed content
+|[%hardbreaks, role="hl-red"]This section was removed from earlier versions.
+|===
 
 132
 include::Introduction/introductionDoc.adoc[]

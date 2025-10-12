@@ -1,23 +1,21 @@
 extends: default
 
-example:
-  hl-green:
-    background_color: ccffcc
-    font_color: 000000
-    border_color: ccffcc
-    padding: 5
-    border_radius: 3
+table:
+  cell:
+    hl-green:
+      background_color: ccffcc
+      font_color: 000000
+      padding: 3
+      border_color: ccffcc
 
-  hl-yellow:
-    background_color: ffffcc
-    font_color: 000000
-    border_color: ffffcc
-    padding: 5
-    border_radius: 3
+    hl-yellow:
+      background_color: ffffcc
+      font_color: 000000
+      padding: 3
+      border_color: ffffcc
 
-  hl-red:
-    background_color: ffcccc
-    font_color: 000000
-    border_color: ffcccc
-    padding: 5
-    border_radius: 3
+    hl-red:
+      background_color: ffcccc
+      font_color: 000000
+      padding: 3
+      border_color: ffcccc
