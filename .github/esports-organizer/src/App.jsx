@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import TournamentsPage from "./pages/TournamentsPage";
@@ -41,6 +42,11 @@ const CommunityPage = () => (
 );
 
 function App() {
+  useEffect(() => {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (prefersDark) document.body.classList.add("dark-mode");
+  }, []);
+  
   return (
     <Routes>
       <Route path="/" element={<LandingPage/>} />

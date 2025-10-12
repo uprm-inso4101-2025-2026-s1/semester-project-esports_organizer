@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   padding: clamp(3%, 2vh, 5%);
-  background: var(--light-primary);
+  background: var(--primary);
   width: 50%;
   max-width: 700px;
   min-width: 400px;
@@ -171,7 +171,7 @@ textarea {
    ========================================================================== */
 
 .error {
-  color: #FB3836;
+  color: #fb3836;
   font-size: 0.9rem;
   margin-top: 4px;
   margin-bottom: 8px;
@@ -179,7 +179,7 @@ textarea {
 }
 
 .error-input {
-  border: 1.5px solid #FB3836;
+  border: 1.5px solid #fb3836;
   outline: none;
 }
 
@@ -199,8 +199,7 @@ textarea {
 }
 
 @media (max-width: 900px) {
-  .auth-modal-container{
+  .auth-modal-container {
     min-width: 90vw;
   }
 }
-
