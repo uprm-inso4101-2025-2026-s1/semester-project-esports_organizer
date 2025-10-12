@@ -27,19 +27,22 @@ jobs:
       - name: Verify pdf-theme.yml
         run: |
           echo "Checking for theme file..."
-          ls -la .github/Documents/Documentation/pdf-theme.yml
+          if [ ! -f ".github/Documents/Documentation/pdf-theme.yml" ]; then
+            echo "ERROR: pdf-theme.yml not found in .github/Documents/Documentation/"
+            exit 1
+          fi
+          echo "Found pdf-theme.yml"
+          head -n 10 .github/Documents/Documentation/pdf-theme.yml
         
 
       - name: Build PDF
         run: |
-          echo "🧩 Building PDF..."
-          asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc \
-            -a allow-uri-read \
-            -a imagesdir=. \
-            -o .github/Documents/Documentation/documentation.pdf \
-            --trace 2>&1 | tee documentation.log
-          echo "✅ PDF build finished. Showing any warnings below:"
-          grep --color=always -i "WARNING" documentation.log || echo "No warnings found"
+          asciidoctor-pdf \
+          -a pdf-themesdir=.github/Documents/Documentation \
+          -a pdf-theme=pdf-theme \
+          .github/Documents/Documentation/mainDoc.adoc \
+          -o .github/Documents/Documentation/documentation.pdf
+
         
         
       
