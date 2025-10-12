@@ -6,5 +6,5 @@
 
 | Terminology | Juan del Pueblo | Added | Added the categories to the concepts
 | Narrative | Pepe Ganga | Modified | Updated the narrative to be more aligned with the goal of the application
-
+| Rough Sketch | Pedro Bonilla | Added | Added a Flowchart to better explain the way communities, players, teams, and organizers work. 
 |===

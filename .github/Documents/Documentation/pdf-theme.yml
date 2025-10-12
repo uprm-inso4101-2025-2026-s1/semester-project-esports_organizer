@@ -1,0 +1,15 @@
+theme:
+  extends: default
+
+  role:
+    hl-green:
+      background_color: #ccffcc
+      font_color: #000000
+
+    hl-yellow:
+      background_color: #fffacc
+      font_color: #000000
+
+    hl-red:
+      background_color: #ffcccc
+      font_color: #000000

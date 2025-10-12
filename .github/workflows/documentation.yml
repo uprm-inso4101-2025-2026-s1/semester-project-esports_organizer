@@ -24,14 +24,11 @@ jobs:
         run: |
           pwd
           ls -R
-      - name: Debug image path
+      - name: Verify pdf-theme.yml
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Listing Documentation contents:"
-          ls -la .github/Documents/Documentation
-          echo "Searching for the image file:"
-          find . -name "Simple_Example_Flowchart_Communities.jpg" -print
+          echo "Checking for theme file..."
+          ls -la .github/Documents/Documentation/pdf-theme.yml
+        
 
       - name: Build PDF
         run: |
