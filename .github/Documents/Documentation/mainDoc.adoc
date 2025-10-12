@@ -1,10 +1,4 @@
 :imagesdir: .
-== Revision Highlights
-
-* [.hl-green]#This is new content.#
-* [.hl-yellow]#This paragraph was paraphrased.#
-* [.hl-red]#This section was removed.#
-
 
 include::Introduction/introductionDoc.adoc[]
 
