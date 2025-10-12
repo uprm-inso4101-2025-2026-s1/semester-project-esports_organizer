@@ -12,9 +12,6 @@
 * Teams must check in before matches; missing a grace period may cause a forfeit.
 * Results are recorded; tiebreakers decide standings in round-robins or Swiss.
 * Spectators and media follow brackets, standings, and schedules.
-[.hl-green]#This is new text.#
-[.hl-yellow]#This text was reworded.#
-[.hl-red]#This section was removed.#
 
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 

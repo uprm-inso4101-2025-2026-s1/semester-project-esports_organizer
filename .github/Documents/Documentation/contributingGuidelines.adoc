@@ -31,13 +31,13 @@ Use the following inline roles to visually mark text changes:
 |Purpose |Syntax
 
 |New content
-|[.hl-green]#This is new text#
+|[.hl-green]#This is new text.#
 
 |Paraphrased content
-|[.hl-yellow]#This text was reworded#
+|[.hl-yellow]#This text was reworded.#
 
 |Removed content
-|[.hl-red]#This section was removed#
+|[.hl-red]#This section was removed.#
 |===
 
 
