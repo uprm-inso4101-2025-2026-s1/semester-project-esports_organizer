@@ -35,7 +35,15 @@ jobs:
 
       - name: Build PDF
         run: |
-          asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc -a imagesdir=.github/Documents/Documentation -o .github/Documents/Documentation/documentation.pdf
+          echo "🧩 Building PDF..."
+          asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc \
+            -a allow-uri-read \
+            -a imagesdir=.github/Documents/Documentation \
+            -o .github/Documents/Documentation/documentation.pdf \
+            --trace 2>&1 | tee documentation.log
+          echo "✅ PDF build finished. Showing any warnings below:"
+          grep --color=always -i "WARNING" documentation.log || echo "No warnings found"
+        
         
       
 
