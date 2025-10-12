@@ -24,6 +24,9 @@ jobs:
         run: |
           pwd
           ls -R
+      - name: Check asciidoctor-pdf version
+        run: asciidoctor-pdf -v
+        
       - name: Verify pdf-theme.yml
         run: |
           echo "Checking for theme file..."
