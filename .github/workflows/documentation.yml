@@ -26,7 +26,7 @@ jobs:
           ls -R
       - name: Check asciidoctor-pdf version
         run: asciidoctor-pdf -v
-        
+
       - name: Verify pdf-theme.yml
         run: |
           echo "Checking for theme file..."
@@ -37,21 +37,13 @@ jobs:
           echo "Found pdf-theme.yml"
           head -n 10 .github/Documents/Documentation/pdf-theme.yml
         
-
       - name: Build PDF
         run: |
           asciidoctor-pdf \
-          -a pdf-themesdir=.github/Documents/Documentation \
-          -a pdf-theme=pdf-theme \
-          .github/Documents/Documentation/mainDoc.adoc \
-          -o .github/Documents/Documentation/documentation.pdf
-
-        
-        
-      
-
-
-
+            -a pdf-themesdir=.github/Documents/Documentation \
+            -a pdf-theme=pdf-theme \
+            .github/Documents/Documentation/mainDoc.adoc \
+            -o .github/Documents/Documentation/documentation.pdf
 
       - name: Commit PDF
         run: |

@@ -1,5 +1,17 @@
-= Test PDF Highlights
+:imagesdir: .
+This is [.hl-green]#new section# introduced in Milestone 2.
 
-This is [.hl-green]#green text#.
-This is [.hl-yellow]#yellow text#.
-This is [.hl-red]#red text#.
+This is [.hl-yellow]#paraphrased content# from the previous draft.
+
+This paragraph includes [.hl-red]#removed content# from earlier versions.
+include::Introduction/introductionDoc.adoc[]
+
+include::Informative/informativeDoc.adoc[]
+
+include::Descriptive/descriptiveDoc.adoc[]
+
+include::Analytic/analyticDoc.adoc[]
+
+include::appOfTopics.adoc[]
+
+include::logBook.adoc[]
