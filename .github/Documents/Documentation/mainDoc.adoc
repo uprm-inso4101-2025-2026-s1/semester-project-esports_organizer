@@ -1,5 +1,4 @@
-:imagesdir: {docdir}
-:allow-uri-read:
+:imagesdir: .
 
 include::Introduction/introductionDoc.adoc[]
 

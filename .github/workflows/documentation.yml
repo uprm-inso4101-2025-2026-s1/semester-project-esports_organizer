@@ -38,7 +38,7 @@ jobs:
           echo "🧩 Building PDF..."
           asciidoctor-pdf .github/Documents/Documentation/mainDoc.adoc \
             -a allow-uri-read \
-            -a imagesdir=.github/Documents/Documentation \
+            -a imagesdir=. \
             -o .github/Documents/Documentation/documentation.pdf \
             --trace 2>&1 | tee documentation.log
           echo "✅ PDF build finished. Showing any warnings below:"
