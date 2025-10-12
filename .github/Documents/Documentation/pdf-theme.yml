@@ -1,6 +1,6 @@
 extends: default
 
-admonition:
+example:
   hl-green:
     background_color: ccffcc
     font_color: 000000

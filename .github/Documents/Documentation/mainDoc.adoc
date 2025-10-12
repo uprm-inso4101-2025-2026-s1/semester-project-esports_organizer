@@ -1,20 +1,17 @@
 :imagesdir: .
-[.hl-green]
-.Admonition: New Content
+[example,hl-green]
 ====
-This is new content introduced in Milestone 2.
-====
-
-[.hl-yellow]
-.Admonition: Paraphrased
-====
-This is paraphrased content from the previous draft.
+New content introduced in Milestone 2.
 ====
 
-[.hl-red]
-.Admonition: Removed
+[example,hl-yellow]
 ====
-This paragraph includes removed content from earlier versions.
+Paraphrased content from previous draft.
+====
+
+[example,hl-red]
+====
+Removed content from earlier versions.
 ====
 
 132
