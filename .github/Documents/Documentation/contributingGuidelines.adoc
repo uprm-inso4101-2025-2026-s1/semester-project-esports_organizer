@@ -39,7 +39,9 @@ Use the following inline roles to visually mark text changes:
 |Removed content
 |[.hl-red]#This section was removed.#
 |===
+*Note: The highlighted text can only be seen in the automatically generated pdf (documentation.pdf).*
 
+*To view your edited text: First commit and push your work, after your push you will make a pull. This will pull the new edited pdf.*
 
 == How to preview a .adoc file
 - Install (asciidoctor.asciidoctor-vscode).
