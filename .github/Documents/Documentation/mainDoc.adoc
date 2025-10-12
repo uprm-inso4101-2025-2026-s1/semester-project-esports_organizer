@@ -1,9 +1,19 @@
 :imagesdir: .
-This is [.hl-green]#new section# introduced in Milestone 2.
+[.hl-green]
+====
+New content introduced in Milestone 2.
+====
 
-This is [.hl-yellow]#paraphrased content# from the previous draft.
+[.hl-yellow]
+====
+Paraphrased content from previous draft.
+====
 
-This paragraph includes [.hl-red]#removed content# from earlier versions.
+[.hl-red]
+====
+Removed content from earlier versions.
+====
+132
 include::Introduction/introductionDoc.adoc[]
 
 include::Informative/informativeDoc.adoc[]

@@ -4,11 +4,17 @@ role:
   hl-green:
     background_color: ccffcc
     font_color: 000000
+    padding: 5
+    border_radius: 3
 
   hl-yellow:
     background_color: ffffcc
     font_color: 000000
+    padding: 5
+    border_radius: 3
 
   hl-red:
     background_color: ffcccc
     font_color: 000000
+    padding: 5
+    border_radius: 3
