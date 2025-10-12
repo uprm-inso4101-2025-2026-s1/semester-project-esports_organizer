@@ -5,7 +5,7 @@
 * [.hl-yellow]#This paragraph was paraphrased.#
 * [.hl-red]#This section was removed.#
 
-132
+
 include::Introduction/introductionDoc.adoc[]
 
 include::Informative/informativeDoc.adoc[]
