@@ -3,7 +3,7 @@
 === 1.1 Team Members
 Our project's team is composed entirely of students participating in the Esports Organizer project. Every team member is directly involved in the development, design, and decision-making processes. At this stage, we do not have external partners (such as external experts, sponsors, or client organizations). Since the project is academic in nature, it is fully carried out by the student team without additional stakeholders.
 
-Roles and responsibilities are distributed among the team members as follows:
+[.hl-yellow]#Roles and responsibilities are distributed among the team members as follows:#
 
 - Experience Design Team - Focuses on the user interface and overall user experience of the platform. This includes designing intuitive layouts, ensuring visual appeal, and optimizing how users interact with the system to create a seamless and pleasant experience.
 - Identity and Data Systems Team - Manages the backend infrastructure, and the data handling. This team ensures that the system can securely store, process, and retrieve user and event information while maintaining performance and reliability.
