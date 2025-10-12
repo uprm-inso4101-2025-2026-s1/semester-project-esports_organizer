@@ -1,18 +1,22 @@
 :imagesdir: .
 [.hl-green]
+.Admonition: New Content
 ====
-New content introduced in Milestone 2.
+This is new content introduced in Milestone 2.
 ====
 
 [.hl-yellow]
+.Admonition: Paraphrased
 ====
-Paraphrased content from previous draft.
+This is paraphrased content from the previous draft.
 ====
 
 [.hl-red]
+.Admonition: Removed
 ====
-Removed content from earlier versions.
+This paragraph includes removed content from earlier versions.
 ====
+
 132
 include::Introduction/introductionDoc.adoc[]
 
