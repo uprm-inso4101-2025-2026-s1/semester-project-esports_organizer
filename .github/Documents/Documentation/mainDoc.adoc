@@ -1,17 +1,27 @@
-:imagesdir: .
-This is a [.hl-green]#new section# introduced in Milestone 2.
+= PDF Highlight Test
+:doctype: article
+:toc:
+
+== Introduction
+
+This is [.hl-green]#new content# introduced in Milestone 2.
 
 This is [.hl-yellow]#paraphrased content# from the previous draft.
 
 This paragraph includes [.hl-red]#removed content# from earlier versions.
-include::Introduction/introductionDoc.adoc[]
 
-include::Informative/informativeDoc.adoc[]
+== Table Example
 
-include::Descriptive/descriptiveDoc.adoc[]
+[cols="1,2", options="header"]
+|===
+|Change Type |Example
 
-include::Analytic/analyticDoc.adoc[]
+|New content
+|[.hl-green]#This is new content inside a table.#
 
-include::appOfTopics.adoc[]
+|Paraphrased content
+|[.hl-yellow]#This text was reworded inside a table.#
 
-include::logBook.adoc[]
+|Removed content
+|[.hl-red]#This section was removed inside a table.#
+|===
