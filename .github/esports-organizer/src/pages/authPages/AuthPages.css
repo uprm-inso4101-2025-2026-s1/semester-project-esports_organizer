@@ -20,6 +20,7 @@
 }
 
 .greetings-section {
+  color: white;
   flex: 1 1 45%;
   min-width: 350px;
   padding: 3% 0;
@@ -114,7 +115,6 @@ form {
     transform: translateX(-50%);
   }
 }
-
 
 /* Media Querries */
 @media (max-width: 900px) {

@@ -8,38 +8,10 @@ import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
-
-
-
-const TeamsPage = () => (
-  <div style={{
-    minHeight: '100vh',
-    background: 'var(--light-gradient)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontFamily: 'var(--font-heading)',
-    fontSize: '2rem'
-  }}>
-    Teams Page - Coming Soon
-  </div>
-);
-
-const CommunityPage = () => (
-  <div style={{
-    minHeight: '100vh',
-    background: 'var(--light-gradient)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontFamily: 'var(--font-heading)',
-    fontSize: '2rem'
-  }}>
-    Community Page - Coming Soon
-  </div>
-);
+// brackets page is commented for now until path is determined
+// import TournamentBrackets from "./pages/bracketsTournamentPage/bracketsTournamentPage";
+import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";
+import CommunityPage from "./pages/communityPages/CommunityPage";
 
 function App() {
   useEffect(() => {
@@ -48,18 +20,29 @@ function App() {
   }, []);
   
   return (
+    // ROUTER 
     <Routes>
+      {/* INITIAL PAGES */}
       <Route path="/" element={<LandingPage/>} />
       <Route path="/homepage" element={<HomePage />} />
+
+       {/* AUTHENTICATION PAGES */}
       <Route path="/login" element={<AuthPage mode="login" />} />
       <Route path="/signup" element={<AuthPage mode="signup" />} />
       <Route path="/create-profile" element={<CreateProfile />}/>
       <Route path="/recover" element={<AccountRecovery />} />
+
+       {/* CORE FEATURE PAGES */}
       <Route path="/tournaments" element={<TournamentsPage />} />
       <Route path="/create-event" element={<CreateEventPage />} />
-      <Route path="/teams" element={<TeamsPage />} />
-      <Route path="/community" element={<CommunityPage />} />
       <Route path="/profile" element={<PlayerProfile />} />
+      {/* <Route path="/tournament-brackets" element={<TournamentBrackets />} /> */}
+
+      {/* MISSING DESIGNS */}
+      <Route path="/teams" element={<TeamProfilePage />} />
+      <Route path="/team-profile" element={<TeamProfilePage />} />
+      <Route path="/community" element={<CommunityPage />} />
+      
     </Routes>
   );
 }

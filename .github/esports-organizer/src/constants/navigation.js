@@ -1,6 +1,6 @@
 // Navigation constants shared across pages
 export const NAV_ITEMS = [
-  { path: "/", label: "Home" },
+  { path: "/homepage", label: "Home" },
   { path: "/tournaments", label: "Tournaments" },
   { path: "/teams", label: "Teams" },
   { path: "/community", label: "Community" },
