@@ -2,8 +2,8 @@ extends: default
 
 role:
   hl-green:
-    font_color: 008000   # green text
+    font_color: d4f8d4   # green text
   hl-yellow:
-    font_color: ffa500   # orange text
+    font_color: fff9c4   # orange text
   hl-red:
-    font_color: ff0000   # red text
+    font_color: ffcdd2   # red text
