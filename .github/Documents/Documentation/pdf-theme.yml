@@ -1,21 +1,9 @@
 extends: default
 
-table:
-  cell:
-    hl-green:
-      background_color: ccffcc
-      font_color: 000000
-      padding: 3
-      border_color: ccffcc
-
-    hl-yellow:
-      background_color: ffffcc
-      font_color: 000000
-      padding: 3
-      border_color: ffffcc
-
-    hl-red:
-      background_color: ffcccc
-      font_color: 000000
-      padding: 3
-      border_color: ffcccc
+role:
+  hl-green:
+    font_color: 008000   # green text
+  hl-yellow:
+    font_color: ffa500   # orange text
+  hl-red:
+    font_color: ff0000   # red text
