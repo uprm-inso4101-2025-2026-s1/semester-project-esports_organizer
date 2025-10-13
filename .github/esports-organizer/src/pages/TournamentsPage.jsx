@@ -11,7 +11,7 @@ function TournamentsPage() {
   const navigate = useNavigate();
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [, setSelectedEvent] = useState(null);
   const [modalStep, setModalStep] = useState(1);
 
   // Effects

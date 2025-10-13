@@ -1,8 +1,4 @@
-import { assignBrackets,confirmAttendance, registerTeam, startEvent } from "./TournamentRegistration.js"; 
-import { resultReport } from "./ResultReport.js";   //only for testing purposes
-import Team from "../database/examples/Teams.js";
 import Bracket from "../database/examples/Brackets.js";
-import Tournament from "../database/examples/Tournament.js";
 
 /**
  * 
@@ -213,4 +209,3 @@ if (typeof player2 === "string") {
 // startEvent();
 // console.log("\nBrackets:", testtournament);
 // resultReport(testtournament);
-

@@ -1,0 +1,25 @@
+{
+  "name": "esports-organizer-root",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "emulator:start": "firebase emulators:start --project demo-esports-organizer --only firestore,functions",
+    "seed": "node .github/esports-organizer/src/scripts/seedEmulator.js",
+    "mark:final": "node .github/esports-organizer/src/scripts/markFinal.js",
+    "verify:derived": "node .github/esports-organizer/src/scripts/verifyDerived.js",
+    "install:functions": "npm --prefix .github/esports-organizer/src/functions ci",
+    "setup": "npm ci && npm run install:functions",
+    "functions:test": "npm --prefix .github/esports-organizer/src/functions run test:load",
+    "clear:lock": "node .github/esports-organizer/src/scripts/clearLock.js",
+    "verify:match": "node .github/esports-organizer/src/scripts/verifyMatch.js",
+    "dev:clean-ports": "lsof -ti tcp:4444 -sTCP:LISTEN | xargs -I {} kill -9 {} 2>/dev/null || true; lsof -ti tcp:4555 -sTCP:LISTEN | xargs -I {} kill -9 {} 2>/dev/null || true; lsof -ti tcp:58180 -sTCP:LISTEN | xargs -I {} kill -9 {} 2>/dev/null || true; lsof -ti tcp:5002 -sTCP:LISTEN | xargs -I {} kill -9 {} 2>/dev/null || true; lsof -ti tcp:4000 -sTCP:LISTEN | xargs -I {} kill -9 {} 2>/dev/null || true",
+    "dev": "npm run dev:clean-ports && concurrently \"npm run emulator:start\" \"npm --prefix .github/esports-organizer run dev:site\"",
+    "print:ui": "printf \"Firebase Emulator UI: http://127.0.0.1:4000\\n\"",
+    "open:ui": "open http://127.0.0.1:4000",
+    "ui": "npm run print:ui && npm run open:ui"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.35.1",
+    "concurrently": "^9.2.1"
+  }
+}

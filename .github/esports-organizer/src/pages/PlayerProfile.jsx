@@ -68,7 +68,7 @@ function PlayerProfile() {
     role: player.role,
     currentTeam: player.currentTeam,
   });
-  const [errors, setErrors] = useState({}); // basic client validation messages
+  const [, setErrors] = useState({}); // basic client validation messages
 
   // Carousel index + avatar input
   const [achIndex, setAchIndex] = useState(0);

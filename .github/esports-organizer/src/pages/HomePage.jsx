@@ -129,10 +129,7 @@ function HomePage() {
   };
 
   // Community card component
-  const CommunityCard = ({ index }) => {
-    const cardId = `community-${index}`;
-    const isSaved = savedCards.has(cardId);
-
+  const CommunityCard = () => {
     return (
       <div className="community-card">
         <div className="community-image-wrapper">
