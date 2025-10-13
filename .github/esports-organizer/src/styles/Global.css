@@ -7,6 +7,20 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
 */
 :root {
   /* Color palette */
+
+  /* TODO: ELIMINAR ESTOS COLORES SI TODAS LAS PAGES MIGRAN A LOS NUEVOS NOMBRES */
+  --light-primary: #1b2a41;
+  --light-container: #3e4c59;
+  --light-link: #00a8e8;
+  --light-hover: #7d5ba6;
+  --light-gradient: linear-gradient(
+    180deg,
+    #fff 0%,
+    #315285 109.46%,
+    #152338 227.69%
+  );
+
+  /* New names for light colors (default colors) */
   --primary: #1b2a41;
   --container: #3e4c59;
   --link: #00a8e8;
@@ -17,7 +31,9 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
     #315285 109.46%,
     #152338 227.69%
   );
+  --error-msg: #fb3836;
 
+  /* dark colors names */
   --dark-primary: #1a0d0d;
   --dark-container: #2c1a1a;
   --dark-link: #d72638;
@@ -28,6 +44,7 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
     #2c1a1a 109.46%,
     #1a0d0d 227.69%
   );
+  --dark-error-msg: #8a38f5;
 
   /* Typography */
   --font-heading: "Ubuntu", sans-serif;
@@ -49,15 +66,14 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
 /* ===========================
    DARK MODE OVERRIDES
    =========================== */
-
 .dark-mode {
   --primary: var(--dark-primary);
   --container: var(--dark-container);
   --link: var(--dark-link);
   --hover: var(--dark-hover);
   --gradient: var(--dark-gradient);
+  --error-msg: var(--dark-error-msg);
 }
-
 
 /* Base global */
 * {
