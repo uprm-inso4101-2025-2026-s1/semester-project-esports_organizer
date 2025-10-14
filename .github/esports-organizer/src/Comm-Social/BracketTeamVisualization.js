@@ -1,6 +1,5 @@
-import Team from "../team";
-import { registerTeam, confirmAttendance, assignBrackets } from "./TournamentRegistration";
-import { runBracket } from "./MatchProgression"; 
+import { assignBrackets } from "./TournamentRegistration";
+import { runBracket } from "./MatchProgression";
 
 /*
  * @param {Array<Array<Team>>} initialBrackets - Takes the initial teams that are registered.

@@ -33,8 +33,8 @@ function loadEnvFile() {
         }
       });
       return env; 
-    } catch (error) {
-      //Aqui solo continua por eso vacio 
+    } catch {
+      // continue silently
     }
   }
   
@@ -64,7 +64,7 @@ function checkPort(host, port, timeout = 3000) {
     
     try {
       socket.connect(port, host);
-    } catch (error) {
+    } catch {
       resolve(false);
     }
   });
@@ -111,7 +111,7 @@ async function healthCheck() {
 }
 
 // Esto corre el health check btw
-healthCheck().catch(error => {
-  console.error(' Health check failed:', error.message);
+healthCheck().catch((err) => {
+  console.error(' Health check failed:', err && err.message ? err.message : err);
   process.exit(1);
 });

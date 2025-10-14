@@ -85,7 +85,7 @@ function CreateProfile() {
     navigate(-1);
   };
 
-  const remainingBio = 300 - form.bio.length;
+  const _remainingBio = 300 - form.bio.length;
 
   return (
     <div className="auth-page centered">
