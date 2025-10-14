@@ -33,16 +33,16 @@ button {
 }
 
 .btn.primary {
-  background: var(--light-link);
+  background: var(--link);
   color: white;
 }
 
 .btn.primary:hover {
-  background: var(--light-hover);
+  background: var(--hover);
 }
 
 .btn.primary:active {
-  background: var(--light-hover);
+  background: var(--hover);
   box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
 }
 
@@ -57,11 +57,11 @@ button {
 }
 
 .btn.secondary:hover {
-  background:  var(--light-hover);
+  background:  var(--hover);
 }
 
 .btn.secondary:active {
-  background: var(--light-hover);
+  background: var(--hover);
   box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
 }
 

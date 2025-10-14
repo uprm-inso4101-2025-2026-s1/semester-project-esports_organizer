@@ -16,8 +16,7 @@
   display: flex;
   flex-direction: column;
   padding: clamp(3%, 2vh, 5%);
-  background: var(--light-primary);
-  color: rgba(255, 255, 255, 0.92);
+  background: var(--primary);
   width: 50%;
   max-width: 700px;
   min-width: 400px;
@@ -42,6 +41,7 @@
   flex-grow: 1;
   border-top: 5px solid white;
   border-radius: 0;
+  max-height: 60vh;
 }
 
 .auth-modal-content::-webkit-scrollbar {
@@ -49,18 +49,18 @@
 }
 
 .auth-modal-content::-webkit-scrollbar-track {
-  background: #3e4c59;
+  background: var(--container);
   border-radius: 8px;
 }
 
 .auth-modal-content::-webkit-scrollbar-thumb {
-  background: #00a8e8;
+  background: var(--link);
   border-radius: 8px;
   border: 2px solid #3e4c59;
 }
 
 .auth-modal-content::-webkit-scrollbar-thumb:hover {
-  background: #7d5ba6;
+  background: var(--hover);
 }
 
 /* Buttons section */
@@ -141,7 +141,7 @@ textarea {
   height: 120px;
   border-radius: 50%;
   background-color: #e0e0e0;
-  border: 3px solid var(--light-link);
+  border: 3px solid var(--link);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,7 +152,7 @@ textarea {
 
 .circular-picture-container:hover {
   transform: scale(1.05);
-  border-color: var(--light-hover);
+  border-color: var(--hover);
 }
 
 .upload-placeholder {
@@ -172,7 +172,7 @@ textarea {
    ========================================================================== */
 
 .error {
-  color: #FB3836;
+  color: var(--error-msg);
   font-size: 0.9rem;
   margin-top: 4px;
   margin-bottom: 8px;
@@ -180,7 +180,7 @@ textarea {
 }
 
 .error-input {
-  border: 1.5px solid #FB3836;
+  border: 1.5px solid var(--error-msg);
   outline: none;
 }
 
@@ -200,8 +200,7 @@ textarea {
 }
 
 @media (max-width: 900px) {
-  .auth-modal-container{
+  .auth-modal-container {
     min-width: 90vw;
   }
 }
-

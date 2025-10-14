@@ -39,13 +39,13 @@ function AuthPage({ mode = "login" }) {
         <section className="image-carousel">
           <div className="image-carousel-track">
             {games_images.map((image, index) => (
-              <div key={`first-${image.id}`} className="image-container">
+              <div key={`first-${image.id}`} className="image-carousel-container">
                 <img src={image.url} alt={`Juego ${index + 1}`} />
               </div>
             ))}
             {/* Second List to give infinite effect */}
             {games_images.map((image, index) => (
-              <div key={`first-${image.id}`} className="image-container">
+              <div key={`first-${image.id}`} className="image-carousel-container">
                 <img src={image.url} alt={`Juego ${index + 1}`} />
               </div>
             ))}
@@ -60,13 +60,13 @@ function AuthPage({ mode = "login" }) {
         <section className="image-carousel">
           <div className="image-carousel-track">
             {communities_images.map((image, index) => (
-              <div key={`first-${image.id}`} className="image-container">
+              <div key={`first-${image.id}`} className="image-carousel-container">
                 <img src={image.url} alt={`Juego ${index + 1}`} />
               </div>
             ))}
             {/* Second List to give infinite effect */}
             {communities_images.map((image, index) => (
-              <div key={`first-${image.id}`} className="image-container">
+              <div key={`first-${image.id}`} className="image-carousel-container">
                 <img src={image.url} alt={`Juego ${index + 1}`} />
               </div>
             ))}
