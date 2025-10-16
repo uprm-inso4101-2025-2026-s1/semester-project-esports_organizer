@@ -8,6 +8,7 @@ import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
+import CreateEventWizard from "./pages/CreateEventWizard";
 // brackets page is commented for now until path is determined
 
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Step1Basics from "./steps/Step1Basics";
-import Step2DateTime from "./steps/Step2DateTime";
-import Step3Limits from "./steps/Step3Limits";
-import Step4Review from "./steps/Step4Review";
+import Step1Basics from "../events/steps/Step1Basics";
+import Step2DateTime from "../events/steps/Step2DateTime";
+import Step3Limits from "../events/steps/Step3Limits";
+import Step4Review from "../events/steps/Step4Review";
 import Navbar from "../components/shared/Navbar";
 import "./CreateEventPage.css";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GAMES, MODALITIES } from "../constants/navigation";
+import { GAMES, MODALITIES } from "../../constants/navigation";
 
 export default function Step1Basics({ data, onNext }) {
   const [title, setTitle] = useState(data.title);
