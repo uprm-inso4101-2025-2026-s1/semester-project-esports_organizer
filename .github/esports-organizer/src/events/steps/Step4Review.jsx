@@ -1,23 +1,32 @@
 import React from "react";
+import "../../pages/CreateEventWizard.css";
 
 export default function Step4Review({ data, onBack, onSubmit }) {
+  const { title, game, modality, date, time, maxTeams, maxPlayersPerTeam } =
+    data;
   return (
-    <div className="form-container">
-      <h2>Step 4: Review</h2>
+    <div className="wizard-container">
+      <div className="wizard-step-card">
+        <h2 className="wizard-step-title">Step 4: Review & Confirm</h2>
 
-      <ul>
-        <li><strong>Title:</strong> {data.title}</li>
-        <li><strong>Game:</strong> {data.game}</li>
-        <li><strong>Modality:</strong> {data.modality}</li>
-        <li><strong>Date:</strong> {data.date}</li>
-        <li><strong>Time:</strong> {data.time}</li>
-        <li><strong>Max Teams:</strong> {data.maxTeams}</li>
-        <li><strong>Max Players:</strong> {data.maxPlayersPerTeam}</li>
-      </ul>
+        <div className="wizard-form-group">
+          <p><strong>Title:</strong> {title}</p>
+          <p><strong>Game:</strong> {game}</p>
+          <p><strong>Modality:</strong> {modality}</p>
+          <p><strong>Date:</strong> {date}</p>
+          <p><strong>Time:</strong> {time}</p>
+          <p><strong>Max Teams:</strong> {maxTeams}</p>
+          <p><strong>Max Players per Team:</strong> {maxPlayersPerTeam}</p>
+        </div>
 
-      <div className="form-actions">
-        <button className="cancel-button" onClick={onBack}>← Back</button>
-        <button className="create-button" onClick={onSubmit}>Create Event</button>
+        <div className="wizard-actions">
+          <button className="wizard-btn" onClick={onBack}>
+            ← Back
+          </button>
+          <button className="wizard-btn" onClick={onSubmit}>
+            ✅ Confirm & Create
+          </button>
+        </div>
       </div>
     </div>
   );

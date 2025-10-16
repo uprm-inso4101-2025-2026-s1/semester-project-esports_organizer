@@ -3,12 +3,11 @@ import { useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import TournamentsPage from "./pages/TournamentsPage";
-import CreateEventPage from "./pages/CreateEventPage";
+import CreateEventWizard from "./pages/CreateEventWizard";
 import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
-import CreateEventWizard from "./pages/CreateEventWizard";
 // brackets page is commented for now until path is determined
 
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";

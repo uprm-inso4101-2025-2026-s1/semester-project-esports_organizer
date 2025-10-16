@@ -4,7 +4,7 @@ import Step2DateTime from "../events/steps/Step2DateTime";
 import Step3Limits from "../events/steps/Step3Limits";
 import Step4Review from "../events/steps/Step4Review";
 import Navbar from "../components/shared/Navbar";
-import "./CreateEventPage.css";
+import './CreateEventWizard.css';
 
 const INITIAL_DATA = {
   title: "",
