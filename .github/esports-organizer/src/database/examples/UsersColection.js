@@ -3,12 +3,16 @@ class User {
     email;
     username;
     createdAt;
+    profile;
+    role;
 
-    constructor(uID, email, username, createdAt = new Date()) {
+    constructor(uID, email, username, createdAt = new Date(),profile = {}) {
         this.uID = uID;
         this.email = email;
         this.username = username;
         this.createdAt = createdAt;
+        this.profile = profile;
+        this.role = role;
     }
 
     toFirestore() {
@@ -16,12 +20,14 @@ class User {
             "uid" : this.uID,
             "email" : this.email,
             "username" : this.username,
-            "createdAt" : this.createdAt
+            "createdAt" : this.createdAt,
+            "profile" : this.profile,
+            "role" : this.role
         };
     }
 
     static fromFirestore(data) {
-        return new User(data.uID, data.email, data.username, data.createdAt.toDate ? data.createdAt.toDate() : data.createdAt);
+        return new User(data.uID, data.email, data.username, data.createdAt.toDate ? data.createdAt.toDate() : data.createdAt, data.profile || {}, data.role || "player");
     }
 }
 
