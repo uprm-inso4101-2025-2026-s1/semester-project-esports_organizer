@@ -66,16 +66,34 @@ function HomePage() {
   ];
 
   // Bookmark button component
-  const BookmarkButton = ({ cardId, isSaved }) => (
-    <button 
-      className={`bookmark-button ${isSaved ? 'saved' : ''}`}
-      onClick={() => toggleSaved(cardId)}
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-      </svg>
-    </button>
-  );
+  const BookmarkButton = ({ cardId, isSaved }) => {
+    const handleClick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Execute the toggle first
+      toggleSaved(cardId);
+      
+      // Then prevent scroll
+      setTimeout(() => {
+        window.scrollTo(0, window.scrollY);
+      }, 0);
+      
+      return false;
+    };
+
+    return (
+      <button 
+        type="button"
+        className={`bookmark-button ${isSaved ? 'saved' : ''}`}
+        onClick={handleClick}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+      </button>
+    );
+  };
 
   // Tournament card component
   const TournamentCard = ({ index, prefix = "" }) => {
@@ -116,6 +134,7 @@ function HomePage() {
           </div>
           <div className="tournament-actions">
             <button 
+              type="button"
               className="join-button"
               onClick={() => handleJoinEvent("1 VS 1 JUNGLE CUP")}
             >
@@ -165,8 +184,8 @@ function HomePage() {
             </div>
           </div>
           <div className="community-actions">
-            <button className="follow-button">Follow Community</button>
-            <button className="view-button">View Community</button>
+            <button type="button" className="follow-button">Follow Community</button>
+            <button type="button" className="view-button">View Community</button>
           </div>
         </div>
       </div>
@@ -192,6 +211,7 @@ function HomePage() {
             <nav className={`nav-menu ${isMobileMenuOpen ? 'nav-menu-open' : ''}`}>
               {navItems.map((item) => (
                 <button
+                  type="button"
                   key={item.path}
                   className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
                   onClick={() => handleNavigation(item.path)}
@@ -209,6 +229,7 @@ function HomePage() {
               variant="primary"
             />
             <button 
+              type="button"
               className="mobile-menu-toggle"
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
@@ -316,7 +337,7 @@ function HomePage() {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             {/* Close Button */}
-            <button className="modal-close-button" onClick={closeModal}>
+            <button type="button" className="modal-close-button" onClick={closeModal}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -380,6 +401,7 @@ function HomePage() {
                 </div>
                 
                 <button 
+                  type="button"
                   className="join-event-button"
                   onClick={() => {
                     alert(`Successfully joined ${selectedEvent}!`);

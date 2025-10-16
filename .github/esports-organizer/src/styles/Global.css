@@ -131,3 +131,9 @@ a:hover,
     background-color: #f9f9f9;
   }
 }
+
+/* Dark mode class */
+.dark-mode {
+  --light-primary: var(--dark-primary);
+  --light-hover: var(--dark-hover);
+}
