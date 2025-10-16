@@ -49,9 +49,9 @@ export function resultReport(tournament)
 
 === Algorithm Description
 
-. Calls `runBracket(Tournament)` to get final team list (in reverse order)
-. Reverses the list to place champion first
-. Assigns placement strings (1st, 2nd, 3rd, etc.) to each team
+. Calls `runBracket(Tournament)` to get the final team list in reverse order, index 0 being the loser and n-1 being the winner
+. Reverses the list to place champion first, basically champion at index 0 and loser at n-1
+. Assigns placement strings ("1st", "2nd", "3rd", etc.) to each team
 . Returns array of [placement, team] pairs
 
 === Return Value
