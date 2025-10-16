@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -36,35 +36,38 @@ function CreateEventPage() {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    if (showTimePicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [showTimePicker]);
 
   // Event handlers
 
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
-  const handleTimeChange = (newTime) => {
+  const handleTimeChange = useCallback((newTime) => {
     setSelectedTime(newTime);
     const timeString = formatTime(newTime);
     setFormData(prev => ({ ...prev, time: timeString }));
-  };
+  }, []);
 
-  const toggleTimePicker = () => {
+  const toggleTimePicker = useCallback(() => {
     setShowTimePicker(!showTimePicker);
-  };
+  }, [showTimePicker]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     preventDefault(e);
     // No validation, just prevent default form submission
-  };
+  }, []);
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     navigate('/tournaments');
-  };
+  }, [navigate]);
 
   // Components
 

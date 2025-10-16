@@ -25,6 +25,127 @@
   padding-bottom: 2px;
 }
 
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .nav-header {
+    background: #1A0D0D !important;
+  }
+
+  .nav-link:hover {
+    background: #B28D8D !important;
+  }
+
+  .nav-link.active::after {
+    background: #B28D8D !important;
+  }
+
+  .search-input:focus {
+    border-color: #B28D8D !important;
+    box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
+  }
+
+  .view-more-button {
+    color: #D72638 !important;
+  }
+
+  .view-more-button:hover {
+    color: #B01E2E !important;
+  }
+
+  .tournament-type-overlay,
+  .event-type-overlay,
+  .community-type-overlay {
+    background: #B28D8D !important;
+  }
+
+  .bookmark-button {
+    color: #1A0D0D !important;
+  }
+
+  .bookmark-button:active {
+    color: #1A0D0D !important;
+  }
+
+  .bookmark-button.saved,
+  .bookmark-button.saved * {
+    color: #D72638 !important;
+    fill: #D72638 !important;
+  }
+
+  .bookmark-button.saved:hover,
+  .bookmark-button.saved:hover * {
+    color: #B01E2E !important;
+    fill: #B01E2E !important;
+  }
+
+  .bookmark-button.saved:active,
+  .bookmark-button.saved:active * {
+    color: #B01E2E !important;
+    fill: #B01E2E !important;
+  }
+
+  .form-input:focus {
+    border-color: #B28D8D !important;
+  }
+
+  .btn.secondary {
+    background: #2C1A1A !important;
+  }
+
+  .btn.secondary:hover {
+    background: #B28D8D !important;
+  }
+
+  .btn.secondary:active {
+    background: #B28D8D !important;
+  }
+
+  .tournament-card,
+  .community-card,
+  .event-card {
+    background: #1A0D0D !important;
+    border: 2px solid #1A0D0D !important;
+  }
+
+  .tournament-card.faded,
+  .community-card.faded,
+  .event-card.faded {
+    background: rgba(26, 13, 13, 0.7) !important;
+  }
+
+  .tournament-info,
+  .community-info,
+  .event-info {
+    background: #1A0D0D !important;
+  }
+
+  .join-button,
+  .follow-button,
+  .view-button {
+    background: #D72638 !important;
+  }
+
+  .join-button:hover,
+  .follow-button:hover,
+  .view-button:hover {
+    background: #B01E2E !important;
+    border-color: #B01E2E !important;
+  }
+
+  .join-event-button {
+    background: #D72638 !important;
+  }
+
+  .join-event-button:hover {
+    background: #B01E2E !important;
+    box-shadow: 0 8px 20px rgba(215, 38, 56, 0.3) !important;
+  }
+
+  .nav-actions .btn {
+    background: #1A0D0D !important;
+  }
+}
+
 /* Navigation Container */
 .nav-container {
   width: 100%;
@@ -422,6 +543,7 @@
 .tournament-cards-container {
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Tournament Cards Grid */
@@ -922,17 +1044,30 @@
   justify-content: center;
   min-width: 40px;
   min-height: 40px;
+  position: relative;
+  z-index: 10;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .bookmark-button:hover {
   background: #f0f0f0;
-  transform: scale(1.05);
 }
 
 .bookmark-button:active {
   background: #f0f0f0;
   color: #7d5ba6;
-  transform: scale(0.95);
 }
 
 .bookmark-button.saved {
@@ -948,7 +1083,6 @@
 .bookmark-button.saved:active {
   background: #d0d0d0;
   color: #7d5ba6;
-  transform: scale(0.95);
 }
 
 .view-more {
@@ -1461,4 +1595,15 @@
   background: #357abd;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+}
+
+/* Dark mode background image change */
+@media (prefers-color-scheme: dark) {
+  .hero-background {
+    background: url('/assets/images/background_dark.png') no-repeat center center/cover !important;
+  }
+
+  .hero-title {
+    color: white !important;
+  }
 }
