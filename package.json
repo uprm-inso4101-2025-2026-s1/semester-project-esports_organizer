@@ -16,10 +16,12 @@
     "dev": "npm run dev:clean-ports && concurrently \"npm run emulator:start\" \"npm --prefix .github/esports-organizer run dev:site\"",
     "print:ui": "printf \"Firebase Emulator UI: http://127.0.0.1:4000\\n\"",
     "open:ui": "open http://127.0.0.1:4000",
-    "ui": "npm run print:ui && npm run open:ui"
+    "ui": "npm run print:ui && npm run open:ui",
+    "force:recalc": "node .github/esports-organizer/src/scripts/forceRecalc.js",
+    "verify:queue": "node .github/esports-organizer/src/scripts/verifyQueue.js"
   },
   "devDependencies": {
-    "firebase-tools": "^13.35.1",
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "firebase-tools": "^13.35.1"
   }
 }
