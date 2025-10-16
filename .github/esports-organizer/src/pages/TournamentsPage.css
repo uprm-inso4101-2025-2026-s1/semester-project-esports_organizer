@@ -131,6 +131,10 @@
   .nav-actions .btn {
     background: #1A0D0D !important;
   }
+
+  .modal-content {
+    background: #2C1A1A !important;
+  }
 }
 
 .nav-container {
