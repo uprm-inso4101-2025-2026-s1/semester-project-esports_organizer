@@ -47,6 +47,13 @@ export function resultReport(tournament)
 | `Tournament` | The tournament object containing bracket data | Tournament | Yes
 |===
 
+=== Algorithm Description
+
+. Calls `runBracket(Tournament)` to get final team list (in reverse order)
+. Reverses the list to place champion first
+. Assigns placement strings (1st, 2nd, 3rd, etc.) to each team
+. Returns array of [placement, team] pairs
+
 === Return Value
 
 Returns an array of tuples or a double-array where each element contains:
