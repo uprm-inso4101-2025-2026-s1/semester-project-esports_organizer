@@ -9,7 +9,7 @@ import {
   LocationIcon,
   GamepadIcon,
   BookmarkIcon,
-} from "../assets/Icons"; // not used here directly, but keeping for reference
+} from "../assets/icons"; // not used here directly, but keeping for reference
 
 // Demo images
 import logo from "../assets/images/Logo.png";
@@ -17,8 +17,8 @@ import fortniteCover from "../assets/images/Fortnite.png";
 import valorantCover from "../assets/images/Valorant.png";
 import apexCover from "../assets/images/Apex.png";
 import marvelRivals from "../assets/images/marvel-rivals.png";
-import fifa25 from "../assets/images/fifa25.png";
-import minecraft from "../assets/images/minecraft.png";
+import fifa25 from "../assets/images/Fifa25.png";
+import minecraft from "../assets/images/Minecraft.png";
 
 export default function LandingPage() {
   const tournaments = [

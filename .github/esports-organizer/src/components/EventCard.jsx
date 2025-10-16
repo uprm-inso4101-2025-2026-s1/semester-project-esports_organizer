@@ -6,7 +6,7 @@ import {
   LocationIcon,
   GamepadIcon,
   BookmarkIcon,
-} from "../assets/Icons";
+} from "../assets/icons";
 
 export default function EventCard({
   title,
