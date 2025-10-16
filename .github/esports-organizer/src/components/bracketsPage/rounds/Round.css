@@ -8,7 +8,7 @@
 }
 
 .round-label {
-  background: #7c818c;
+  background: var(--container);
   color: #fff;
   font-size: 1.0rem;
   font-weight: 500;

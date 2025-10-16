@@ -1,5 +1,4 @@
 import "./BracketsTournamentPage.css";
-import Navbar from "../../components/bracketsPage/navbar/Navbar";
 import Banner from "../../components/bracketsPage/banners/Banner";
 import RoundBar from "../../components/bracketsPage/rounds/RoundBar";   
 import Teams from "../../components/bracketsPage/teams/Teams";
@@ -15,7 +14,7 @@ import Lines8 from "../../lines/lines8.svg";
 import WinnersLine from "../../lines/winnersline.svg";
 import React, { useEffect, useState } from "react";
 import { getTournamentData } from "../../Comm-Social/BracketTeamVisualization";
-
+import Navbar from "../../components/shared/Navbar";
 
 function BracketsTournamentPage(){
 
@@ -70,7 +69,7 @@ function BracketsTournamentPage(){
         <Banner/>
         <RoundBar/>
         <div className="columns-row">
-            <div className="column">
+            <div className="brackets-column">
                 {/* Left Column */}
             {left_Team1.length > 0 || left_Team2.length > 0 || left_Team3.length > 0 || left_Team4.length > 0 ? (
                 <>
