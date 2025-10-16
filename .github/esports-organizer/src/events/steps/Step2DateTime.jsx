@@ -13,11 +13,16 @@ export default function Step2DateTime({ data, onNext, onBack }) {
   const ref = useRef();
 
   useEffect(() => {
-    const handler = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setShowPicker(false);
+    const handleClickOutside = (event) => {
+      // delay execution so it doesn't trigger on the same click
+        setTimeout(() => {
+        // if you click outside the clicker box, close it
+          if (ref.current && !ref.current.contains(event.target)){ setShowPicker(false);
+        }
+      }, 0);
     };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleNext = () => {
@@ -52,6 +57,7 @@ export default function Step2DateTime({ data, onNext, onBack }) {
             {showPicker && (
               <div className="static-time-picker-container">
                 <StaticTimePicker
+                  displayStaticWrapperAs="mobile"
                   value={selectedTime}
                   onChange={(t) => {
                     setSelectedTime(t);

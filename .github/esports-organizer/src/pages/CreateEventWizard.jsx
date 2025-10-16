@@ -36,10 +36,15 @@ export default function CreateEventWizard() {
   return (
     <div className="create-event-page">
       <Navbar />
-      {step === 1 && <Step1Basics data={formData} onNext={next} />}
-      {step === 2 && <Step2DateTime data={formData} onNext={next} onBack={back} />}
-      {step === 3 && <Step3Limits data={formData} onNext={next} onBack={back} />}
-      {step === 4 && <Step4Review data={formData} onBack={back} onSubmit={handleSubmit} />}
+
+      <section className="create-event-form-section">
+        <div className="form-container">
+          {step === 1 && <Step1Basics data={formData} onNext={next} />}
+          {step === 2 && <Step2DateTime data={formData} onNext={next} onBack={back} />}
+          {step === 3 && <Step3Limits data={formData} onNext={next} onBack={back} />}
+          {step === 4 && <Step4Review data={formData} onBack={back} onSubmit={handleSubmit} />}
+        </div>
+      </section>
     </div>
   );
 }
