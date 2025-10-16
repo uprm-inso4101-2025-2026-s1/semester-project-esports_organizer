@@ -36,7 +36,7 @@ function App() {
 
       {/* CORE FEATURE PAGES */}
       <Route path="/tournaments" element={<TournamentsPage />} />
-      <Route path="/create-event" element={<CreateEventPage />} />
+      <Route path="/create-event" element={<CreateEventWizard />} />
       <Route path="/profile" element={<PlayerProfile />} />
       {/* <Route path="/tournament-brackets" element={<TournamentBrackets />} /> */}
 
