@@ -10,7 +10,7 @@ export function resultReport(Tournament){
         will return the final list of teams, where index 0 is the first team that lost and index n-1 is the champion team.*/
         const finalTeamList = runBracket(
            // brackets
-          Tournament );
+          Tournament.teams );
 
         const rankingList = [];
         const finalPlacements = [];

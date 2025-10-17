@@ -1,8 +1,9 @@
 import Bracket from "../database/examples/Brackets.js";
+import Team from "../database/examples/Teams.js";
 
 /**
  * 
- * @param {Array<Array<Teams>>} brackets is an array of team objects with name and score properties
+ * @param {Array<Team>} brackets is an array of team objects with name and score properties
  * @returns {Array<Teams>} returns the champion of the tournament
  * This function runs a single-elimination bracket tournament
  * It pairs teams, compares their scores, and advances winners to the next round
@@ -12,16 +13,13 @@ import Bracket from "../database/examples/Brackets.js";
  * NOTE: in order to have every team play, the number of teams should ideally be a power of two (2, 4, 8, 16, etc.)
  * If not, some teams will just pass in the first round or others.
  */
-export function runBracket(tournament){   
-    const teams = tournament.teams;
+export function runBracket(teams){   
+
     //Check if there is enough parcipants resgistered to have a tournament
       if(!Array.isArray(teams) || teams.length < 2){
             throw new Error("Not enough teams to run a tournament.");
        }
-    
-       if (teams.some(team => team == null)) {
-            throw new Error("There are null or undefined team objects in the array.");
-        }
+
 
     const bracket = new Bracket(teams);
     bracket.createInitialMatches();

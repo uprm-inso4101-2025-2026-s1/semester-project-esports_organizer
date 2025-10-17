@@ -30,7 +30,7 @@ function simulateTournamentRoundByRound(tournament) {
   const allRounds = [initialBrackets];
 
   // Use runBracket to simulate the first round - pass the teams array
-  const firstRoundWinners = runBracket({ teams: initialTeams });
+  const firstRoundWinners = runBracket(initialTeams);
 
   // Creates the brackets for the second round (preserving the order)
   const secondRound = [];
@@ -44,7 +44,7 @@ function simulateTournamentRoundByRound(tournament) {
   allRounds.push(secondRound);
   
   // For subsequent rounds, create a tournament object with the winners as teams
-  const secondRoundWinners = runBracket({ teams: secondRound.flat() });
+  const secondRoundWinners = runBracket(secondRound.flat());
 
   // Creates the brackets for the semifinals
   const semifinals = [];
@@ -57,13 +57,13 @@ function simulateTournamentRoundByRound(tournament) {
   }
   allRounds.push(semifinals);
   
-  const finalists = runBracket({ teams: semifinals.flat() });
+  const finalists = runBracket(semifinals.flat());
 
   // Creates the final match
   const final = [[finalists[0], finalists[1]]];
   allRounds.push(final);
  
-  const champion = runBracket({ teams: final.flat() })[0];
+  const champion = runBracket( final.flat())[0];
   
   return { rounds: allRounds, champion };
 }
