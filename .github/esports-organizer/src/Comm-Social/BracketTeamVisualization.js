@@ -1,7 +1,7 @@
 import { assignBrackets } from "./TournamentRegistration";
 import { runBracket } from "./MatchProgression";
 
-/*
+/**
  * @param {Array<Array<Team>>} initialBrackets - Takes the initial teams that are registered.
  * @returns {Object} - An object that contains all the rounds and the champion of the tournament.
  * This function simulates a tournament using Runbracket from MatchProgression, where it uses single
@@ -56,10 +56,9 @@ function simulateTournamentRoundByRound(initialBrackets) {
 }
 
 
-/*
+/**
   * @returns {Object} - A object that returns the tournament rounds and the champion.
-  * This function initializes the tournament, registering and confirming all teams.
-  * It uses assignBrackets to get the initial teams and then simulates the tournament rounds.
+  * This function uses assignBrackets to get the initial teams and then simulates the tournament rounds.
   * In case of error, it returns an object with empty rounds and null champion.
   *
   * Note: This function takes all the assigned teams.
@@ -80,7 +79,7 @@ export function getTournamentData() {
     };
     
   } catch (error) {
-    console.error("Error inicializando torneo:", error);
+    console.error("Error initialization of tournament:", error);
 
     return {
 
