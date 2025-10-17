@@ -1,5 +1,6 @@
 import { db } from '../lib/firebase.js';
 import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import {v4 as uuidv4} from 'uuid';
 
 /**
  * @param {Object} profileData 
@@ -10,16 +11,26 @@ import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firest
  */
 export async function saveProfile(profileData) {
   if (!profileData.email || !profileData.name || !profileData.role) {
-    throw new Error('Campos obligatorios faltantes: email, name o role');
+    throw new Error('Obligatory campus missing: email, name or role');
+  }
+  const email = String(profileData.email).trim().toLowerCase();
+  const ref = doc(db, 'profiles', profileData.email);
+
+  const existingSnap = await getDoc(ref);
+  if (existingSnap.exists()) {
+    return {success: false, error: "Profile already in database"};
   }
 
-  const ref = doc(db, 'profiles', profileData.email);
+  const uniqueId = uuidv4().slice(0,8);
+
   await setDoc(ref, {
     ...profileData,
+    id: uniqueId,
+    email,
     createdAt: serverTimestamp()
   });
 
-  return { success: true };
+  return { success: true, id:uniqueId };
 }
 
 /**
