@@ -32,6 +32,7 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
     #152338 227.69%
   );
   --error-msg: #fb3836;
+  --host-color: #7c7e91;
 
   /* dark colors names */
   --dark-primary: #1a0d0d;
@@ -45,6 +46,7 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
     #1a0d0d 227.69%
   );
   --dark-error-msg: #8a38f5;
+  --dark-host-color: #917c7c;
 
   /* Typography */
   --font-heading: "Ubuntu", sans-serif;
@@ -73,6 +75,7 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   --hover: var(--dark-hover);
   --gradient: var(--dark-gradient);
   --error-msg: var(--dark-error-msg);
+  --host-color: var(--dark-host-color);
 }
 
 /* Base global */
@@ -166,4 +169,10 @@ a:hover,
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Dark mode class */
+.dark-mode {
+  --light-primary: var(--dark-primary);
+  --light-hover: var(--dark-hover);
 }

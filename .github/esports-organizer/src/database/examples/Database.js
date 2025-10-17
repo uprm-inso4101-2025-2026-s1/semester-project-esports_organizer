@@ -417,6 +417,20 @@ class Database {
         const userSnapshot = await getDocs(userCollection);
         return userSnapshot.docs.map(doc => User.fromFirestore(doc.data()));
     }
+    
+    /* Stores the profile inside the user's main document.*/
+    async updateUserProfile(userID,profileData) {
+        const userRef = doc(this.firestore, "Users", userID);
+        await setDoc(userRef, {profile: profileData}, {merge: true});
+        console.log("Profile updated!");
+    }
+
+    /* Changes the user's Role */
+    async updateUserRole(userID, newRole) {
+        const userRef = doc(this.firestore, "Users", userID);
+        await setDoc(userRef, { role: newRole }, { merge: true });
+        console.log(`Role for user ${userID} updated to ${newRole}`);
+    }
 
     async buildUserList() {
         let usersFromDatabase = await this.getAllUsersFromDatabase();

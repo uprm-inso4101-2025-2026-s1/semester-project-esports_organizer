@@ -42,14 +42,40 @@ function TournamentCard({
         </div>
         <div className="tournament-actions">
           <button 
+            type="button"
             className="join-event-button"
             onClick={() => onJoinEvent(tournament.title)}
           >
             Join Event
           </button>
           <button 
+            type="button"
             className={`bookmark-button ${isSaved ? 'saved' : ''}`}
-            onClick={() => onToggleSaved(cardId)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              // Capture current scroll position
+              const currentScrollY = window.scrollY;
+              
+              // Execute the toggle
+              onToggleSaved(cardId);
+              
+              // Force scroll position to stay the same
+              requestAnimationFrame(() => {
+                window.scrollTo(0, currentScrollY);
+              });
+              
+              return false;
+            }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>

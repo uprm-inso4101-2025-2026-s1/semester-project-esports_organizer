@@ -1,5 +1,4 @@
 import "./BracketsTournamentPage.css";
-import Navbar from "../../components/bracketsPage/navbar/Navbar";
 import Banner from "../../components/bracketsPage/banners/Banner";
 import RoundBar from "../../components/bracketsPage/rounds/RoundBar";   
 import Teams from "../../components/bracketsPage/teams/Teams";
@@ -12,10 +11,11 @@ import Lines5 from "../../lines/lines5.svg";
 import Lines6 from "../../lines/lines6.svg";
 import Lines7 from "../../lines/lines7.svg";
 import Lines8 from "../../lines/lines8.svg";
-import WinnersLine from "../../lines/winnersline.svg";
+import WinnersLine from "../../lines/winnersLine.svg";
 import React, { useEffect, useState } from "react";
 import { getTournamentData } from "../../Comm-Social/BracketTeamVisualization";
-
+import Navbar from "../../components/shared/Navbar";
+import { test1 } from "../../Comm-Social/Tests/TournamentTest";
 
 function BracketsTournamentPage(){
 
@@ -25,7 +25,8 @@ function BracketsTournamentPage(){
 
     // On component mount, fetch the tournament data
     useEffect(() => {
-        const data = getTournamentData();
+        const tournament = test1();
+        const data = getTournamentData(tournament);
         setRounds(data.rounds || []);
         setChampion(data.champion || null);
     }, []);
@@ -70,7 +71,7 @@ function BracketsTournamentPage(){
         <Banner/>
         <RoundBar/>
         <div className="columns-row">
-            <div className="column">
+            <div className="brackets-column">
                 {/* Left Column */}
             {left_Team1.length > 0 || left_Team2.length > 0 || left_Team3.length > 0 || left_Team4.length > 0 ? (
                 <>

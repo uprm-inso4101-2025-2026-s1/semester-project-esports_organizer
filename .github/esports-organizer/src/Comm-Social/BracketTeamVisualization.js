@@ -13,12 +13,24 @@ import { runBracket } from "./MatchProgression";
  * Semifinals: 4 teams (2 matches)
  * Final: 2 teams (1 match)
  */
-function simulateTournamentRoundByRound(initialBrackets) {
- 
+function simulateTournamentRoundByRound(tournament) {
+  // Get the teams from the tournament object
+  const initialTeams = tournament.teams;
+  
+  // Create initial brackets from the teams
+  const initialBrackets = [];
+  for (let i = 0; i < initialTeams.length; i += 2) {
+    if (i + 1 < initialTeams.length) {
+      initialBrackets.push([initialTeams[i], initialTeams[i+1]]);
+    } else {
+      initialBrackets.push([initialTeams[i]]);
+    }
+  }
+  
   const allRounds = [initialBrackets];
 
-  // Use runBracket to simulate the first round
-  const firstRoundWinners = runBracket(initialBrackets);
+  // Use runBracket to simulate the first round - pass the teams array
+  const firstRoundWinners = runBracket(initialTeams);
 
   // Creates the brackets for the second round (preserving the order)
   const secondRound = [];
@@ -31,7 +43,8 @@ function simulateTournamentRoundByRound(initialBrackets) {
   }
   allRounds.push(secondRound);
   
-  const secondRoundWinners = runBracket(secondRound);
+  // For subsequent rounds, create a tournament object with the winners as teams
+  const secondRoundWinners = runBracket(secondRound.flat());
 
   // Creates the brackets for the semifinals
   const semifinals = [];
@@ -44,13 +57,13 @@ function simulateTournamentRoundByRound(initialBrackets) {
   }
   allRounds.push(semifinals);
   
-  const finalists = runBracket(semifinals);
+  const finalists = runBracket(semifinals.flat());
 
   // Creates the final match
   const final = [[finalists[0], finalists[1]]];
   allRounds.push(final);
  
-  const champion = runBracket(final)[0];
+  const champion = runBracket( final.flat())[0];
   
   return { rounds: allRounds, champion };
 }
@@ -63,13 +76,12 @@ function simulateTournamentRoundByRound(initialBrackets) {
   *
   * Note: This function takes all the assigned teams.
 */
-export function getTournamentData() {
+export function getTournamentData(tournament) {
   try {
     // takes all the assing teams
-    const initialBrackets = assignBrackets();
 
     // Simulate the entire tournament and get the rounds and champion.
-    const result = simulateTournamentRoundByRound(initialBrackets);
+    const result = simulateTournamentRoundByRound(tournament);
     
     return {
 
