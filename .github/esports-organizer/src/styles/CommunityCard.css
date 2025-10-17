@@ -69,7 +69,7 @@
 
 .ccard__join-btn {
   flex: 1;
-  background: var(--light-link);
+  background: var(--link);
   color: #fff;
   border: none;
   padding: 12px 14px;

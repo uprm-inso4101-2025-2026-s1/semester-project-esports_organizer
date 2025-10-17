@@ -3,10 +3,10 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  background: var(--light-gradient);
+  background: var(--gradient);
   font-family: var(--font-body);
   font-weight: 400; /* not bold by default */
-  color: var(--dark-primary);
+  color: var(--primary);
 }
 
 .container {
@@ -46,11 +46,11 @@
 
 .lp__auth-link {
   text-decoration: none;
-  color: var(--light-link);
+  color: var(--link);
   font-weight: 700;
 }
 .lp__auth-link:hover {
-  color: var(--light-hover);
+  color: var(--hover);
 }
 
 /* Hero */
@@ -106,11 +106,11 @@
   opacity: 0.9;
 }
 .lp__link {
-  color: var(--light-link);
+  color: var(--link);
   text-decoration: underline;
 }
 .lp__link:hover {
-  color: var(--light-hover);
+  color: var(--hover);
 }
 
 .lp__hero-below {
@@ -127,7 +127,7 @@
 }
 .lp__cta {
   display: inline-block;
-  background: var(--light-primary);
+  background: var(--primary);
   padding: 14px 22px;
   border-radius: 20px;
   text-decoration: none;
