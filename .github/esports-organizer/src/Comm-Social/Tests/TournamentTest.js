@@ -77,6 +77,114 @@ export function test1(){
     });
     team6.id="team6";
     team6.toFireStore();
+    
+    const team7 = new Team({
+    name: "Warriors",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team7.id="team7";
+    team7.toFireStore();
+
+    const team8 = new Team({
+    name: "Hellraisers",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team8.id="team8";
+    team8.toFireStore();
+
+    const team9 = new Team({
+    name: "Gladiators",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team9.id="team9";
+    team9.toFireStore();
+
+    const team10 = new Team({
+    name: "dragons",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team10.id="team10";
+    team10.toFireStore();
+    
+    const team11 = new Team({
+    name: "Titans",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team11.id="team11";
+    team11.toFireStore();
+
+    const team12 = new Team({
+    name: "Clashers",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team12.id="team12";
+    team12.toFireStore();
+
+    const team13 = new Team({
+    name: "Juggernauts",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team13.id="team13";
+    team13.toFireStore();
+
+    const team14 = new Team({
+    name: "legends",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team14.id="team14";
+    team14.toFireStore();
+
+    const team15= new Team({
+    name: "phoenix",
+    organizer: "john",
+    members: ["t"],
+    teamRank: 2,
+    rankScore: Math.round(Math.random() * 150),
+    maxRankScore: 300,
+    maxMembers: 30
+    });
+    team15.id="team15";
+    team15.toFireStore();
 
     const testtournament = new Tournament(
     null, //id
