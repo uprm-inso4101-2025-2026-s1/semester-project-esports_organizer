@@ -15,6 +15,7 @@ import WinnersLine from "../../lines/winnersLine.svg";
 import React, { useEffect, useState } from "react";
 import { getTournamentData } from "../../Comm-Social/BracketTeamVisualization";
 import Navbar from "../../components/shared/Navbar";
+import { test1 } from "../../Comm-Social/Tests/TournamentTest";
 
 function BracketsTournamentPage(){
 
@@ -24,7 +25,8 @@ function BracketsTournamentPage(){
 
     // On component mount, fetch the tournament data
     useEffect(() => {
-        const data = getTournamentData();
+        const tournament = test1();
+        const data = getTournamentData(tournament);
         setRounds(data.rounds || []);
         setChampion(data.champion || null);
     }, []);

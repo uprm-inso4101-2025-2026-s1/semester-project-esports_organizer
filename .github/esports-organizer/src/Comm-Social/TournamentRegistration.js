@@ -1,7 +1,5 @@
-//import Team from "../team.js";;
 import Team from "../database/examples/Teams.js";
 import Bracket from "../database/examples/Brackets.js";
-import Tournament from "../database/examples/Tournament.js";
 
 const registeredTeams = [];
 let eventStarted = false;
@@ -112,10 +110,24 @@ export function unconfirmAttendance(teamName) {
  * @throws {Error} If less than two teams have confirmed attendance.
  */
 export function assignBrackets(teams) {
+   if (!Array.isArray(teams)) teams = [];
+  
+  if (teams.length < 2) {
+    throw new Error("Not enough teams for a bracket");
+  }
+
   const bracket = new Bracket(teams);
-     bracket.createInitialMatches();
+  bracket.createInitialMatches();
+  
   console.log("Team Brackets Initialized\n");
-  return  bracket.matches;;
+
+  // Convert matches Map to array of arrays: [player1, player2]
+  const initialBrackets = Array.from(bracket.matches.values()).map(match => {
+    // player2 may be null for a bye
+    return match.player2 ? [match.player1, match.player2] : [match.player1];
+  });
+
+  return initialBrackets;
 }
 
 // // TEST CODE
