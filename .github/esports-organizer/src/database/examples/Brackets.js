@@ -178,4 +178,38 @@ export default class Bracket {
     match.status = status;
   }
 
+    // ---------- Firestore Integration Methods --------------
+
+  /*
+   * Guarda todos los matches del bracket en Firestore bajo el torneo dado
+   * @param {string} tournamentId - ID del torneo
+   */
+  async saveAllMatchesToFirestore(tournamentId) {
+    const matchesArray = [...this.matches.entries()];
+    for (const [matchId, matchData] of matchesArray) {
+      const matchRef = doc(collection(firestore, `tournaments/${tournamentId}/matches`), matchId);
+      await setDoc(matchRef, matchData);
+    }
+  }
+
+    static async loadBracketFromFirestore(tournamentId) {
+    const matchesSnapshot = await getDocs(collection(firestore, `tournaments/${tournamentId}/matches`));
+    const matches = [];
+    matchesSnapshot.forEach(doc => {
+      matches.push({ matchId: doc.id, ...doc.data() });
+    });
+        const bracket = new Bracket([]); // Competitors pueden agregarse aparte si necesario
+    matches.forEach(m => {
+      bracket.matches.set(m.matchId, m);
+      if (m.winner) bracket._winnersCurrentRound.push(m.winner);
+    });
+    return bracket;
+  }
+
+    static listenBracketMatches(tournamentId, callback) {
+    return onSnapshot(
+      collection(firestore, `tournaments/${tournamentId}/matches`),
+      callback
+    );
+  }
 }
