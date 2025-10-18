@@ -1,16 +1,15 @@
-//Import the runBracket function from Match Progression that provides the list of teams
-import { runBracket } from "./MatchProgression.js";
-import Tournament from "../database/examples/Tournament.js";
+import { getTournamentData } from "./BracketTeamVisualization.js";
 
 
 export function resultReport(Tournament){
 
     try {
-        /* The function runBracket(), which is given in MatchProgression.js 
+        /* The function runBracket() which is called at getTournametData, which is given in MatchProgression.js 
         will return the final list of teams, where index 0 is the first team that lost and index n-1 is the champion team.*/
-        const finalTeamList = runBracket(
-           // brackets
-          Tournament.teams );
+        const AllTournamentData = getTournamentData(Tournament);
+        const finalTeamList = AllTournamentData.results;
+        const champion = AllTournamentData.champion;
+        const rounds = AllTournamentData.rounds;
 
         const rankingList = [];
         const finalPlacements = [];
@@ -44,7 +43,11 @@ export function resultReport(Tournament){
             finalPlacements.push([placement,rankingList[i]]);
         }
         
-        return finalPlacements;
+        return {
+            champion: champion,
+            placements: finalPlacements,
+            rounds: rounds
+            };
 
 
     } catch (error) {

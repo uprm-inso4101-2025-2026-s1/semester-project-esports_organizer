@@ -29,7 +29,7 @@ export function ReOpenEvent() {
 /**
  * Registers a team valid and event has not started.
  * @param {string} team - The name of the team to confirm attendance for.
- * @returns {void} 
+ * @returns {boolean} 
  * Checks if avent is ready for registering. 
  * Registers a team if valid and checks if it is not already registered for the event.
  * @throws {Error} If inserted an invalid form of a team.
@@ -37,7 +37,7 @@ export function ReOpenEvent() {
 export function registerTeam(team,tournament) {
   if (eventStarted) {
     console.log("Registration is closed. The event has already started.\n");
-    return;
+    return false ;
   }
 
   if (!(team instanceof Team)) {
@@ -52,6 +52,7 @@ export function registerTeam(team,tournament) {
   registeredTeams.push(team);
   tournament.addTeam(team)
   console.log(`${team.name} has been registered.\n`);
+  return true;
 }
 
 /**
