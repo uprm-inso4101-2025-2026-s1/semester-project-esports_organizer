@@ -61,7 +61,7 @@ export default function TeamsPage() {
       <Navbar />
       <main className="teams-page__content">
           <div>
-            <h1>TEAM PROFILES</h1>
+            <h1>TEAM PROFILES:</h1>
             <p>
             </p>
           </div>
