@@ -14,6 +14,11 @@ import { runBracket } from "./MatchProgression";
  * Final: 2 teams (1 match)
  */
 function simulateTournamentRoundByRound(tournament) {
+
+  if(tournament.teams.length < 1){
+    return { rounds: [], champion: null };
+  }
+  
   // Get the teams from the tournament object
   const initialTeams = tournament.teams;
   

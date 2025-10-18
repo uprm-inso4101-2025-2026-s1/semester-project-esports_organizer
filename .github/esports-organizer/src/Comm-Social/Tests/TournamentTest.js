@@ -234,9 +234,12 @@ export function test1(){
     // testtournament.addTeam(team15);
     // testtournament.addTeam(team16);
     // console.log("Number of teams:",testtournament.teams.length);
-    // testtournament.firestoreSave(testtournament.db);
+    testtournament.firestoreSave(testtournament.db);
 
-    registerTeam(team1,testtournament);
+    if(registerTeam(team1,testtournament) === false){
+        return null;
+    }    
+    
     confirmAttendance(team1.name);
     registerTeam(team2,testtournament);
     confirmAttendance(team2.name);
@@ -269,11 +272,15 @@ export function test1(){
     registerTeam(team16,testtournament);
     confirmAttendance(team16.name);
     console.log(testtournament.teams.length, "teams registered and confirmed.");
-    startEvent();
-    console.log("\nBrackets:", testtournament);
-    console.log("Tournament instance:", testtournament);
-    console.log("Teams in tournament:", testtournament.teams?.length, testtournament.teams?.map(t => t.name));
-    resultReport(testtournament);
+
+    if(testtournament.teams.length > 2){
+        startEvent();
+        console.log("\nBrackets:", testtournament);
+        console.log("Tournament instance:", testtournament);
+        console.log("Teams in tournament:", testtournament.teams?.length, testtournament.teams?.map(t => t.name));
+        resultReport(testtournament);
+        return null;
+    }
 
     return testtournament;
 

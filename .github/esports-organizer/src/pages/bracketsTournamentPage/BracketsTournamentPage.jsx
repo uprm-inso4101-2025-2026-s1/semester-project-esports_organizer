@@ -26,9 +26,20 @@ function BracketsTournamentPage(){
     // On component mount, fetch the tournament data
     useEffect(() => {
         const tournament = test1();
-        const data = getTournamentData(tournament);
-        setRounds(data.rounds || []);
-        setChampion(data.champion || null);
+
+        if(tournament !== null){
+            const data = getTournamentData(tournament);
+            setRounds(data.rounds || []);
+            setChampion(data.champion || null);
+        }
+        else{
+            setRounds([]);
+            setChampion(null);
+        }
+
+
+        
+
     }, []);
 
     // Different matches and rounds arrays to hold the teams for rendering
