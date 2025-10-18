@@ -226,13 +226,13 @@ function BracketsTournamentPage(){
                         ))}
                         {right_Team2.map((pair, idx) => (
                             <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                {right_Team3.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                {right_Team4.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
+                        ))}
+                        {right_Team3.map((pair, idx) => (
+                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
+                        ))}
+                        {right_Team4.map((pair, idx) => (
+                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
+                        ))}
                 </>
                 ) : (
                 <>
