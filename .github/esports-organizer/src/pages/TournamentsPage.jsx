@@ -11,7 +11,7 @@ function TournamentsPage() {
   const navigate = useNavigate();
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [, setSelectedEvent] = useState(null);
   const [modalStep, setModalStep] = useState(1);
 
   // Effects
@@ -40,6 +40,9 @@ function TournamentsPage() {
 
   const handleNext = () => setModalStep(2);
   const handleBack = () => setModalStep(1);
+  const handleCreateEvent = () => {
+    navigate("/create-event");
+  };
 
   // Components
 
@@ -62,7 +65,7 @@ function TournamentsPage() {
           </div>
           <button 
             className="create-event-button"
-            onClick={() => {}}
+            onClick={handleCreateEvent}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>

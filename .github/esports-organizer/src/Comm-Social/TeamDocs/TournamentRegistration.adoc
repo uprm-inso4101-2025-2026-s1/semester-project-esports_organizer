@@ -1,0 +1,393 @@
+= Tournament Registration System Documentation
+:toc:
+:toclevels: 3
+:sectnums:
+
+== Overview
+
+The Tournament Registration System provides comprehensive team management functionality for organizing and running tournaments. It handles team registration, attendance confirmation, bracket assignment, and event state management.
+
+== Module Structure
+
+=== Core Components
+
+* *Team Registry*: Maintains a list of all registered teams
+* *Event State Management*: Controls registration open/closed status
+* *Attendance Tracking*: Manages team confirmation status
+* *Bracket Generation*: Creates tournament brackets from confirmed teams
+
+=== Key Dependencies
+
+[source,javascript]
+----
+import Team from "../team.js";
+----
+
+The system requires the `Team` class which must implement:
+- `name` property (string)
+- `isConfirmed` property (boolean)
+- `confirmTeam()` method
+- `unconfirmTeam()` method
+
+== State Management
+
+=== Global Variables
+
+[source,javascript]
+----
+const registeredTeams = [];    // Array of Team objects
+let eventStarted = false;      // Registration status flag
+----
+
+=== Event Lifecycle States
+
+.Event States
+[cols="1,2,2"]
+|===
+| State | `eventStarted` | Description
+
+| Registration Open
+| `false`
+| Teams can register and confirm attendance
+
+| Registration Closed
+| `true`
+| No new registrations, tournament ready to start
+|===
+
+== API Reference
+
+=== startEvent()
+
+Marks the event as started and closes registration.
+
+[source,javascript]
+----
+export function startEvent()
+----
+
+*Purpose*: Finalizes registration phase and prepares for tournament start
+*Effects*: Sets `eventStarted = true`
+*Console Output*: "Registration is not allowed, No more teams can join."
+*Usage*: Call when all teams have registered and confirmed attendance
+
+=== ReOpenEvent()
+
+Reopens registration for the event.
+
+[source,javascript]
+----
+export function ReOpenEvent()
+----
+
+*Purpose*: Allows additional team registrations after event was closed
+*Effects*: Sets `eventStarted = false`
+*Console Output*: "Registration for tournament is open again!."
+*Note*: Useful for adding teams or making changes before tournament start
+
+=== registerTeam(team)
+
+Registers a new team for the tournament.
+
+[source,javascript]
+----
+export function registerTeam(team)
+----
+
+==== Parameters
+* `team` (Team): Instance of Team class to register
+
+==== Validation Rules
+1. Event must not have started (`eventStarted === false`)
+2. Parameter must be a valid Team instance
+3. Team name must not already be registered
+
+==== Error Handling
+[cols="1,3"]
+|===
+| Condition | Action
+
+| Event started
+| Logs warning, returns early
+
+| Invalid team object
+| Throws `Error("Invalid team object.")`
+
+| Duplicate team name
+| Logs warning, returns early
+|===
+
+==== Success Flow
+1. Team added to `registeredTeams` array
+2. Console confirmation: "`{teamName}` has been registered."
+
+=== confirmAttendance(teamName)
+
+Confirms a team's attendance for the tournament.
+
+[source,javascript]
+----
+export function confirmAttendance(teamName)
+----
+
+==== Parameters
+* `teamName` (string): Name of the team to confirm
+
+==== Validation Rules
+1. Team must be registered
+2. Team must not already be confirmed
+
+==== Processing Flow
+[cols="1,3"]
+|===
+| Condition | Action
+
+| Team not found
+| Logs: "`{teamName}` has not been registered."
+
+| Already confirmed
+| Logs: "`{teamName}` is already confirmed."
+
+| Valid confirmation
+| Calls `team.confirmTeam()`
+| Logs: "`{teamName}` has confirmed attendance to the tournament."
+|===
+
+=== unconfirmAttendance(teamName)
+
+Removes a team's attendance confirmation.
+
+[source,javascript]
+----
+export function unconfirmAttendance(teamName)
+----
+
+==== Parameters
+* `teamName` (string): Name of the team to unconfirm
+
+==== Business Rules
+1. If event has started AND team is confirmed, unconfirm is blocked
+2. Team must be registered
+3. Team must currently be confirmed
+
+==== Processing Logic
+[cols="1,3"]
+|===
+| Condition | Action
+
+| Event started + team confirmed
+| Logs: "Unconfirming is not posible. the event started and the team `{teamName}` has already confirmed attendance."
+
+| Team not registered
+| Logs: "`{teamName}` has not been registered."
+
+| Team not confirmed
+| Logs: "`{teamName}` is not confirmed yet."
+
+| Valid unconfirmation
+| Calls `team.unconfirmTeam()`
+| Logs: "`{teamName}` has unconfirmed attendance to the tournament."
+|===
+
+=== assignBrackets()
+
+Generates tournament brackets from confirmed teams.
+
+[source,javascript]
+----
+export function assignBrackets()
+----
+
+==== Returns
+* `Array<Array<Team>>`: 2D array where each sub-array contains 2 teams
+
+==== Requirements
+* Minimum of 2 confirmed teams required
+* Only confirmed teams are included in brackets
+
+==== Bracket Generation Algorithm
+1. Filters `registeredTeams` for confirmed teams only
+2. Validates minimum team count (≥ 2)
+3. Creates brackets by splitting confirmed teams into pairs
+4. Returns array of 2-team brackets
+
+==== Error Conditions
+[source,javascript]
+----
+if (confirmedTeams.length < 2) {
+  throw new Error("Not enough teams have confirmed attendance to start the tournament.");
+}
+----
+
+==== Success Output
+* Console: "Team Brackets Initialized"
+* Returns: Array of team pairs for tournament
+
+== Usage Examples
+
+=== Basic Registration Flow
+
+[source,javascript]
+----
+// Create teams
+const team1 = new Team("Team Alpha", 100);
+const team2 = new Team("Team Beta", 95);
+
+// Register teams
+registerTeam(team1);  // "Team Alpha has been registered."
+registerTeam(team2);  // "Team Beta has been registered."
+
+// Confirm attendance
+confirmAttendance("Team Alpha");  // "Team Alpha has confirmed attendance to the tournament."
+confirmAttendance("Team Beta");   // "Team Beta has confirmed attendance to the tournament."
+
+// Start event and generate brackets
+startEvent();         // "Registration is not allowed, No more teams can join."
+const brackets = assignBrackets(); // "Team Brackets Initialized"
+----
+
+=== Error Handling Example
+
+[source,javascript]
+----
+try {
+  // Attempt to register invalid team
+  registerTeam("invalid"); // Throws Error: "Invalid team object."
+} catch (error) {
+  console.error(error.message);
+}
+
+// Try to generate brackets with insufficient teams
+try {
+  assignBrackets(); // Throws Error: "Not enough teams have confirmed attendance..."
+} catch (error) {
+  console.error(error.message);
+}
+----
+
+=== Event State Management
+
+[source,javascript]
+----
+// Register teams while open
+registerTeam(team1);
+confirmAttendance("Team Alpha");
+
+// Close registration
+startEvent(); // Registration closed
+
+// Try to register after closure
+registerTeam(team2); // "Registration is closed. The event has already started."
+
+// Reopen if needed
+ReOpenEvent(); // "Registration for tournament is open again!"
+registerTeam(team2); // Now succeeds
+----
+
+== Console Output Reference
+
+=== Registration Messages
+[source,text]
+----
+{teamName} has been registered.
+{teamName} is already registered.
+Registration is closed. The event has already started.
+----
+
+=== Attendance Messages
+[source,text]
+----
+{teamName} has confirmed attendance to the tournament.
+{teamName} is already confirmed.
+{teamName} has not been registered.
+{teamName} has unconfirmed attendance to the tournament.
+Unconfirming is not posible. the event started and the team {teamName} has already confirmed attendance.
+----
+
+=== Event State Messages
+[source,text]
+----
+Registration is not allowed, No more teams can join.
+Registration for tournament is open again!.
+Team Brackets Initialized
+----
+
+== Best Practices
+
+=== Registration Workflow
+. Register all teams using `registerTeam()`
+. Confirm attendance with `confirmAttendance()`
+. Validate team count and readiness
+. Call `startEvent()` to lock registration
+. Generate brackets with `assignBrackets()`
+
+=== Error Prevention
+* Always validate team objects before registration
+* Check event state before registration operations
+* Ensure minimum team count before bracket generation
+* Use try-catch blocks for bracket assignment
+
+=== State Management
+* Use `ReOpenEvent()` sparingly - primarily for corrections
+* Call `startEvent()` only when tournament is ready to begin
+* Monitor confirmation status before bracket generation
+
+== Integration Notes
+
+This module is designed to work with:
+
+* `../team.js` - Team class definition
+* Tournament execution systems (bracket runners)
+* Result reporting modules
+
+== Error Scenarios and Solutions
+
+=== Common Issues
+
+[cols="2,3,2"]
+|===
+| Scenario | Error Message | Solution
+
+| Registering after event start
+| "Registration is closed. The event has already started."
+| Call `ReOpenEvent()` first, then register
+
+| Invalid team object
+| "Invalid team object."
+| Ensure parameter is instanceof Team
+
+| Duplicate team name
+| "`{teamName}` is already registered."
+| Use unique team names or check existing registrations
+
+| Insufficient confirmed teams
+| "Not enough teams have confirmed attendance..."
+| Confirm more teams before calling `assignBrackets()`
+
+| Unconfirming after event start
+| "Unconfirming is not posible..."
+| Only unconfirm before event starts or use `ReOpenEvent()`
+|===
+
+== Testing Considerations
+
+=== Unit Test Scenarios
+* Registration with valid/invalid team objects
+* Duplicate registration attempts
+* Attendance confirmation flow
+* Event state transitions
+* Bracket generation with various team counts
+* Error condition handling
+
+=== Integration Test Scenarios
+* End-to-end tournament workflow
+* Team class compatibility
+* Bracket system integration
+* State persistence across operations
+
+== Performance Notes
+
+* Linear search used for team lookup - efficient for moderate team counts
+* Array operations scale well for typical tournament sizes
+* No external dependencies or I/O operations
+* Suitable for real-time tournament management

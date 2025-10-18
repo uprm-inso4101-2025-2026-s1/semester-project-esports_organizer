@@ -1,7 +1,9 @@
-import Team from "../team.js";;
+import Team from "../database/examples/Teams.js";
+import Bracket from "../database/examples/Brackets.js";
 
 const registeredTeams = [];
 let eventStarted = false;
+
 
 
 /**
@@ -27,15 +29,15 @@ export function ReOpenEvent() {
 /**
  * Registers a team valid and event has not started.
  * @param {string} team - The name of the team to confirm attendance for.
- * @returns {void} 
+ * @returns {boolean} 
  * Checks if avent is ready for registering. 
  * Registers a team if valid and checks if it is not already registered for the event.
  * @throws {Error} If inserted an invalid form of a team.
  */
-export function registerTeam(team) {
+export function registerTeam(team,tournament) {
   if (eventStarted) {
     console.log("Registration is closed. The event has already started.\n");
-    return;
+    return false ;
   }
 
   if (!(team instanceof Team)) {
@@ -48,7 +50,9 @@ export function registerTeam(team) {
   }
 
   registeredTeams.push(team);
+  tournament.addTeam(team)
   console.log(`${team.name} has been registered.\n`);
+  return true;
 }
 
 /**
@@ -70,7 +74,6 @@ export function confirmAttendance(teamName) {
     return;
   }
 
-  team.confirmTeam();
   console.log(`${teamName} has confirmed attendance to the tournament.\n`);
 }
 
@@ -107,21 +110,25 @@ export function unconfirmAttendance(teamName) {
  * Separates teams in brackets of 2 each if the team is confirmed for the Tournament.
  * @throws {Error} If less than two teams have confirmed attendance.
  */
-export function assignBrackets() {
-  const confirmedTeams = registeredTeams.filter((team) => team.isConfirmed);
-
-  if (confirmedTeams.length < 2) {
-    throw new Error("Not enough teams have confirmed attendance to start the tournament.\n");
+export function assignBrackets(teams) {
+   if (!Array.isArray(teams)) teams = [];
+  
+  if (teams.length < 2) {
+    throw new Error("Not enough teams for a bracket");
   }
 
-  const brackets = [];
-  while (confirmedTeams.length > 0) {
-    const bracket = confirmedTeams.splice(0, 2);
-    brackets.push(bracket);
-  }
-
+  const bracket = new Bracket(teams);
+  bracket.createInitialMatches();
+  
   console.log("Team Brackets Initialized\n");
-  return brackets;
+
+  // Convert matches Map to array of arrays: [player1, player2]
+  const initialBrackets = Array.from(bracket.matches.values()).map(match => {
+    // player2 may be null for a bye
+    return match.player2 ? [match.player1, match.player2] : [match.player1];
+  });
+
+  return initialBrackets;
 }
 
 // // TEST CODE
@@ -129,20 +136,19 @@ export function assignBrackets() {
 // //Registering teams and starting event test
 // console.log("Test\n");
 
-// const team1 = new Team("Faze");
-// const team2 = new Team("Lions");
-// const team3 = new Team("Tarzans");
-// const team4 = new Team("Monkis");
-// const team5 = new Team("Jibaros");
-// const team6 = new Team("Incredibles");
-
-// registerTeam(team1);
-// registerTeam(team2);
-// registerTeam(team3);
-// registerTeam(team4);
+// // const team1 = new Team("Faze");
+// // const team2 = new Team("Lions");
+// // const team3 = new Team("Tarzans");
+// // const team4 = new Team("Monkis");
+// // const team5 = new Team("Jibaros");
+// // const team6 = new Team("Incredibles");
+// registerTeam(team1,tournament);
+// registerTeam(team2,tournament);
+// registerTeam(team3,tournament);
+// registerTeam(team4,tournament);
 // startEvent(); 
-// registerTeam(team5);
-// registerTeam(team6);
+// registerTeam(team5,tournament);
+// registerTeam(team6,tournament);
 
 // confirmAttendance("Faze");
 // confirmAttendance("Lions");
@@ -151,26 +157,26 @@ export function assignBrackets() {
 // confirmAttendance("Jibaros");
 // confirmAttendance("Incredibles");
 
-// const brackets1 = assignBrackets();
+// const brackets1 = assignBrackets(registeredTeams);
 // console.log("Brackets:", brackets1);
 
-// //Reopen Event and register more teams test
+// // //Reopen Event and register more teams test
 // ReOpenEvent();
-// registerTeam(team5);
-// registerTeam(team6);
-// startEvent();
+//  registerTeam(team5,tournament);
+//  registerTeam(team6,tournament);
+//  startEvent();
 
-// //Unconfirming before even confirming test
-// unconfirmAttendance("Jibaros");
+// // //Unconfirming before even confirming test
+//  unconfirmAttendance("Jibaros");
 
-// confirmAttendance("Jibaros");
-// confirmAttendance("Incredibles");
+//  confirmAttendance("Jibaros");
+//  confirmAttendance("Incredibles");
 
-// //Double confirm test
-// confirmAttendance("Faze");
+// // //Double confirm test
+//  confirmAttendance("Faze");
 
-// //Team Unconfirmation test
+// // //Team Unconfirmation test
 // unconfirmAttendance("Incredibles");
 
-// const brackets2 = assignBrackets();
-// console.log("Brackets:", brackets2);
+//  const brackets2 = assignBrackets(registeredTeams);
+//  console.log("Brackets:", brackets2);

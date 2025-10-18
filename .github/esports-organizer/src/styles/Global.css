@@ -7,6 +7,8 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
 */
 :root {
   /* Color palette */
+
+  /* TODO: ELIMINAR ESTOS COLORES SI TODAS LAS PAGES MIGRAN A LOS NUEVOS NOMBRES */
   --light-primary: #1b2a41;
   --light-container: #3e4c59;
   --light-link: #00a8e8;
@@ -18,10 +20,33 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
     #152338 227.69%
   );
 
+  /* New names for light colors (default colors) */
+  --primary: #1b2a41;
+  --container: #3e4c59;
+  --link: #00a8e8;
+  --hover: #7d5ba6;
+  --gradient: linear-gradient(
+    180deg,
+    #fff 0%,
+    #315285 109.46%,
+    #152338 227.69%
+  );
+  --error-msg: #fb3836;
+  --host-color: #7c7e91;
+
+  /* dark colors names */
   --dark-primary: #1a0d0d;
   --dark-container: #2c1a1a;
   --dark-link: #d72638;
   --dark-hover: #b28d8d;
+  --dark-gradient: linear-gradient(
+    180deg,
+    #7b7b7b 0%,
+    #2c1a1a 109.46%,
+    #1a0d0d 227.69%
+  );
+  --dark-error-msg: #8a38f5;
+  --dark-host-color: #917c7c;
 
   /* Typography */
   --font-heading: "Ubuntu", sans-serif;
@@ -40,6 +65,19 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ===========================
+   DARK MODE OVERRIDES
+   =========================== */
+.dark-mode {
+  --primary: var(--dark-primary);
+  --container: var(--dark-container);
+  --link: var(--dark-link);
+  --hover: var(--dark-hover);
+  --gradient: var(--dark-gradient);
+  --error-msg: var(--dark-error-msg);
+  --host-color: var(--dark-host-color);
+}
+
 /* Base global */
 * {
   margin: 0;
@@ -48,7 +86,8 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   border-radius: 0;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -110,11 +149,11 @@ a,
   font-weight: 600;
   line-height: 150%;
   text-decoration: underline;
-  color: var(--light-link);
+  color: var(--link);
 }
 a:hover,
 .link:hover {
-  color: var(--light-hover);
+  color: var(--hover);
 }
 
 /* Media query para tema claro */
@@ -130,4 +169,10 @@ a:hover,
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Dark mode class */
+.dark-mode {
+  --light-primary: var(--dark-primary);
+  --light-hover: var(--dark-hover);
 }

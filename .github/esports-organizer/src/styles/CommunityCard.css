@@ -1,20 +1,29 @@
 .community-card {
-  position: relative;
   display: flex;
   flex-direction: column;
 
+
   /* Match EventCard width so they align nicely in the same row */
+  background: #fff;
   flex: 0 0 260px;
   width: 260px;
-  color: #fff;
-  border-radius: 14px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
   overflow: hidden;
+  border: 1px solid rgba(12, 20, 34, 0.08);
+  min-height: 320px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-4px);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 /* Media */
 .ccard__media {
-  padding: 8px;
+  height: 150px;
+  overflow: hidden;
 }
 .ccard__media img,
 .ccard__media-placeholder {
@@ -26,10 +35,11 @@
 
 /* Body */
 .ccard__body {
-  padding: 14px;
+  flex: 1;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   text-align: center;
 }
 
@@ -72,12 +82,20 @@
   background: var(--light-link);
   color: #fff;
   border: none;
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
+
 .ccard__join-btn:hover {
-  filter: brightness(1.05);
+  background: var(hover);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(125, 91, 166, 0.28);
+}
+.community-card:hover {
+  transform: translateY(-4px);
+  color: inherit;
 }

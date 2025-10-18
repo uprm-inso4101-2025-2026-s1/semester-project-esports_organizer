@@ -8,6 +8,12 @@ function Navbar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const isNavItemActive = (path) => {
+    if (location.pathname === path) return true;
+    if (path === "/homepage") return false;
+    return location.pathname.startsWith(`${path}/`);
+  };
+
   const handleNavigation = (path) => {
     navigate(path);
     setIsMobileMenuOpen(false);
@@ -22,7 +28,7 @@ function Navbar() {
       <header className="nav-header">
         <div className="nav-container">
           <div className="nav-left">
-            <div className="nav-logo" onClick={() => handleNavigation("/")}>
+            <div className="nav-logo" onClick={() => handleNavigation("/homepage")}>
               <div className="logo-icon">
                 <img 
                   src="/assets/images/LOGO.png" 
@@ -36,7 +42,7 @@ function Navbar() {
               {NAV_ITEMS.map((item) => (
                 <button
                   key={item.path}
-                  className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                  className={`nav-link ${isNavItemActive(item.path) ? 'active' : ''}`}
                   onClick={() => handleNavigation(item.path)}
                 >
                   {item.label}
@@ -73,7 +79,7 @@ function Navbar() {
           {NAV_ITEMS.map((item) => (
             <button
               key={item.path}
-              className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
+              className={`mobile-nav-link ${isNavItemActive(item.path) ? 'active' : ''}`}
               onClick={() => handleNavigation(item.path)}
             >
               {item.label}
