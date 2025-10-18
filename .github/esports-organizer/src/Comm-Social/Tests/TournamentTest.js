@@ -233,9 +233,12 @@ export async function test1(){
     // testtournament.addTeam(team14);
     // testtournament.addTeam(team15);
     // testtournament.addTeam(team16);
-    // console.log("Number of teams:",testtournament.teams.length);
-    // testtournament.firestoreSave(testtournament.db);
-
+    console.log("Number of teams:",testtournament.teams.length);
+    testtournament.firestoreSave(testtournament.db);
+    /* En esta area, esta habiendo un loop cuando el evento se cierra
+    y como el evento esta cerrado, como quiera corre las registracion
+    y confirmacion de los equipos, haciendo que se resetee el
+    array, haciendo que ResultReport no se ejecute y nos de error.*/
    await registerTeam(team1,testtournament);
    await confirmAttendance(team1.name);
    await registerTeam(team2,testtournament);
