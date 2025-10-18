@@ -11,10 +11,11 @@ import Lines5 from "../../lines/lines5.svg";
 import Lines6 from "../../lines/lines6.svg";
 import Lines7 from "../../lines/lines7.svg";
 import Lines8 from "../../lines/lines8.svg";
-import WinnersLine from "../../lines/winnersline.svg";
+import WinnersLine from "../../lines/winnersLine.svg";
 import React, { useEffect, useState } from "react";
 import { getTournamentData } from "../../Comm-Social/BracketTeamVisualization";
 import Navbar from "../../components/shared/Navbar";
+import { test1 } from "../../Comm-Social/Tests/TournamentTest";
 
 function BracketsTournamentPage(){
 
@@ -24,7 +25,8 @@ function BracketsTournamentPage(){
 
     // On component mount, fetch the tournament data
     useEffect(() => {
-        const data = getTournamentData();
+        const tournament = test1();
+        const data = getTournamentData(tournament);
         setRounds(data.rounds || []);
         setChampion(data.champion || null);
     }, []);
@@ -224,13 +226,13 @@ function BracketsTournamentPage(){
                         ))}
                         {right_Team2.map((pair, idx) => (
                             <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                {right_Team3.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                {right_Team4.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
+                        ))}
+                        {right_Team3.map((pair, idx) => (
+                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
+                        ))}
+                        {right_Team4.map((pair, idx) => (
+                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
+                        ))}
                 </>
                 ) : (
                 <>

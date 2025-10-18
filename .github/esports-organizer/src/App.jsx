@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import TournamentsPage from "./pages/TournamentsPage";
-import CreateEventPage from "./pages/CreateEventPage";
+import CreateEventWizard from "./pages/CreateEventWizard";
 import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
@@ -38,7 +38,7 @@ function App() {
 
       {/* CORE FEATURE PAGES */}
       <Route path="/tournaments" element={<TournamentsPage />} />
-      <Route path="/create-event" element={<CreateEventPage />} />
+      <Route path="/create-event" element={<CreateEventWizard />} />
       <Route path="/profile" element={<PlayerProfile />} />
       <Route path="/brackets-tournaments" element={<BracketsTournamentPage />} />
 

@@ -1,0 +1,1 @@
+const match = runBracket(testtournament);

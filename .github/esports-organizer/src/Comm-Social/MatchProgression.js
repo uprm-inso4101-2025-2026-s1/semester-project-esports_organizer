@@ -1,8 +1,9 @@
 import Bracket from "../database/examples/Brackets.js";
+import Team from "../database/examples/Teams.js";
 
 /**
  * 
- * @param {Array<Array<Teams>>} brackets is an array of team objects with name and score properties
+ * @param {Array<Team>} brackets is an array of team objects with name and score properties
  * @returns {Array<Teams>} returns the champion of the tournament
  * This function runs a single-elimination bracket tournament
  * It pairs teams, compares their scores, and advances winners to the next round
@@ -12,16 +13,13 @@ import Bracket from "../database/examples/Brackets.js";
  * NOTE: in order to have every team play, the number of teams should ideally be a power of two (2, 4, 8, 16, etc.)
  * If not, some teams will just pass in the first round or others.
  */
-export function runBracket(tournament){   
-    const teams = tournament.teams;
+export function runBracket(teams){   
+
     //Check if there is enough parcipants resgistered to have a tournament
       if(!Array.isArray(teams) || teams.length < 2){
             throw new Error("Not enough teams to run a tournament.");
        }
-    
-       if (teams.some(team => team == null)) {
-            throw new Error("There are null or undefined team objects in the array.");
-        }
+
 
     const bracket = new Bracket(teams);
     bracket.createInitialMatches();
@@ -110,102 +108,3 @@ if (typeof player2 === "string") {
   }
 
 
-
-//testing the functions 
-// const team1 = new Team({
-//   name: "Los duros",
-//   organizer: "john",
-//   members: ["e"],
-//   teamRank: 2,
-//   rankScore: Math.round(Math.random() * 150),
-//   maxRankScore: 300,
-//   maxMembers: 30
-// });
-// team1.id="team1";
-
-// const team2 = new Team({
-//   name: "Los marcianos",
-//   organizer: "john",
-//   members: ["s"],
-//   teamRank: 2,
-//   rankScore: Math.round(Math.random() * 150),
-//   maxRankScore: 300,
-//   maxMembers: 30
-// });
-// team2.id="team2";
-
-// const team3 = new Team({
-//   name: "Los yankis",
-//   organizer: "john",
-//   members: ["p"],
-//   teamRank: 2,
-//   rankScore: Math.round(Math.random() * 150),
-//   maxRankScore: 300,
-//   maxMembers: 30
-// });
-// team3.id="team3";
-
-// const team4 = new Team({
-//   name: "Los monki",
-//   organizer: "john",
-//   members: ["o"],
-//   teamRank: 2,
-//   rankScore: Math.round(Math.random() * 150),
-//   maxRankScore: 300,
-//   maxMembers: 30
-// });
-// team4.id="team4";
-
-// const team5 = new Team({
-//   name: "Los solos",
-//   organizer: "john",
-//   members: ["r"],
-//   teamRank: 2,
-//   rankScore: Math.round(Math.random() * 150),
-//   maxRankScore: 300,
-//   maxMembers: 30
-// });
-// team5.id="team5";
-
-// const team6 = new Team({
-//   name: "Los lokos",
-//   organizer: "john",
-//   members: ["t"],
-//   teamRank: 2,
-//   rankScore: Math.round(Math.random() * 150),
-//   maxRankScore: 300,
-//   maxMembers: 30
-// });
-// team6.id="team6";
-// const testtournament = new Tournament(
-//   null, //id
-//   "Test Tournament", // name
-//   "Smash Ultimate", //game
-//   "noobmaster69",//organizer
-//   Date(2025,10,8,12),// [YYYY/MM/DD/HH/mm]
-//   32, //maxparticipant
-//   16,//maxteams
-//   'team', //type
-//   "$$$", //prize
-//   "public", //visibility
-//   "created", //currentstate
-//   "db", //db
-//   [],//list of particpants
-//   []//list of teams
-// );
-// let teams = [team1,team2,team3,team4,team5,team6];
-// registerTeam(team1,testtournament);
-// confirmAttendance(team1.name);
-// registerTeam(team2,testtournament);
-// confirmAttendance(team2.name);
-// registerTeam(team3,testtournament);
-// confirmAttendance(team3.name);
-// registerTeam(team4,testtournament);
-// confirmAttendance(team4.name);
-// registerTeam(team5,testtournament);
-// confirmAttendance(team5.name);
-// registerTeam(team6,testtournament);
-// confirmAttendance(team6.name);
-// startEvent();
-// console.log("\nBrackets:", testtournament);
-// resultReport(testtournament);
