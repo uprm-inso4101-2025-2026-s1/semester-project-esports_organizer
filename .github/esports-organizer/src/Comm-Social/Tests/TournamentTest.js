@@ -278,11 +278,10 @@ export function test1(){
         console.log("\nBrackets:", testtournament);
         console.log("Tournament instance:", testtournament);
         console.log("Teams in tournament:", testtournament.teams?.length, testtournament.teams?.map(t => t.name));
-        resultReport(testtournament);
-        return null;
+        return testtournament;
     }
 
-    return testtournament;
+    return null;
 
 }
 
