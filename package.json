@@ -19,7 +19,10 @@
     "ui": "npm run print:ui && npm run open:ui"
   },
   "devDependencies": {
-    "firebase-tools": "^13.35.1",
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "firebase-tools": "^13.35.1"
+  },
+  "dependencies": {
+    "react-icons": "^5.5.0"
   }
 }
