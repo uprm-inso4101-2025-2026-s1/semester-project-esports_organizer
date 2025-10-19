@@ -28,7 +28,7 @@ export default function Notifications() {
     setNewMessage('');
   };
 
-  // Esto borara todas las notificaciones, Solo del Ui no del 
+  // Esto borara todas las notificaciones, Solo del Ui no del Firebasde
   const markAllRead = () => {
     setNotifications([]);
   };
@@ -37,13 +37,13 @@ export default function Notifications() {
     <div style={styles.container}>
       {/* 🔔 Bell icon */}
       <div style={styles.bellContainer} onClick={() => setShowList(!showList)}>
-        <FaBell size={24} />
+        <FaBell size={30} color="#de9906ff" />
         {notifications.length > 0 && (
           <div style={styles.counter}>{notifications.length}</div>
         )}
       </div>
 
-      {/* 🔔 Notifications dropdown */}
+      {/* Barra despegable de notificaciones*/}
       {showList && (
         <div style={styles.list}>
           <div style={styles.listHeader}>
@@ -55,7 +55,7 @@ export default function Notifications() {
             )}
           </div>
 
-          {/* Form to add new notification */}
+          {/* Add una nueva notificacion */}
           <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
             <input
               type="text"
@@ -87,9 +87,9 @@ export default function Notifications() {
 const styles = {
   container: {
     position: 'fixed',
-    top: 20,
-    right: 20,
-    width: 320,
+    top: 29,
+    right: 1,
+    width: 230,
     fontFamily: 'Arial, sans-serif',
     zIndex: 1000,
   },
