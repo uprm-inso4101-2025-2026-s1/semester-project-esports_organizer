@@ -233,52 +233,55 @@ export async function test1(){
     // testtournament.addTeam(team14);
     // testtournament.addTeam(team15);
     // testtournament.addTeam(team16);
-    console.log("Number of teams:",testtournament.teams.length);
+    // console.log("Number of teams:",testtournament.teams.length);
     testtournament.firestoreSave(testtournament.db);
-    /* En esta area, esta habiendo un loop cuando el evento se cierra
-    y como el evento esta cerrado, como quiera corre las registracion
-    y confirmacion de los equipos, haciendo que se resetee el
-    array, haciendo que ResultReport no se ejecute y nos de error.*/
-   await registerTeam(team1,testtournament);
-   await confirmAttendance(team1.name);
-   await registerTeam(team2,testtournament);
-   await confirmAttendance(team2.name);
-   await registerTeam(team3,testtournament);
-   await confirmAttendance(team3.name);
-   await registerTeam(team4,testtournament);
-   await confirmAttendance(team4.name);
-   await registerTeam(team5,testtournament);
-   await confirmAttendance(team5.name);
-   await registerTeam(team6,testtournament);
-   await confirmAttendance(team6.name);
-   await registerTeam(team7,testtournament);
-   await confirmAttendance(team7.name);
-   await registerTeam(team8,testtournament);
-   await confirmAttendance(team8.name);
-   await registerTeam(team9,testtournament);
-   await confirmAttendance(team9.name);
-   await registerTeam(team10,testtournament);
-   await confirmAttendance(team10.name);
-   await registerTeam(team11,testtournament);
-   await confirmAttendance(team11.name);
-   await registerTeam(team12,testtournament);
-   await confirmAttendance(team12.name);
-   await registerTeam(team13,testtournament);
-   await confirmAttendance(team13.name);
-   await registerTeam(team14,testtournament);
-   await confirmAttendance(team14.name);
-   await registerTeam(team15,testtournament);
-   await confirmAttendance(team15.name);
-   await registerTeam(team16,testtournament);
-   await confirmAttendance(team16.name);
-    console.log(testtournament.teams.length, "teams registered and confirmed.");
-    startEvent();
-    console.log("\nBrackets:", testtournament);
-    console.log("Tournament instance:", testtournament);
-    console.log("Teams in tournament:", testtournament.teams?.length, testtournament.teams?.map(t => t.name));
-    resultReport(testtournament);
 
-    return testtournament;
+    if(registerTeam(team1,testtournament) === false){
+        return null;
+    }    
+    
+    confirmAttendance(team1.name);
+    registerTeam(team2,testtournament);
+    confirmAttendance(team2.name);
+    registerTeam(team3,testtournament);
+    confirmAttendance(team3.name);
+    registerTeam(team4,testtournament);
+    confirmAttendance(team4.name);
+    registerTeam(team5,testtournament);
+    confirmAttendance(team5.name);
+    registerTeam(team6,testtournament);
+    confirmAttendance(team6.name);
+    registerTeam(team7,testtournament);
+    confirmAttendance(team7.name);
+    registerTeam(team8,testtournament);
+    confirmAttendance(team8.name);
+    registerTeam(team9,testtournament);
+    confirmAttendance(team9.name);
+    registerTeam(team10,testtournament);
+    confirmAttendance(team10.name);
+    registerTeam(team11,testtournament);
+    confirmAttendance(team11.name);
+    registerTeam(team12,testtournament);
+    confirmAttendance(team12.name);
+    registerTeam(team13,testtournament);
+    confirmAttendance(team13.name);
+    registerTeam(team14,testtournament);
+    confirmAttendance(team14.name);
+    registerTeam(team15,testtournament);
+    confirmAttendance(team15.name);
+    registerTeam(team16,testtournament);
+    confirmAttendance(team16.name);
+    console.log(testtournament.teams.length, "teams registered and confirmed.");
+
+    if(testtournament.teams.length > 2){
+        startEvent();
+        console.log("\nBrackets:", testtournament);
+        console.log("Tournament instance:", testtournament);
+        console.log("Teams in tournament:", testtournament.teams?.length, testtournament.teams?.map(t => t.name));
+        return testtournament;
+    }
+
+    return null;
 
 }
 
