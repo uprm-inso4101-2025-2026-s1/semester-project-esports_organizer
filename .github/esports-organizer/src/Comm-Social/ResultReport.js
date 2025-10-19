@@ -1,5 +1,5 @@
 import Tournament from "../database/examples/Tournament.js";
-import { getTournamentData } from "./BracketTeamVisualization.js";
+import { getTournamentData } from "./TournamentProcessing.js";
 
 /**
  * 

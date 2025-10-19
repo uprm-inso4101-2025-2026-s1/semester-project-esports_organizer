@@ -43,9 +43,8 @@ function BracketsTournamentPage(){
     let leftR3 = [], rightR3 = [];
     let final = [];
 
-    // Check and slice the rounds
+    // Obtain the matches for each round
     //rounds is an array of the rounds, each round is an array of matches, each match is an array of teams
-    console.log(rounds);
     if (rounds[0]) {
         
         left_Team1 = rounds[0][0][1];
