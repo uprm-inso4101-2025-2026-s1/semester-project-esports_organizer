@@ -1,5 +1,11 @@
+import Tournament from "../database/examples/Tournament.js";
 import { getTournamentData } from "./BracketTeamVisualization.js";
 
+/**
+ * 
+ * @param {Tournament} Tournament takes a Tournament Object instace
+ * @returns an object that contains the champion, an array of final placements, and an array of rounds
+ */
 
 export function resultReport(Tournament){
 

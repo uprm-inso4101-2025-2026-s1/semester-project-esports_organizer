@@ -10,9 +10,9 @@ import Team from "../database/examples/Teams.js";
 export function runBracket(teams){   
 
     //Check if there is enough parcipants resgistered to have a tournament
-      if(!Array.isArray(teams) || teams.length < 2){
-            throw new Error("Not enough teams to run a tournament.");
-       }
+    if(!Array.isArray(teams) || teams.length < 2){
+          throw new Error("Not enough teams to run a tournament.");
+      }
 
 
     const bracket = new Bracket(teams);

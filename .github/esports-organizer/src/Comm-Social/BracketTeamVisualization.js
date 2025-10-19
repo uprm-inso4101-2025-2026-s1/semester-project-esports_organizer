@@ -2,14 +2,13 @@ import { runBracket } from "./MatchProgression";
 
 /**
   * @returns {Object} - A object that returns the tournament rounds and the champion.
-  * This function uses assignBrackets to get the initial teams and then simulates the tournament rounds.
+  * This function recieves a Tournament object and calls runBracket using the teams from the tournament
   * In case of error, it returns an object with empty rounds and null champion.
   *
-  * Note: This function takes all the assigned teams.
+  * 
 */
 export function getTournamentData(tournament) {
   try {
-    // takes all the assing teams
 
     // Simulate the entire tournament and get the rounds and champion.
     const simulation = runBracket(tournament.teams);
