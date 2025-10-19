@@ -1,7 +1,5 @@
-//import Team from "../team.js";;
 import Team from "../database/examples/Teams.js";
 import Bracket from "../database/examples/Brackets.js";
-import Tournament from "../database/examples/Tournament.js";
 
 const registeredTeams = [];
 let eventStarted = false;
@@ -31,7 +29,7 @@ export function ReOpenEvent() {
 /**
  * Registers a team valid and event has not started.
  * @param {string} team - The name of the team to confirm attendance for.
- * @returns {void} 
+ * @returns {boolean} 
  * Checks if avent is ready for registering. 
  * Registers a team if valid and checks if it is not already registered for the event.
  * @throws {Error} If inserted an invalid form of a team.
@@ -39,7 +37,7 @@ export function ReOpenEvent() {
 export function registerTeam(team,tournament) {
   if (eventStarted) {
     console.log("Registration is closed. The event has already started.\n");
-    return;
+    return false ;
   }
 
   if (!(team instanceof Team)) {
@@ -54,6 +52,7 @@ export function registerTeam(team,tournament) {
   registeredTeams.push(team);
   tournament.addTeam(team)
   console.log(`${team.name} has been registered.\n`);
+  return true;
 }
 
 /**
@@ -112,10 +111,24 @@ export function unconfirmAttendance(teamName) {
  * @throws {Error} If less than two teams have confirmed attendance.
  */
 export function assignBrackets(teams) {
+   if (!Array.isArray(teams)) teams = [];
+  
+  if (teams.length < 2) {
+    throw new Error("Not enough teams for a bracket");
+  }
+
   const bracket = new Bracket(teams);
-     bracket.createInitialMatches();
+  bracket.createInitialMatches();
+  
   console.log("Team Brackets Initialized\n");
-  return  bracket.matches;;
+
+  // Convert matches Map to array of arrays: [player1, player2]
+  const initialBrackets = Array.from(bracket.matches.values()).map(match => {
+    // player2 may be null for a bye
+    return match.player2 ? [match.player1, match.player2] : [match.player1];
+  });
+
+  return initialBrackets;
 }
 
 // // TEST CODE
