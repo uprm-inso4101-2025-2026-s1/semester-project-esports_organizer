@@ -1,20 +1,30 @@
 .community-card {
-  position: relative;
   display: flex;
   flex-direction: column;
 
   /* Match EventCard width so they align nicely in the same row */
+  background: white;
   flex: 0 0 260px;
   width: 260px;
-  color: #fff;
-  border-radius: 14px;
+  color: var(--primary);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
   overflow: hidden;
+  border: 1px solid rgba(12, 20, 34, 0.08);
+  min-height: 300px;
+  transition: all 0.2s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-4px);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  border-color: var(--link);;
 }
 
 /* Media */
 .ccard__media {
-  padding: 8px;
+  height: 150px;
+  overflow: hidden;
 }
 .ccard__media img,
 .ccard__media-placeholder {
@@ -26,6 +36,7 @@
 
 /* Body */
 .ccard__body {
+  flex: 1;
   padding: 14px;
   display: flex;
   flex-direction: column;
@@ -39,6 +50,7 @@
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2px;
+  color: var(--primary);
 }
 
 .ccard__stats {
@@ -69,15 +81,24 @@
 
 .ccard__join-btn {
   flex: 1;
-  background: var(--light-link);
-  color: #fff;
+  background: var(--link);
+  color: white;
   border: none;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
 }
+
 .ccard__join-btn:hover {
-  filter: brightness(1.05);
+  background: var(--hover);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(125, 91, 166, 0.28);
+}
+.community-card:hover {
+  transform: translateY(-4px);
+  color: inherit;
 }

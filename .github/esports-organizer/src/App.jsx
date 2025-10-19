@@ -10,6 +10,7 @@ import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
 // brackets page is commented for now until path is determined
 
+import TeamsPage from "./pages/teamProfilePages/TeamsPage";
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";
 import CommunityPage from "./pages/communityPages/CommunityPage";
 import BracketsTournamentPage from "./pages/bracketsTournamentPage/BracketsTournamentPage";
@@ -43,7 +44,8 @@ function App() {
 
 
       {/* MISSING DESIGNS */}
-      <Route path="/teams" element={<TeamProfilePage />} />
+      <Route path="/teams" element={<TeamsPage />} />
+      <Route path="/teams/:teamId" element={<TeamProfilePage />} />
       <Route path="/team-profile" element={<TeamProfilePage />} />
       <Route path="/community" element={<CommunityPage />} />
     </Routes>
