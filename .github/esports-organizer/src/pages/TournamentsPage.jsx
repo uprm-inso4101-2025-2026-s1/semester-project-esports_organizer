@@ -21,19 +21,19 @@ function TournamentsPage() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [showJoinModal]);
 
-    //Notificaciones
+    //Notifications
   const userId = 'demoUser123'; 
 
   const sendJoinNotification = async (eventTitle) => {
     try {
       await addDoc(collection(db, 'users', userId, 'notifications'), {
-        message: `Te uniste al evento "${eventTitle}" 🎉`,
+        message: `You joined the event "${eventTitle}" `,
         createdAt: serverTimestamp(),
         read: false,
       });
-      console.log('✅ Notificación enviada');
+      console.log('Notification sent');
     } catch (error) {
-      console.error('Error enviando notificación:', error);
+      console.error('Error sending notification:', error);
     }
   };
 
@@ -51,7 +51,7 @@ function TournamentsPage() {
     setShowJoinModal(true);
     setModalStep(1);
     if (notificationsRef) {
-    notificationsRef(`Te uniste al evento "${eventTitle}" 🎉`);
+    notificationsRef(`You joined the event "${eventTitle}" 🎉`);
   }
 
   };
@@ -251,7 +251,7 @@ function TournamentsPage() {
     <div className="tournaments-page">
       <Navbar />
       
-      {/* Notificaciones */}
+      {/* Notifications */}
       <NotificationsUI 
         userId="demoUser123"
         onAddNotification={(fn) => setNotificationsRef(() => fn)}
