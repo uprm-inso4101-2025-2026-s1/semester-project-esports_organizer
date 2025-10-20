@@ -8,6 +8,7 @@ import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
+import HelpCenter from "./pages/HelpCenter";
 // brackets page is commented for now until path is determined
 
 import TeamsPage from "./pages/teamProfilePages/TeamsPage";
@@ -41,6 +42,7 @@ function App() {
       <Route path="/create-event" element={<CreateEventWizard />} />
       <Route path="/profile" element={<PlayerProfile />} />
       <Route path="/brackets-tournaments" element={<BracketsTournamentPage />} />
+      <Route path="/help-center" element={<HelpCenter />} />
 
 
       {/* MISSING DESIGNS */}
