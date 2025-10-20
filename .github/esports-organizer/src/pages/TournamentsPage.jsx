@@ -5,6 +5,7 @@ import TournamentCard from "../components/shared/TournamentCard";
 import { TOURNAMENT_DATA, EVENTS_DATA } from "../data/mockData";
 import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
+import NotificationsUI from "../notifications/notificationsUI";
 
 function TournamentsPage() {
   // State management
@@ -20,6 +21,25 @@ function TournamentsPage() {
     return () => { document.body.style.overflow = 'unset'; };
   }, [showJoinModal]);
 
+    //Notificaciones
+  const userId = 'demoUser123'; 
+
+  const sendJoinNotification = async (eventTitle) => {
+    try {
+      await addDoc(collection(db, 'users', userId, 'notifications'), {
+        message: `Te uniste al evento "${eventTitle}" 🎉`,
+        createdAt: serverTimestamp(),
+        read: false,
+      });
+      console.log('✅ Notificación enviada');
+    } catch (error) {
+      console.error('Error enviando notificación:', error);
+    }
+  };
+
+  const [notificationsRef, setNotificationsRef] = useState(null);
+
+
   // Event handlers
 
   const toggleSaved = (cardId) => {
@@ -30,6 +50,10 @@ function TournamentsPage() {
     setSelectedEvent(eventTitle);
     setShowJoinModal(true);
     setModalStep(1);
+    if (notificationsRef) {
+    notificationsRef(`Te uniste al evento "${eventTitle}" 🎉`);
+  }
+
   };
 
   const closeModal = () => {
@@ -226,6 +250,13 @@ function TournamentsPage() {
   return (
     <div className="tournaments-page">
       <Navbar />
+      
+      {/* Notificaciones */}
+      <NotificationsUI 
+        userId="demoUser123"
+        onAddNotification={(fn) => setNotificationsRef(() => fn)}
+      />
+
       <PageHeader />
       <RecommendedSection />
       <EventsSection />

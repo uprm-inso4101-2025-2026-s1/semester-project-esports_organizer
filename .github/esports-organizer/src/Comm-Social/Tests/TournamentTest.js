@@ -4,7 +4,7 @@ import { registerTeam, confirmAttendance, startEvent, ReOpenEvent } from "../Tou
 import { resultReport } from "../ResultReport.js";
 import { db } from "../../database/firebaseClient.js";
 
-export function test1(){
+export async function test1(){
 
     const team1 = new Team({
         name: "Avengers",
