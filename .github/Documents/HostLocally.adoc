@@ -38,4 +38,5 @@ Yadriel Rivera <yadriel.rivera@upr.edu>
 
 rm -rf node_modules package-lock.json
 cd .github/esports-organizer
+npm install react-icons
 npm install

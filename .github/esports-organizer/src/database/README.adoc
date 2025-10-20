@@ -10,6 +10,7 @@ https://download.oracle.com/java/25/latest/jdk-25_macos-aarch64_bin.dmg (macOS)
 https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.exe (Windows)
 https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz (Linux)
 npm install -g firebase-tools
+npm install react-icons
 
 == Install (local to this folder)
 Follow the HostLocally.adoc instructions in the Documents folder
