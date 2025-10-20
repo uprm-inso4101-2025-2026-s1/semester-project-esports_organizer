@@ -41,6 +41,7 @@ export default function CommunityPage() {
         {path: "/tournaments", label: "Tournaments"},
         {path: "/teams", label: "Teams"},
         {path: "/community", label: "Community"},
+        { path: "/help-center", label: "Help" },
     ];
 
     // Better placeholder data with variety

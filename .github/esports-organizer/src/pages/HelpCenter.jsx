@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Navbar from "../components/shared/Navbar";
 import "./HelpCenter.css";
 import Feedback from "../database/Feedback";
+//import { db } from "../database/firebaseClient";
+//import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 
 // FAQ content (visible in the UI)

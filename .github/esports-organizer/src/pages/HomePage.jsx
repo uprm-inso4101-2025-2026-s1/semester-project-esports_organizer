@@ -62,7 +62,8 @@ function HomePage() {
     { path: "/homepage", label: "Home" },
     { path: "/tournaments", label: "Tournaments" },
     { path: "/teams", label: "Teams" },
-    { path: "/community", label: "Community" }
+    { path: "/community", label: "Community" },
+    { path: "/help-center", label: "Help" },
   ];
 
   // Bookmark button component

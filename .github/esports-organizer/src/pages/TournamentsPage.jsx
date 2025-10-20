@@ -6,6 +6,8 @@ import { TOURNAMENT_DATA, EVENTS_DATA } from "../data/mockData";
 import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
 import NotificationsUI from "../notifications/notificationsUI";
+import { db } from "../database/firebaseClient";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 function TournamentsPage() {
   // State management
