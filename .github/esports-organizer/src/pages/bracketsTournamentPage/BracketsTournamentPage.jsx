@@ -27,7 +27,7 @@ function BracketsTournamentPage(){
     useEffect(() => {
         const tournament = test1();
 
-        if(tournament !== null){
+        if(tournament !== null && tournament !== undefined){
             const data = resultReport(tournament);
             setRounds(data.rounds || []);
             setChampion(data.champion || null);  

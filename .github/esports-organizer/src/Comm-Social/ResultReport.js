@@ -58,7 +58,13 @@ export function resultReport(Tournament){
 
 
     } catch (error) {
-        throw new Error(error.message);
+        console.log(error.message);
+
+        return {
+            champion:null,
+            plaments: [],
+            rounds: [],
+        }
     }
 
 }
