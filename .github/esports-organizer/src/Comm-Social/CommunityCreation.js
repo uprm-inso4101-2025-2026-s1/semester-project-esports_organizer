@@ -1,5 +1,7 @@
 import {Community} from "./Community.js";
 
+//WORK IN PROGRESS FILE
+
 //Function receives arguments from the frontend implementation that calls it
 export function createCommunity(name, description, tags, localization, icon, banner){
 
@@ -29,7 +31,7 @@ export function createCommunity(name, description, tags, localization, icon, ban
     //name (argument user passes through frontend)
     //admin TO DO
     //members √
-    //posts (no posts upon creation)
+    //posts (no posts upon creation), no need to initialize it since constructor should create an empty array
     //tags (argument user passes through frontend)
     //id √
     communityObject = Community(name, admin, members, posts, tags, id);
