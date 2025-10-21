@@ -178,11 +178,8 @@ export default class Bracket {
     match.status = status;
   }
 
-    // ---------- Firestore Integration Methods --------------
-
   /*
    * Guarda todos los matches del bracket en Firestore bajo el torneo dado
-   * @param {string} tournamentId - ID del torneo
    */
   async saveAllMatchesToFirestore(tournamentId) {
     const matchesArray = [...this.matches.entries()];
