@@ -1,3 +1,5 @@
+import { addToGoogleCalendar } from "../../utils/helpers";
+
 function TournamentCard({ 
   tournament, 
   index, 
@@ -49,24 +51,12 @@ function TournamentCard({
             Join Event
           </button>
           <button 
+
             type="button"
             className={`bookmark-button ${isSaved ? 'saved' : ''}`}
             onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              
-              // Capture current scroll position
-              const currentScrollY = window.scrollY;
-              
-              // Execute the toggle
-              onToggleSaved(cardId);
-              
-              // Force scroll position to stay the same
-              requestAnimationFrame(() => {
-                window.scrollTo(0, currentScrollY);
-              });
-              
-              return false;
+              addToGoogleCalendar(tournament);
+
             }}
             onMouseDown={(e) => {
               e.preventDefault();
@@ -76,6 +66,7 @@ function TournamentCard({
               e.preventDefault();
               e.stopPropagation();
             }}
+
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
