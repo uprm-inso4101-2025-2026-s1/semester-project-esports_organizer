@@ -8,9 +8,9 @@
 | seba-15 | 29.3 | 1.5% | 0.0% | 40.0% | 0 |
 | SebastianSuarez0429 | 68.1 | 3.6% | 100.0% | 100.0% | 0 |
 | RicardoBurgoss | 15.9 | 0.8% | 0.0% | 40.0% | 0 |
-| Edgar-glz | 80.7 | 4.2% | 0.0% | 40.0% | 0 |
-| AlejandroMB05 | 103.0 | 5.4% | 100.0% | 100.0% | 2 |
-| itsgabrielamartinez | 58.6 | 3.1% | 98.7% | 99.2% | 0 |
+| Edgar-glz | 80.7 | 4.3% | 0.0% | 40.0% | 0 |
+| AlejandroMB05 | 100.3 | 5.3% | 100.0% | 100.0% | 2 |
+| itsgabrielamartinez | 58.6 | 3.1% | 98.9% | 99.3% | 0 |
 | gabrielrivera0 | 83.8 | 4.4% | 100.0% | 100.0% | 0 |
 | YadrielRivera | 82.2 | 4.3% | 100.0% | 100.0% | 2 |
 | GerardoSotoRios | 93.8 | 4.9% | 0.0% | 40.0% | 0 |
@@ -27,15 +27,15 @@
 | OSCAR-A-SANTANA | 85.5 | 4.5% | 100.0% | 100.0% | 0 |
 | andres-cruz-zapata | 62.4 | 3.3% | 0.0% | 40.0% | 1 |
 | eliel-hernandez | 95.2 | 5.0% | 100.0% | 100.0% | 1 |
-| Dylan-Oliver04 | 59.1 | 3.1% | 99.5% | 99.7% | 2 |
+| Dylan-Oliver04 | 59.1 | 3.1% | 99.6% | 99.8% | 2 |
 | anthony-garcia-oquendo | 7.9 | 0.4% | 0.0% | 40.0% | 0 |
-| Yamiilet | 49.8 | 2.6% | 83.9% | 90.3% | 1 |
+| Yamiilet | 49.8 | 2.6% | 84.0% | 90.4% | 1 |
 | jaydensanchez12 | 41.7 | 2.2% | 0.0% | 40.0% | 0 |
 | yeudeedleCS | 67.6 | 3.6% | 100.0% | 100.0% | 0 |
-| Pedro-Juan-Bonilla | 51.0 | 2.7% | 85.9% | 91.5% | 1 |
+| Pedro-Juan-Bonilla | 51.0 | 2.7% | 86.0% | 91.6% | 1 |
 | AdrianaFigueroa9 | 76.3 | 4.0% | 100.0% | 100.0% | 0 |
 | Juan80-12 | 95.3 | 5.0% | 100.0% | 100.0% | 1 |
-| Total | 1900.1797437138155 | /100% | /100% | /100% | 16 |
+| Total | 1897.5254766228466 | /100% | /100% | /100% | 16 |
 
 
 ## Sprint Task Completion
@@ -79,79 +79,79 @@
 
 | Developer | Week #1 | Week #2 | Week #3 | Week #4 | Week #5 | Penalty |
 |---|---|---|---|---|---|---|
-| jaelrod3 | Yes | Yes | Yes | No | No | 5.0 |
-| Yamiilet | Yes | Yes | Yes | Yes | No | 2.0 |
 | Juan80-12 | Yes | Yes | Yes | Yes | No | 2.0 |
-| seba-15 | No | Yes | Yes | Yes | No | 4.0 |
-| FabianAcevedo1 | Yes | Yes | Yes | Yes | No | 2.0 |
-| andres-cruz-zapata | Yes | Yes | Yes | Yes | No | 2.0 |
-| Dylan-Oliver04 | Yes | Yes | Yes | Yes | No | 2.0 |
-| yeudeedleCS | Yes | Yes | Yes | Yes | No | 2.0 |
-| Programian | Yes | Yes | Yes | Yes | No | 2.0 |
-| abby-gotay | Yes | Yes | Yes | Yes | No | 2.0 |
-| SebasJoel | Yes | Yes | Yes | Yes | No | 2.0 |
-| anthony-garcia-oquendo | Yes | Yes | Yes | Yes | No | 2.0 |
-| TomasGomez04 | Yes | Yes | Yes | Yes | No | 2.0 |
 | Edgar-glz | Yes | Yes | Yes | Yes | No | 2.0 |
-| sorimerlinsantos | Yes | Yes | Yes | Yes | No | 2.0 |
-| AdrianaFigueroa9 | Yes | Yes | Yes | No | No | 5.0 |
-| VictorSantos6 | Yes | Yes | Yes | Yes | No | 2.0 |
-| jaydensanchez12 | Yes | Yes | Yes | Yes | No | 2.0 |
-| RicardoBurgoss | Yes | Yes | No | Yes | No | 4.0 |
-| Jeremy-Jasser-Grafals-Barreto | Yes | Yes | Yes | Yes | No | 2.0 |
-| SebastianSuarez0429 | Yes | Yes | Yes | Yes | No | 2.0 |
-| eliel-hernandez | Yes | Yes | Yes | Yes | No | 2.0 |
-| gabrielrivera0 | Yes | Yes | Yes | Yes | No | 2.0 |
-| WilsonMorales8 | Yes | Yes | Yes | Yes | No | 2.0 |
-| ronaldoflores9 | Yes | Yes | Yes | Yes | No | 2.0 |
-| AlejandroMB05 | Yes | Yes | Yes | Yes | No | 2.0 |
-| hector-rivera15 | Yes | Yes | Yes | Yes | No | 2.0 |
-| YasserAlonso | No | Yes | Yes | Yes | No | 4.0 |
-| isai-padin8 | Yes | Yes | Yes | Yes | No | 2.0 |
-| YadrielRivera | Yes | Yes | Yes | Yes | No | 2.0 |
-| Pedro-Juan-Bonilla | Yes | Yes | Yes | Yes | No | 2.0 |
-| fantauzzimartin | Yes | Yes | Yes | No | No | 5.0 |
-| GerardoSotoRios | Yes | Yes | Yes | Yes | No | 2.0 |
-| Kay9876 | No | No | No | No | No | 20.0 |
 | itsgabrielamartinez | Yes | Yes | Yes | Yes | No | 2.0 |
+| SebastianSuarez0429 | Yes | Yes | Yes | Yes | No | 2.0 |
+| Jeremy-Jasser-Grafals-Barreto | Yes | Yes | Yes | Yes | No | 2.0 |
+| Kay9876 | No | No | No | No | No | 20.0 |
+| sorimerlinsantos | Yes | Yes | Yes | Yes | No | 2.0 |
+| RicardoBurgoss | Yes | Yes | No | Yes | No | 4.0 |
+| TomasGomez04 | Yes | Yes | Yes | Yes | No | 2.0 |
+| WilsonMorales8 | Yes | Yes | Yes | Yes | No | 2.0 |
 | OSCAR-A-SANTANA | Yes | Yes | Yes | Yes | No | 2.0 |
+| abby-gotay | Yes | Yes | Yes | Yes | No | 2.0 |
+| FabianAcevedo1 | Yes | Yes | Yes | Yes | No | 2.0 |
+| seba-15 | No | Yes | Yes | Yes | No | 4.0 |
+| Pedro-Juan-Bonilla | Yes | Yes | Yes | Yes | No | 2.0 |
+| SebasJoel | Yes | Yes | Yes | Yes | No | 2.0 |
+| Yamiilet | Yes | Yes | Yes | Yes | No | 2.0 |
+| jaydensanchez12 | Yes | Yes | Yes | Yes | No | 2.0 |
+| fantauzzimartin | Yes | Yes | Yes | No | No | 5.0 |
+| YadrielRivera | Yes | Yes | Yes | Yes | No | 2.0 |
+| isai-padin8 | Yes | Yes | Yes | Yes | No | 2.0 |
+| ronaldoflores9 | Yes | Yes | Yes | Yes | No | 2.0 |
+| Dylan-Oliver04 | Yes | Yes | Yes | Yes | No | 2.0 |
+| gabrielrivera0 | Yes | Yes | Yes | Yes | No | 2.0 |
+| AdrianaFigueroa9 | Yes | Yes | Yes | No | No | 5.0 |
+| andres-cruz-zapata | Yes | Yes | Yes | Yes | No | 2.0 |
+| jaelrod3 | Yes | Yes | Yes | No | No | 5.0 |
+| anthony-garcia-oquendo | Yes | Yes | Yes | Yes | No | 2.0 |
+| hector-rivera15 | Yes | Yes | Yes | Yes | No | 2.0 |
+| GerardoSotoRios | Yes | Yes | Yes | Yes | No | 2.0 |
+| Programian | Yes | Yes | Yes | Yes | No | 2.0 |
+| yeudeedleCS | Yes | Yes | Yes | Yes | No | 2.0 |
+| eliel-hernandez | Yes | Yes | Yes | Yes | No | 2.0 |
+| YasserAlonso | No | Yes | Yes | Yes | No | 4.0 |
+| VictorSantos6 | Yes | Yes | Yes | Yes | No | 2.0 |
+| AlejandroMB05 | Yes | Yes | Yes | Yes | No | 2.0 |
 
 ## Point Percent by Label
 
-| Developer | Pending Approval | TL approved | Completed | Milestone #2 | Lecture Topic Task | Identity & Data Systems | Documentation | Experience Design (UI / UX) | Player & Team Profiles | Communities & Social Features | bug | Approved | Events & Notifications Team |
+| Developer | Experience Design (UI / UX) | Milestone #2 | TL approved | Player & Team Profiles | Lecture Topic Task | Events & Notifications Team | Documentation | bug | Approved | Identity & Data Systems | Completed | Communities & Social Features | Pending Approval |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Jeremy-Jasser-Grafals-Barreto | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% |
+| Jeremy-Jasser-Grafals-Barreto | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
 | Kay9876 | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% |
-| seba-15 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| SebastianSuarez0429 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| RicardoBurgoss | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% |
-| Edgar-glz | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| AlejandroMB05 | 0.0% | 73.7% | 100.0% | 100.0% | 26.3% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 73.7% | 0.0% |
-| itsgabrielamartinez | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% |
-| gabrielrivera0 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% |
-| YadrielRivera | 0.0% | 97.6% | 98.8% | 100.0% | 2.4% | 0.0% | 0.0% | 0.0% | 0.0% | 97.6% | 0.0% | 97.6% | 0.0% |
-| GerardoSotoRios | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% |
-| TomasGomez04 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| Programian | 0.0% | 98.6% | 100.0% | 100.0% | 1.4% | 0.0% | 35.4% | 0.0% | 0.0% | 100.0% | 0.0% | 98.6% | 0.0% |
-| YasserAlonso | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| isai-padin8 | 0.0% | 98.8% | 98.8% | 100.0% | 1.2% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 98.8% | 0.0% |
-| abby-gotay | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| jaelrod3 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| VictorSantos6 | 0.0% | 81.2% | 100.0% | 100.0% | 18.8% | 0.0% | 0.0% | 81.2% | 0.0% | 0.0% | 0.0% | 81.2% | 0.0% |
-| hector-rivera15 | 28.9% | 71.1% | 100.0% | 100.0% | 28.9% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 71.1% | 0.0% |
-| ronaldoflores9 | 0.0% | 94.2% | 100.0% | 100.0% | 5.8% | 0.0% | 0.0% | 94.2% | 0.0% | 0.0% | 0.0% | 94.2% | 0.0% |
-| FabianAcevedo1 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| OSCAR-A-SANTANA | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% |
-| andres-cruz-zapata | 0.0% | 100.0% | 100.0% | 100.0% | 6.1% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| eliel-hernandez | 0.0% | 93.6% | 100.0% | 100.0% | 6.4% | 0.0% | 0.0% | 93.6% | 0.0% | 0.0% | 0.0% | 93.6% | 0.0% |
-| Dylan-Oliver04 | 0.0% | 97.1% | 100.0% | 100.0% | 2.9% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 97.1% | 0.0% |
-| anthony-garcia-oquendo | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| Yamiilet | 0.0% | 98.1% | 98.1% | 100.0% | 1.9% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 98.1% | 100.0% |
-| jaydensanchez12 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| yeudeedleCS | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| Pedro-Juan-Bonilla | 0.0% | 46.7% | 100.0% | 100.0% | 1.8% | 0.0% | 53.3% | 0.0% | 0.0% | 46.7% | 5.6% | 98.2% | 0.0% |
-| AdrianaFigueroa9 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% |
-| Juan80-12 | 0.0% | 99.1% | 100.0% | 100.0% | 0.9% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 99.1% | 0.0% |
+| seba-15 | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| SebastianSuarez0429 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| RicardoBurgoss | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 100.0% | 0.0% |
+| Edgar-glz | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| AlejandroMB05 | 0.0% | 100.0% | 75.6% | 100.0% | 24.4% | 0.0% | 0.0% | 0.0% | 75.6% | 0.0% | 100.0% | 0.0% | 0.0% |
+| itsgabrielamartinez | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| gabrielrivera0 | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| YadrielRivera | 0.0% | 100.0% | 97.6% | 0.0% | 2.4% | 0.0% | 0.0% | 0.0% | 97.6% | 0.0% | 98.8% | 97.6% | 0.0% |
+| GerardoSotoRios | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 100.0% | 0.0% |
+| TomasGomez04 | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| Programian | 0.0% | 100.0% | 98.6% | 0.0% | 1.4% | 0.0% | 35.4% | 0.0% | 98.6% | 0.0% | 100.0% | 100.0% | 0.0% |
+| YasserAlonso | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| isai-padin8 | 100.0% | 100.0% | 98.8% | 0.0% | 1.2% | 0.0% | 0.0% | 0.0% | 98.8% | 0.0% | 98.8% | 0.0% | 0.0% |
+| abby-gotay | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| jaelrod3 | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| VictorSantos6 | 81.2% | 100.0% | 81.2% | 0.0% | 18.8% | 0.0% | 0.0% | 0.0% | 81.2% | 0.0% | 100.0% | 0.0% | 0.0% |
+| hector-rivera15 | 0.0% | 100.0% | 71.1% | 100.0% | 28.9% | 0.0% | 0.0% | 0.0% | 71.1% | 0.0% | 100.0% | 0.0% | 28.9% |
+| ronaldoflores9 | 94.2% | 100.0% | 94.2% | 0.0% | 5.8% | 0.0% | 0.0% | 0.0% | 94.2% | 0.0% | 100.0% | 0.0% | 0.0% |
+| FabianAcevedo1 | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| OSCAR-A-SANTANA | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| andres-cruz-zapata | 0.0% | 100.0% | 100.0% | 0.0% | 6.1% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| eliel-hernandez | 93.6% | 100.0% | 93.6% | 0.0% | 6.4% | 0.0% | 0.0% | 0.0% | 93.6% | 0.0% | 100.0% | 0.0% | 0.0% |
+| Dylan-Oliver04 | 0.0% | 100.0% | 97.1% | 0.0% | 2.9% | 0.0% | 0.0% | 0.0% | 97.1% | 0.0% | 100.0% | 100.0% | 0.0% |
+| anthony-garcia-oquendo | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| Yamiilet | 0.0% | 100.0% | 98.1% | 0.0% | 1.9% | 100.0% | 0.0% | 0.0% | 98.1% | 0.0% | 98.1% | 0.0% | 0.0% |
+| jaydensanchez12 | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| yeudeedleCS | 0.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% |
+| Pedro-Juan-Bonilla | 0.0% | 100.0% | 46.7% | 0.0% | 1.8% | 0.0% | 53.3% | 5.6% | 98.2% | 0.0% | 100.0% | 46.7% | 0.0% |
+| AdrianaFigueroa9 | 100.0% | 100.0% | 100.0% | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | 100.0% | 0.0% | 100.0% | 0.0% | 0.0% |
+| Juan80-12 | 0.0% | 100.0% | 99.1% | 0.0% | 0.9% | 0.0% | 0.0% | 0.0% | 99.1% | 0.0% | 100.0% | 100.0% | 0.0% |
 # Metrics Generation Logs
 
 | Message |
