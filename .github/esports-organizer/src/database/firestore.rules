@@ -5,5 +5,32 @@ service cloud.firestore {
     match /{document=**} {
       allow read, write: if true;
     }
+     /*
+   
+    // SECURE RULES (for later use)
+  
+
+    // Users collection: only owner or admin can read/write
+    match /Users/{userId} {
+      allow read, write: if request.auth != null &&
+                         (request.auth.uid == userId || request.auth.token.admin == true);
+    }
+
+    // Teams collection: organizer or admin can read/write
+    match /Teams/{teamId} {
+      allow read, write: if request.auth != null &&
+                         (resource.data.organizer == request.auth.uid || request.auth.token.admin == true);
+    }
+
+    // Events collection: organizer, participant, or admin can read/write
+    match /Events/{eventId} {
+      allow read, write: if request.auth != null &&
+                         (
+                           resource.data.organizer == request.auth.uid || 
+                           (resource.data.participants != null && request.auth.uid in resource.data.participants) || 
+                           request.auth.token.admin == true
+                         );
+    }
+    */
   }
 }
