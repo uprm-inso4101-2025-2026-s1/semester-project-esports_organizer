@@ -417,6 +417,31 @@ class Database {
         const userSnapshot = await getDocs(userCollection);
         return userSnapshot.docs.map(doc => User.fromFirestore(doc.data()));
     }
+    
+    /* Stores the profile inside the user's main document.*/
+    async updateUserProfile(userID,profileData) {
+        const userRef = doc(this.firestore, "Users", userID);
+        await setDoc(userRef, {profile: profileData}, {merge: true});
+        console.log("Profile updated!");
+    }
+
+    async getUserProfile(userID) {
+        const userRef = doc(this.firestore, "Users", userID);
+        const userSnap =  await getDoc(userRef);
+        if(userSnap.exists()){
+            const userData = userSnap.data();
+            return userData.profile;
+        }  else {
+            return null;
+        }
+    }
+
+    /* Changes the user's Role */
+    async updateUserRole(userID, newRole) {
+        const userRef = doc(this.firestore, "Users", userID);
+        await setDoc(userRef, { role: newRole }, { merge: true });
+        console.log(`Role for user ${userID} updated to ${newRole}`);
+    }
 
     async buildUserList() {
         let usersFromDatabase = await this.getAllUsersFromDatabase();
@@ -442,14 +467,29 @@ class Database {
         }
     }
     
-    async signUpUser(email, password) {
+    async signUpUser(email, password, username) {
+        let userCredential;
         try {
             const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
+            // Set display name
+            await userCredential.user.updateProfile({ displayName: username });
             const newUser = new User(uid, email, userCredential.user.displayName);
             await this.addUserToDatabase(newUser);
+
+            const defaultProfile = {
+                theme: "light",
+                notifications: true,
+                bio: "",
+                createdAt: new Date(),
+                avatarURL: null,
+                role: "",
+            };
+            await this.updateUserProfile(uid, defaultProfile);
+            console.log("User signed up and profile created successfully.");
             return newUser;
         } catch (error) {
+            console.error("Error signing up user: ", error);
             if (userCredential?.user) {
                 try {   
                     await userCredential.user.delete();
@@ -466,6 +506,8 @@ class Database {
             const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
             const user = await this.getUserFromFireStore(uid);
+
+            await this.updateUserProfile(uid, { lastLogin: new Date() });
             return user;
         } catch(error){
             console.error("Error logging in user: ", error);

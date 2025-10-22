@@ -3,15 +3,18 @@ import { useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import TournamentsPage from "./pages/TournamentsPage";
-import CreateEventPage from "./pages/CreateEventPage";
+import CreateEventWizard from "./pages/CreateEventWizard";
 import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
+import HelpCenter from "./pages/HelpCenter";
 // brackets page is commented for now until path is determined
-// import TournamentBrackets from "./pages/bracketsTournamentPage/bracketsTournamentPage";
+
+import TeamsPage from "./pages/teamProfilePages/TeamsPage";
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";
 import CommunityPage from "./pages/communityPages/CommunityPage";
+import BracketsTournamentPage from "./pages/bracketsTournamentPage/BracketsTournamentPage";
 
 function App() {
   useEffect(() => {
@@ -36,12 +39,15 @@ function App() {
 
       {/* CORE FEATURE PAGES */}
       <Route path="/tournaments" element={<TournamentsPage />} />
-      <Route path="/create-event" element={<CreateEventPage />} />
+      <Route path="/create-event" element={<CreateEventWizard />} />
       <Route path="/profile" element={<PlayerProfile />} />
-      {/* <Route path="/tournament-brackets" element={<TournamentBrackets />} /> */}
+      <Route path="/brackets-tournaments" element={<BracketsTournamentPage />} />
+      <Route path="/help-center" element={<HelpCenter />} />
+
 
       {/* MISSING DESIGNS */}
-      <Route path="/teams" element={<TeamProfilePage />} />
+      <Route path="/teams" element={<TeamsPage />} />
+      <Route path="/teams/:teamId" element={<TeamProfilePage />} />
       <Route path="/team-profile" element={<TeamProfilePage />} />
       <Route path="/community" element={<CommunityPage />} />
     </Routes>

@@ -1,0 +1,73 @@
+= Lecture Topic Task – Applying the Triptych Model to User Profile Development
+author: Jeremy J. Grafals Barreto
+team: Profiles Team – Esports Organizer Project
+source: Taken from "Phases of Software Engineering", Slides 4–9, Prof. Marko Schütz-Schmuck, INSO 4105
+
+== Objective
+Apply the *Triptych Model* (Domain Description → Requirements Prescription → Software Design) from the lecture to the **Profiles Module** of the Esports Organizer project.  
+This task demonstrates how theory connects to our module’s documentation and implementation process.
+
+== 1. Domain Description
+The domain focuses on users and how their profiles interact within the Esports Organizer system.  
+Entities, functions, and behaviors define the context before any design or implementation.
+
+=== Entities
+- **User / Player** – a registered individual with an account and a profile.  
+- **Organizer** – a user role with permission to manage events and verify participants.  
+- **Profile** – data container with attributes such as name, stats, achievements, and privacy settings.  
+- **Badge / Achievement** – symbolic rewards based on user actions or milestones.  
+- **Privacy Setting** – determines visibility of profile sections (public, friends-only, private).
+
+=== Functions
+- `updateProfile(User)` – allows users to edit and save profile information.  
+- `assignBadge(User, Badge)` – grants achievements automatically when conditions are met.  
+- `togglePrivacy(ProfileField)` – modifies access permissions for profile visibility.  
+- `viewProfile(UserID)` – retrieves the selected profile for display.
+
+=== Behaviors
+- Users edit and view profiles through the web interface.  
+- Organizers access player information for tournament validation.  
+- Privacy rules dynamically affect who can see each profile field.
+
+== 2. Requirements Prescription
+Derived from the domain analysis, these requirements describe what the system must achieve.
+
+=== Functional Requirements
+- The system shall allow players to **update profile data** and save it persistently.  
+- The system shall **display badges and achievements** linked to user activity.  
+- The system shall allow each user to **customize privacy settings** for profile fields.  
+- The system shall **verify authentication** before modifying any data.
+
+=== Non-Functional Requirements
+- **Performance:** Profiles must load within 2 seconds on stable networks.  
+- **Security:** Only authenticated users may access or edit their data.  
+- **Usability:** Privacy settings must be intuitive and consistent across devices.  
+- **Reliability:** Updates should never cause partial or inconsistent saves.
+
+== 3. Software Design
+The design defines how requirements are implemented through architectural components.
+
+=== Architecture Overview
+- **Frontend (React):** Handles profile editing, badge display, and privacy controls.  
+- **Backend (Node.js):** Manages API endpoints for CRUD operations and authentication.  
+- **Database (Firestore):** Stores user data, privacy states, and achievement records.
+
+=== Design Mapping
+|===
+| Requirement | Component | Description
+| Update personal info | `/updateProfile` endpoint | Validates input and updates Firestore.
+| Badge display | `BadgeComponent.jsx` | Fetches and shows user achievements dynamically.
+| Privacy control | `PrivacyService.js` | Manages visibility logic for profile fields.
+| Data persistence | Firestore database | Ensures secure, scalable user data storage.
+|===
+
+== 4. Reflection
+The Triptych model shows that development phases are **iterative mindsets**, not isolated steps.  
+In the Profiles module, analyzing entities like *Privacy Setting* refined our requirements to include visibility toggling.  
+Design challenges, such as optimizing badge rendering, provided feedback that improved both requirements and the domain model.  
+This iterative cycle keeps the design, documentation, and implementation consistent and adaptable.
+
+== 5. References
+- Schütz-Schmuck, M. *Phases of Software Engineering.* Lecture presentation, University of Puerto Rico at Mayagüez, August 18, 2020.  
+  (Referenced Slides: 4–9)
+- INSO 4105 Course Project Specification (Fall 2025).

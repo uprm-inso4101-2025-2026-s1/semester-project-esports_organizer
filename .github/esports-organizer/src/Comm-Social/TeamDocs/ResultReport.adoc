@@ -1,0 +1,80 @@
+= Result Report Documentation
+:page-layout: docs
+:toc: left
+:toclevels: 3
+:sectnums:
+:source-highlighter: highlightjs
+:highlightjs-languages: javascript
+:icons: font
+
+== Overview
+
+The `ResultReport.js` file provides a function to generate the results of a given tournament by processing bracket results and arranging participating teams into an ordered list that provides the placements for each team.
+
+== Purpose
+
+It takes a tournament object and processes the match results through the bracket progression system, ultimately generating a ranked list of teams alongside their respective placement (e.g. "1st", "2nd", "3rd"...).
+
+== Dependencies
+
+[source,javascript]
+----
+//The following imports are unused as of writing:
+import Tournament from "../database/examples/Tournament.js"; // <1>
+import { getTournamentData } from "./BracketTeamVisualization.js"; // <1>
+----
+<1> The imports go unused in the current implementation as of writing.
+
+* `runBracket` from `MatchProgression.js` - Used to processes the tournament bracket and returns the final team rankings
+* `Tournament` - Tournament class
+* `Team` - Team class
+
+== Function: resultreport()
+
+=== Signature
+
+[source,javascript]
+----
+export function resultReport(tournament)
+----
+
+=== Parameters
+
+[cols="1,3,1,1", options="header"]
+|===
+| Parameter | Description | Type | Required
+| `Tournament` | The tournament object containing bracket data | Tournament | Yes
+|===
+
+=== Algorithm Description
+
+. Calls `getTournamentData(Tournament)` and access the results property to get the final team list in reverse order, index 0 being the loser and n-1 being the winner
+. Reverses the list to place champion first, basically champion at index 0 and loser at n-1
+. Assigns placement strings ("1st", "2nd", "3rd", etc.) to each team
+. Returns array of [placement, team] pairs
+
+=== Return Value
+
+Returns an object that contains all information about the tournament results:
+- Placement string (e.g., "1st", "2nd", "3rd")
+- Champion
+- Rounds with matches
+
+Example return structure:
+```
+javascript
+[
+  ["1st", TeamObject],
+  ["2nd", TeamObject], 
+  ["3rd", TeamObject],
+  // ...
+]
+```
+
+=== Error Handling
+
+The function wraps the main logic in a try-catch block:
+
+* Catches any errors thrown by `getTournamentData` or other operations
+* Re-throws errors with the original message
+* Prevents silent failures

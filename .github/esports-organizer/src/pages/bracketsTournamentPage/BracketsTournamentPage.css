@@ -1,15 +1,17 @@
 .brackets-tournament-page {
-    background-color: #3E4C59;
+    background-color: var(--primary);
     min-height: 100vh;
+    padding-top: 88px;
 }
 
-.column {
+.brackets-column {
     display: flex;
     flex-direction: column;
     gap: 30px;
     padding: 0 20px 50px;
     padding-right: 0;
     padding-left: 50px;
+    
 }
 
 .column-2 {
@@ -44,9 +46,10 @@
 .columns-row {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   overflow-x: auto;
+  margin-left: -50px;
   
 }
 
