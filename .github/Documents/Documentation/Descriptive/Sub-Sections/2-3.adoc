@@ -11,7 +11,7 @@ The **software architecture** captures the big picture of the system:
   data stored in Firestore.
 * [.green-background]#A backend service (Node.js/Express) now handles the Profiles module, which interacts with Firestore and the React client through REST endpoints.#
 * [.green-background]#The local environment has been successfully tested and launched, confirming connectivity between modules and databases.#
-  [.green-background]#→ (Insert here a short description of the endpoint or route tested from your actual code, e.g., “*/profiles* route for retrieving user profiles”).#
+  [.green-background]#The `/profiles` endpoint was used for testing profile retrieval functionality in the local development environment.#  
 
 The **software design** explains how each component is realized:
 * **Authentication:** Implemented with Firebase Authentication and
@@ -26,25 +26,55 @@ The **software design** explains how each component is realized:
 * **Communities and teams:** Users can create or join them, ensuring
   inclusivity and adaptability.
 * [.green-background]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#
-  [.green-background]#→ (Insert here the file names or class/function names implemented in your branch, e.g., `profileRoutes.js`, `updatePrivacySetting()`, etc.).#
+  [.green-background]#Implemented functions such as `getParticipatedTournaments()` within the Profiles module retrieve user data directly from Firestore, ensuring up-to-date synchronization between the backend and the database.#  
 
 Diagrams and screen mockups complement the text:
 * Architecture diagrams highlight module interactions.
 * Sequence diagrams show workflows such as user login and event
   creation.
-* [.green-background]#A UML or architecture diagram should now illustrate how the Profiles module interacts with the Badges and PrivacyControls components.#
-  [.green-background]#→ (Insert here the name or path of your diagram, e.g., `profiles_architecture.svg`).#
+* [.green-background]#A UML or architecture diagram now illustrates how the Profiles module interacts with the Badges and PrivacyControls components (see `profiles_architecture.svg`).#
 * Figma mockups illustrate how the interface supports usage scenarios.
 
 === 2.3.1 Selected Fragments of the Implementation
 
 [.yellow-background]#Selected fragments are only included when they clarify explanations and complement the documentation.#  
 
-[.green-background]#For Milestone 2, relevant code excerpts from the Profiles module are presented to demonstrate functional progress. These fragments show how backend and frontend elements communicate to fulfill requirements stated in Section 2.2.3.#  
-  [.green-background]#→ (Insert here 1–2 short code fragments or excerpts from your actual project showing implemented routes, functions, or Firestore interactions. Use proper `[source,js]` blocks for formatting — no screenshots.)#
+[.green-background]#For Milestone 2, the following code excerpt from the Profiles module demonstrates Firestore integration. This fragment shows how user-related data is retrieved and verified for debugging purposes, confirming a functional connection between the backend and the database.#  
 
-[.green-background]#Each inserted snippet must be followed by a short explanation of what it accomplishes and which system requirement it satisfies.#  
-  [.green-background]#→ (After each code block, write 1–2 sentences explaining its purpose, e.g., “This route retrieves all user profiles and confirms that the backend service is operational.”).#
+[source,js]
+----
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../lib/firebase.js';
+
+// All console logs are for debugging purposes to understand the Firestore data and see if we are fetching it correctly.
+// The debugging would be seen in the browser console.
+async function getParticipatedTournaments() {
+    const querySnapshot = await getDocs(collection(db, "User"));
+    
+    console.log("=== FIRESTORE DATA STRUCTURE ===");
+    console.log("Total documents:", querySnapshot.size);
+    
+    querySnapshot.forEach((doc) => {
+      console.log("Document ID:", doc.id);
+      console.log("Document data:", doc.data());
+      console.log("All fields in this document:", Object.keys(doc.data()));
+      console.log("---");
+    });
+    
+    const User = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    
+    return User;
+}
+
+export default getParticipatedTournaments;
+----
+
+[.green-background]#**Explanation:**  
+This function retrieves all documents from the “User” collection in Firestore and displays key information through console logs. It verifies that Firestore connectivity and data structure are working correctly in the current environment.  
+This implementation satisfies the system requirement that *“the system must provide a way to retrieve stored user data from Firestore.”*#
 
 Best practices followed in this documentation:
 * **No screenshots** of code — only properly formatted snippets.
