@@ -1,6 +1,6 @@
 == 2.3 Implementation
 
-[.yellow-background]#The implementation stage translates the requirements described in Section 2.2 into a working system. While requirements define *what* the platform must achieve, the implementation details *how* these goals were realized.#
+[.yellow-background]#The implementation stage translates the requirements described in Section 2.2 into a working system. While requirements define *what* the platform must achieve, the implementation details *how* these goals were realized.#  
 
 [.green-background]#For Milestone 2, this section has been expanded to include current progress on the Profiles module, showing concrete examples of backend and frontend integration that transform previous design concepts into a functional system.#  
 
@@ -9,8 +9,8 @@ The **software architecture** captures the big picture of the system:
   management, match reporting, and community management.
 * These modules communicate through well defined APIs and shared
   data stored in Firestore.
-* [.green-background]#A backend service (Node.js/Express) now handles the Profiles module, which interacts with Firestore and the React client through REST endpoints.#
-* [.green-background]#The local environment has been successfully tested and launched, confirming connectivity between modules and databases.#
+* [.green-background]#A backend service (Node.js/Express) now handles the Profiles module, which interacts with Firestore and the React client through REST endpoints.#  
+* [.green-background]#The local environment has been successfully tested and launched, confirming connectivity between modules and databases.#  
   [.green-background]#The `/profiles` endpoint was used for testing profile retrieval functionality in the local development environment.#  
 
 The **software design** explains how each component is realized:
@@ -28,6 +28,12 @@ The **software design** explains how each component is realized:
 * [.green-background]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#  
   [.green-background]#Implemented functions such as `getParticipatedTournaments()` within the Profiles module retrieve user data directly from Firestore, ensuring up-to-date synchronization between the backend and the database.#  
   [.green-background]#Additionally, asynchronous functions like `saveProfile`, `getProfile`, and `updateProfile` manage the creation, retrieval, and updating of user profiles within Firestore, maintaining accurate and timestamped records.#  
+
+[.green-background]#**Architecture Diagram:**#  
+[.green-background]#The following UML/Architecture diagram illustrates how the Profiles module connects the frontend React client with the backend API, Firebase Authentication, Firestore, and related modules.#  
+
+.Image: Profiles Module Architecture (Milestone 2)
+image::../images/profiles_architecture.svg[alt="Profiles Module Architecture", width=100%]
 
 Diagrams and screen mockups complement the text:
 * Architecture diagrams highlight module interactions.
