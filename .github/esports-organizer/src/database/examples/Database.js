@@ -38,7 +38,8 @@ import {
 'await' keyword MUST be used before ANY function call that alters or retrieves data from the database. Keep in mind
 that the 'await' keyword can only be used inside async functions.
 */
-class Database {
+
+export class Database {
     app;
     firestore;
     teams = [];     // Array of team objects in the database.
@@ -47,17 +48,25 @@ class Database {
     auth;           // Authentication object.
     user = null;    // Currently logged in user.
 
-    constructor() {
+    constructor(opts = {}) {
         /* App and database initialization*/
         // this.app = initializeApp(firebaseConfig);
         // this.firestore = getFirestore(this.app);
-        this.app = app;
-        this.firestore = db;
+
+        // allow dependency injection for tests
+        this.app = opts.app || app;
+        this.firestore = opts.firestore || db;
 
         // This allows us to interact will all of the authentication methods
-        this.auth = getAuth(this.app);
+        // allow injection of auth instance (mock) for tests
+        this.auth = opts.auth || getAuth(this.app);
 
-        //keeps track of the current user logged in, and checks if its signed in or out, \
+        // allow injection/override of firebase auth functions so tests can mock them
+        this.createUserWithEmailAndPassword = opts.createUserWithEmailAndPassword || createUserWithEmailAndPassword;
+        this.signInWithEmailAndPassword = opts.signInWithEmailAndPassword || signInWithEmailAndPassword;
+        this.onAuthStateChangedFn = opts.onAuthStateChanged || onAuthStateChanged;
+
+        //keeps track of the current user logged in, and checks if its signed in or out,
         // the logic for this function is implemented at the bottom 
         this.listenToAuthChanges();
     }
@@ -468,13 +477,20 @@ class Database {
     }
     
     async signUpUser(email, password, username) {
-        let userCredential;
+        let userCredential = null;
         try {
-            const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+            // use instance-level function so tests can override it
+            userCredential = await this.createUserWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
             // Set display name
-            await userCredential.user.updateProfile({ displayName: username });
-            const newUser = new User(uid, email, userCredential.user.displayName);
+            if (typeof userCredential.user.updateProfile === 'function') {
+                await userCredential.user.updateProfile({ displayName: username });
+            } else if (typeof userCredential.user.setDisplayName === 'function') {
+                // some mocks might use a different API
+                await userCredential.user.setDisplayName(username);
+            }
+            const newUser = new User(uid, email, userCredential.user.displayName || username);
+            // allow tests to stub addUserToDatabase
             await this.addUserToDatabase(newUser);
 
             const defaultProfile = {
@@ -490,8 +506,8 @@ class Database {
             return newUser;
         } catch (error) {
             console.error("Error signing up user: ", error);
-            if (userCredential?.user) {
-                try {   
+            if (userCredential?.user && typeof userCredential.user.delete === 'function') {
+                try {
                     await userCredential.user.delete();
                 } catch (deleteError) {
                     console.error("Error deleting user after failed signup: ", deleteError);
@@ -503,7 +519,7 @@ class Database {
 
     async logInUser(email, password) {
         try {
-            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+            const userCredential = await this.signInWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
             const user = await this.getUserFromFireStore(uid);
 
