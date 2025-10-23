@@ -14,6 +14,7 @@ import HelpCenter from "./pages/HelpCenter";
 import TeamsPage from "./pages/teamProfilePages/TeamsPage";
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";
 import CommunityPage from "./pages/communityPages/CommunityPage";
+import CommunityFeedPage from "./pages/communityPages/CommunityFeedPage";
 import BracketsTournamentPage from "./pages/bracketsTournamentPage/BracketsTournamentPage";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
       <Route path="/teams/:teamId" element={<TeamProfilePage />} />
       <Route path="/team-profile" element={<TeamProfilePage />} />
       <Route path="/community" element={<CommunityPage />} />
+      <Route path="/community/:communityId" element={<CommunityFeedPage />} />
     </Routes>
   );
 }
