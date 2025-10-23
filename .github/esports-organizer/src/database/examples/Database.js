@@ -519,7 +519,7 @@ export class Database {
 
     async logInUser(email, password) {
         try {
-            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+            const userCredential = await this.signInWithEmailAndPassword(this.auth, email, password);
             const uid = userCredential.user.uid;
             const user = await this.getUserFromFireStore(uid);
 
