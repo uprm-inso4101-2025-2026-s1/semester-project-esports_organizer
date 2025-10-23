@@ -5,4 +5,4 @@
 | Section Name | Member | Added or Modified | Description
 
 | Rough Sketch | Pedro Bonilla | Added | Added a Flowchart to better explain the way communities, players, teams, and organizers work. 
-|===
+| Informative Section 1.1 | Yamilet Gomez | Modified| Clarified distinction between clients and stakeholders; added explanation on internal team communication to prevent dependency issues; rephrased statement about project being carried out only by students.
