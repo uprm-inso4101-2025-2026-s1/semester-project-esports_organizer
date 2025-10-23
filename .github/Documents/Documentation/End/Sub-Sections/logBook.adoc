@@ -10,3 +10,4 @@
 | Introduction Section | Jayden Sánchez | Added | Added the presentation page, table of contents, and legend to define the structure of the documentation and introduced the introductory part to explain the project's purpose and organization.
 | Analytical Part Section 3-1 - 3-2| Ricardo Burgos | Modified | Enhanced concept analysis with quote derivations; added database architecture diagram explanation; expanded verification strategy with five test types and coverage metrics.
 | Requirements Section 2.2.3 - 2.2.5 | Andrés Cruz Zapata | Modified | Rephrased all requirements to improve clarity and provide more detailed descriptions for each requirement established.
+| Informative Section 1.2 - 1.4 | Yamilet Gómez | Modified | Integrated “situation, needs, and ideas” with clearer examples of domain and requirements engineering. Rephrased “platform” to “hub” to avoid confusion with “system”, and added focus on small-scale tournaments.
