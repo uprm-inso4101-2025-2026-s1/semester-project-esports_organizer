@@ -16,13 +16,15 @@
     "dev": "npm run dev:clean-ports && concurrently \"npm run emulator:start\" \"npm --prefix .github/esports-organizer run dev:site\"",
     "print:ui": "printf \"Firebase Emulator UI: http://127.0.0.1:4000\\n\"",
     "open:ui": "open http://127.0.0.1:4000",
-    "ui": "npm run print:ui && npm run open:ui"
+    "ui": "npm run print:ui && npm run open:ui",
+    "backup": "node .github/esports-organizer/src/scripts/backupToJson.js"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
     "firebase-tools": "^13.35.1"
   },
   "dependencies": {
+    "firebase-admin": "^13.5.0",
     "react-icons": "^5.5.0"
   }
 }
