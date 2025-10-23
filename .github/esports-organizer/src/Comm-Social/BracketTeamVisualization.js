@@ -73,7 +73,6 @@ function simulateTournamentRoundByRound(tournament) {
   * @returns {Object} - A object that returns the tournament rounds and the champion.
   * This function uses assignBrackets to get the initial teams and then simulates the tournament rounds.
   * In case of error, it returns an object with empty rounds and null champion.
-  *
   * Note: This function takes all the assigned teams.
 */
 export function getTournamentData(tournament) {

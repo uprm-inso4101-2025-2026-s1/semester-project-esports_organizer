@@ -12,7 +12,7 @@ class User {
         this.username = username;
         this.createdAt = createdAt;
         this.profile = profile;
-        this.role = role;
+        this.role = "";
     }
 
     toFirestore() {

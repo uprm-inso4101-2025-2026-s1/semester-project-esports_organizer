@@ -13,7 +13,7 @@ import Lines7 from "../../lines/lines7.svg";
 import Lines8 from "../../lines/lines8.svg";
 import WinnersLine from "../../lines/winnersLine.svg";
 import React, { useEffect, useState } from "react";
-import { getTournamentData } from "../../Comm-Social/BracketTeamVisualization";
+import { resultReport } from "../../Comm-Social/ResultReport.js";
 import Navbar from "../../components/shared/Navbar";
 import { test1 } from "../../Comm-Social/Tests/TournamentTest";
 
@@ -26,9 +26,13 @@ function BracketsTournamentPage(){
     // On component mount, fetch the tournament data
     useEffect(() => {
         const tournament = test1();
-        const data = getTournamentData(tournament);
-        setRounds(data.rounds || []);
-        setChampion(data.champion || null);
+
+        if(tournament !== null && tournament !== undefined){
+            const data = resultReport(tournament);
+            setRounds(data.rounds || []);
+            setChampion(data.champion || null);  
+        }       
+
     }, []);
 
     // Different matches and rounds arrays to hold the teams for rendering
@@ -39,29 +43,36 @@ function BracketsTournamentPage(){
     let leftR3 = [], rightR3 = [];
     let final = [];
 
-    // Check and slice the rounds
+    // Obtain the matches for each round
+    //rounds is an array of the rounds, each round is an array of matches, each match is an array of teams
     if (rounds[0]) {
-    left_Team1 = rounds[0].slice(0, 1);
-    left_Team2 = rounds[0].slice(1, 2);
-    left_Team3 = rounds[0].slice(2, 3);
-    left_Team4 = rounds[0].slice(3, 4);
-    right_Team1 = rounds[0].slice(4, 5);
-    right_Team2 = rounds[0].slice(5, 6);
-    right_Team3 = rounds[0].slice(6, 7);
-    right_Team4 = rounds[0].slice(7, 8);
+        
+        left_Team1 = rounds[0][0][1];
+        left_Team2 = rounds[0][1][1];
+        left_Team3 = rounds[0][2][1];
+        left_Team4 = rounds[0][3][1];
+
+        // console.log(left_Team4[0][1]);
+        
+
+        right_Team1 = rounds[0][4][1];
+        right_Team2 = rounds[0][5][1];
+        right_Team3 = rounds[0][6][1];
+        right_Team4 = rounds[0][7][1];
     }
     if (rounds[1]) {
-    left_team1_Round2 = rounds[1].slice(0, 1);
-    left_team2_Round2 = rounds[1].slice(1, 2);
-    right_team1_Round2 = rounds[1].slice(2, 3);
-    right_team2_Round2 = rounds[1].slice(3, 4);
+        left_team1_Round2 = rounds[1][0][1];
+        left_team2_Round2 = rounds[1][1][1];
+
+        right_team1_Round2 = rounds[1][2][1];
+        right_team2_Round2 = rounds[1][3][1];
     }
     if (rounds[2]) {
-    leftR3 = rounds[2].slice(0, 1);
-    rightR3 = rounds[2].slice(1, 2);
+        leftR3 = rounds[2][0][1];
+        rightR3 = rounds[2][1][1];
     }
     if (rounds[3]) {
-    final = rounds[3][0]; 
+        final = rounds[3][0][1]; 
     }
 
     
@@ -73,29 +84,43 @@ function BracketsTournamentPage(){
         <div className="columns-row">
             <div className="brackets-column">
                 {/* Left Column */}
-            {left_Team1.length > 0 || left_Team2.length > 0 || left_Team3.length > 0 || left_Team4.length > 0 ? (
-                <>
-                    {left_Team1.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                    ))}
-                    {left_Team2.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                    ))}
-                    {left_Team3.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                    ))}
-                    {left_Team4.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                    ))}
-                </>
-            ) : (
-                <>
+                {left_Team1 && left_Team1.player1 && left_Team1.player2 ? (
+                    <>
+                        <Teams
+                            teamNames={[left_Team1.player1.name, left_Team1.player2.name]}
+                            teamLogos={[left_Team1.player1.logo, left_Team1.player2.logo]}
+                        />
+                    </>
+                ) : (
                     <Teams/>
+                )}
+
+                {left_Team2 && left_Team2.player1 && left_Team2.player2 ? (
+                    <Teams
+                        teamNames={[left_Team2.player1.name, left_Team2.player2.name]}
+                        teamLogos={[left_Team2.player1.logo, left_Team2.player2.logo]}
+                    />
+                ) : (
                     <Teams/>
+                )}
+
+                {left_Team3 && left_Team3.player1 && left_Team3.player2 ? (
+                    <Teams
+                        teamNames={[left_Team3.player1.name, left_Team3.player2.name]}
+                        teamLogos={[left_Team3.player1.logo, left_Team3.player2.logo]}
+                    />
+                ) : (
                     <Teams/>
+                )}
+
+                {left_Team4 && left_Team4.player1 && left_Team4.player2 ? (
+                    <Teams
+                        teamNames={[left_Team4.player1.name, left_Team4.player2.name]}
+                        teamLogos={[left_Team4.player1.logo, left_Team4.player2.logo]}
+                    />
+                ) : (
                     <Teams/>
-                </>
-            )}
+                )}
             </div>
             <div className="lines-stack">
                 <div className="lines">
@@ -107,21 +132,25 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-2">
                 {/* Left Column Round 2 */}
-                {left_team1_Round2.length > 0 || left_team2_Round2.length > 0 ? (
-                    <>
-                        {left_team1_Round2.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
-                        {left_team2_Round2.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
-                    </>
+                {left_team1_Round2 && left_team1_Round2.player1 && left_team1_Round2.player2 ? (
+                    <Teams
+                        teamNames={[left_team1_Round2.player1.name, left_team1_Round2.player2.name]}
+                        teamLogos={[left_team1_Round2.player1.logo, left_team1_Round2.player2.logo]}
+                    />
                 ) : (
-                    <>
-                        <Teams/>
-                        <Teams/>
-                    </>
+                    <Teams/>
                 )}
+
+                {left_team2_Round2 && left_team2_Round2.player1 && left_team2_Round2.player2 ? (
+                    <Teams
+                        teamNames={[left_team2_Round2.player1.name, left_team2_Round2.player2.name]}
+                        teamLogos={[left_team2_Round2.player1.logo, left_team1_Round2.player2.logo]}
+                    />
+                ) : (
+                    <Teams/>
+                )}
+
+
             </div>
             <div className="lines3-stack">
                 <div className="lines3">
@@ -130,17 +159,16 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-3">
                 {/* Left Column semifinals */}
-                {leftR3.length > 0 ? (
-                    <>
-                        {leftR3.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
-                    </>
+                {leftR3 && leftR3.player1 && leftR3.player2 ? (
+                    <Teams
+                        teamNames={[leftR3.player1.name, leftR3.player2.name]}
+                        teamLogos={[leftR3.player1.logo, leftR3.player2.logo]}
+                    />
                 ) : (
-                    <>
-                        <Teams/>
-                    </>
+                    <Teams/>
                 )}
+
+
             </div>
             <div className="lines4-stack">
                 <div className="lines4">
@@ -149,17 +177,15 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-4">
                 {/* Middle column final */}
-                {final.length > 0 ? (
-                    <>
-                        {final.map((team, idx) => (
-                            <Teams key={idx} teamNames={[team.name]} />
-                        ))}
-                    </>
+                {final && final.player1 && final.player2 ? (
+                    <Teams
+                        teamNames={[final.player1.name, final.player2.name]}
+                        teamLogos={[final.player1.logo, final.player2.logo]}
+                    />
                 ) : (
-                    <>
-                        <Teams/>
-                    </>
+                    <Teams/>
                 )}
+
                 <div className="winnersline">
                     <img src={WinnersLine} alt="winners line"/>
                 </div>
@@ -174,16 +200,13 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-5">
                 {/* Right Column semifinals */}
-                {rightR3.length > 0 ? (
-                    <>
-                        {rightR3.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
-                    </>
+                {rightR3 && rightR3.player1 && rightR3.player2 ? (
+                    <Teams
+                        teamNames={[rightR3.player1.name, rightR3.player2.name]}
+                        teamLogos={[rightR3.player1.logo, rightR3.player2.logo]}
+                    />
                 ) : (
-                    <>
-                        <Teams/>
-                    </>
+                    <Teams/>
                 )}
             </div>
             <div className="lines6-stack">
@@ -193,20 +216,25 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-6">
                 {/* Right Column Round 2 */}
-                {right_team1_Round2.length > 0 || right_team2_Round2.length > 0 ? (
+                {right_team1_Round2 && right_team1_Round2.player1 && right_team1_Round2.player2 ? (
                     <>
-                        {right_team1_Round2.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
-                        {right_team2_Round2.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
+                        <Teams
+                            teamNames={[right_team1_Round2.player1.name, right_team1_Round2.player2.name]}
+                            teamLogos={[right_team1_Round2.player1.logo, right_team1_Round2.player2.logo]}
+                        />
                     </>
                 ) : (
+                    <Teams/>
+                )}
+                {right_team2_Round2 && right_team2_Round2.player1 && right_team2_Round2.player2 ? (
                     <>
-                        <Teams/>
-                        <Teams/>
+                        <Teams
+                            teamNames={[right_team2_Round2.player1.name, right_team2_Round2.player2.name]}
+                            teamLogos={[right_team2_Round2.player1.logo, right_team2_Round2.player2.logo]}
+                        />
                     </>
+                ) : (
+                    <Teams/>
                 )}
             </div>
             <div className="lines7-stack">
@@ -219,28 +247,42 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-7">
                 {/* Right Column Round 3 */}
-                {right_Team1.length > 0 || right_Team2.length > 0 || right_Team3.length > 0 || right_Team4.length > 0 ? (
+                {right_Team1 && right_Team1.player1 && right_Team1.player2 ? (
                     <>
-                        {right_Team1.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                        ))}
-                        {right_Team2.map((pair, idx) => (
-                            <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                {right_Team3.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                {right_Team4.map((pair, idx) => (
-                        <Teams key={idx} teamNames={pair.map(team => team.name)} />
-                ))}
-                </>
+                        <Teams
+                            teamNames={[right_Team1.player1.name, right_Team1.player2.name]}
+                            teamLogos={[right_Team1.player1.logo, right_Team1.player2.logo]}
+                        />
+                    </>
                 ) : (
-                <>
                     <Teams/>
+                )}
+
+                {right_Team2 && right_Team2.player1 && right_Team2.player2 ? (
+                    <Teams
+                        teamNames={[right_Team2.player1.name, right_Team2.player2.name]}
+                        teamLogos={[right_Team2.player1.logo, right_Team2.player2.logo]}
+                    />
+                ) : (
                     <Teams/>
+                )}
+
+                {right_Team3 && right_Team3.player1 && right_Team3.player2 ? (
+                    <Teams
+                        teamNames={[right_Team3.player1.name, right_Team3.player2.name]}
+                        teamLogos={[right_Team3.player1.logo, right_Team3.player2.logo]}
+                    />
+                ) : (
                     <Teams/>
+                )}
+
+                {right_Team4 && right_Team4.player1 && right_Team4.player2 ? (
+                    <Teams
+                        teamNames={[right_Team4.player1.name, right_Team4.player2.name]}
+                        teamLogos={[right_Team4.player1.logo, right_Team4.player2.logo]}
+                    />
+                ) : (
                     <Teams/>
-                </>
                 )}
             </div>
         </div>
