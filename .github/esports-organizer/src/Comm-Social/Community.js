@@ -47,6 +47,8 @@ id;
     //setters
     setName(name){this.name=name;}
 
+    setDescription(description){this.description=description;}
+
     setAdmin(admin){this.admin=admin;}
 
     setMembers(members){this.members=members;}
@@ -71,6 +73,8 @@ id;
 
     //getters
     getName(){return this.name;}
+
+    getDescription(){return this.description;}
 
     getAdmin(){return this.admin;}
 
