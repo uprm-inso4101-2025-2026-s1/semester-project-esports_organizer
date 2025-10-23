@@ -8,3 +8,4 @@
 | Informative Section 1.1 | Yamilet Gomez | Modified| Clarified distinction between clients and stakeholders; added explanation on internal team communication to prevent dependency issues; rephrased statement about project being carried out only by students.
 | Descriptive Section 2.1.1 - 2.1.6 | Hector Rivera | Modified | Modified several sections to improve clarity and fix formatting issues in the Narrative, Domain Terminology, and Function Signatures sections.
 | Introduction Section | Jayden Sánchez | Added | Added the presentation page, table of contents, and legend to define the structure of the documentation and introduced the introductory part to explain the project's purpose and organization.
+| Analytical Part Section 3-1 - 3-2| Ricardo Burgos | Modified | Enhanced concept analysis with quote derivations; added database architecture diagram explanation; expanded verification strategy with five test types and coverage metrics.
