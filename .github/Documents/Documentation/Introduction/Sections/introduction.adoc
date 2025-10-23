@@ -1,7 +1,8 @@
 == 0 Introductory Part
 
 === 0.1 Purpose
-*TO DO*
+Esports Organizer is an online platform created to make it easier for players, teams, and communities to connect and manage their activities in the world of competitive gaming. Its main goal is to bring everything related to esports organization into one place, so users can track their progress, show their achievements, and join events without confusion.
+The project focuses on accessibility and teamwork. With a clean and modern design, Esports Organizer allows users to interact in a way that feels smooth and enjoyable. It is more than just a management tool; it is a space that helps players grow, communicate, and build stronger gaming communities.
 
 === 0.2 Skeleton
-*TO DO*
+The Esports Organizer web app is built using React for the frontend and Firebase for the backend, making the interface interactive, clean, and easy to update. The structure of the app is organized into different parts that work together to give users a complete experience. Some of the main parts include the Teams section, which lets users discover and manage their team, and the Communities section, where users can connect and interact with others who share similar interests. All parts of the app are connected and designed to grow in the future, allowing new features and improvements to be added while keeping everything simple, responsive, and easy to use for everyone.
