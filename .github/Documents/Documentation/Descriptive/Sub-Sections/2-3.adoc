@@ -1,18 +1,17 @@
-=== 2.3 Implementation
+== 2.3 Implementation
 
-The implementation stage translates the requirements described in
-Section 2.2 into a working system. While requirements define *what*
-the platform must achieve, the implementation details *how* these
-goals were realized.
+[.yellow-background]#The implementation stage translates the requirements described in Section 2.2 into a working system. While requirements define *what* the platform must achieve, the implementation details *how* these goals were realized.#
+
+[.green-background]#For Milestone 2, this section has been expanded to include current progress on the Profiles module, showing concrete examples of backend and frontend integration that transform previous design concepts into a functional system.#  
 
 The **software architecture** captures the big picture of the system:
 * Main modules include authentication, user profiles, tournament
   management, match reporting, and community management.
 * These modules communicate through well defined APIs and shared
   data stored in Firestore.
-* A web interface built with React ensures accessibility and
-  usability for different types of users like players, organizers,
-  communities.
+* [.green-background]#A backend service (Node.js/Express) now handles the Profiles module, which interacts with Firestore and the React client through REST endpoints.#
+* [.green-background]#The local environment has been successfully tested and launched, confirming connectivity between modules and databases.#
+  [.green-background]#→ (Insert here a short description of the endpoint or route tested from your actual code, e.g., “*/profiles* route for retrieving user profiles”).#
 
 The **software design** explains how each component is realized:
 * **Authentication:** Implemented with Firebase Authentication and
@@ -26,21 +25,26 @@ The **software design** explains how each component is realized:
   automatically update user rankings.
 * **Communities and teams:** Users can create or join them, ensuring
   inclusivity and adaptability.
+* [.green-background]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#
+  [.green-background]#→ (Insert here the file names or class/function names implemented in your branch, e.g., `profileRoutes.js`, `updatePrivacySetting()`, etc.).#
 
 Diagrams and screen mockups complement the text:
 * Architecture diagrams highlight module interactions.
 * Sequence diagrams show workflows such as user login and event
   creation.
+* [.green-background]#A UML or architecture diagram should now illustrate how the Profiles module interacts with the Badges and PrivacyControls components.#
+  [.green-background]#→ (Insert here the name or path of your diagram, e.g., `profiles_architecture.svg`).#
 * Figma mockups illustrate how the interface supports usage scenarios.
 
 === 2.3.1 Selected Fragments of the Implementation
 
-Selected fragments are only included when they clarify explanations
-and complement the documentation. By themselves, they are not useful.
-For this stage of the project, no fragments are presented since the
-system is still under development. Once code and designs are available,
-they will be added to illustrate how Section 2.2 requirements are met
-in practice.
+[.yellow-background]#Selected fragments are only included when they clarify explanations and complement the documentation.#  
+
+[.green-background]#For Milestone 2, relevant code excerpts from the Profiles module are presented to demonstrate functional progress. These fragments show how backend and frontend elements communicate to fulfill requirements stated in Section 2.2.3.#  
+  [.green-background]#→ (Insert here 1–2 short code fragments or excerpts from your actual project showing implemented routes, functions, or Firestore interactions. Use proper `[source,js]` blocks for formatting — no screenshots.)#
+
+[.green-background]#Each inserted snippet must be followed by a short explanation of what it accomplishes and which system requirement it satisfies.#  
+  [.green-background]#→ (After each code block, write 1–2 sentences explaining its purpose, e.g., “This route retrieves all user profiles and confirms that the backend service is operational.”).#
 
 Best practices followed in this documentation:
 * **No screenshots** of code — only properly formatted snippets.
