@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import "./PlayerProfile.css";
 import Navbar from "../components/shared/Navbar";
 
+// Constants
 const FLAG_EMOJI = { US: "🇺🇸", PR: "🇵🇷", ES: "🇪🇸" };
-const FLAG_LABEL = { US: "United States", PR: "Puerto Rico", ES: "Spain" };
 const BADGE_PATH = "/assets/images/LOGO1.png";
 
 function PlayerProfile() {
@@ -18,7 +18,7 @@ function PlayerProfile() {
     avatarUrl: "",
   });
 
-  // Static data for cards
+  // Static data (cards)
   const [games] = useState([
     {
       id: "cr",
@@ -29,7 +29,7 @@ function PlayerProfile() {
     {
       id: "ssbu",
       title: "Super Smash Bros. Ult.",
-      desc: "Nintendo’s crossover fighter with fast-paced battles on dynamic stages.",
+      desc: "Nintendo's crossover fighter with fast-paced battles on dynamic stages.",
       bg: "/assets/images/smash.png",
     },
     {
@@ -52,7 +52,6 @@ function PlayerProfile() {
     },
   ]);
 
-  // Achievements w icon + short description
   const [achievements] = useState([
     { id: 1, iconUrl: "/assets/images/CRL.png", description: "Won the national finals with clutch plays." },
     { id: 2, iconUrl: "/assets/images/FNCS.png", description: "Top 4 finish in the 2024 intercollegiate league." },
@@ -68,17 +67,18 @@ function PlayerProfile() {
     role: player.role,
     currentTeam: player.currentTeam,
   });
-  const [, setErrors] = useState({}); // basic client validation messages
 
-  // Carousel index + avatar input
+  // Used only to block save when empty
+  const [usernameError, setUsernameError] = useState(false);
+
   const [achIndex, setAchIndex] = useState(0);
   const fileInputRef = useRef(null);
 
   const remainingBio = 300 - form.bio.length;
   const totalAch = achievements.length;
 
-  // Toggle into edit mode with fresh form values
-  function startEdit() {
+  // Edit mode handlers
+  const startEdit = () => {
     setForm({
       username: player.username,
       flag: player.flag,
@@ -86,14 +86,13 @@ function PlayerProfile() {
       role: player.role,
       currentTeam: player.currentTeam,
     });
-    setErrors({});
+    setUsernameError(false);
     setIsEditing(true);
-  }
+  };
 
-  // Revert edits
-  function cancelEdit() {
+  const cancelEdit = () => {
     setIsEditing(false);
-    setErrors({});
+    setUsernameError(false);
     setForm({
       username: player.username,
       flag: player.flag,
@@ -101,68 +100,64 @@ function PlayerProfile() {
       role: player.role,
       currentTeam: player.currentTeam,
     });
-  }
+  };
 
-  // Two-way bind edit fields
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  }
+  // Prevent enter in bio
+  const handleBioKeyDown = (e) => {
+    if (e.key === "Enter") e.preventDefault();
+  };
 
-  // Keep constraints simple
-  function validate() {
-    const e = {};
-    if (!form.username.trim()) e.username = "Username is required.";
-    if (form.username.length > 14) e.username = "Max 14 characters.";
-    if (form.bio.length > 300) e.bio = "Bio must be ≤ 300 characters.";
-    if (!form.flag) e.flag = "Select a flag.";
-    if (!form.role) e.role = "Select a role.";
-    if (form.currentTeam && form.currentTeam.length > 40) e.currentTeam = "Max 40 characters.";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const nextValue = name === "bio" ? value.replace(/\n/g, " ") : value;
 
-  // Commit edits into the main player object
-  function saveEdit() {
-    if (!validate()) return;
+    setForm((prev) => ({ ...prev, [name]: nextValue }));
+
+    if (name === "username" && usernameError) {
+      if (nextValue.trim().length > 0) setUsernameError(false);
+    }
+  };
+
+  const saveEdit = () => {
+    const trimmedUsername = form.username.trim();
+    if (!trimmedUsername) {
+      setUsernameError(true); // block save
+      return;
+    }
+
     setPlayer((prev) => ({
       ...prev,
-      username: form.username.trim(),
+      username: trimmedUsername,
       flag: form.flag,
       bio: form.bio,
       role: form.role,
       currentTeam: form.currentTeam.trim(),
     }));
-    setIsEditing(false);
-  }
 
-  // Avatar: click or keyboard triggers file input; preview via blob URL
-  function onAvatarClick() {
+    setIsEditing(false);
+    setUsernameError(false);
+  };
+
+  const handleAvatarClick = () => {
     if (fileInputRef.current) fileInputRef.current.click();
-  }
-  function onAvatarKeyDown(event) {
-    if (event.key === "Enter" || event.key === " ") onAvatarClick();
-  }
-  function onChangeAvatar(event) {
-    const file = event.target.files && event.target.files[0];
+  };
+
+  const handleChangeAvatar = (e) => {
+    const file = e.target.files && e.target.files[0];
     if (!file) return;
     const url = URL.createObjectURL(file);
     setPlayer((prev) => ({ ...prev, avatarUrl: url }));
-  }
+  };
 
   // Carousel
-  function prevAch() {
-    setAchIndex((i) => (i - 1 + totalAch) % totalAch);
-  }
-  function nextAch() {
-    setAchIndex((i) => (i + 1) % totalAch);
-  }
+  const prevAch = () => setAchIndex((i) => (i - 1 + totalAch) % totalAch);
+  const nextAch = () => setAchIndex((i) => (i + 1) % totalAch);
 
-  // Pre-render lists for clarity
+  // Render helpers
   const achievementItems = achievements.map((a, idx) => {
     const active = idx === achIndex ? "active" : "";
     return (
-      <div key={a.id} className={"ach-item " + active}>
+      <div key={a.id} className={`ach-item ${active}`}>
         <img className="ach-icon-img" src={a.iconUrl} alt={a.description || "achievement"} />
         <p className="ach-desc">{a.description}</p>
       </div>
@@ -173,7 +168,7 @@ function PlayerProfile() {
     <article
       key={g.id}
       className="game-card"
-      style={{ backgroundImage: "url(" + g.bg + ")" }}
+      style={{ backgroundImage: `url(${g.bg})` }}
     >
       <div className="game-center">
         <h3>{g.title}</h3>
@@ -184,20 +179,18 @@ function PlayerProfile() {
     </article>
   ));
 
+  // UI
   return (
     <>
       <Navbar />
+
       <div className="player-profile">
-        {/* LEFT: card with flag, username, bio, chips, actions */}
+        {/* Left Column */}
         <div className="left-col">
-          <section className="profile-card" aria-label="Profile information">
+          <section className="profile-card">
             <div className="flag-and-name">
-              <div
-                className="flag editable"
-                role="img"
-                aria-label={FLAG_LABEL[isEditing ? form.flag : player.flag] || "Flag"}
-              >
-                <div className="display-layer" aria-hidden="true">
+              <div className="flag editable">
+                <div className="display-layer">
                   {FLAG_EMOJI[isEditing ? form.flag : player.flag] || "🏳️"}
                 </div>
                 {isEditing && (
@@ -214,10 +207,12 @@ function PlayerProfile() {
                 )}
               </div>
 
+              {/* Username */}
               <div className="username editable">
                 {!isEditing && <span className="display-layer">{player.username}</span>}
                 {isEditing && (
                   <input
+                    required
                     className="edit-layer edit-layer--center"
                     name="username"
                     type="text"
@@ -230,8 +225,12 @@ function PlayerProfile() {
               </div>
             </div>
 
-            <div className="bio editable">
-              {!isEditing && <span className="display-layer">{player.bio}</span>}
+            <div className="bio editable" style={{ position: "relative" }}>
+              {!isEditing && (
+                <span className="display-layer">
+                  {player.bio && player.bio.trim() ? player.bio : "No bio."}
+                </span>
+              )}
               {isEditing && (
                 <>
                   <textarea
@@ -240,6 +239,7 @@ function PlayerProfile() {
                     maxLength={300}
                     value={form.bio}
                     onChange={handleInputChange}
+                    onKeyDown={handleBioKeyDown}
                     placeholder="Tell us about you (≤ 300 chars)"
                   />
                   <span className="bio-counter">{remainingBio}</span>
@@ -285,54 +285,31 @@ function PlayerProfile() {
             </div>
           </section>
 
-          {/* ACHIEVEMENTS: small carousel with chevrons */}
-          <section className="achievements" aria-label="Achievements">
+          {/* Achievements */}
+          <section className="achievements">
             <h2 className="ach-title-center">ACHIEVEMENTS</h2>
-
             <div className="ach-viewport">
-              <button
-                className="ach-nav-btn ach-nav-left"
-                type="button"
-                aria-label="Previous achievement"
-                onClick={prevAch}
-              >
+              <button className="ach-nav-btn ach-nav-left" type="button" onClick={prevAch}>
                 ‹
               </button>
-
-              <button
-                className="ach-nav-btn ach-nav-right"
-                type="button"
-                aria-label="Next achievement"
-                onClick={nextAch}
-              >
+              <button className="ach-nav-btn ach-nav-right" type="button" onClick={nextAch}>
                 ›
               </button>
-
               {achievementItems}
             </div>
           </section>
         </div>
 
-        {/* CENTER: team title + avatar with badge overlay */}
+        {/* Center Column */}
         <section className="profile-hero">
           <h1 className="profile-hero-title">
-            {player.currentTeam && player.currentTeam.trim()
-              ? player.currentTeam
-              : "CURRENT TEAM"}
+            {player.currentTeam && player.currentTeam.trim() ? player.currentTeam : "CURRENT TEAM"}
           </h1>
 
           <div
-            className={"avatar-circle " + (player.avatarUrl ? "has-image" : "no-image")}
-            role="button"
-            tabIndex={0}
-            aria-label="Change profile picture"
-            onClick={onAvatarClick}
-            onKeyDown={onAvatarKeyDown}
-            style={
-              player.avatarUrl
-                ? { backgroundImage: "url(" + player.avatarUrl + ")" }
-                : undefined
-            }
+            className={`avatar-circle ${player.avatarUrl ? "has-image" : "no-image"}`}
+            onClick={handleAvatarClick}
+            style={player.avatarUrl ? { backgroundImage: `url(${player.avatarUrl})` } : undefined}
           >
             {!player.avatarUrl && (
               <span className="avatar-hint">
@@ -341,19 +318,19 @@ function PlayerProfile() {
                 profile picture
               </span>
             )}
-
             <img className="avatar-badge" src={BADGE_PATH} alt="badge" draggable="false" />
             <input
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={onChangeAvatar}
+              onChange={handleChangeAvatar}
               className="visually-hidden"
+              tabIndex={-1}
             />
           </div>
         </section>
 
-        {/* RIGHT: vertical list of game cards */}
+        {/* Right Column */}
         <aside className="games-played">
           <h2>GAMES PLAYED</h2>
           <div className="games-scroll">{gameItems}</div>
