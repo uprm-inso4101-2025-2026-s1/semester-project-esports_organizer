@@ -5,12 +5,11 @@
 - Informative documents → /Documentation/Informative
 - Descriptive documents → /Documentation/Descriptive
 - Analytic documents → /Documentation/Analytic
-- Application of Topics → /Documentation/appOfTopics
-- LogBook → /Documentation/logBook
+- Application of Topics and logbook→ /Documentation/End
 
 == Naming Convention
 - Sub-sections: {part}-{number}.adoc (e.g., 1-1.adoc, 2-3.adoc)
-- Part documents: introductionDoc.adoc, informativeDoc.adoc, descriptiveDoc.adoc, analyticDoc.adoc, appOfTopics.adoc, logBook.adoc
+- Part documents: introductionDoc.adoc, informativeDoc.adoc, descriptiveDoc.adoc, analyticDoc.adoc, end.adoc
 - Main document: mainDoc.adoc
 
 == Logbook addition

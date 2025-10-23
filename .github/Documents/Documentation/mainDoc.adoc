@@ -8,6 +8,4 @@ include::Descriptive/descriptiveDoc.adoc[]
 
 include::Analytic/analyticDoc.adoc[]
 
-include::appOfTopics.adoc[]
-
-include::logBook.adoc[]
+include::End/end.adoc[]
