@@ -15,8 +15,7 @@ export function createCommunity(name, description, adminID, tags, location, icon
     //Generate a random UUID
     id = crypto.randomUUID();
 
-        //TO DO: description, localization, icon and banner properties are not present yet in the constructor
-        //description (string, entered by the user)
+        //TO DO: localization, icon and banner properties are not present yet in the constructor
         //location (string, selected or entered by the user, where the community is present or based in)
         //icon (image location)
         //banner (image location)
@@ -30,7 +29,7 @@ export function createCommunity(name, description, adminID, tags, location, icon
     //posts (no posts upon creation), no need to initialize it since constructor should create an empty array
     //tags (argument user passes through frontend)
     //id √
-    communityObject = Community(name, adminID, members, posts, tags, id);
+    communityObject = Community(name, description, adminID, members, posts, tags, id);
 
     //TO DO: send community object to database
 
