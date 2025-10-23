@@ -1,8 +1,0 @@
-== LogBook
-
-[width="100%", cols="4*", options="header", frame=all, grid=all, halign=center]
-|===
-| Section Name | Member | Added or Modified | Description
-
-| Rough Sketch | Pedro Bonilla | Added | Added a Flowchart to better explain the way communities, players, teams, and organizers work. 
-|===
