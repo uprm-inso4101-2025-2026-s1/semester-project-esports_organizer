@@ -3,11 +3,14 @@
 ==== Scope
 This project belongs to the broad domain of entertainment, gaming and event organization, with a focus on the growing field of esports. This includes players, organizers, or simply spectators who participate or follow gaming tournaments and events, whether it's online or in person.  The scope covers all phases of the software engineering required for the project, including domain description, requirements engineering, software architecture, component design, implementation, and finally testing. It also considers aspects of user experience, communication, and community engagement, as these are essential in the competitive gaming environment.
 
+[.green]#Additionally, it includes testing, validation, and community-focused UX activities beyond pure code development.#
+
+
 ==== Span
-While the domain of the project is the global esports community, the specific focus (span) of this platform is on small to medium scale tournaments organized by local communities, including student groups and other independent gaming organizations. The platform is designed to help these organizers manage registration, brackets, communication and visibility in a way that is easy to use. Unlike large-scale esport platforms, this project emphasizes inclusivity, adaptability, and simplicity making it suitable for semi-formal competitions.
+While the domain of the project is the global esports community, the specific focus (span) of this  [.green]#web-based hub# is on small to medium scale tournaments organized by local communities, including student groups and other independent gaming organizations.  The   [.green]#web# is designed to help these organizers manage registration, brackets, communication and visibility in a way that is easy to use. Unlike large-scale esport platforms, this project emphasizes inclusivity, adaptability, and simplicity making it suitable for semi-formal competitions.
 
 ==== Synopsis
-This project aims to design and develop a web-based platform that facilitates the organization and participation of esports tournaments. The system will centralize key processes such as event discovery, player registration, tournament scheduling, and results publishing. It will also provide real-time notifications, and public results for spectators.  
+This project aims to design and develop a web-based platform that facilitates the organization and participation of esports tournaments. The  [.green]#web page# will centralize key processes such as event discovery, player registration, tournament scheduling, and results publishing. It will also provide real-time notifications, and public results for spectators.  
 
 The project will be conducted through standard software engineering phases:
 
@@ -17,4 +20,4 @@ The project will be conducted through standard software engineering phases:
 * Implementation of core features in line with the defined requirements.
 * Testing and validation to ensure functionality, usability, and reliability.
 
-In summary, this project delivers not only a working system but also serves as a solution to improve how other esports platform organize tournaments and shape user experiences.  
+In summary, this project delivers not only a working system but also serves as a solution to improve how other esports  [.green]#web pages# organize tournaments and shape user experiences.  
