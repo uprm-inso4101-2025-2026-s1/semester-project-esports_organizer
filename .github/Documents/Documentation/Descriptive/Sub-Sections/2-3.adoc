@@ -25,8 +25,9 @@ The **software design** explains how each component is realized:
   automatically update user rankings.
 * **Communities and teams:** Users can create or join them, ensuring
   inclusivity and adaptability.
-* [.green-background]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#
+* [.green-background]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#  
   [.green-background]#Implemented functions such as `getParticipatedTournaments()` within the Profiles module retrieve user data directly from Firestore, ensuring up-to-date synchronization between the backend and the database.#  
+  [.green-background]#Additionally, asynchronous functions like `saveProfile`, `getProfile`, and `updateProfile` manage the creation, retrieval, and updating of user profiles within Firestore, maintaining accurate and timestamped records.#  
 
 Diagrams and screen mockups complement the text:
 * Architecture diagrams highlight module interactions.
@@ -39,7 +40,7 @@ Diagrams and screen mockups complement the text:
 
 [.yellow-background]#Selected fragments are only included when they clarify explanations and complement the documentation.#  
 
-[.green-background]#For Milestone 2, the following code excerpt from the Profiles module demonstrates Firestore integration. This fragment shows how user-related data is retrieved and verified for debugging purposes, confirming a functional connection between the backend and the database.#  
+[.green-background]#For Milestone 2, the following code excerpts from the Profiles module demonstrate Firestore integration and CRUD functionality. These fragments show how user-related data is retrieved, created, and updated through asynchronous operations, confirming full connectivity between the backend and the Firestore database.#  
 
 [source,js]
 ----
@@ -73,8 +74,70 @@ export default getParticipatedTournaments;
 ----
 
 [.green-background]#**Explanation:**  
-This function retrieves all documents from the “User” collection in Firestore and displays key information through console logs. It verifies that Firestore connectivity and data structure are working correctly in the current environment.  
+This function retrieves all documents from the “User” collection in Firestore and displays key information through console logs.  
+It verifies that Firestore connectivity and data structure are working correctly in the current environment.  
 This implementation satisfies the system requirement that *“the system must provide a way to retrieve stored user data from Firestore.”*#
+
+[.green-background]#The following fragment complements the previous example by showing how user profile information is created, retrieved, and updated. This code implements the CRUD logic for the Profiles module and ensures that user data is stored with proper timestamps and validation.#  
+
+[source,js]
+----
+import { db } from '../lib/firebase.js';
+import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+
+/**
+ * @param {Object} profileData 
+ * @param {string} profileData.email 
+ * @param {string} profileData.name 
+ * @param {string} profileData.photoUrl 
+ * @param {string} profileData.role 
+ */
+export async function saveProfile(profileData) {
+  if (!profileData.email || !profileData.name || !profileData.role) {
+    throw new Error('Campos obligatorios faltantes: email, name o role');
+  }
+
+  const ref = doc(db, 'profiles', profileData.email);
+  await setDoc(ref, {
+    ...profileData,
+    createdAt: serverTimestamp()
+  });
+
+  return { success: true };
+}
+
+/**
+ * @param {string} email 
+ */
+export async function getProfile(email) {
+  const ref = doc(db, 'profiles', email);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) {
+    return null;
+  }
+  return snap.data();
+}
+
+/**
+ * @param {string} email 
+ * @param {Object} updates
+ */
+export async function updateProfile(email, updates) {
+  const ref = doc(db, 'profiles', email);
+  await updateDoc(ref, {
+    ...updates,
+    updatedAt: serverTimestamp()
+  });
+
+  return { success: true };
+}
+----
+
+[.green-background]#**Explanation:**  
+These asynchronous functions (`saveProfile`, `getProfile`, and `updateProfile`) manage CRUD operations for user profiles.  
+They interact directly with Firestore, adding timestamps (`createdAt`, `updatedAt`) to track data modifications.  
+This code demonstrates how the system fulfills requirements such as *“the system must provide a way to create and manage user profile data”* and *“the system must provide means to update stored information reliably.”*#
 
 Best practices followed in this documentation:
 * **No screenshots** of code — only properly formatted snippets.
