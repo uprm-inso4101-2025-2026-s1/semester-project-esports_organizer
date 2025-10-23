@@ -3,14 +3,11 @@ import {Community} from "./Community.js";
 //WORK IN PROGRESS FILE
 
 //Function receives arguments from the frontend implementation that calls it
-export function createCommunity(name, description, tags, localization, icon, banner){
-
-    //TO DO: get id of account that created the community
-    admin = null;
+export function createCommunity(name, description, adminID, tags, localization, icon, banner){
 
     //Members will start as an empty array to house the ids of future members with the admin id added as first member
     members = [];
-    members.push(admin);
+    members.push(adminID);
 
     //Date the community was created in
     const dateCreated = new Date();
@@ -29,12 +26,12 @@ export function createCommunity(name, description, tags, localization, icon, ban
         or do we have an image database or could have?*/
 
     //name (argument user passes through frontend)
-    //admin TO DO
+    //adminID (ID of the account that created the community)
     //members √
     //posts (no posts upon creation), no need to initialize it since constructor should create an empty array
     //tags (argument user passes through frontend)
     //id √
-    communityObject = Community(name, admin, members, posts, tags, id);
+    communityObject = Community(name, adminID, members, posts, tags, id);
 
     //TO DO: send community object to database
 
