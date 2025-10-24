@@ -2,7 +2,7 @@
 
 === 1.1 Team Members
 Our project's team is composed entirely of students participating in the Esports Organizer project. Every team member is directly involved in the development, design, and decision-making processes. 
-[.hl-yellow]#While the project does not have external clients or sponsors, it still involves several types of stakeholders. Stakeholders include players, organizers, spectators,community members / clubs, developers / team members themselves that have an intereste by the system’s outcomes. Recognizing this distinction helps the team consider diverse perspectives when making design and implementation decisions.#
+[.hl-yellow]#While the project does not have external clients or sponsors, it still involves several types of stakeholders. Stakeholders include players, organizers, spectators,community members / clubs, developers / team members themselves that have an interest by the system’s outcomes. Recognizing this distinction helps the team consider diverse perspectives when making design and implementation decisions.#
 
 Roles and responsibilities are distributed among the team members as follows:
 
