@@ -213,7 +213,7 @@ export default function CommunityPage() {
                         ) : (
                             <div className="community-cards-container">
                                 {filteredCommunities.map((community) => (
-                                    <div key={community.id} className="community-card-wrapper">
+                                    <div key={community.id} className="community-card-wrapper" onClick={() => handleNavigation(`/community/${community.id}`)} style={{ cursor: 'pointer' }} >
                                         <CommunityCard
                                             imageUrl={community.imageUrl}
                                             title={community.title}
