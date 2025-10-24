@@ -3,58 +3,79 @@
 === 2.2.1 User Stories, Epics, Features
 
 ==== Epics
-* As a gamer, I want to discover local tournaments and communities, so that I can participate on the tournaments and meet players with similar interests to myself.  
-* As a tournament organizer, I want to announce and manage events so that I can attract the maximun number of participants and grow the competitive scene.  
-* As a competitive player, I want to track my performance and rankings, so that I can measure progress and compare myself with others.  
-* As a casual player, I want to join or create teams for my favorite games so that I can play cooperatively and find new friends to play my favorite games.  
+- [.hl-yellow]#As a gamer, I want to discover local tournaments and communities, so that I can participate on the tournaments and meet players with similar interests to myself.#
+- [.hl-green]#The system must provide games with tools to search, filter and join local and online tournaments by game, skill level and location, this will foster community engagement and participation.#
+- [.hl-yellow]#As a tournament organizer, I want to announce and manage events so that I can attract the maximum number of participants and grow the competitive scene.#
+- [.hl-green]#The system must provide organizers with a platform to create, publish and manage tournament events, this includes bracket generation, participant registration and notification.#
+- [.hl-yellow]#As a competitive player, I want to track my performance and rankings, so that I can measure progress and compare myself with others.# 
+- [.hl-green]#The system must support the collection, storage and display of player data, allowing users to view ranking, match histories, and statistics on their performance.#
+- [.hl-yellow]#As a casual player, I want to join or create teams for my favorite games so that I can play cooperatively and find new friends to play my favorite games.#
+- [.hl-green]#The system must support users in creating, joining and managing gaming communities, this includes team formation, messaging and even participation, in order to enhance long-term user engagement.#
 
 ==== User Stories 
-* As a gamer, I want to follow specific communities so that I receive notifications about upcoming events.  
-* As a gamer, I want to create a new community for a game without an existing one so that I can gather players with similar interests. 
-* As a competitive player, I want to view my local ranking so that I can see how I compare with others in my region.  
-* As a competitive gamer, I want to join a team for my favorite game so that I can participate in team-based competitions.  
-* As an organizer, I want to create tournament brackets so that matches are structured and easy to follow.  
-* As an organizer, I want to notify users about new tournaments so that they are aware and can sign up.   
+- [.hl-red]#As a gamer, I want to follow specific communities so that I receive notifications about upcoming events.# 
+- [.hl-red]#As a gamer, I want to create a new community for a game without an existing one so that I can gather players with similar interests.# 
+- [.hl-red]#As a competitive player, I want to view my local ranking so that I can see how I compare with others in my region.#  
+- [.hl-red]#As a competitive gamer, I want to join a team for my favorite game so that I can participate in team-based competitions.#  
+- [.hl-red]#As an organizer, I want to create tournament brackets so that matches are structured and easy to follow.#  
+- [.hl-red]#As an organizer, I want to notify users about new tournaments so that they are aware and can sign up.#
+- [.hl-green]#As a games, I require a system that must be able of providing a way to follow specific communities and automatically receive notifications for upcoming tournaments and events.#
+- [.hl-green]#As a gamer, I require a system that must be able of supporting the creation of new communities for games not yet listed.#
+- [.hl-green]#As a competitive player, I require a system that must display accurate local ranking based on official tournaments results.#
+- [.hl-green]#As a competitive player, I require a system that must provide a leaderboard interface that updates after each match.#
+- [.hl-green]#As an organizer, I require a system that must be able of providing tools for automatic bracket generation and real-time result tracking.#
+- [.hl-green]#As an organizer, I require a system that must be able of sending notification to registered participants when a new tournament or event is created.#
+- [.hl-green]#As a casual gamer, I require a system that must provide a simple interface to join or create teams for friendly or competitive play.#
+- [.hl-green]#As an organizer, i require a system that must provide communication tools, such as an announcement board, to interact with participants.#
 
 ==== Features
-* Tournament and event search by both game and location.  
-* Community following and customizable notifications.  
-* Local and regional ranking system based on tournament results.  
-* Team creation and management tools.  
-* Bracket generation for competitions.  
-* Organizer tools for posting and updating events.  
-* Option to create new communities for games without an existing competitive scene.  
+- [.hl-red]#Tournament and event search by both game and location.#  
+- [.hl-red]#Community following and customizable notifications.#
+- [.hl-red]#Local and regional ranking system based on tournament results.#
+- [.hl-red]#Team creation and management tools.#
+- [.hl-red]#Bracket generation for competitions.#
+- [.hl-red]#Organizer tools for posting and updating events.#
+- [.hl-red]#Option to create new communities for games without an existing competitive scene.#
+- [.hl-green]#Tournament Discovery: The system must provide search filters by game, skill tier, and proximity to help users find events.#
+- [.hl-green]#Tournament Management: The system must allow organizers to configure tournament details, such as rules, registration limits, and brackets as well as publishing updates.#
+- [.hl-green]#Ranking and Statistics: The system must compute and update leaderboards after each tournament, storing individual and team statistics.#
+- [.hl-green]#Community Management: The system must provide means for users to create communities, invite members and post discussion threads.#
+- [.hl-green]#Notification and Alert System: The system must notify users about new tournaments, team invitations, and ranking changes.#
+- [.hl-green]#Team Coordination: The system must enable players to form teams and register as one for competitions.#
 
 
 === 2.2.2 Personas
 
 ==== Persona 1: Alex the Competitive Player
-* **Age:** 21  
-* **Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.  
-* **Goals:**  
-  - Find tournaments to test and improve skills.  
-  - Track rankings and stats across games.  
-* **Frustrations:**  
-  - Difficult to keep up with scattered tournament announcements.  
-  - Lacks a centralized platform to measure performance.  
+* [.hl-yellow]#**Age:** 21#  
+* [.hl-yellow]#**Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.#  
+* [.hl-yellow]#**Goals:**# 
+  - [.hl-yellow]#Find tournaments to test and improve skills.#  
+  - [.hl-yellow]#Track rankings and stats across games.#  
+* [.hl-yellow]#**Frustrations:**# 
+  - [.hl-yellow]#Difficult to keep up with scattered tournament announcements.#  
+  - [.hl-yellow]#Lacks a centralized platform to measure performance.#  
+[.hl-green]#Alex is a computer science major who spends his free time practicing games like CSGO and League of Legends. Outside gaming, He balances university coursework with a part-time job tutoring. He is data driven and competitive, ofter analyzing his match performance and stats. His ideal platform is one that automatically records tournament results, visualizes ranking and helps him identify skill gaps. He also values social feature that help him connect with other players for practice sessions.#
 
 ==== Persona 2: Maria the Organizer
-* **Age:** 34  
-* **Background:** Works in event management, organizes local gaming tournaments on weekends.  
-* **Goals:**  
-  - Announce tournaments easily to the right audience.  
-  - Manage brackets and notify participants quickly.  
-* **Frustrations:**  
-  - Promotion spread thin across many platforms.  
-  - Hard to build consistent communities for recurring events.  
+* [.hl-yellow]#**Age:** 34#
+* [.hl-yellow]#**Background:** Works in event management, organizes local gaming tournaments on weekends.#
+* [.hl-yellow]#**Goals:**# 
+  - [.hl-yellow]#Announce tournaments easily to the right audience.#  
+  - [.hl-yellow]#Manage brackets and notify participants quickly.#
+* [.hl-yellow]#**Frustrations:**#  
+  - [.hl-yellow]#Promotion spread thin across many platforms.# 
+  - [.hl-yellow]#Hard to build consistent communities for recurring events.#
+[.hl-green]#Maria works full time for a community recreation center and runs gaming events as a passion project. She is detail oriented, managing the logistics of the events as well as promotion across multiple social media platforms. Her biggest challenge is keeping registration data organized and communicating efficiently with participants. She needs a platform that makes event promotion and bracket management easier as well as updating results that help her build a loyal player base.#
 
 ==== Persona 3: Liam the Casual Gamer
-* **Age:** 26  
-* **Background:** Plays games for fun after work, sometimes interested in casual competitions.  
-* **Goals:**  
-  - Discover local communities for his favorite games.  
-  - Join teams to participate in friendly competitions.  
-* **Frustrations:**  
-  - Overwhelmed by too many platforms and event sources.  
-  - Wants simple notifications without constantly monitoring social media.  
+* [.hl-yellow]#**Age:** 26#  
+* [.hl-yellow]#**Background:** Plays games for fun after work, sometimes interested in casual competitions.#  
+* [.hl-yellow]#**Goals:**#  
+  - [.hl-yellow]#Discover local communities for his favorite games.#  
+  - [.hl-yellow]#Join teams to participate in friendly competitions.# 
+* [.hl-yellow]#**Frustrations:**# 
+  - [.hl-yellow]#Overwhelmed by too many platforms and event sources.#  
+  - [.hl-yellow]#Wants simple notifications without constantly monitoring social media.# 
+[.hl-green]#Liam works as a graphic designer and enjoys unwinding with friends in games like Rocket League and R.E.P.O. He values simplicity and convenience, he does not want to browse ten discord servers just to end up finding a small weekend tournament. He is motivated by social interactions rather than simply winning, and wants a system that shows casual events nearby, has easy sing ups and minimal notifications.#
 

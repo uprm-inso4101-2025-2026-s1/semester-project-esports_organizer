@@ -2,6 +2,6 @@
 
 [.hl-green]#{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}# Added data
 
-[.hl-red]#{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}# [line-through]#Removed data#
+[.hl-red]#{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}# Removed data
 
-[.hl-yellow]#{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}# [line-through]#Paraphrased data#
+[.hl-yellow]#{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}# Paraphrased data

@@ -1,6 +1,6 @@
 === 2.2.3 Domain Requirements
-- [.hl-yellow]#Events must be associated with an existing videogame.#
-- [.hl-green]#The system-to-be shall require each event to be linked to an existing videogame.#
+- [.hl-yellow]#Events must be associated with an existing video game.#
+- [.hl-green]#The system-to-be shall require each event to be linked to an existing video game.#
 
 - [.hl-yellow]#Every event created must have at least one organizer.#
 - [.hl-green]#The system-to-be shall require at least one registered user to be assigned as an organizer before an event can be created.#
