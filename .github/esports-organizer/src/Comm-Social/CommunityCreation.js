@@ -16,16 +16,16 @@ import {Community} from "./Community.js";
 export function createCommunity(name, description, admin, tags, game, location, icon, banner){
 
     //Members will start as an empty array to house the ids of future members with the admin id added as first member
-    members = [];
+    const members = [];
     members.push(admin);
 
     //Date the community was created in
     const dateCreated = new Date();
 
     //Generate a random UUID
-    id = crypto.randomUUID();
+    const id = crypto.randomUUID();
 
-    communityObject = Community(name, description, admin, members, posts, tags, id);
+    const communityObject = Community(name, description, admin, members, posts, tags, id);
 
     //TO DO: send community object to database
 

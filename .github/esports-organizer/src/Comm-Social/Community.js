@@ -33,7 +33,7 @@ id;
     //Constructor
     constructor(init) {
         this.name = init.name;
-        this.description = description;
+        this.description = init.description;
         this.admin=init.admin;
        this.members=init.members ?? [];
         this.posts=init.posts ?? [];
