@@ -1,7 +1,7 @@
 == 2 Descriptive Part
 
 === 2.1 Domain Description
-This section describes the essential components and interactions within an the esports tournament platform. It defines how players, teams, and organizers interact through the platform and indentifies the terminology and conceptual abstractions that structure the system. The description includes a rough sketch of the domain, key terms, a narrative of typical processes, and breakdowns of events, actions, behaviors, and function signatures.
+This section describes the essential components and interactions within an the esports tournament platform. It defines how players, teams, and organizers interact through the platform and identifies the terminology and conceptual abstractions that structure the system. The description includes a rough sketch of the domain, key terms, a narrative of typical processes, and breakdowns of events, actions, behaviors, and function signatures.
 
 === 2.1.1 Rough Sketch
 * Players register in a community and can either create new teams or join existing ones advertised within the platform.
