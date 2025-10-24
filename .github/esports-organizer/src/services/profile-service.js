@@ -24,11 +24,13 @@ export async function saveProfile(profileData) {
 
   const uniqueId = uuidv4().slice(0,8);
   const ref = doc(db, 'profiles', uniqueId);
+  const role = profileData.role ? profileData.role: 'player';
 
   await setDoc(ref, {
     ...profileData,
     id: uniqueId,
     email,
+    role,
     createdAt: serverTimestamp()
   });
 
@@ -51,7 +53,7 @@ export async function getProfileById(id) {
  * @param {string} email 
  * @param {Object} updates
  */
-export async function updateProfileByEmail(email, updates) {
+export async function updateProfileByEmail(email, updates, currentUserRole = 'player') {
   if(!email) return {success: false, error:'Email is required.'};
   if(!updates || typeof updates !== 'object'){
     return{success: false, error: 'Invalid update data.'};
@@ -71,6 +73,13 @@ export async function updateProfileByEmail(email, updates) {
   for (const key in updates){
     if (updates[key] !== currentData[key]){
       fieldsToUpdate[key] = updates[key];
+    }
+  }
+
+  if ('role' in updates && updates.role !== currentData.role ) {
+    if(currentUserRole != 'admin') {
+      delete updates.role;
+      return {success: false, error: 'Unauthorized: only admins can change roles.'}
     }
   }
 
@@ -122,5 +131,25 @@ export async function updatePlayerProfile(profileId, updateData){
   });
 
   return {success:true, updated: fieldsToUpdate};
-
 }
+
+  /**
+   * @param {string} profileId
+   * @param {string} currentUserRole
+   */
+  export async function deleteProfile(profileId, currentUserRole = 'player'){
+    if (!profileId) return {success: false, error: "Profile ID is required."};
+
+    if (currentUserRole !== 'admin'){
+      return {success: false, error: "Unauthorized"};
+    }
+
+    const ref = doc(db, 'profiles', profileId);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists()) {
+      return {success: false, error:"Profile not found."};
+    }
+    await deleteDoc(ref);
+    return {success: true, message: "Profile deleted succesfully."};
+  }
