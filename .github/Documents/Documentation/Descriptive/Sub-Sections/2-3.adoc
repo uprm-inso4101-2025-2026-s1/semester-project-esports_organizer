@@ -46,6 +46,8 @@ Diagrams and screen mockups complement the text:
 
 [.yellow-background]#Selected fragments are only included when they clarify explanations and complement the documentation.#  
 
+[.red-background]#For this stage of the project, no fragments are presented since the system is still under development. Once code and designs are available, they will be added to illustrate how Section 2.2 requirements are met in practice.#  
+
 [.green-background]#For Milestone 2, the following code excerpts from the Profiles module demonstrate Firestore integration and CRUD functionality. These fragments show how user-related data is retrieved, created, and updated through asynchronous operations, confirming full connectivity between the backend and the Firestore database.#  
 
 [source,js]
