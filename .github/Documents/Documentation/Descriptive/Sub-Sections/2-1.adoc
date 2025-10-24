@@ -14,14 +14,14 @@ This section describes the essential components and interactions within an the e
 * [.hl-red]#Results are recorded; tiebreakers decide standings in round-robins or Swiss.#
 * [.hl-red]#Spectators and media follow brackets, standings, and schedules.#
 
-* [.hl-green]#The following are statements people would say in their day to day life.#
+[.hl-green]#The following are statements people would say in their day to day life.#
 * [.hl-green]#"I have a difficult time making friends and I wanted to be able to be apart of a commmunity that enjoyed the same games I do. As well as participate in a variety of events with them."#
 * [.hl-green]#"Ive been playing Super Smash Bros day and night but dont have anyone to play against. I want to somehow organize an event in a neatly manner where I can find suitable opponents and make a fun competition for everyone."#
 * [.hl-green]#"My friends and I wanted to compete in the UPRM Marvel Rivals tournament back in May. We needed one more member to complete the roster qualifications if we wanted to compete and also have our team registered two weeks before the tournament".#
 * [.hl-green]#"My friends and I decided to form a team, but someone had to take charge so we decided to make Tomas the captain. He takes care of inviting people, updating the roster and signing us up to tournaments.".#
 * [.hl-green]#"For the Mario Kart Tournament back in Febraury the organizers posted all the rules online. They mentioned things like you had to be older than 13, teams had to have 4 members and only people from the west side of the island could enter this specific tournament".#
 * [.hl-green]#"I noticed while competing that the organizer didnt just put teams randomly in a bracket; instead they seeded teams based on how well they did in previous tournaments or online qualifiers".#
-* [.hl-green]#"It was fun to play in events with different formats. Some are single elimination so if you lose once you're out. Others are double elimination, round robin or that Swiss system where you keep playing people with similar records."#
+* [.hl-green]#"It was fun to play in events with different formats. Some are single elimination so you lose once you're out. Others are double elimination, round robin or that Swiss system where you keep playing people with similar records."#
 * [.hl-green]#"Before every match we had to check in on the website. If you didnt check in withing the grace period your team would automatically forfeit."#
 * [.hl-green]#"After every match score were reported. I remember in a round robin tournament two teams ended with the same number of wins, things like head-to-head results or point diferences were used to decide who plased higher"#
 * [.hl-green]#"I got surprised by how much popularity the esports community gained. People who weren’t even playing still followed everything. I heard on reddit some kept checking the brackets, match schedules, and standings to see who was winning and who got knocked out. Some even streamed or shared updates on instagram and facebook."#
@@ -65,21 +65,21 @@ The esports tournament process begins with the organizer, who creates and publis
 
 [.hl-green]#This process represents the complete lifecycle of an esports competition, integrating the behaviors of players, teams, and organizers into a unified flow that the platform supports and tracks programmatically.#
 
-=== 2.1.5 Events, Actions, Behaviors
-[.hl-green]#Events, actions, and behaviors describe the system’s dynamic elements during tournament operations. Based on the tournament flow described in the reference document, these elements can be categorized as follows:#
+=== 2.1.5 Concepts Involving Events, Actions, Behaviors
+[.hl-green]#Events, actions, and behaviors are all concepts within the system, just like entities (e.g., team, tournament, match). They are types of dynamic phenomena/concepts that occur in the esports tournament platform and often trigger or influence one another.#
 
-* Event (instantaneous state change)
-** "Team registration window has closed."
-** "Match #3 has been completed with a score of 2–1."
-** "Tournament bracket successfully generated."
-** "Player connection lost during match."
-** "Roster update deadline reached."
+* [.hl-yellow]#Event (instantaneous state change, often triggering action)#
+** [.hl-yellow]#"Team registration window closes: At the exact deadline, the platform marks registration as closed and prevents new teams from joining."#
+** [.hl-yellow]#"Match #3 has been completed with a score of 2–1: This event triggers bracket updates and ranking point calculations."#
+** [.hl-yellow]#"Tournament bracket successfully generated: Once all eligible teams are confirmed, the system produces the initial bracket. This event makes match schedules visible to teams and spectators."#
+** [.hl-yellow]#"Player connection lost during match: The system detects a disconnection and logs it. Depending on tournament rules, it may trigger a pause request or automatic forfeit."#
+** [.hl-yellow]#"Roster update deadline reached: After this timestamp, no further roster substitutions".#
 
 * Action (an act carried out once)
-** [.hl-green]#Create a tournament.#
-** Register a team for a tournament.
-** [.hl-green]#Generate tournament bracket.#
-** [.hl-green]#Assign a team captain.#
+** [.hl-green]#Create a tournament: An organizer sets the name, game title, ruleset, schedule and registration deadline.#
+** [.hl-yellow]#Register a team: a captain submits the team's name, roster, region, and other required data to participate in a specific tournament.#
+** [.hl-green]#Generate tournament bracket: The system arranges matchups based on seeding rules or random assignments and stores them in the tournament data.#
+** [.hl-green]#Assign a team captain: A team member is designated as captain; this action updates permissions and allows roster management.#
 
 [.hl-green]#Update match results.#
 
