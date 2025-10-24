@@ -8,6 +8,11 @@
  * @property {Post[]} posts array of posts in a community
  * @property {string[]} tags array of tags in a community
  * @property {string} id identifier
+ * @property {object} dateCreated date the community was created
+ * @property {string} game game around which the community is based
+ * @property {string} location where the community is based or located
+ * @property {string} icon file location of the community icon image
+ * @property {string} banner file location of the community banner image
  */
 
 export default class Community{
@@ -26,6 +31,16 @@ export default class Community{
  tags;
  /** @type {string}  identifier */
 id;
+/** @type {object} date of community creation*/
+dateCreated;
+/** @type {string} */
+game;
+/** @type {string} */
+location;
+/** @type {string} */
+icon;
+/** @type {string} */
+banner;
 
     //Map that contains all  created communities created
     static allCommunities = new Map();
@@ -33,7 +48,7 @@ id;
     //Constructor
     constructor(init) {
         this.name = init.name;
-        this.description = description;
+        this.description = init.description;
         this.admin=init.admin;
        this.members=init.members ?? [];
         this.posts=init.posts ?? [];
