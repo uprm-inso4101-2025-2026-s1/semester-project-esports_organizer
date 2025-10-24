@@ -8,31 +8,37 @@ import { db } from '../../lib/firebase.js';
 
 // Console.log is for debugging purposes and it will be reflected in the browser console.
 
-async function verifyAnswer(inputEmail, userAnswer) {
+async function verifyAnswer(inputEmailOrUsername, userAnswer) {
     try {
-        console.log("Verifying answer for email:", inputEmail, "with answer:", userAnswer);
-        const q = query(collection(db, "Users"), where("Email", "==", inputEmail));
-        const querySnapshot = await getDocs(q);
+                console.log("Verifying answer for email/username:", inputEmailOrUsername.toLowerCase(), "with answer:", userAnswer.toLowerCase());
+                const emailQ = query(collection(db, "User"), where("Email", "==", inputEmailOrUsername.toLowerCase()));
+                let querySnapshot = await getDocs(emailQ);
 
-        if (querySnapshot.empty) {
-            // console.log("No user found for email:", inputEmail);
-            return { answerCorrect: false };
-        }
+                // If not found by email, try by username
+                if (querySnapshot.empty) {
+                        const usernameQ = query(collection(db, "User"), where("Username", "==", inputEmailOrUsername.toLowerCase()));
+                        querySnapshot = await getDocs(usernameQ);
+                }
 
-        // Only one user per email
-        const userData = querySnapshot.docs[0].data();
-        // console.log("Security question from Firestore:", userData.Question);
-        // console.log("Correct answer from Firestore:", userData.Answer);
-        // console.log("User provided answer:", userAnswer);
+                if (querySnapshot.empty) {
+                        console.log("No user found for email/username:", inputEmailOrUsername);
+                        return { answerCorrect: false };
+                }
 
-        const answerCorrect =
-          userData.Answer &&
-          userAnswer &&
-          userData.Answer.trim().toLowerCase() === userAnswer.trim().toLowerCase();
+                // Only one user per email/username
+                const userData = querySnapshot.docs[0].data();
+                console.log("Security question from Firestore:", userData.Question);
+                console.log("Correct answer from Firestore:", userData.Answer);
+                console.log("User provided answer:", userAnswer);
 
-        // console.log("Answer correct:", answerCorrect);
+                const answerCorrect =
+                    userData.Answer &&
+                    userAnswer &&
+                    userData.Answer.trim().toLowerCase() === userAnswer.trim().toLowerCase();
 
-        return { answerCorrect };
+                console.log("Answer correct:", answerCorrect);
+
+                return { answerCorrect };
     } catch (error) {
         console.error("Error in verifyAnswer:", error);
         throw error;
