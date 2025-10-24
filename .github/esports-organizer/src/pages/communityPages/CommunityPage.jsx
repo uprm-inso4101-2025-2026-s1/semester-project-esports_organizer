@@ -25,8 +25,7 @@ export default function CommunityPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filter, setFilter] = useState("");
+    const [search, setSearch] = useState("");
 
     const handleNavigation = (path) => {
         navigate(path);
@@ -42,6 +41,7 @@ export default function CommunityPage() {
         {path: "/tournaments", label: "Tournaments"},
         {path: "/teams", label: "Teams"},
         {path: "/community", label: "Community"},
+        { path: "/help-center", label: "Help" },
     ];
 
     // Better placeholder data with variety
@@ -98,9 +98,8 @@ export default function CommunityPage() {
 
     // Filter communities based on search and filter
     const filteredCommunities = placeholderCommunities.filter(community => {
-        const matchesSearch = community.title.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesFilter = !filter || community.location === filter;
-        return matchesSearch && matchesFilter;
+        const matchesSearch = community.title.toLowerCase().includes(search.toLowerCase());
+        return matchesSearch;
     });
 
     return (
@@ -192,28 +191,21 @@ export default function CommunityPage() {
                 {/* Main Content */}
                 <main className="main-content">
                     <section className="discovery-section">
-                        <h1 style={{ color: "black" }}>DISCOVER NEW COMMUNITIES FOR YOUR FAVORITE GAMES</h1>
-                        <div className="search-filter">
-                            <input
-                                type="text"
-                                placeholder="Search for a Community"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                            <select
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value)}
-                            >
-                                <option value="">All Locations</option>
-                                <option value="United States">United States</option>
-                                <option value="Global">Global</option>
-                                <option value="Europe">Europe</option>
-                            </select>
-                        </div>
+                        <h1>DISCOVER NEW COMMUNITIES FOR YOUR FAVORITE GAMES</h1>
                     </section>
 
                     <section className="top-communities" aria-label="Top communities">
-                        <h2 style={{ color: "black" }}>TOP COMMUNITIES</h2>
+                        <div className="top-communities-header">
+                        <h2>TOP COMMUNITIES</h2>
+                        <div className="search-filter">
+                            <input
+                                type="search"
+                                placeholder="Search for a Community"
+                                value={search}
+                                onChange={(event) => setSearch(event.target.value)}
+                            />
+                        </div>
+                        </div>
                         {filteredCommunities.length === 0 ? (
                             <div className="no-results">
                                 <p>No communities found matching your criteria.</p>
@@ -221,7 +213,7 @@ export default function CommunityPage() {
                         ) : (
                             <div className="community-cards-container">
                                 {filteredCommunities.map((community) => (
-                                    <div key={community.id} className="community-card-wrapper">
+                                    <div key={community.id} className="community-card-wrapper" onClick={() => handleNavigation(`/community/${community.id}`)} style={{ cursor: 'pointer' }} >
                                         <CommunityCard
                                             imageUrl={community.imageUrl}
                                             title={community.title}

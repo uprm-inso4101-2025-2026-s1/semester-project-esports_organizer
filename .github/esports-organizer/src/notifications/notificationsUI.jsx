@@ -8,7 +8,7 @@ export default function Notifications() {
   const [showList, setShowList] = useState(false);
   const [newMessage, setNewMessage] = useState('');
 
-  // Mostratara las notificaciones desde el firebase a la pagina in real time
+  // It will show notifications from firebase to the page in real time
   useEffect(() => {
     const q = query(collection(db, 'notifications'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -18,7 +18,7 @@ export default function Notifications() {
     return () => unsubscribe();
   }, []);
 
-  // Escibir una notificacion se anadira al FireBase
+  //  notification will be added to FireBase
   const addNotification = async () => {
     if (!newMessage.trim()) return;
     await addDoc(collection(db, 'notifications'), {
@@ -28,7 +28,7 @@ export default function Notifications() {
     setNewMessage('');
   };
 
-  // Esto borara todas las notificaciones, Solo del Ui no del 
+  // This will delete all notifications, only from the UI not from Firebasde
   const markAllRead = () => {
     setNotifications([]);
   };
@@ -37,40 +37,40 @@ export default function Notifications() {
     <div style={styles.container}>
       {/* 🔔 Bell icon */}
       <div style={styles.bellContainer} onClick={() => setShowList(!showList)}>
-        <FaBell size={24} />
+        <FaBell size={30} color="#de9906ff" />
         {notifications.length > 0 && (
           <div style={styles.counter}>{notifications.length}</div>
         )}
       </div>
 
-      {/* 🔔 Notifications dropdown */}
+      {/* Drop-down notification bar*/}
       {showList && (
         <div style={styles.list}>
           <div style={styles.listHeader}>
-            <strong>Notificaciones</strong>
+            <strong>Notifications</strong>
             {notifications.length > 0 && (
               <button style={styles.markReadButton} onClick={markAllRead}>
-                Marcar todas como leídas
+                Mark all as read
               </button>
             )}
           </div>
 
-          {/* Form to add new notification */}
+          {/* Add new notification */}
           <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
             <input
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Escribe notificación..."
+              placeholder="Write notification..."
               style={{ flex: 1, padding: 6, borderRadius: 6, border: '1px solid #ccc' }}
             />
             <button onClick={addNotification} style={styles.addButton}>
-              Enviar
+              Send
             </button>
           </div>
 
           {notifications.length === 0 ? (
-            <div style={styles.empty}>No hay notificaciones.</div>
+            <div style={styles.empty}>There are no notifications.</div>
           ) : (
             notifications.map((n) => (
               <div key={n.id} style={styles.notification}>
@@ -87,9 +87,9 @@ export default function Notifications() {
 const styles = {
   container: {
     position: 'fixed',
-    top: 20,
-    right: 20,
-    width: 320,
+    top: 29,
+    right: 1,
+    width: 230,
     fontFamily: 'Arial, sans-serif',
     zIndex: 1000,
   },

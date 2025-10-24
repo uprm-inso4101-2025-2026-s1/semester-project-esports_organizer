@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../components/shared/Button";
 import "./HomePage.css";
+import { addToGoogleCalendar } from "../utils/helpers";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -62,24 +63,15 @@ function HomePage() {
     { path: "/homepage", label: "Home" },
     { path: "/tournaments", label: "Tournaments" },
     { path: "/teams", label: "Teams" },
-    { path: "/community", label: "Community" }
+    { path: "/community", label: "Community" },
+    { path: "/help-center", label: "Help" },
   ];
 
   // Bookmark button component
-  const BookmarkButton = ({ cardId, isSaved }) => {
+  const BookmarkButton = ({ cardId, isSaved, tournament }) => {
     const handleClick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      addToGoogleCalendar(tournament);
       
-      // Execute the toggle first
-      toggleSaved(cardId);
-      
-      // Then prevent scroll
-      setTimeout(() => {
-        window.scrollTo(0, window.scrollY);
-      }, 0);
-      
-      return false;
     };
 
     return (
@@ -99,6 +91,14 @@ function HomePage() {
   const TournamentCard = ({ index, prefix = "" }) => {
     const cardId = prefix ? `${prefix}-${index}` : index;
     const isSaved = savedCards.has(cardId);
+
+     const tournament = {
+        title: "1 VS 1 JUNGLE CUP",
+        game: "Fortnite",
+        price: "Free",
+        date: "2025-10-01T18:00:00", 
+        location: "Online Tournament",
+      };
 
     return (
       <div className="tournament-card">
@@ -140,7 +140,7 @@ function HomePage() {
             >
               Join Event
             </button>
-            <BookmarkButton cardId={cardId} isSaved={isSaved} />
+            <BookmarkButton cardId={cardId} isSaved={isSaved} tournament={tournament} />
           </div>
         </div>
       </div>
@@ -148,8 +148,18 @@ function HomePage() {
   };
 
   // Community card component
-  const CommunityCard = () => {
-    return (
+  const CommunityCard = ({ communityId = "fortnite" }) => {
+      const handleFollowCommunity = () => {
+          //proper implementation will be worked on in the future
+          console.log(`Following community: ${communityId}`);
+          handleNavigation(`/community/${communityId}`);
+      };
+      const handleViewCommunity = () => {
+      // Navigate directly to the community page
+      handleNavigation(`/community/${communityId}`);
+    };
+
+      return (
       <div className="community-card">
         <div className="community-image-wrapper">
           <img 
@@ -181,8 +191,8 @@ function HomePage() {
             </div>
           </div>
           <div className="community-actions">
-            <button type="button" className="follow-button">Follow Community</button>
-            <button type="button" className="view-button">View Community</button>
+            <button type="button" className="follow-button" onClick={handleFollowCommunity}>Follow Community</button>
+            <button type="button" className="view-button" onClick={handleViewCommunity}>View Community</button>
           </div>
         </div>
       </div>

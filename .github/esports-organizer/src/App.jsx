@@ -8,10 +8,13 @@ import AuthPage from "./pages/authPages/AuthPage";
 import AccountRecovery from "./pages/authPages/AccountRecovery";
 import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
+import HelpCenter from "./pages/HelpCenter";
 // brackets page is commented for now until path is determined
 
+import TeamsPage from "./pages/teamProfilePages/TeamsPage";
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";
 import CommunityPage from "./pages/communityPages/CommunityPage";
+import CommunityFeedPage from "./pages/communityPages/CommunityFeedPage";
 import BracketsTournamentPage from "./pages/bracketsTournamentPage/BracketsTournamentPage";
 
 function App() {
@@ -40,12 +43,15 @@ function App() {
       <Route path="/create-event" element={<CreateEventWizard />} />
       <Route path="/profile" element={<PlayerProfile />} />
       <Route path="/brackets-tournaments" element={<BracketsTournamentPage />} />
+      <Route path="/help-center" element={<HelpCenter />} />
 
 
       {/* MISSING DESIGNS */}
-      <Route path="/teams" element={<TeamProfilePage />} />
+      <Route path="/teams" element={<TeamsPage />} />
+      <Route path="/teams/:teamId" element={<TeamProfilePage />} />
       <Route path="/team-profile" element={<TeamProfilePage />} />
       <Route path="/community" element={<CommunityPage />} />
+      <Route path="/community/:communityId" element={<CommunityFeedPage />} />
     </Routes>
   );
 }

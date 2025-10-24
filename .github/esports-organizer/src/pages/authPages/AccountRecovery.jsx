@@ -4,6 +4,10 @@ import Button from "../../components/shared/Button";
 import "./AuthPages.css";
 import { useNavigate } from "react-router-dom";
 import Label from "../../components/shared/Label";
+import { confirmUser } from "../../components/account-recovery/confirmUser"; 
+import { verifyAnswer } from "../../components/account-recovery/verifyAnswer";
+import { getQuestion } from "../../components/account-recovery/getQuestion";
+import { resetPassword } from "../../components/account-recovery/resetPassword";
 
 function AccountRecovery() {
   const navigate = useNavigate();
@@ -14,6 +18,7 @@ function AccountRecovery() {
     confirmPassword: "",
   });
   const [step, setStep] = useState(1);
+  const [question, setQuestion] = useState("");
 
   const [errors, setErrors] = useState({});
   const newErrors = {};
@@ -23,10 +28,12 @@ function AccountRecovery() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmitStep1 = (e) => {
+  const handleSubmitStep1 = async (e) => {
     e.preventDefault();
     // validate email/username (mock)
-    if (form.emailOrUsername.trim() !== "") {
+    if (form.emailOrUsername.trim() !== "" && (await confirmUser(form.emailOrUsername)).exists) {
+      const { question } = await getQuestion(form.emailOrUsername);
+      setQuestion(question || "No question found.");
       setStep(2);
     } else {
       newErrors.emailOrUsername =
@@ -37,10 +44,11 @@ function AccountRecovery() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmitStep2 = (e) => {
+  const handleSubmitStep2 = async (e) => {
     e.preventDefault();
     // validate respuesta (mock)
-    if (form.securityAnswer.trim() !== "") {
+    const result = await verifyAnswer(form.emailOrUsername, form.securityAnswer);
+    if (form.securityAnswer.trim() !== "" && result.answerCorrect) {
       setStep(3);
     } else {
       newErrors.securityAnswer = "Security Answer is required or is Incorrect.";
@@ -50,7 +58,7 @@ function AccountRecovery() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmitStep3 = (e) => {
+  const handleSubmitStep3 = async (e) => {
     e.preventDefault();
     // validate contraseñas iguales
     if (form.newPassword.trim() === "") {
@@ -73,6 +81,8 @@ function AccountRecovery() {
 
     // Solo avanzar si no hay errores
     if (Object.keys(newErrors).length === 0) {
+      // Call password reset logic
+      await resetPassword(form.emailOrUsername, form.newPassword);
       setStep(4);
     }
   };
@@ -162,7 +172,7 @@ function AccountRecovery() {
           {/* Security Question validation */}
           {step === 2 && (
             <>
-              <h2>What is the name of your first pet?</h2>
+              <h2>{question}</h2>
               <form onSubmit={handleSubmitStep2}>
                 <Label required>Answer</Label>
                 <input

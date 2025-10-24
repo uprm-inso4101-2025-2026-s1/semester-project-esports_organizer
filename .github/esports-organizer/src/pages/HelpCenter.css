@@ -1,0 +1,149 @@
+.help-center-page {
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding-top: 88px;
+    font-family: var(--font-body);
+  }
+  
+  .help-center-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .help-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* FAQ Section */
+  .faq-section {
+    margin-bottom: 3rem;
+  }
+  
+  .faq-search {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    margin-bottom: 1.5rem;
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+  }
+  
+  .faq-item h4 {
+    margin: 0;
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .faq-item p {
+    color: #555;
+    margin: 0.5rem 0;
+  }
+  
+  .faq-category {
+    font-size: 0.9rem;
+    color: #888;
+    background: #f0f0f0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+  }
+  
+  /* Feedback Section */
+  .feedback-section h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .feedback-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feedback-form label {
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+  
+  .feedback-form input,
+  .feedback-form select,
+  .feedback-form textarea {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    margin-top: 0.25rem;
+    font-family: var(--font-body);
+  }
+  
+  .feedback-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .submit-button {
+    margin-top: 1.5rem;
+    background: #d72638;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background: #b01e2e;
+  }
+  
+  .success-message {
+    color: #2e8b57;
+    margin-top: 1rem;
+  }
+  
+  .error-message {
+    color: #d72638;
+    margin-top: 1rem;
+  }
+
+  /*Tabs (Notifications / Scheduling) */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* espacio entre botones */
+    margin: 1.5rem 0;
+  }
+  
+  .tabs button {
+    background: #f0f0f0;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-heading);
+  }
+  
+  /* Hover (cuando pasas el mouse) */
+  .tabs button:hover {
+    background: #e4e4e4;
+    border-color: #d72638;
+  }
+  
+  /* Estado activo */
+  .tabs button.active {
+    background: #d72638;
+    color: white;
+    border-color: #d72638;
+    box-shadow: 0 4px 10px rgba(215, 38, 56, 0.3);
+  }
