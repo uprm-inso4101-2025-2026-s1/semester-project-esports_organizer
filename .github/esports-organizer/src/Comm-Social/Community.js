@@ -79,6 +79,17 @@ banner;
 
     setId(id){this.id=id;}
 
+    /*setDateCreated()
+    Date created should not be modified*/
+
+    setGame(game){this.game=game;}
+
+    setLocation(location){this.location=location;}
+
+    setIcon(icon){this.icon=icon;}
+
+    setBanner(banner){this.banner=banner;}
+
 
     //Add post to array of posts
     addPost(post){this.posts.push(post);}
@@ -106,7 +117,15 @@ banner;
 
     getId(){return this.id;}
 
+    getDateCreated(){return this.dateCreated;}
 
+    getGame(){return this.game;}
+
+    getLocation(){return this.location;}
+
+    getIcon(){return this.icon;}
+
+    getBanner(){return this.banner;}
     
     //Get an individual member from member array
     findMember(memberID) {
