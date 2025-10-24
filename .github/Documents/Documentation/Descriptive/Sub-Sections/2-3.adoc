@@ -33,7 +33,8 @@ The **software design** explains how each component is realized:
 [.green-background]#The following UML/Architecture diagram illustrates how the Profiles module connects the frontend React client with the backend API, Firebase Authentication, Firestore, and related modules.#  
 
 .Image: Profiles Module Architecture (Milestone 2)
-image::../images/profiles_architecture.svg[alt="Profiles Module Architecture", width=100%]
+
+image::profiles_architecture.svg[align=center]
 
 Diagrams and screen mockups complement the text:
 * Architecture diagrams highlight module interactions.
