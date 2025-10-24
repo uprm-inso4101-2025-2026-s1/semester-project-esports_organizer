@@ -2,11 +2,11 @@
 
 === Algebras and Closure Under Operations
 
-The project demonstrates algebraic closure through refined function signatures across multiple domains. Event and Team classes evolved from long parameter lists to single initializer objects with implicit defaults, ensuring valid object states. Tournament bracket generation implements closure through the ⁠ generateBrackets(tournament) → BracketStructure | Failure ⁠ function, which takes tournament parameters and returns a complete bracket structure or explicit failure state.
+[.hl-green]#The project demonstrates algebraic closure through refined function signatures across multiple domains. Event and Team classes evolved from long parameter lists to single initializer objects with implicit defaults, ensuring valid object states. Tournament bracket generation implements closure through the `generateBrackets(tournament) → BracketStructure | Failure` function, which takes tournament parameters and returns a complete bracket structure or explicit failure state.#
 
 === Agile Practices
 
-Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.
+[.hl-green]#Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.#
 
 [.hl-green]#Agile is a software development approach which prioritized delivering working software in
 small, frequent iterations while adapting to feedback such as changing system requirement or
@@ -17,18 +17,16 @@ shippable increment of the project.#
 
 [.hl-green]#Team Roles
 
-•⁠  ⁠Managers: Ensures the scrum process is followed and manages the whole team.
-•⁠  ⁠Team Leaders: They coordinate weekly meetings, verify and approve issues before the
+•  Managers: Ensures the scrum process is followed and manages the whole team.
+•  Team Leaders: They coordinate weekly meetings, verify and approve issues before the
 managers view them and are up to date with the achievements of every member on their
 team.
-•⁠  ⁠Development Teams: Database and Backend, events and notifications, Profiles, social
+•  Development Teams: Database and Backend, events and notifications, Profiles, social
 features, and UI teams in charge of developing the frontend and backend tasks.#
-
-
 
 === Decision-Making Processes
 
-The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.
+[.hl-green]#The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.#
 
 [.hl-green]#To make an informed decision, both options were compared using Non-Functional Requirements (NFRs). The qualitative attributes of a system rather than its specific functions.
 The chosen criteria were:
@@ -43,7 +41,7 @@ Scalability - How easily the platform can handle team growth in members, channel
 
 === Process Modeling
 
-Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams illustrated tournament lifecycle interactions between hosts and participants. State charts defined tournament progression through creation, registration, match progression, and completion states.
+[.hl-green]#Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams illustrated tournament lifecycle interactions between hosts and participants. State charts defined tournament progression through creation, registration, match progression, and completion states.#
 
 [.hl-green]#Petri Nets help visualize how different backend functions interact dynamically within the tournament system.#
 
@@ -51,13 +49,13 @@ Petri nets modeled competing processes in tournament registration, particularly 
 
 === Real-Time System Design
 
-The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's ⁠ onSnapshot() ⁠ listeners provide immediate data synchronization, while React's ⁠ useEffect ⁠ and ⁠ useState ⁠ hooks manage component state updates. This enables automatic bracket propagation when match results change.
+[.hl-green]#The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect` and `useState` hooks manage component state updates. This enables automatic bracket propagation when match results change.#
 
 [.hl-green]#he real-time updating feature ensures that tournament brackets in the eSports web app stay synchronized across all users without requiring manual refreshes.#
 
 === Tournament Algorithms
 
-Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation (⁠ ceiling(log2 n) ⁠), and fair seeding through random shuffling or rank-based sorting.
+[.hl-green]#Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation ( ceiling(log2 n) ), and fair seeding through random shuffling or rank-based sorting.#
 
 === Diagrams
 
