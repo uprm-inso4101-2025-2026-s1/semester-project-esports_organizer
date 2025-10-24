@@ -14,3 +14,4 @@
 | Informative Section 1.2 - 1.4 | Yamilet Gómez | Modified | Integrate section 1.4 with 1.2 and 1.3, in order to completely delete section 1.4
 | Desciptive Sections 2.2.1-2.2.2| Pedro Bonilla | Modified | Rephrased to improve clarity and provide more detail as per feedback.
 | Derived Goals | Jayden Sánchez | Modified | Revised the Derived Goals section to clarify their independence from the main objectives and strengthen the section's purpose.
+| Application of Topics | Abby Gotay Almonte | Added | Wrote Application of Topics section, taking into account multiple LTTs.

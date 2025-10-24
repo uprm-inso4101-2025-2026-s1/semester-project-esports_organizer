@@ -2,82 +2,28 @@
 
 === Algebras and Closure Under Operations
 
-The project demonstrates algebraic closure through refined function signatures across multiple domains. Event and Team classes evolved from long parameter lists to single initializer objects with implicit defaults, ensuring valid object states. Tournament bracket generation implements closure through the `generateBrackets(tournament) → BracketStructure | Failure` function, which takes tournament parameters and returns a complete bracket structure or explicit failure state.
+[.hl-green]#The project demonstrates algebraic closure through refined function signatures across multiple domains. Event and Team classes evolved from long parameter lists to single initializer objects with implicit defaults, ensuring valid object states. Tournament bracket generation implements closure through the `generateBrackets(tournament) → BracketStructure | Failure` function, which takes tournament parameters and returns a complete bracket structure or explicit failure state.#
 
 === Agile Practices
 
-Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.
+[.hl-green]#Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.#
 
 === Decision-Making Processes
 
-The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.
-
-=== Process Modeling
-
-Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams (Figure 1) illustrated tournament lifecycle interactions between hosts and participants. State charts (Figure 2) defined tournament progression through creation, registration, match progression, and completion states.
+[.hl-green]#The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.#
 
 === Real-Time System Design
 
-The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect` and `useState` hooks manage component state updates. This enables automatic bracket propagation when match results change.
+[.hl-green]#The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect` and `useState` hooks manage component state updates. This enables automatic bracket propagation when match results change.#
 
 === Tournament Algorithms
 
-Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation (`ceiling(log2 n)`), and fair seeding through random shuffling or rank-based sorting.
+[.hl-green]#Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation (`ceiling(log2 n)`), and fair seeding through random shuffling or rank-based sorting.#
 
 === Diagrams
 
-[mermaid, format=svg]
-....
-classDiagram
-direction TB
+image::app_flow_diagram.png[align=center]
 
-%% App source files
-class App {
-  App.jsx
-}
-class Main {
-  main.jsx
-}
-class Team {
-  team.js
-}
-class CommSocial {
-  Comm-Social/
-}
-class Components {
-  components/
-}
-class Pages {
-  pages/
-}
-class Services {
-  services/
-}
-class Database {
-  database/
-}
-class Lib {
-  lib/
-}
-class Events {
-  events/
-}
-class Functions {
-  functions/
-}
+[.hl-green]#App bootstraps Main and pulls in domain models (Team, Events), UI (Components, Pages, CommSocial), logic (Services, Functions), persistence (Database, Lib). Arrows indicate directional dependencies (e.g., Pages compose Components, Services read/write Database, Functions handle event triggers).#
 
-App --> Main : "bootstrap"
-App --> Team : "imports data"
-App --> Components : "uses UI"
-App --> Pages : "routes to"
-Pages --> Components : "compose"
-Services --> Database : "reads/writes"
-Functions --> Events : "handles triggers"
-Lib --> Database : "utils"
-CommSocial --> Pages : "community features"
-Events --> Services : "publishes events"
-....
-
-App bootstraps Main and pulls in domain models (Team, Events), UI (Components, Pages, CommSocial), logic (Services, Functions), persistence (Database, Lib). Arrows indicate directional dependencies (e.g., Pages compose Components, Services read/write Database, Functions handle event triggers).
-
-In practice this means user interactions flow from Pages -> Services -> Database, yielding clear separation of concerns, easier testing, and safer evolution of UI and storage/persistence layers.
+[.hl-green]#In practice this means user interactions flow from Pages -> Services -> Database, yielding clear separation of concerns, easier testing, and safer evolution of UI and storage/persistence layers.#
