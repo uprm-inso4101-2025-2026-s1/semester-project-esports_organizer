@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  background: var(--gradient);
+  background: var(--gradient-landing);
   font-family: var(--font-body);
   font-weight: 400; /* not bold by default */
   color: var(--primary);
@@ -95,7 +95,7 @@
   font-weight: 800;
 }
 .lp__hl--primary {
-  color: #2aa3ff;
+  color: var(--link);
 }
 .lp__hl--secondary {
   color: #00d4b3;
