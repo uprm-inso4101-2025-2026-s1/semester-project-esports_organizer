@@ -2,6 +2,7 @@
 
 /**
  * @property {string} name
+ * @property {string} description
  * @property {string} admin id of the admin of the community
  * @property {string[]} members  Array of ids members in community
  * @property {Post[]} posts array of posts in a community
@@ -13,6 +14,8 @@ export default class Community{
 
  /** @type {string} */
  name;
+ /** @type {string} */
+ description;
  /** @type {string} userID of the creator of the team */
  admin;
  /** @type {string[]} Array of ids members in community */
@@ -30,6 +33,7 @@ id;
     //Constructor
     constructor(init) {
         this.name = init.name;
+        this.description = init.description;
         this.admin=init.admin;
        this.members=init.members ?? [];
         this.posts=init.posts ?? [];
@@ -42,6 +46,8 @@ id;
     }
     //setters
     setName(name){this.name=name;}
+
+    setDescription(description){this.description=description;}
 
     setAdmin(admin){this.admin=admin;}
 
@@ -67,6 +73,8 @@ id;
 
     //getters
     getName(){return this.name;}
+
+    getDescription(){return this.description;}
 
     getAdmin(){return this.admin;}
 

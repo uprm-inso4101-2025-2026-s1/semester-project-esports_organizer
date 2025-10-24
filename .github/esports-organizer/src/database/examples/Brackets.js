@@ -95,4 +95,118 @@ export default class Bracket {
     if (idx !== -1) this._winnersCurrentRound.splice(idx, 1);
     // Si ya se creó un siguiente match con ese ganador, se puede eliminar también.
   }
+
+  getCurrentBracketState() {
+    // Convierte el Map de matches y nextRoundMatches a objetos planos para acceso e iteración
+    const currentRound = Array.from(this.matches.entries()).map(([id, match]) => ({
+      matchId: id,
+      ...match // operador de propagacion copia todas las propiedades del objeto match
+    }));
+
+    const nextRound = Array.from(this.nextRoundMatches.entries()).map(([id, match]) => ({
+      matchId: id,
+      ...match
+    }));
+
+    return {
+      currentRound,
+      nextRound
+    };
+  }
+
+  validateBracketIntegrity() {
+    // Recorre todos los matches actuales para verificar que todos tengan ganador definido
+    for (const [matchId, match] of this.matches.entries()) {
+      if (!match.winner) {
+        // Error o aviso: partido aún no decidido, no se puede avanzar
+        return {
+          valid: false,
+          message: `Match ${matchId} is not finished yet.`
+        };
+      }
+    }
+    // Si no hay matches sin ganador, la integridad se mantiene
+    return {
+      valid: true,
+      message: 'Bracket integrity validated successfully.'
+    };
+  }
+
+  resetBracket(){
+    //Limpia los matches y rondas para reiniciar
+    this.matches.clear();
+    this.nextRoundMatches.clear();
+    this._winnersCurrentRound = [];
+
+    //Recrea los matches iniciales con competidores actuales, sirve si se quiere reutilizar
+    this.createInitialMatches();
+  }
+
+  reorderMatches(newOrder) {
+    // newOrder es un array con los matchIds en el orden deseado
+    const reordered = new Map();
+    for (const matchId of newOrder) {
+      if (!this.matches.has(matchId)) {
+        throw new Error(`Match ID ${matchId} not found`);
+      }
+      reordered.set(matchId, this.matches.get(matchId));
+    }
+    this.matches = reordered;
+  }
+  /*  Ejemplo para llamar reorder matches:
+  bracket.reorderMatches([
+    'player5_vs_player6',
+    'player1_vs_player2',
+    'player3_vs_player4'
+  ]);
+
+  Usa lo que creamos para el matchID
+  ---> const matchId = `${player1.id || player1.name}_vs_${player2 ? (player2.id || player2.name) : "BYE"}`;
+  */
+
+  updateMatchStatus(matchId, status) { // Podemos controlar el estado del match en cualquier momento de ser necesario
+    const validStatuses = ['pending', 'in_progress', 'finished', 'cancelled'];
+    if (!validStatuses.includes(status)) {
+      throw new Error(`Invalid status '${status}'. Valid statuses are: ${validStatuses.join(', ')}`);
+    }
+
+    const match = this.matches.get(matchId);
+    if (!match) {
+      throw new Error('Match not found');
+    }
+
+    match.status = status;
+  }
+
+  /*
+   * Guarda todos los matches del bracket en Firestore bajo el torneo dado
+   */
+  async saveAllMatchesToFirestore(tournamentId) {
+    const matchesArray = [...this.matches.entries()];
+    for (const [matchId, matchData] of matchesArray) {
+      const matchRef = doc(collection(firestore, `tournaments/${tournamentId}/matches`), matchId);
+      await setDoc(matchRef, matchData);
+    }
+  }
+
+    static async loadBracketFromFirestore(tournamentId) {
+    const matchesSnapshot = await getDocs(collection(firestore, `tournaments/${tournamentId}/matches`));
+    const matches = [];
+    matchesSnapshot.forEach(doc => {
+      matches.push({ matchId: doc.id, ...doc.data() });
+    });
+        const bracket = new Bracket([]); // Competitors pueden agregarse aparte si necesario
+    matches.forEach(m => {
+      bracket.matches.set(m.matchId, m);
+      if (m.winner) bracket._winnersCurrentRound.push(m.winner);
+    });
+    return bracket;
+  }
+
+    static listenBracketMatches(tournamentId, callback) {
+    return onSnapshot(
+      collection(firestore, `tournaments/${tournamentId}/matches`),
+      callback
+    );
+  }
 }

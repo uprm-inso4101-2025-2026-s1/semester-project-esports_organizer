@@ -1,15 +1,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400..700&display=swap");
 
-/* ==========================================================================
-   PLAYER PROFILE
-   ========================================================================== */
-
 :root {
   --top-offset: clamp(24px, 8vh, 96px);
 }
 
 /* ==========================================================================
-   GRID LAYOUT (matches app spacing + navbar offset)
+   DARK MODE
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  .player-profile {
+    background: var(--dark-gradient) !important;
+    color: #f5f5f5 !important;
+  }
+
+  .profile-hero-title { 
+    color: var(--dark-container) !important;
+  }
+
+  .flag,
+  .username,
+  .bio,
+  .chip,
+  .achievements,
+  .games-played {
+    background: var(--dark-container) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    color: #f5f5f5 !important;
+  }
+
+  .bio-counter {
+    color: rgba(245,245,245,0.8) !important;
+    background: rgba(255,255,255,0.08) !important;
+  }
+
+  .ach-title-center,
+  .games-played h2 { 
+    color: #fff !important; 
+  }
+
+  .games-played::after {
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--dark-container) 100%, transparent) 0%,
+      color-mix(in srgb, var(--dark-container) 53%, transparent) 72%,
+      color-mix(in srgb, var(--dark-container) 0%, transparent) 100%
+    ) !important;
+  }
+
+  .game-desc { color: #f5f5f5 !important; }
+
+  .edit-select--chip,
+  .edit-select--compact {
+    background: rgba(255,255,255,0.06) !important;
+    color: #f5f5f5 !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+  }
+
+  .ach-nav-btn { text-shadow: 0 4px 16px rgba(0,0,0,0.85) !important; }
+  .avatar-hint { color: rgba(255,255,255,0.4) !important; }
+
+  .avatar-circle { background-color: #847979 !important; }
+  .avatar-circle.has-image { background-color: transparent !important; }
+
+  /* button variants */
+  .player-profile .btn.primary {
+    background: #D72638 !important;
+    color: #fff !important;
+  }
+  .player-profile .btn.primary:hover {
+    background: #B01E2E !important;
+  }
+}
+
+/* ==========================================================================
+   PLAYER PROFILE
    ========================================================================== */
 
 .player-profile {
@@ -21,7 +86,6 @@
   background: var(--light-gradient);
   display: grid;
   grid-template-columns: 1fr 1.2fr 1fr;
-  grid-template-rows: auto;
   gap: var(--gap);
   justify-items: center;
   align-items: start;
@@ -67,7 +131,7 @@
   grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.50rem;
 }
 
 .flag {
@@ -80,6 +144,8 @@
   display: grid;
   place-items: center;
   font-size: 50px;
+  position: relative;
+  z-index: 0;
 }
 
 .username {
@@ -96,6 +162,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+  z-index: 0;
 }
 
 /* ==========================================================================
@@ -115,9 +183,10 @@
   color: var(--text, rgba(255, 255, 255, 0.87));
   line-height: 1.45;
   font-size: 16px;
-  margin: 0.15rem 0 0.2rem;
+  margin: 0.3rem 0;
   position: relative;
   text-align: left;
+  z-index: 1;
 }
 
 .bio-counter {
@@ -139,8 +208,10 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.50rem;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .chip {
@@ -160,7 +231,7 @@
 }
 
 /* ==========================================================================
-   ACTIONS (some local buttons)
+   ACTIONS (buttons)
    ========================================================================== */
 
 .actions {
@@ -171,30 +242,49 @@
 }
 
 .player-profile .btn {
-  cursor: pointer;
-  width: auto;
-  white-space: nowrap;
   font-family: "Ubuntu", sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
+  color: #fff;
+  border: none;
+  transition: background .2s ease, transform .1s ease, filter .2s ease;
 }
 
-.player-profile .btn:hover { filter: brightness(1.1); }
-
-.player-profile .btn.success {
-  background: rgba(34, 197, 94, 0.18);
-  border-color: rgba(34, 197, 94, 0.45);
+.player-profile .btn.primary {
+  background: #4a90e2;
+}
+.player-profile .btn.primary:hover { 
+  background: #357abd; 
+}
+.player-profile .btn.primary:active {
+  background: #357abd;
+  box-shadow: inset 0 2px 30px rgba(0, 0, 0, 0.4);
 }
 
-.player-profile .btn.success:active { box-shadow: inset 0 2px 30px rgba(0,0,0,0.4); }
+.player-profile .btn.success { 
+  background: rgba(34, 197, 94, 0.18) !important;
+}
+.player-profile .btn.success:hover {
+  background: rgba(34, 197, 94, 0.30) !important;
+}
+.player-profile .btn.success:active {
+  background: rgba(34, 197, 94, 0.30) !important;
+  box-shadow: inset 0 2px 30px rgba(0, 0, 0, 0.4);
+}
 
-.player-profile .btn.secondary {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.18);
+.player-profile .btn.secondary { 
+  background: rgba(255,255,255,0.06) !important;
+}
+.player-profile .btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+.player-profile .btn.secondary:active {
+  background: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: inset 0 2px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* ==========================================================================
-   ACHIEVEMENTS (carousel w left/right arrows)
+   ACHIEVEMENTS (carousel)
    ========================================================================== */
 
 .achievements {
@@ -242,7 +332,6 @@
   transform: translateY(0) scale(1);
 }
 
-/* Badge icon */
 .ach-icon-img {
   margin-top: 5px;
   width: 100px;
@@ -253,7 +342,6 @@
   pointer-events: none;
 }
 
-/* Single-line description */
 .ach-desc {
   margin-top: 20px;
   font-family: var(--font-body);
@@ -263,15 +351,13 @@
 /* Prev/Next arrows */
 .ach-nav-btn {
   position: absolute;
-  top: 45px;
-  transform: translateY(-50%);
+  top: 25px;
   width: 60px;
   height: 40px;
   display: grid;
   place-items: center;
   background: transparent;
-  border: none;
-  color: #ffffff;
+  color: #fff;
   font-size: 60px;
   line-height: 1;
   cursor: pointer;
@@ -280,8 +366,8 @@
   padding: 0;
   z-index: 2;
 }
-.ach-nav-btn:hover { filter: brightness(1.15); transform: translateY(-50%) scale(1.05); }
-.ach-nav-btn:active { transform: translateY(-50%) scale(0.95); }
+.ach-nav-btn:hover { filter: brightness(1.15); transform: scale(1.05); }
+.ach-nav-btn:active { transform: scale(0.95); }
 .ach-nav-left { left: -4px; }
 .ach-nav-right { right: -4px; }
 
@@ -322,11 +408,12 @@
   display: grid;
   place-items: center;
   cursor: pointer;
-  background-color: #a0a5ad;
+  background-color: #a5abb3;
   background-size: cover;
   background-position: center;
-  border: 2px solid #0a1430;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(255,255,255,0.08);
+  border: 2px solid #000000;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.3),
+              inset 0 0 0 2px rgba(255,255,255,0.08);
   transition: box-shadow .2s ease, transform .12s ease, filter .2s ease;
 }
 .avatar-circle:hover { transform: translateY(-2px); filter: brightness(1.03); }
@@ -338,8 +425,7 @@
   line-height: 1.2;
   font-family: var(--font-heading);
   font-size: clamp(14px, 2vw, 24px);
-  color: rgba(255,255,255,0.87);
-  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.40);
   pointer-events: none;
 }
 
@@ -397,13 +483,26 @@
     to top,
     color-mix(in srgb, var(--light-container) 100%, transparent) 0%,
     color-mix(in srgb, var(--light-container) 53%, transparent) 72%,
-    color-mix(in srgb, var(--light-container) 0%,  transparent) 100%
+    color-mix(in srgb, var(--light-container) 0%, transparent) 100%
   );
   pointer-events: none;
   z-index: 5;
 }
 
-/* Section heading for games */
+.games-played::before {
+  content: "›";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  font-size: 60px;
+  color: #fff;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.65);
+  pointer-events: none;
+  z-index: 6;
+}
+
 .games-played h2 {
   margin-top: 15px;
   font-family: var(--font-heading);
@@ -414,8 +513,8 @@
 .games-scroll {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  max-height: 68vh;
+  gap: 1.9rem;
+  max-height: 68.4vh;
   overflow-y: auto;
   padding-right: 6px;
   -webkit-overflow-scrolling: touch;
@@ -424,7 +523,7 @@
 /* Individual game card */
 .game-card {
   position: relative;
-  height: 190px;
+  height: 195px;
   width: 340px;
   border-radius: 15px;
   background-position: center;
@@ -456,14 +555,13 @@
   margin: 0;
   font-family: var(--font-heading);
   font-size: 22px;
-  color: #ffffff;
+  color: #fff;
   font-weight: 800;
   text-align: center;
   text-shadow: 0 3px 12px rgba(0,0,0,0.6);
   padding: 0 1rem;
 }
 
-/* Reveal description on hover */
 .game-overlay {
   position: absolute;
   inset: 0;
@@ -500,7 +598,7 @@
 .editable { position: relative; }
 
 .display-layer {
-  pointer-events: none;
+  pointer-events: auto;
   display: inline-block;
   width: 100%;
   text-align: center;
@@ -578,3 +676,20 @@
 
 .bio .display-layer { text-align: left; }
 .edit-layer--center { text-align: center; }
+
+/* ==========================================================================
+   UNIFIED BORDERS + VALIDATION
+   ========================================================================== */
+
+.flag,
+.username,
+.bio,
+.achievements,
+.games-played,
+.chips .chip {
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.username input:invalid {
+  border: 2px solid #e11d48;
+}

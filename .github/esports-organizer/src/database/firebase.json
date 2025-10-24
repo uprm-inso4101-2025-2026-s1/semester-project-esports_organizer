@@ -2,6 +2,7 @@
   "emulators": {
     "firestore": { "host": "localhost", "port": 58180 },
     "functions": { "host": "localhost", "port": 5002 },
+    "auth": { "host": "localhost", "port": 9099 },
     "ui": {
       "enabled": true,
       "port": 4000

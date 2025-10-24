@@ -17,7 +17,9 @@
     "print:ui": "printf \"Firebase Emulator UI: http://127.0.0.1:4000\\n\"",
     "open:ui": "open http://127.0.0.1:4000",
     "ui": "npm run print:ui && npm run open:ui",
-    "clear:emulator": "node .github/esports-organizer/src/scripts/clearEmulator.js"
+    "clear:emulator": "node .github/esports-organizer/src/scripts/clearEmulator.js",
+    "force:recalc": "node .github/esports-organizer/src/scripts/forceRecalc.js",
+    "verify:queue": "node .github/esports-organizer/src/scripts/verifyQueue.js"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
