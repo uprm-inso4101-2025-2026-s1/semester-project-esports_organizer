@@ -2,11 +2,11 @@
 
 === Algebras and Closure Under Operations
 
-[.hl-green]#The project demonstrates algebraic closure through refined function signatures across multiple domains. Event and Team classes evolved from long parameter lists to single initializer objects with implicit defaults, ensuring valid object states. Tournament bracket generation implements closure through the `generateBrackets(tournament) → BracketStructure | Failure` function, which takes tournament parameters and returns a complete bracket structure or explicit failure state.#
+The project demonstrates algebraic closure through refined function signatures across multiple domains. Event and Team classes evolved from long parameter lists to single initializer objects with implicit defaults, ensuring valid object states. Tournament bracket generation implements closure through the ⁠ generateBrackets(tournament) → BracketStructure | Failure ⁠ function, which takes tournament parameters and returns a complete bracket structure or explicit failure state.
 
 === Agile Practices
 
-[.hl-green]#Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.#
+Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.
 
 [.hl-green]#Agile is a software development approach which prioritized delivering working software in
 small, frequent iterations while adapting to feedback such as changing system requirement or
@@ -15,33 +15,32 @@ incremental delivery. Our team follows the scrum methodology, which structures d
 into bi-weekly cycles called sprints. After each sprint it is intended to have a potentially
 shippable increment of the project.#
 
-[.hl-green]#Team Roles
+[.hl-green]#Team Roles#
 
-•  Managers: Ensures the scrum process is followed and manages the whole team.
-•  Team Leaders: They coordinate weekly meetings, verify and approve issues before the
-managers view them and are up to date with the achievements of every member on their
-team.
-•  Development Teams: Database and Backend, events and notifications, Profiles, social
-features, and UI teams in charge of developing the frontend and backend tasks.#
+• [.hl-green]#⁠  ⁠Managers: Ensures the scrum process is followed and manages the whole team.#
+• [.hl-green]#⁠  ⁠Team Leaders: They coordinate weekly meetings, verify and approve issues before the managers view them and are up to date with the achievements of every member on their team.#
+• [.hl-green]#⁠  ⁠Development Teams: Database and Backend, events and notifications, Profiles, social features, and UI teams in charge of developing the frontend and backend tasks.#
+
+
 
 === Decision-Making Processes
 
-[.hl-green]#The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.#
+The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.
 
-[.hl-green]#To make an informed decision, both options were compared using Non-Functional Requirements (NFRs). The qualitative attributes of a system rather than its specific functions.
-The chosen criteria were:
+[.hl-green]#To make an informed decision, both options were compared using Non-Functional Requirements (NFRs). The qualitative attributes of a system rather than its specific functions.#
+[.hl-green]#The chosen criteria were:#
 
-Speed of Communication - How fast users can exchange information.
+[.hl-green]#Speed of Communication - How fast users can exchange information.#
 
-Ease of Use - How intuitive and accessible the platform is for all team members.
+[.hl-green]#Ease of Use - How intuitive and accessible the platform is for all team members.#
 
-Information Organization - How effectively messages and files can be structured and retrieved later.
+[.hl-green]#Information Organization - How effectively messages and files can be structured and retrieved later.#
 
-Scalability - How easily the platform can handle team growth in members, channels, and activities.#
+[.hl-green]#Scalability - How easily the platform can handle team growth in members, channels, and activities.#
 
 === Process Modeling
 
-[.hl-green]#Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams illustrated tournament lifecycle interactions between hosts and participants. State charts defined tournament progression through creation, registration, match progression, and completion states.#
+Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams illustrated tournament lifecycle interactions between hosts and participants. State charts defined tournament progression through creation, registration, match progression, and completion states.
 
 [.hl-green]#Petri Nets help visualize how different backend functions interact dynamically within the tournament system.#
 
@@ -49,18 +48,63 @@ Scalability - How easily the platform can handle team growth in members, channel
 
 === Real-Time System Design
 
-[.hl-green]#The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect` and `useState` hooks manage component state updates. This enables automatic bracket propagation when match results change.#
+The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's ⁠ onSnapshot() ⁠ listeners provide immediate data synchronization, while React's ⁠ useEffect ⁠ and ⁠ useState ⁠ hooks manage component state updates. This enables automatic bracket propagation when match results change.
 
 [.hl-green]#he real-time updating feature ensures that tournament brackets in the eSports web app stay synchronized across all users without requiring manual refreshes.#
 
 === Tournament Algorithms
 
-[.hl-green]#Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation ( ceiling(log2 n) ), and fair seeding through random shuffling or rank-based sorting.#
+Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation (⁠ ceiling(log2 n) ⁠), and fair seeding through random shuffling or rank-based sorting.
 
 === Diagrams
 
-image::app_flow_diagram.png[align=center]
+%% App source files
+class App {
+App.jsx
+}
+class Main {
+main.jsx
+}
+class Team {
+team.js
+}
+class CommSocial {
+Comm-Social/
+}
+class Components {
+components/
+}
+class Pages {
+pages/
+}
+class Services {
+services/
+}
+class Database {
+database/
+}
+class Lib {
+lib/
+}
+class Events {
+events/
+}
+class Functions {
+functions/
+}
 
-[.hl-green]#App bootstraps Main and pulls in domain models (Team, Events), UI (Components, Pages, CommSocial), logic (Services, Functions), persistence (Database, Lib). Arrows indicate directional dependencies (e.g., Pages compose Components, Services read/write Database, Functions handle event triggers).#
+App --> Main : "bootstrap"
+App --> Team : "imports data"
+App --> Components : "uses UI"
+App --> Pages : "routes to"
+Pages --> Components : "compose"
+Services --> Database : "reads/writes"
+Functions --> Events : "handles triggers"
+Lib --> Database : "utils"
+CommSocial --> Pages : "community features"
+Events --> Services : "publishes events"
+....
 
-[.hl-green]#In practice this means user interactions flow from Pages -> Services -> Database, yielding clear separation of concerns, easier testing, and safer evolution of UI and storage/persistence layers.#
+App bootstraps Main and pulls in domain models (Team, Events), UI (Components, Pages, CommSocial), logic (Services, Functions), persistence (Database, Lib). Arrows indicate directional dependencies (e.g., Pages compose Components, Services read/write Database, Functions handle event triggers).
+
+In practice this means user interactions flow from Pages -> Services -> Database, yielding clear separation of concerns, easier testing, and safer evolution of UI and storage/persistence layers.
