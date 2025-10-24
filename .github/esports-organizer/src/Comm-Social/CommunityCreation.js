@@ -2,12 +2,21 @@ import {Community} from "./Community.js";
 
 //WORK IN PROGRESS FILE
 
-//Function receives arguments from the frontend implementation that calls it
-export function createCommunity(name, description, adminID, tags, location, icon, banner){
+//Function receives the following arguments:
+/**
+ * @argument {string} name argument string community name
+ * @argument {string} description argument string community description
+ * @argument {string} admin ID of the account that created the community
+ * @argument {string[]} tags argument array of tags in a community
+ * @argument {string} location where the community is based in
+ * @argument {string} icon community icon image location string
+ * @argument {string} banner community banner image location string
+ */
+export function createCommunity(name, description, admin, tags, location, icon, banner){
 
     //Members will start as an empty array to house the ids of future members with the admin id added as first member
     members = [];
-    members.push(adminID);
+    members.push(admin);
 
     //Date the community was created in
     const dateCreated = new Date();
@@ -23,13 +32,7 @@ export function createCommunity(name, description, adminID, tags, location, icon
         source to load later as needed? These images would have to be saved somewhere in the repository
         or do we have an image database or could have?*/
 
-    //name (argument user passes through frontend)
-    //adminID (ID of the account that created the community)
-    //members √
-    //posts (no posts upon creation), no need to initialize it since constructor should create an empty array
-    //tags (argument user passes through frontend)
-    //id √
-    communityObject = Community(name, description, adminID, members, posts, tags, id);
+    communityObject = Community(name, description, admin, members, posts, tags, dateCreated, id);
 
     //TO DO: send community object to database
 
