@@ -34,7 +34,8 @@ The **software design** explains how each component is realized:
 
 .Image: Profiles Module Architecture (Milestone 2)
 
-image::profiles_architecture.svg[align=center]
+image::../../profiles_architecture.svg[alt="Profiles Module Architecture", width=100%]
+
 
 Diagrams and screen mockups complement the text:
 * Architecture diagrams highlight module interactions.
