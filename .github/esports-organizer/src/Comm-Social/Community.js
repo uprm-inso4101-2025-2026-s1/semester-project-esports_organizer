@@ -54,6 +54,11 @@ banner;
         this.posts=init.posts ?? [];
         this.tags=init.tags ?? [] ;
         this.id=init.id;
+        this.dateCreated=init.dateCreated;
+        this.game=init.game;
+        this.location=init.location;
+        this.icon=init.icon;
+        this.banner=init.banner;
     
    
     Community.allCommunities.set(this.id, this);
