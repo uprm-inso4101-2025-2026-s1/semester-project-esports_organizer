@@ -2,7 +2,7 @@
 
 === 1.1 Team Members
 Our project's team is composed entirely of students participating in the Esports Organizer project. Every team member is directly involved in the development, design, and decision-making processes. 
-[.yellow]#While the project does not have external clients or sponsors, it still involves several types of stakeholders. Stakeholders include players, organizers, spectators,community members / clubs, developers / team members themselves that have an intereste by the system’s outcomes. Recognizing this distinction helps the team consider diverse perspectives when making design and implementation decisions.#
+[.hl-yellow]#While the project does not have external clients or sponsors, it still involves several types of stakeholders. Stakeholders include players, organizers, spectators,community members / clubs, developers / team members themselves that have an intereste by the system’s outcomes. Recognizing this distinction helps the team consider diverse perspectives when making design and implementation decisions.#
 
 Roles and responsibilities are distributed among the team members as follows:
 
@@ -11,4 +11,4 @@ Roles and responsibilities are distributed among the team members as follows:
 - Events and Notifications - Handles functionality related to event management and notifications. This includes handling event creation, scheduling, and ensuring timely notifications and updates are delivered to participants and spectators.
 - Player and Teams Profiles Team - Oversees features related to player and team identity within the platform. This includes profile creation, team registration, and ensuring accurate representation of players and teams across tournaments and events.
 
-[.green]#To ensure smooth progress across all teams, we are implementing strong communication channels between them following Agile Development within the project. The Experience Design, Identity and Data Systems, and Event Management teams will hold weekly alignment meetings to minimize dependencies and prevent delays in design or implementation. This collaborative workflow ensures that decisions about data structures, user flows, and system needs are made jointly, maintaining consistency across the project.#
+[.hl-green]#To ensure smooth progress across all teams, we are implementing strong communication channels between them following Agile Development within the project. The Experience Design, Identity and Data Systems, and Event Management teams will hold weekly alignment meetings to minimize dependencies and prevent delays in design or implementation. This collaborative workflow ensures that decisions about data structures, user flows, and system needs are made jointly, maintaining consistency across the project.#
