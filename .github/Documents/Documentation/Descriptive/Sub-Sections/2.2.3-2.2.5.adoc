@@ -1,85 +1,36 @@
 === 2.2.3 Domain Requirements
-- [.hl-yellow]#Events must be associated with an existing video game.#
-- [.hl-green]#The system-to-be shall require each event to be linked to an existing video game.#
-
-- [.hl-yellow]#Every event created must have at least one organizer.#
-- [.hl-green]#The system-to-be shall require at least one registered user to be assigned as an organizer before an event can be created.#
-
-- [.hl-yellow]#Only the event organizer should have permission to edit or cancel their events.#
-- [.hl-green]#The system-to-be shall require event modifications and/or cancellations to be performed exclusively by assigned event organizers.#
-
-- [.hl-yellow]#Each event must have a starting date, ending date, and location, whether it is physical or online.#
-- [.hl-green]#The system-to-be shall require all events to include a starting date, ending date, and a location (physical or online URL).#
-- [.hl-green]#The system-to-be shall ensure that the ending date is later than the starting date.# 
-
-- [.hl-yellow]#Each team must consist of one or more users.#
-- [.hl-green]#The system-to-be shall enforce that each team registered in an event consists of at least one user account.#
+- [.hl-yellow]#The system-to-be shall require each event to be linked to an existing video game.#
+- [.hl-yellow]#The system-to-be shall require at least one registered user to be assigned as an organizer before an event can be created.#
+- [.hl-yellow]#The system-to-be shall require event modifications and/or cancellations to be performed exclusively by assigned event organizers.#
+- [.hl-yellow]#The system-to-be shall require all events to include a starting date, ending date, and a location (physical or online URL).#
+- [.hl-green]#The system-to-be shall ensure that the ending date is later than the starting date.#
+- [.hl-yellow]#The system-to-be shall enforce that each team registered in an event consists of at least one user account.#
 - [.hl-green]#The system-to-be shall block registration of empty teams.#
-
-- [.hl-yellow]#Events must have a limit of participants.#
-- [.hl-green]#The system-to-be shall require organizers to define a maximum number of participants (teams or players) for each event.#
-
-- [.hl-yellow]#Once the limit is reached, no more users should be allowed to register for the event.#
-- [.hl-green]#The system-to-be shall prevent additional registrations for an event once the defined participant limit has been reached.#
-
-- [.hl-yellow]#Once an event is over, no registrations or modifications to the event should be allowed.#
-- [.hl-green]#The system-to-be shall automatically disable registration and editing for a specific event once it has concluded.#
-
-- [.hl-yellow]#The results of an event must be recorded once the event is finished.#
-- [.hl-green]#The system-to-be shall ensure results of each event are available to users for ranking and visualization.#
-
-- [.hl-yellow]#Appropriate ranking updates must be done based on the results of finished events.#
-- [.hl-green]#The system-to-be shall update team and/or player rankings based on recorded results of completed events.#
-
+- [.hl-yellow]#The system-to-be shall require organizers to define a maximum number of participants (teams or players) for each event.#
+- [.hl-yellow]#The system-to-be shall prevent additional registrations for an event once the defined participant limit has been reached.#
+- [.hl-yellow]#The system-to-be shall automatically disable registration and editing for a specific event once it has concluded.#
+- [.hl-yellow]#The system-to-be shall ensure results of each event are available to users for ranking and visualization.#
+- [.hl-yellow]#The system-to-be shall update team and/or player rankings based on recorded results of completed events.#
 - [.hl-green]#The system-to-be shall prevent an event from being created without an organizer.#
-
 - [.hl-green]#The system-to-be must prevent duplicate teams or event names.#
 
-
 === 2.2.4 Interface Requirements
-- [.hl-yellow]#The system must allow for users to create and manage events.#
-- [.hl-green]#The system-to-be must provide a way for users to create events, which must have a start and end date, a location, an organizer (usually the user that created the event) and a subject or game the event will be about. Event properties must be stored as: a date, in the format year, month (by index starting at 0), day, hour, and minute, a location name or address, a user ID, and a subject name or event. In addition, the system-to-be must provide a means to edit events created by them.#
-
+- [.hl-yellow]#The system-to-be must provide a way for users to create events, which must have a start and end date, a location, an organizer (usually the user that created the event) and a subject or game the event will be about. Event properties must be stored as: a date, in the format year, month (by index starting at 0), day, hour, and minute, a location name or address, a user ID, and a subject name or event. In addition, the system-to-be must provide a means to edit events created by them.#
 - [.hl-green]#The system-to-be must reject any attempt by a user to create an event/team with a duplicate name of an existing event/team within the database and provide an appropriate warning upon creation attempt.#
-
-- [.hl-yellow]#The system must allow users to search for events and communities within specific locations.#
-- [.hl-green]#The system-to-be must provide the means to be able to search for user created events and communities and provide a way to filter these by categories, such as by location or subject.#
-
+- [.hl-yellow]#The system-to-be must provide the means to be able to search for user created events and communities and provide a way to filter these by categories, such as by location or subject.#
 - [.hl-red]#The system must track and update user rankings as needed.#
-
 - [.hl-green]#The system-to-be must rank users based on their performance in events they have participated in, utilizing a custom algorithm, and provide a means for users to see their rankings and compare them with other user rankings.#
-
-- [.hl-yellow]#The system must allow users to join teams and communities of their choice.#
-- [.hl-green]#The system-to-be must provide a means for users to join teams and communities of interest and provide a means for users to communicate via messaging with one another within those teams and communities.#
-
-- [.hl-yellow]#If a community or team does not exist for a certain game, the system must allow the user to create one.#
-- [.hl-green]#If a community or team does not exist for a certain game or subject, the system-to-be must provide a way for the user to create one with the desired subject.#
-
-- [.hl-yellow]#The system must allow event organizers to edit their events, start and end dates and location, until the event has started.#
-- [.hl-green]#The system-to-be must provide a means for users to edit their event properties, start and end dates, location, and subject, requiring that the user originally created the event and the event has not passed its start date.#
-
+- [.hl-yellow]#The system-to-be must provide a means for users to join teams and communities of interest and provide a means for users to communicate via messaging with one another within those teams and communities.#
+- [.hl-yellow]#If a community or team does not exist for a certain game or subject, the system-to-be must provide a way for the user to create one with the desired subject.#
+- [.hl-yellow]#The system-to-be must provide a means for users to edit their event properties, start and end dates, location, and subject, requiring that the user originally created the event and the event has not passed its start date.#
 - [.hl-green]#The system-to-be must provide a form through which users can register for events to mark and record their participation in the event.#
-
-- [.hl-yellow]#Any registrations passed the start or end of an event must not be allowed.#
-- [.hl-green]#The system-to-be must reject any attempts users make to register to an event past the event's start date.#
-
-- [.hl-yellow]#The system must allow event organizers to record event results once the event has finished.#
-- [.hl-green]#The system-to-be must provide a way for an organizer of an event to view the results and/or progress of the event, including after the event has finished.#
-
-- [.hl-yellow]#The system must notify users of new events relevant to their interests.#
-- [.hl-green]#The system-to-be must notify, whether by email or SMS, users of new or existing events, teams, and communities relevant to the user's interest.#
-
+- [.hl-yellow]#The system-to-be must reject any attempts users make to register to an event past the event's start date.#
+- [.hl-yellow]#The system-to-be must provide a way for an organizer of an event to view the results and/or progress of the event, including after the event has finished.#
+- [.hl-yellow]#The system-to-be must notify, whether by email or SMS, users of new or existing events, teams, and communities relevant to the user's interest.#
 - [.hl-green]#The system-to-be must provide a means for tournament organizers to publish announcements regarding upcoming events or community updates that must be visible to all participants.#
 
 === 2.2.5 Machine Requirements
-- [.hl-yellow]#The system must support at least 450 users at a time with an average response time of 2 seconds or less.#
-- [.hl-green]#The system-to-be must be able to process simultaneous requests, such as joining and creating events or community interactions, from at least 450 active users without exceeding an average response time of 2 seconds per request.#
-
-- [.hl-yellow]#The system must be available at least 99% of the time per month.#
-- [.hl-green]#The system-to-be must maintain an uptime of at least 99% of the time per month. Excluding the scheduled maintenance that must not exceed 3 hours per session.#
-
-- [.hl-yellow]#The system must be able to keep user data secure within the website.#
-- [.hl-green]#The system-to-be must ensure the integrity and availability of user data. Including secure password storage and role-based access to restrict access to sensitive data.#
-
-- [.hl-yellow]#The system must be able to handle at least 750 registered users without major performance decrease.#
-- [.hl-green]#The system-to-be must ideally maintain a latency of 200 - 600 ms, in user interactions such as post creation functionality, tournament registration and community interactions with a user base as big as 750 concurrent players.#
+- [.hl-yellow]#The system-to-be must be able to process simultaneous requests, such as joining and creating events or community interactions, from at least 450 active users without exceeding an average response time of 2 seconds per request.#
+- [.hl-yellow]#The system-to-be must maintain an uptime of at least 99% of the time per month. Excluding the scheduled maintenance that must not exceed 3 hours per session.#
+- [.hl-yellow]#The system-to-be must ensure the integrity and availability of user data. Including secure password storage and role-based access to restrict access to sensitive data.#
+- [.hl-yellow]#The system-to-be must ideally maintain a latency of 200 - 600 ms, in user interactions such as post creation functionality, tournament registration and community interactions with a user base as big as 750 concurrent players.#
