@@ -28,6 +28,6 @@ export function createCommunity(name, description, admin, tags, game, location, 
     const communityObject = Community(name, description, admin, members, posts, tags, id, dateCreated, game, location, 
     icon, banner);
 
-    //TO DO: send community object to database, return a string that indicates success
+    //TO DO: send community object to database, return a something that indicates success
 
 }
