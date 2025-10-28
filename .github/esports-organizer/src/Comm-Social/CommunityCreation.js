@@ -28,7 +28,7 @@ export function createCommunity(name, description, admin, tags, game, location, 
     //Generate a random UUID
     const id = crypto.randomUUID();
 
-    const communityObject = Community(name, description, admin, members, posts, tags, id, dateCreated, game, location, 
+    const communityObject = new Community(name, description, admin, members, posts, tags, id, dateCreated, game, location, 
     icon, banner);
 
     try{
