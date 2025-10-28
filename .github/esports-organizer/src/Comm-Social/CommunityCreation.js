@@ -19,6 +19,9 @@ export function createCommunity(name, description, admin, tags, game, location, 
     const members = [];
     members.push(admin);
 
+    //Community starts off with an empty post array
+    const posts = [];
+
     //Date the community was created in
     const dateCreated = new Date();
 
