@@ -1,7 +1,6 @@
 import {Community} from "./Community.js";
 
 //WORK IN PROGRESS FILE
-//Missing saving the community data
 
 //Function receives the following arguments:
 /**

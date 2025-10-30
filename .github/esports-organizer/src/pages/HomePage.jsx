@@ -148,8 +148,18 @@ function HomePage() {
   };
 
   // Community card component
-  const CommunityCard = () => {
-    return (
+  const CommunityCard = ({ communityId = "fortnite" }) => {
+      const handleFollowCommunity = () => {
+          //proper implementation will be worked on in the future
+          console.log(`Following community: ${communityId}`);
+          handleNavigation(`/community/${communityId}`);
+      };
+      const handleViewCommunity = () => {
+      // Navigate directly to the community page
+      handleNavigation(`/community/${communityId}`);
+    };
+
+      return (
       <div className="community-card">
         <div className="community-image-wrapper">
           <img 
@@ -181,8 +191,8 @@ function HomePage() {
             </div>
           </div>
           <div className="community-actions">
-            <button type="button" className="follow-button">Follow Community</button>
-            <button type="button" className="view-button">View Community</button>
+            <button type="button" className="follow-button" onClick={handleFollowCommunity}>Follow Community</button>
+            <button type="button" className="view-button" onClick={handleViewCommunity}>View Community</button>
           </div>
         </div>
       </div>
