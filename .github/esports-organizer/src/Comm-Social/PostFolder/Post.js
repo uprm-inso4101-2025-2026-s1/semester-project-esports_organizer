@@ -107,6 +107,12 @@ export default class Post {
     setDate(date){
         this.date = date;
     }
+    /**
+     * Sets the current date to the post
+     */
+    setCurrentDate(){
+        this.date = new Date();
+    }
     /** 
      * Getters for the post
     */
