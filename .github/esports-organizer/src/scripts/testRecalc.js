@@ -16,9 +16,9 @@ const requireCJS = createRequire(import.meta.url);
 const { _processQueue } = requireCJS('../functions/recalcScheduler.js');
 
 async function seedParticipants(tid, count) {
-  const tRef = db.doc(`tournaments/${tid}`);
+  const tRef = db.doc(`Tournaments/${tid}`);
   await tRef.set({ name: 'Demo Tournament', status: 'NOT_STARTED', createdAt: Date.now() }, { merge: true });
-  const partsCol = db.collection(`tournaments/${tid}/participants`);
+  const partsCol = db.collection(`Tournaments/${tid}/participants`);
   const batch = db.batch();
   for (let i = 1; i <= count; i++) {
     const pid = `p${i}`;
@@ -28,16 +28,16 @@ async function seedParticipants(tid, count) {
 }
 
 async function enqueueForceRecalc(tid) {
-  const col = db.collection(`tournaments/${tid}/internal/meta/recalc_queue`);
+  const col = db.collection(`Tournaments/${tid}/internal/meta/recalc_queue`);
   const ref = await col.add({ type: 'AdminForceRecalculate', createdAt: Date.now(), status: 'pending' });
   return ref.id;
 }
 
 async function snapshotSummary(tid) {
-  const mSnap = await db.collection(`tournaments/${tid}/matches`).get();
+  const mSnap = await db.collection(`Tournaments/${tid}/matches`).get();
   const matches = mSnap.docs.map(d => ({ id: d.id, ...d.data() }))
     .sort((a,b) => ((a.round||0)-(b.round||0)) || ((a.index||0)-(b.index||0)) || a.id.localeCompare(b.id));
-  const derivedRef = db.doc(`tournaments/${tid}/derived/bracket`);
+  const derivedRef = db.doc(`Tournaments/${tid}/derived/bracket`);
   const dSnap = await derivedRef.get();
   return {
     count: matches.length,

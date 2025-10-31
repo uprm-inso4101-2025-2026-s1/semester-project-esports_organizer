@@ -14,11 +14,11 @@ const db = admin.firestore();
 export async function seedDemoE2E() {
 	// Tournament + matches (similar pattern to existing seedEmulator.js)
 	const tid = 'tourn_demo_e2e_1';
-	const tRef = db.doc(`tournaments/${tid}`);
+	const tRef = db.doc(`Tournaments/${tid}`);
 	await tRef.set({ name: 'Demo E2E Tournament', createdAt: Date.now() }, { merge: true });
 
-	await db.doc(`tournaments/${tid}/matches/m1`).set({ status: 'PENDING', teamA: 'Alpha', teamB: 'Bravo' });
-	await db.doc(`tournaments/${tid}/matches/m2`).set({ status: 'IN_PROGRESS', teamA: 'Charlie', teamB: 'Delta' });
+	await db.doc(`Tournaments/${tid}/matches/m1`).set({ status: 'PENDING', teamA: 'Alpha', teamB: 'Bravo' });
+	await db.doc(`Tournaments/${tid}/matches/m2`).set({ status: 'IN_PROGRESS', teamA: 'Charlie', teamB: 'Delta' });
 
 	// Events (top-level collection) — ids are fixed so the script is idempotent
 	const now = Date.now();

@@ -22,7 +22,7 @@ export default class Feedback {
 
   async SubmitFeedback() {
     try {
-      const col = collection(db, "feedback");
+      const col = collection(db, "Feedback");
       const data = {
         topic: this.topic,
         category: this.category,
@@ -42,7 +42,7 @@ export default class Feedback {
   // READ: Get list of all feedback entries
   static async ListFeedback(limitCount = 10) {
     const q = query(
-      collection(db, "feedback"),
+      collection(db, "Feedback"),
       orderBy("createdAt", "desc"),
       limit(limitCount)
     );

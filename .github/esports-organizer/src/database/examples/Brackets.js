@@ -184,13 +184,13 @@ export default class Bracket {
   async saveAllMatchesToFirestore(tournamentId) {
     const matchesArray = [...this.matches.entries()];
     for (const [matchId, matchData] of matchesArray) {
-      const matchRef = doc(collection(firestore, `tournaments/${tournamentId}/matches`), matchId);
+      const matchRef = doc(collection(firestore, `Tournaments/${tournamentId}/matches`), matchId);
       await setDoc(matchRef, matchData);
     }
   }
 
     static async loadBracketFromFirestore(tournamentId) {
-    const matchesSnapshot = await getDocs(collection(firestore, `tournaments/${tournamentId}/matches`));
+    const matchesSnapshot = await getDocs(collection(firestore, `Tournaments/${tournamentId}/matches`));
     const matches = [];
     matchesSnapshot.forEach(doc => {
       matches.push({ matchId: doc.id, ...doc.data() });
@@ -205,7 +205,7 @@ export default class Bracket {
 
     static listenBracketMatches(tournamentId, callback) {
     return onSnapshot(
-      collection(firestore, `tournaments/${tournamentId}/matches`),
+      collection(firestore, `Tournaments/${tournamentId}/matches`),
       callback
     );
   }
