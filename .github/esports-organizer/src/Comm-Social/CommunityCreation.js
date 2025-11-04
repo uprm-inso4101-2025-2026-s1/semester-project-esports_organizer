@@ -19,14 +19,24 @@ export function createCommunity(name, description, admin, tags, game, location, 
     const members = [];
     members.push(admin);
 
+    //Community starts off with an empty post array
+    const posts = [];
+
     //Date the community was created in
     const dateCreated = new Date();
 
     //Generate a random UUID
     const id = crypto.randomUUID();
 
-    const communityObject = Community(name, description, admin, members, posts, tags, id);
+    const communityObject = new Community(name, description, admin, members, posts, tags, id, dateCreated, game, location, 
+    icon, banner);
 
-    //TO DO: send community object to database
+    try{
+        //TO DO: SEND COMMUNITY DATA OR OBJECT TO DATABASE
+        return "Community successfully created!";
+    }
+    catch(error){
+        return "Failed to create community: " + error; 
+    }
 
 }
