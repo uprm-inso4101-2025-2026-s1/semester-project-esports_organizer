@@ -15,11 +15,11 @@ async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
   const count = Number(process.argv[3] || 8);
 
-  const tRef = db.doc(`tournaments/${tid}`);
+  const tRef = db.doc(`Tournaments/${tid}`);
   await tRef.set({ name: 'Demo Tournament', status: 'NOT_STARTED', createdAt: Date.now() }, { merge: true });
 
   const batch = db.bulkWriter ? null : db.batch();
-  const partsCol = db.collection(`tournaments/${tid}/participants`);
+  const partsCol = db.collection(`Tournaments/${tid}/participants`);
 
   for (let i = 1; i <= count; i++) {
     const pid = `p${i}`;

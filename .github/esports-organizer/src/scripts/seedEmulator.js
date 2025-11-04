@@ -13,12 +13,12 @@ const db = admin.firestore();
 
 async function main() {
   const tid = 'tourn_demo_1';
-  const tRef = db.doc(`tournaments/${tid}`);
+  const tRef = db.doc(`Tournaments/${tid}`);
   await tRef.set({ name: 'Demo Tournament', createdAt: Date.now() }, { merge: true });
 
-  const m1 = db.doc(`tournaments/${tid}/matches/m1`);
-  const m2 = db.doc(`tournaments/${tid}/matches/m2`);
-  const m3 = db.doc(`tournaments/${tid}/matches/m3`);
+  const m1 = db.doc(`Tournaments/${tid}/matches/m1`);
+  const m2 = db.doc(`Tournaments/${tid}/matches/m2`);
+  const m3 = db.doc(`Tournaments/${tid}/matches/m3`);
 
   await m1.set({ status: 'PENDING', teamA: 'Alpha', teamB: 'Bravo' });
   await m2.set({ status: 'IN_PROGRESS', teamA: 'Charlie', teamB: 'Delta' });

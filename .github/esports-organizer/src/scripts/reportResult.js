@@ -17,7 +17,7 @@ async function main() {
   const mid = process.argv[3] || 'r1_m1';
   const scoreA = Number(process.argv[4] || 2);
   const scoreB = Number(process.argv[5] || 0);
-  const ref = db.doc(`tournaments/${tid}/matches/${mid}`);
+  const ref = db.doc(`Tournaments/${tid}/matches/${mid}`);
   await ref.set({ status: 'FINAL', scoreA, scoreB }, { merge: true });
   console.log(`Reported result for ${mid} in ${tid}: ${scoreA}-${scoreB} (FINAL)`);
 }

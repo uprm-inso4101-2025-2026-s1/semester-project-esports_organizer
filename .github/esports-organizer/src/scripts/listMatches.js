@@ -13,7 +13,7 @@ const db = admin.firestore();
 
 async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
-  const col = db.collection(`tournaments/${tid}/matches`);
+  const col = db.collection(`Tournaments/${tid}/matches`);
   const snap = await col.get();
   console.log(`Matches for ${tid}: ${snap.size}`);
   const list = snap.docs.map(d => ({ id: d.id, ...d.data() }))
