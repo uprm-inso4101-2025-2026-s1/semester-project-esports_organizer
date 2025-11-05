@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import Button from "../../components/shared/Button.jsx";
 import TournamentCard from "../../components/shared/TournamentCard.jsx";
 import "./CommunityFeedPage.css";
+import Post from "../../Comm-Social/PostFolder/Post.js";
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -81,14 +82,29 @@ function MiniCommunityCard({imageUrl, title, onView}) {
 }
 
 function CreatePostForm({onSubmit}) {
+
+
     const [postContent, setPostContent] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (postContent.trim()) {
-            onSubmit(postContent);
-            setPostContent('');
-        }
+        const content = postContent;
+        if (!content) return;
+
+        // Creates a new Post instance
+        const postCreation = new Post({
+            content: content,
+            author: 'Current User',
+            authorUsername: '@currentuser',
+            community: mockCommunity.name.toUpperCase()
+        });
+        postCreation.setPublicState();
+        const postObj = postCreation.toObject ? postCreation.toObject() : postCreation;
+
+        // pasar el objeto al padre
+        onSubmit(postObj);
+
+        setPostContent('');
     };
     return (
         <form className="create-post-form" onSubmit={handleSubmit}>
@@ -281,6 +297,7 @@ export default function CommunityFeedPage() {
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isLoggedIn] = useState(true); // For testing only, change later
+    const [posts, setPosts] = useState(mockPosts);
     const {communityId} = useParams();
     console.log("Viewing community:", communityId);
 
@@ -317,24 +334,29 @@ export default function CommunityFeedPage() {
         console.log(`${isSaved ? 'Unsaving' : 'Saving'} tournament:`, tournamentId);
     }
 
-    const handleCreatePost = (content) => {
-        const newPost = {
-            id: mockPosts.length + 1,
+    const handleCreatePost = (postObj) => {
+        const timestamp = postObj.date instanceof Date
+            ? postObj.date.toLocaleString()
+            : new Date(postObj.date).toLocaleString();
+
+        const obj = {
+            id: postObj.id,
             user: {
-                name: "Current User",
-                username: "@currentuser",
+                name: postObj.author || "Current User",
+                username: postObj.authorUsername || "@currentuser",
                 avatar: null
             },
-            timestamp: "Just now",
-            content: content,
-            likes: 0,
-            comments: 0,
+            timestamp,
+            content: postObj.content,
+            likes: postObj.likes,
+            comments: Array.isArray(postObj.comments) ? postObj.comments.length : 0,
             shares: 0,
-            community: "MARVEL RIVALS"
+            community: postObj.community || mockCommunity.name
         };
-        // later we can work on proper functionality
-        console.log("Creating post:", content);
-        alert(`Post created: "${content}"`);
+        setPosts(prev => [obj, ...prev]);
+
+        console.log("Creating post:", obj);
+        alert(`Post created: "${obj.content}"`);
     };
 
     const handleLoadMore = () => {
@@ -415,7 +437,7 @@ export default function CommunityFeedPage() {
                     {/* Activity Feed */}
                     <section className="activity-feed">
                         <ActivityFeed
-                            posts={mockPosts}
+                            posts={posts}
                             onLoadMore={handleLoadMore}
                         />
                     </section>
