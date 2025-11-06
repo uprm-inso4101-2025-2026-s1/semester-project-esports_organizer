@@ -37,26 +37,11 @@ function BracketsTournamentPage(){
 
     // Handler for when a team is clicked (progress a match)
     const handleTeamClick = (teamName, teamLogo, matchId) => {
-        // Debug logging
-        console.log("Team clicked:", {
-            teamName,
-            teamLogo,
-            matchId,
-            currentRound: bracketState?.currentRound,
-            allRounds: bracketState?.rounds
-        });
 
         if (!bracketState || !matchId) {
             console.log("Invalid bracket state or match ID");
             return;
         }
-
-        // Debug logging of bracket state
-        console.log("Bracket state:", {
-            currentRound: bracketState.currentRound,
-            matches: Array.from(bracketState.bracket.matches.entries()),
-            nextRoundMatches: Array.from(bracketState.bracket.nextRoundMatches.entries())
-        });
 
         // Try to find match in any round, not just current
         let foundMatch = null;
@@ -74,7 +59,6 @@ function BracketsTournamentPage(){
             return;
         }
 
-        console.log("Found match in round:", foundInRound, foundMatch);
 
         const newState = progressMatch(bracketState, matchId, teamName);
         setBracketState(newState);
@@ -83,7 +67,7 @@ function BracketsTournamentPage(){
         if (newState.bracket && newState.bracket.matches && newState.bracket.matches.size === 0 && ![1, 2, 3].includes(foundInRound)) {
             const winnerId = newState.bracket._winnersCurrentRound?.[0];
             if (winnerId) {
-                console.log(true, true);
+
                 const winner = newState.teams?.find(t => t.id === winnerId);
                 if (winner) setChampion(winner);
             }
@@ -92,6 +76,7 @@ function BracketsTournamentPage(){
         // Update per-round UI state from the new bracket state so clicks show progression
         const nextRound = (newState && newState.rounds && newState.rounds[1]) ? newState.rounds[1] : [];
         // nextRound is an array of [id, match] entries; map to the four second-round slots
+        console.log(newState);
         setLeftRound2Team1(nextRound[0] ? nextRound[0][1] : null);
         setLeftRound2Team2(nextRound[1] ? nextRound[1][1] : null);
         setRightRound2Team1(nextRound[2] ? nextRound[2][1] : null);
@@ -151,13 +136,6 @@ function BracketsTournamentPage(){
         }
         const [originalId, match] = roundMatches[index];
         
-        // Debug logging
-        console.log("Getting match from round:", {
-            originalId,
-            match,
-            index,
-            roundMatches
-        });
         
         // Ensure we have a valid match ID that matches the format used in Bracket.js
         if (!originalId || !match) {
@@ -328,13 +306,13 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-3">
                 {/* Left Column semifinals */}
-                {leftR3 && leftR3.player1 && leftR3.player2 ? (
+                {left_round3Team1 && left_round3Team1.player1 && left_round3Team1.player2 ? (
                     <Teams
-                        teamNames={[leftR3.player1.name, leftR3.player2.name]}
-                        teamLogos={[leftR3.player1.logo, leftR3.player2.logo]}
+                        teamNames={[left_round3Team1.player1.name, left_round3Team1.player2.name]}
+                        teamLogos={[left_round3Team1.player1.logo, left_round3Team1.player2.logo]}
                         onTeamClick={handleTeamClick}
                         matchId={matchData.round3[0].id}
-                        winnerName={getWinnerName(leftR3)}
+                        winnerName={getWinnerName(left_round3Team1)}
                     />
                 ) : (
                     <Teams/>
@@ -375,13 +353,13 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-5">
                 {/* Right Column semifinals */}
-                {rightR3 && rightR3.player1 && rightR3.player2 ? (
+                {right_round2Team2 && right_round3Team2.player1 && right_round3Team2.player2 ? (
                     <Teams
-                        teamNames={[rightR3.player1.name, rightR3.player2.name]}
-                        teamLogos={[rightR3.player1.logo, rightR3.player2.logo]}
+                        teamNames={[right_round3Team2.player1.name, right_round3Team2.player2.name]}
+                        teamLogos={[right_round3Team2.player1.logo, right_round3Team2.player2.logo]}
                         onTeamClick={handleTeamClick}
                         matchId={matchData.round3[1].id}
-                        winnerName={getWinnerName(rightR3)}
+                        winnerName={getWinnerName(right_round3Team2)}
                     />
                 ) : (
                     <Teams/>
@@ -394,27 +372,27 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-6">
                 {/* Right Column Round 2 */}
-                {right_team1_Round2 && right_team1_Round2.player1 && right_team1_Round2.player2 ? (
+                {right_round2Team1 && right_round2Team1.player1 && right_round2Team1.player2 ? (
                     <>
                         <Teams
-                            teamNames={[right_team1_Round2.player1.name, right_team1_Round2.player2.name]}
-                            teamLogos={[right_team1_Round2.player1.logo, right_team1_Round2.player2.logo]}
-                                onTeamClick={handleTeamClick}
-                                matchId={matchData.round2[2].id}
-                                winnerName={getWinnerName(right_team1_Round2)}
+                            teamNames={[right_round2Team1.player1.name, right_round2Team1.player2.name]}
+                            teamLogos={[right_round2Team1.player1.logo, right_round2Team1.player2.logo]}
+                            onTeamClick={handleTeamClick}
+                            matchId={matchData.round2[2].id}
+                            winnerName={getWinnerName(right_round2Team1)}
                         />
                     </>
                 ) : (
                     <Teams/>
                 )}
-                {right_team2_Round2 && right_team2_Round2.player1 && right_team2_Round2.player2 ? (
+                {right_round2Team2 && right_round2Team2.player1 && right_round2Team2.player2 ? (
                     <>
                         <Teams
-                            teamNames={[right_team2_Round2.player1.name, right_team2_Round2.player2.name]}
-                            teamLogos={[right_team2_Round2.player1.logo, right_team2_Round2.player2.logo]}
+                            teamNames={[right_round2Team2.player1.name, right_round2Team2.player2.name]}
+                            teamLogos={[right_round2Team2.player1.logo, right_round2Team2.player2.logo]}
                             onTeamClick={handleTeamClick}
                             matchId={matchData.round2[3].id}
-                            winnerName={getWinnerName(right_team2_Round2)}
+                            winnerName={getWinnerName(right_round2Team2)}
                         />
                     </>
                 ) : (
