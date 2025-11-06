@@ -25,43 +25,38 @@ export default class Post {
      * Also the default state is always Draft when creating a post.
      * 
      */
+    constructor (data){
 
-    constructor (){
-
-        this.title = "";
-        this.content = "";
-        this.author = "";
+        this.content = data.content;
+        this.author = data.author;
+        this.authorUsername = data.authorUsername;
         this.date = new Date();
-        this.community = "";
-        this.likes = 0;
-        this.comments = [];
-        this.id = Post.generateId();
-        this.state = "Draft"; 
-
-    }
-
-    constructor (title, content, author, community){
-
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.date = new Date();
-        this.community = community;
+        this.community = data.community;
         this.likes = 0;
         this.comments = [];
         this.id = Post.generateId();
         this.state = "Draft"; 
     } 
+
+    toFireStore(){
+
+        return {
+            content: this.content,
+            author: this.author,
+            authorUsername: this.authorUsername,
+            date: this.date,
+            community: this.community,
+            likes: this.likes,
+            comments: this.comments,
+            id: this.id,
+            state: this.state
+        };
+    }
+ 
     /**
      * Setters for post
      */
 
-    /**
-     * @param {string} title - Sets the title of the post
-     */
-    setTitle(title){
-        this.title = title;
-    }
     /** 
      * @param {string} content - Sets the content of the post
      */
@@ -113,16 +108,23 @@ export default class Post {
     setCurrentDate(){
         this.date = new Date();
     }
+    /**
+     * 
+     * @param {string} username - Sets the author's username of the post.
+     */
+    setAuthorUsername(username){
+        this.authorUsername = username;
+    }
+    /**
+     * @param {string} id - Sets the ID of the post
+     */
+    setId(id){
+        this.id = id;
+    }
     /** 
      * Getters for the post
     */
 
-    /**
-     * @returns {string} - The title of the post
-     */
-    getTitle(){
-        return this.title;
-    }
     /**
      * @returns {string} - The content of the post
      */
@@ -170,6 +172,18 @@ export default class Post {
      */
     getState(){
         return this.state;
+    }
+    /**
+     * @returns {number} - The number of comments on the post
+     */
+    getNumberOfComments(){
+        return this.comments.length;
+    }
+    /**
+     * @returns {string} - The author's username of the post
+     */
+    getAuthorUsername(){
+        return this.authorUsername;
     }
     /** 
      * Other methods
