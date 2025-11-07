@@ -21,9 +21,9 @@ function TournamentsPage() {
   useEffect(() => {
     document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
     return () => { document.body.style.overflow = 'unset'; };
-  }, [showJoinModal]);
+  }, [showJoinModal]); 
 
-    //Notifications
+  //Notifications
   const userId = 'demoUser123'; 
 
   const sendJoinNotification = async (eventTitle) => {

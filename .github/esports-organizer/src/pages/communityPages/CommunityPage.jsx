@@ -42,6 +42,7 @@ export default function CommunityPage() {
         {path: "/teams", label: "Teams"},
         {path: "/community", label: "Community"},
         { path: "/help-center", label: "Help" },
+        { path: "/notifications", label: "Notifications" },
     ];
 
     // Better placeholder data with variety

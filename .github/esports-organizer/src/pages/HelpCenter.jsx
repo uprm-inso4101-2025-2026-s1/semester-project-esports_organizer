@@ -32,7 +32,7 @@ const FAQS = [
     answer:
       "You can update your preferences to only receive notifications for the most important updates (e.g., match times, event/tournament reminders).",
   },
-  
+
 
 
   {
