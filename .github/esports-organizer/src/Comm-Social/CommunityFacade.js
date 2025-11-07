@@ -26,7 +26,10 @@ Currently, a string is returned that indicates successful community creation
 
     }
 
-    // Facade method for updating settings
+/*
+The update method serves to update the community given its id and newSettings
+*/
+
   static update(communityId, newSettings) {
     const community = Community.getCommunityById(communityId);
     if (!community) throw new Error("Community not found.");
@@ -38,7 +41,7 @@ Currently, a string is returned that indicates successful community creation
     if (newSettings.location) community.setLocation(newSettings.location);
     if (newSettings.tags) community.setTags(newSettings.tags);
 
-    // Later this could call Firestore update logic
+    //Later this could call Firestore update logic
     return community;
   }
 
