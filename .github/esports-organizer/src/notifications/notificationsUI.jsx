@@ -7,6 +7,7 @@ export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
   const [showList, setShowList] = useState(false);
   const [newMessage, setNewMessage] = useState('');
+  const [newTitle, setNewTitle] = useState('');
 
   // It will show notifications from firebase to the page in real time
   useEffect(() => {
@@ -22,10 +23,12 @@ export default function Notifications() {
   const addNotification = async () => {
     if (!newMessage.trim()) return;
     await addDoc(collection(db, 'notifications'), {
+      title: newTitle,
       message: newMessage,
       createdAt: serverTimestamp(),
     });
     setNewMessage('');
+    setNewTitle('');
   };
 
   // This will delete all notifications, only from the UI not from Firebasde
@@ -56,7 +59,14 @@ export default function Notifications() {
           </div>
 
           {/* Add new notification */}
-          <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+          <div style={{  display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 10}}>
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder="Title..."
+              style={{ padding: 6, borderRadius: 6, border: '1px solid #ccc' }}
+            />
             <input
               type="text"
               value={newMessage}
