@@ -23,7 +23,6 @@ Currently, a string is returned that indicates successful community creation
 
         return createCommunity(init.name, init.description, init.admin, init.tags, init.game, 
             init.location, init.icon, init.banner);
-
     }
 
 /*
