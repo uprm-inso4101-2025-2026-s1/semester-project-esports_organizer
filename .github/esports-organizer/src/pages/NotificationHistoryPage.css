@@ -1,7 +1,7 @@
 .history-container {
     max-width: 650px;
     margin: 50px auto;
-    padding: 24px;
+    padding: 120px 24px 24px; 
     background-color: #fff;
     border-radius: 14px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
