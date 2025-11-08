@@ -10,8 +10,6 @@ import PlayerProfile from "./pages/PlayerProfile";
 import CreateProfile from "./pages/authPages/CreateProfile";
 import HelpCenter from "./pages/HelpCenter";
 import NotificationHistoryPage from './pages/NotificationHistoryPage';
-// brackets page is commented for now until path is determined
-
 import TeamsPage from "./pages/teamProfilePages/TeamsPage";
 import TeamProfilePage from "./pages/teamProfilePages/TeamProfilePage";
 import CommunityPage from "./pages/communityPages/CommunityPage";
