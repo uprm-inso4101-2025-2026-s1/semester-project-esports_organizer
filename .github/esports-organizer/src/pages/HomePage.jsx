@@ -44,8 +44,6 @@ function HomePage() {
 
   // Bookmark functionality
 
-  // Navigation menu items
-
   // Bookmark button component
   const BookmarkButton = ({ isSaved, tournament }) => {
     const handleClick = () => {

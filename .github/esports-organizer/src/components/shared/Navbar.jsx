@@ -6,6 +6,8 @@ import { IoPerson } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import "./Navbar.css";
+import Notifications from '../../notifications/notificationsUI';
+
 
 function Navbar() {
   const navigate = useNavigate();
@@ -70,6 +72,7 @@ function Navbar() {
           </div>
 
           <div className="nav-actions">
+            <Notifications inline />
             {/* TODO: Logic to load user preferences */}
             {userIsLoggedIn ? (
               <Button
@@ -87,6 +90,7 @@ function Navbar() {
                 variant="primary"
               />
             )}
+            
             <button
               className="mobile-menu-toggle"
               onClick={toggleMobileMenu}
