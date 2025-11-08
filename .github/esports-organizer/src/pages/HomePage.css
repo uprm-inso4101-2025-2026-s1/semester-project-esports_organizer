@@ -17,6 +17,116 @@
   box-sizing: border-box;
 }
 
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .homepage {
+  background: #1a0d0d;
+  color: #fff;
+}
+.dark-mode .nav-header {
+  background: #1a0d0d !important;
+}
+.dark-mode .nav-link:hover {
+  background: #b28d8d !important;
+}
+.dark-mode .nav-link.active::after {
+  background: #b28d8d !important;
+}
+.dark-mode .search-input:focus {
+  border-color: #b28d8d !important;
+  box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
+}
+.dark-mode .view-more-button {
+  color: #d72638 !important;
+}
+.dark-mode .view-more-button:hover {
+  color: #b01e2e !important;
+}
+.dark-mode .tournament-type-overlay,
+.dark-mode .event-type-overlay,
+.dark-mode .community-type-overlay {
+  background: #b28d8d !important;
+}
+.dark-mode .bookmark-button {
+  color: #1a0d0d !important;
+}
+.dark-mode .bookmark-button:active {
+  color: #1a0d0d !important;
+}
+.dark-mode .bookmark-button.saved,
+.dark-mode .bookmark-button.saved * {
+  color: #d72638 !important;
+  fill: #d72638 !important;
+}
+.dark-mode .bookmark-button.saved:hover,
+.dark-mode .bookmark-button.saved:hover * {
+  color: #b01e2e !important;
+  fill: #b01e2e !important;
+}
+.dark-mode .bookmark-button.saved:active,
+.dark-mode .bookmark-button.saved:active * {
+  color: #b01e2e !important;
+  fill: #b01e2e !important;
+}
+.dark-mode .form-input:focus {
+  border-color: #b28d8d !important;
+}
+.dark-mode .btn.secondary {
+  background: #2c1a1a !important;
+}
+.dark-mode .btn.secondary:hover {
+  background: #b28d8d !important;
+}
+.dark-mode .btn.secondary:active {
+  background: #b28d8d !important;
+}
+.dark-mode .tournament-card,
+.dark-mode .community-card,
+.dark-mode .event-card {
+  background: #1a0d0d !important;
+  border: 2px solid #1a0d0d !important;
+}
+.dark-mode .tournament-card.faded,
+.dark-mode .community-card.faded,
+.dark-mode .event-card.faded {
+  background: rgba(26, 13, 13, 0.7) !important;
+}
+.dark-mode .tournament-info,
+.dark-mode .community-info,
+.dark-mode .event-info {
+  background: #1a0d0d !important;
+}
+.dark-mode .join-button,
+.dark-mode .follow-button,
+.dark-mode .view-button {
+  background: #d72638 !important;
+}
+.dark-mode .join-button:hover,
+.dark-mode .follow-button:hover,
+.dark-mode .view-button:hover {
+  background: #b01e2e !important;
+  border-color: #b01e2e !important;
+}
+.dark-mode .join-event-button {
+  background: #d72638 !important;
+}
+.dark-mode .join-event-button:hover {
+  background: #b01e2e !important;
+  box-shadow: 0 8px 20px rgba(215, 38, 56, 0.3) !important;
+}
+.dark-mode .nav-actions .btn {
+  background: #1a0d0d !important;
+}
+.dark-mode .modal-content {
+  background: #2c1a1a !important;
+}
+.dark-mode .hero-background {
+  background: url("/assets/images/background_dark.png") no-repeat center
+    center/cover !important;
+}
+.dark-mode .hero-title {
+  color: white !important;
+}
+
 /* ==========================================================================
    NAVIGATION HEADER
    ========================================================================== */
@@ -31,131 +141,6 @@
   border-bottom: none;
   padding-bottom: 2px;
   color: white;
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .nav-header {
-    background: #1A0D0D !important;
-  }
-
-  .nav-link:hover {
-    background: #B28D8D !important;
-  }
-
-  .nav-link.active::after {
-    background: #B28D8D !important;
-  }
-
-  .search-input:focus {
-    border-color: #B28D8D !important;
-    box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
-  }
-
-  .view-more-button {
-    color: #D72638 !important;
-  }
-
-  .view-more-button:hover {
-    color: #B01E2E !important;
-  }
-
-  .tournament-type-overlay,
-  .event-type-overlay,
-  .community-type-overlay {
-    background: #B28D8D !important;
-  }
-
-  .bookmark-button {
-    color: #1A0D0D !important;
-  }
-
-  .bookmark-button:active {
-    color: #1A0D0D !important;
-  }
-
-  .bookmark-button.saved,
-  .bookmark-button.saved * {
-    color: #D72638 !important;
-    fill: #D72638 !important;
-  }
-
-  .bookmark-button.saved:hover,
-  .bookmark-button.saved:hover * {
-    color: #B01E2E !important;
-    fill: #B01E2E !important;
-  }
-
-  .bookmark-button.saved:active,
-  .bookmark-button.saved:active * {
-    color: #B01E2E !important;
-    fill: #B01E2E !important;
-  }
-
-  .form-input:focus {
-    border-color: #B28D8D !important;
-  }
-
-  .btn.secondary {
-    background: #2C1A1A !important;
-  }
-
-  .btn.secondary:hover {
-    background: #B28D8D !important;
-  }
-
-  .btn.secondary:active {
-    background: #B28D8D !important;
-  }
-
-  .tournament-card,
-  .community-card,
-  .event-card {
-    background: #1A0D0D !important;
-    border: 2px solid #1A0D0D !important;
-  }
-
-  .tournament-card.faded,
-  .community-card.faded,
-  .event-card.faded {
-    background: rgba(26, 13, 13, 0.7) !important;
-  }
-
-  .tournament-info,
-  .community-info,
-  .event-info {
-    background: #1A0D0D !important;
-  }
-
-  .join-button,
-  .follow-button,
-  .view-button {
-    background: #D72638 !important;
-  }
-
-  .join-button:hover,
-  .follow-button:hover,
-  .view-button:hover {
-    background: #B01E2E !important;
-    border-color: #B01E2E !important;
-  }
-
-  .join-event-button {
-    background: #D72638 !important;
-  }
-
-  .join-event-button:hover {
-    background: #B01E2E !important;
-    box-shadow: 0 8px 20px rgba(215, 38, 56, 0.3) !important;
-  }
-
-  .nav-actions .btn {
-    background: #1A0D0D !important;
-  }
-
-  .modal-content {
-    background: #2C1A1A !important;
-  }
 }
 
 /* Navigation Container */
@@ -199,7 +184,6 @@
   border-radius: 8px;
 }
 
-
 .logo-text {
   font-size: 16px;
   font-weight: bold;
@@ -242,7 +226,7 @@
 }
 
 .nav-link.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 50%;
@@ -355,12 +339,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/assets/images/background_light.png') no-repeat center center/cover;
+  background: url("/assets/images/background_light.png") no-repeat center
+    center/cover;
   z-index: 1;
 }
 
 .hero-background::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -396,11 +381,26 @@
   right: 0;
   height: 200px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 60% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+  background-image: radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 60% 80%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px
+    );
   background-size: 50px 50px, 50px 50px, 50px 50px, 50px 50px;
 }
 
@@ -411,14 +411,25 @@
   transform: translateX(-50%);
   width: 300px;
   height: 100px;
-  background: radial-gradient(ellipse, rgba(0, 168, 232, 0.3) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse,
+    rgba(0, 168, 232, 0.3) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   animation: pulse 3s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
-  50% { opacity: 0.6; transform: translateX(-50%) scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1.1);
+  }
 }
 
 .placeholder-content {
@@ -504,7 +515,6 @@
   margin-top: 0.5rem;
 }
 
-
 /* Hero Tournament Cards */
 .hero-tournament-cards-container {
   position: relative;
@@ -546,7 +556,6 @@
   color: #333;
   font-family: var(--font-heading);
 }
-
 
 /* ==========================================================================
    CARD COMPONENTS
@@ -613,21 +622,22 @@
   flex-basis: 274px !important;
 }
 
-
 .tournament-cards-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
   width: 300px;
   height: 100%;
-  background: linear-gradient(to right, 
-    transparent 0%, 
-    rgba(245, 245, 245, 0.1) 20%, 
-    rgba(245, 245, 245, 0.3) 40%, 
-    rgba(245, 245, 245, 0.6) 60%, 
-    rgba(245, 245, 245, 0.8) 80%, 
-    rgba(245, 245, 245, 1) 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(245, 245, 245, 0.1) 20%,
+    rgba(245, 245, 245, 0.3) 40%,
+    rgba(245, 245, 245, 0.6) 60%,
+    rgba(245, 245, 245, 0.8) 80%,
+    rgba(245, 245, 245, 1) 100%
+  );
   pointer-events: none;
   z-index: 5;
 }
@@ -665,7 +675,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 274px;
   height: 415px;
-  border: 2px solid #1B2A41;
+  border: 2px solid #1b2a41;
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -683,7 +693,7 @@
   max-width: 400px !important;
   min-width: 400px !important;
   height: 332px;
-  border: 2px solid #1B2A41;
+  border: 2px solid #1b2a41;
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -702,7 +712,7 @@
   max-width: 274px !important;
   min-width: 274px !important;
   height: 415px !important;
-  border: 2px solid #1B2A41;
+  border: 2px solid #1b2a41;
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -866,7 +876,6 @@
   image-rendering: auto;
 }
 
-
 .tournament-overlay,
 .event-overlay,
 .community-overlay {
@@ -875,14 +884,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    transparent 50%
+  );
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: 0;
 }
-
 
 .tournament-type-overlay,
 .event-type-overlay,
@@ -986,7 +998,7 @@
   color: white;
   font-weight: bold;
   font-family: var(--font-heading);
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
 .detail-text.free {
@@ -1004,7 +1016,7 @@
 .join-button {
   background: #4a90e2;
   color: white;
- font-family: var(--font-heading);
+  font-family: var(--font-heading);
   padding: 0.4rem 1.1rem;
   border-radius: 10px;
   font-weight: 900;
@@ -1149,7 +1161,11 @@
 .event-image,
 .community-image {
   height: 150px;
-  background: linear-gradient(135deg, var(--light-primary) 0%, var(--light-container) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--light-primary) 0%,
+    var(--light-container) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1244,8 +1260,6 @@
   padding: 10px 0;
 }
 
-
-
 /* Communities Section */
 /* ==========================================================================
    COMMUNITIES SECTION
@@ -1255,9 +1269,6 @@
   background: #f5f5f5;
   padding: 10px 0;
 }
-
-
-
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -1308,7 +1319,7 @@
   .nav-logo {
     flex: 0 0 auto;
   }
-  
+
   .nav-menu {
     order: 2;
     flex: 1 1 100%;
@@ -1369,7 +1380,7 @@
     max-width: 100%;
     padding: 0 1.25rem;
   }
-  
+
   .hero-title {
     font-size: 2.4rem;
   }
@@ -1625,7 +1636,7 @@
 }
 
 .modal-content {
-  background: #3E4C59;
+  background: #3e4c59;
   border-radius: 20px !important;
   width: min(600px, 90vw);
   max-height: min(90vh, 900px);
@@ -1837,84 +1848,5 @@
   box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
 }
 
-/* Dark mode background image change */
-@media (prefers-color-scheme: dark) {
-  .hero-background {
-    background: url('/assets/images/background_dark.png') no-repeat center center/cover !important;
-  }
-
-  .hero-title {
-    color: white !important;
-  }
-}
-
-@media (max-width: 640px) {
-  .community-details {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-  }
-
-  .community-details-right {
-    align-items: flex-start;
-  }
-
-  .community-actions,
-  .tournament-actions,
-  .event-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .join-button,
-  .follow-button,
-  .view-button,
-  .join-event-button {
-    width: 100%;
-  }
-
-  .bookmark-button {
-    align-self: center;
-  }
-
-  .event-detail-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-}
-
-@media (max-width: 1200px) {
-  .hero-tournament-cards-container::after,
-  .hero-tournament-cards-container .view-more-button {
-    display: none;
-  }
-
-  .hero-tournament-cards {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: clamp(1rem, 3vw, 2rem);
-    padding: 0 1rem;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 900px) {
-  .hero-tournament-cards {
-    display: flex;
-    gap: clamp(1rem, 4vw, 1.75rem);
-    padding: 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .hero-tournament-cards::-webkit-scrollbar {
-    display: none;
-  }
-
-  .hero-tournament-cards .tournament-card {
-    flex: 0 0 274px;
-    scroll-snap-align: start;
-  }
-}
+/* Dark mode background image change (unificado arriba con .dark-mode .hero-background) */
+/* Eliminado bloque @media duplicado */
