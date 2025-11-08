@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Button from './Button';
 import { NAV_ITEMS } from '../../constants/navigation';
+import Notifications from '../../notifications/notificationsUI';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ function Navbar() {
           </div>
           
           <div className="nav-actions">
+            <Notifications inline />
             <Button
               text="Login/Sign Up"
               onClick={() => handleNavigation("/login")}
