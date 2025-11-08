@@ -25,116 +25,114 @@
   padding-bottom: 8px;
 }
 
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .nav-header {
-    background: #1A0D0D !important;
-  }
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .nav-header {
+  background: #1a0d0d !important;
+}
 
-  .nav-link:hover {
-    background: #B28D8D !important;
-  }
+.dark-mode .nav-link:hover {
+  background: #b28d8d !important;
+}
 
-  .nav-link.active::after {
-    background: #B28D8D !important;
-  }
+.dark-mode .nav-link.active::after {
+  background: #b28d8d !important;
+}
 
-  .search-input:focus {
-    border-color: #B28D8D !important;
-    box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
-  }
+.dark-mode .search-input:focus {
+  border-color: #b28d8d !important;
+  box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
+}
 
-  .create-event-button {
-    background: #D72638 !important;
-  }
+.dark-mode .create-event-button {
+  background: #d72638 !important;
+}
 
-  .create-event-button:hover {
-    background: #B01E2E !important;
-    box-shadow: 0 4px 12px rgba(215, 38, 56, 0.3) !important;
-  }
+.dark-mode .create-event-button:hover {
+  background: #b01e2e !important;
+  box-shadow: 0 4px 12px rgba(215, 38, 56, 0.3) !important;
+}
 
-  .create-event-button:active {
-    background: #B01E2E !important;
-  }
+.dark-mode .create-event-button:active {
+  background: #b01e2e !important;
+}
 
-  .filter-select:focus {
-    border-color: #B28D8D !important;
-    box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
-  }
+.dark-mode .filter-select:focus {
+  border-color: #b28d8d !important;
+  box-shadow: 0 0 0 2px rgba(178, 141, 141, 0.2) !important;
+}
 
-  .filter-select:hover {
-    border-color: #B28D8D !important;
-  }
+.dark-mode .filter-select:hover {
+  border-color: #b28d8d !important;
+}
 
-  .tournament-type-overlay {
-    background: #B28D8D !important;
-  }
+.dark-mode .tournament-type-overlay {
+  background: #b28d8d !important;
+}
 
-  .bookmark-button {
-    color: #1A0D0D !important;
-  }
+.dark-mode .bookmark-button {
+  color: #1a0d0d !important;
+}
 
-  .bookmark-button:active {
-    color: #1A0D0D !important;
-  }
+.dark-mode .bookmark-button:active {
+  color: #1a0d0d !important;
+}
 
-  .bookmark-button.saved {
-    color: #1A0D0D !important;
-  }
+.dark-mode .bookmark-button.saved {
+  color: #1a0d0d !important;
+}
 
-  .bookmark-button.saved:hover {
-    color: #1A0D0D !important;
-  }
+.dark-mode .bookmark-button.saved:hover {
+  color: #1a0d0d !important;
+}
 
-  .bookmark-button.saved:active {
-    color: #1A0D0D !important;
-  }
+.dark-mode .bookmark-button.saved:active {
+  color: #1a0d0d !important;
+}
 
-  .form-input:focus {
-    border-color: #B28D8D !important;
-  }
+.dark-mode .form-input:focus {
+  border-color: #b28d8d !important;
+}
 
-  .add-team-button:hover {
-    border-color: #B28D8D !important;
-    color: #B28D8D !important;
-    background: rgba(178, 141, 141, 0.1) !important;
-  }
+.dark-mode .add-team-button:hover {
+  border-color: #b28d8d !important;
+  color: #b28d8d !important;
+  background: rgba(178, 141, 141, 0.1) !important;
+}
 
-  .tournament-card {
-    background: #1A0D0D !important;
-    border: 2px solid #1A0D0D !important;
-  }
+.dark-mode .tournament-card {
+  background: #1a0d0d !important;
+  border: 2px solid #1a0d0d !important;
+}
 
-  .tournament-info {
-    background: #1A0D0D !important;
-  }
+.dark-mode .tournament-info {
+  background: #1a0d0d !important;
+}
 
-  .join-button {
-    background: #D72638 !important;
-    border: 10px solid #D72638 !important;
-  }
+.dark-mode .join-button {
+  background: #d72638 !important;
+  border: 10px solid #d72638 !important;
+}
 
-  .join-button:hover {
-    background: #B01E2E !important;
-    border-color: #B01E2E !important;
-  }
+.dark-mode .join-button:hover {
+  background: #b01e2e !important;
+  border-color: #b01e2e !important;
+}
 
-  .join-event-button {
-    background: #D72638 !important;
-  }
+.dark-mode .join-event-button {
+  background: #d72638 !important;
+}
 
-  .join-event-button:hover {
-    background: #B01E2E !important;
-    box-shadow: 0 8px 20px rgba(215, 38, 56, 0.3) !important;
-  }
+.dark-mode .join-event-button:hover {
+  background: #b01e2e !important;
+  box-shadow: 0 8px 20px rgba(215, 38, 56, 0.3) !important;
+}
 
-  .nav-actions .btn {
-    background: #1A0D0D !important;
-  }
+.dark-mode .nav-actions .btn {
+  background: #1a0d0d !important;
+}
 
-  .modal-content {
-    background: #2C1A1A !important;
-  }
+.dark-mode .modal-content {
+  background: #2c1a1a !important;
 }
 
 .nav-container {
@@ -209,7 +207,7 @@
 }
 
 .nav-link.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 50%;
@@ -522,7 +520,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 274px;
   height: 415px;
-  border: 2px solid #1B2A41;
+  border: 2px solid #1b2a41;
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -628,11 +626,11 @@
   color: white;
   font-weight: bold;
   font-family: var(--font-heading);
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
 .detail-text.free {
-  color: #4CAF50;
+  color: #4caf50;
   font-weight: 700;
 }
 
@@ -716,11 +714,11 @@
     gap: 1.5rem;
     justify-content: center;
   }
-  
+
   .events-filters {
     gap: 0.75rem;
   }
-  
+
   .filter-select {
     min-width: 100px;
   }
@@ -730,70 +728,70 @@
   .nav-container {
     padding: 1rem;
   }
-  
+
   .nav-menu {
     display: none;
   }
-  
+
   .mobile-menu-toggle {
     display: block;
   }
-  
+
   .page-header-content {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-  
+
   .search-and-create-container {
     flex-direction: column;
     gap: 1rem;
     width: 100%;
   }
-  
+
   .create-event-button {
     width: 100%;
     justify-content: center;
   }
-  
+
   .page-title {
     font-size: 40px;
   }
-  
+
   .section-title {
     font-size: 40px;
   }
-  
+
   .section-subtitle {
     font-size: 40px;
   }
-  
+
   .search-input {
     width: 250px;
   }
-  
+
   .events-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .events-filters {
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
-  
+
   .events-grid {
     grid-template-columns: 274px;
     gap: 1.5rem;
     justify-content: center;
   }
-  
+
   .recommended-cards {
     gap: 1rem;
   }
-  
+
   .tournament-card {
     width: 100%;
     max-width: 300px;
@@ -805,30 +803,30 @@
   .page-title {
     font-size: 35px;
   }
-  
+
   .section-title {
     font-size: 35px;
   }
-  
+
   .section-subtitle {
     font-size: 35px;
   }
-  
+
   .section-container {
     padding: 2rem 1rem;
   }
-  
+
   .events-grid {
     grid-template-columns: 274px;
     gap: 1rem;
     justify-content: center;
   }
-  
+
   .events-filters {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .filter-select {
     width: 100%;
   }
@@ -861,7 +859,7 @@
 }
 
 .modal-content {
-  background: #3E4C59;
+  background: #3e4c59;
   border-radius: 20px !important;
   width: 600px;
   height: 1541px;
@@ -1127,7 +1125,7 @@
 
 .back-button:hover {
   background: white;
-  color: #3E4C59;
+  color: #3e4c59;
 }
 
 .teams-title {
@@ -1222,32 +1220,32 @@
     margin: 1rem;
     max-width: calc(100vw - 2rem);
   }
-  
+
   .modal-event-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-  
+
   .modal-capacity {
     margin-left: 0;
   }
-  
+
   .modal-banner {
     height: 100px;
   }
-  
+
   .banner-overlay {
     font-size: 2rem;
   }
-  
+
   .modal-event-header,
   .modal-event-details,
   .modal-form-section {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
-  
+
   .modal-event-title {
     font-size: 1.2rem;
   }

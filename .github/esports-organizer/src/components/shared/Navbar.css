@@ -1,0 +1,29 @@
+.user-profile-popup {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: var(--container);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-option {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  text-align: left;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}   
+
+.user-option:hover {
+  background: var(--hover);
+}

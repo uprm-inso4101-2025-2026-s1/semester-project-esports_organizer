@@ -4,25 +4,25 @@ import "./AuthPages.css";
 
 //Images for the carrousels
 const games_images = [
-  { id: 1, url: "/assets/images/fortnite.png" },
-  { id: 2, url: "/assets/images/fortnite.png" },
-  { id: 3, url: "/assets/images/fortnite.png" },
-  { id: 4, url: "/assets/images/fortnite.png" },
-  { id: 5, url: "/assets/images/fortnite.png" },
-  { id: 6, url: "/assets/images/fortnite.png" },
-  { id: 7, url: "/assets/images/fortnite.png" },
-  { id: 8, url: "/assets/images/fortnite.png" },
+  { id: 1, url: "src/assets/images/Fortnite.png" },
+  { id: 2, url: "src/assets/images/Apex.png" },
+  { id: 3, url: "src/assets/images/Fifa25.png" },
+  { id: 4, url: "src/assets/images/marvel-rivals.png" },
+  { id: 5, url: "src/assets/images/Minecraft.png" },
+  { id: 6, url: "src/assets/images/Valorant.png" },
+  { id: 7, url: "/assets/images/league_of_legends.png" },
+  { id: 8, url: "/assets/images/smash.png" },
 ];
 
 const communities_images = [
-  { id: 1, url: "/assets/images/fortnite.png" },
-  { id: 2, url: "/assets/images/fortnite.png" },
-  { id: 3, url: "/assets/images/fortnite.png" },
-  { id: 4, url: "/assets/images/fortnite.png" },
-  { id: 5, url: "/assets/images/fortnite.png" },
-  { id: 6, url: "/assets/images/fortnite.png" },
-  { id: 7, url: "/assets/images/fortnite.png" },
-  { id: 8, url: "/assets/images/fortnite.png" },
+  { id: 1, url: "/assets/images/smash.png" },
+  { id: 2, url: "/assets/images/league_of_legends.png" },
+  { id: 3, url: "src/assets/images/Valorant.png" },
+  { id: 4, url: "src/assets/images/Minecraft.png" },
+  { id: 5, url: "src/assets/images/marvel-rivals.png" },
+  { id: 6, url: "src/assets/images/Fifa25.png" },
+  { id: 7, url: "src/assets/images/Apex.png" },
+  { id: 8, url: "src/assets/images/Fortnite.png" },
 ];
 
 function AuthPage({ mode = "login" }) {

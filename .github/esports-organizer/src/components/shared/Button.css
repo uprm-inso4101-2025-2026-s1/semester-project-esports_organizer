@@ -69,3 +69,9 @@ button {
   background: #4e4e4e;
   color: black;
 }
+
+.user-profile-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
