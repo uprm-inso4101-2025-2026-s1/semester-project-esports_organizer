@@ -49,20 +49,104 @@ export function initializeBracket(teams) {
         bracket,
         currentRound: 1,
         rounds: [initializedMatches],
-        teams
+        teams,
+        initialMatchCount: initializedMatches.length  // Track how many matches started this round
     };
 }
 
-export function progressMatch(bracketState, matchId, winnerName) {
-    const { bracket, currentRound, rounds } = bracketState;
+/**
+ * Helper function to build next round matches including partial matches
+ * This is crucial because the Bracket class only creates matches when it has 2 winners,
+ * but we need to show partial matches (with only 1 winner) in the UI
+ */
+function buildNextRoundMatches(bracket, teams, currentRoundIndex) {
+    const nextRoundMatches = [];
     
-    // Find the match in current round
-    const currentMatches = rounds[currentRound - 1];
-    const match = currentMatches.find(([id, _]) => id === matchId)?.[1];
+    // First, add all complete matches from nextRoundMatches Map
+    for (const [nextMatchId, nextMatch] of bracket.nextRoundMatches.entries()) {
+        // Convert player IDs to full team objects
+        let p1 = nextMatch.player1;
+        let p2 = nextMatch.player2;
+        
+        if (typeof p1 === "string") {
+            p1 = teams.find(t => t.id === p1) || p1;
+        }
+        if (typeof p2 === "string") {
+            p2 = teams.find(t => t.id === p2) || p2;
+        }
+        
+        // Create match ID using team IDs
+        const formattedMatchId = p1 && p2 ? 
+            `${p1.id}_vs_${p2.id}` : 
+            (p1 ? `${p1.id}_pending` : nextMatchId);
+        
+        nextRoundMatches.push([formattedMatchId, {
+            player1: p1,
+            player2: p2,
+            winner: nextMatch.winner
+        }]);
+    }
     
-    if (!match) return bracketState;
+    // Now, check if there's a pending winner in _winnersCurrentRound
+    // This happens when an odd number of matches have been completed
+    if (bracket._winnersCurrentRound && bracket._winnersCurrentRound.length > 0) {
+        console.log("Found pending winners:", bracket._winnersCurrentRound);
+        
+        // For each pending winner, create a partial match
+        for (const winnerId of bracket._winnersCurrentRound) {
+            const winner = teams.find(t => t.id === winnerId);
+            if (winner) {
+                const pendingMatchId = `${winner.id}_pending`;
+                
+                // Check if this match isn't already in nextRoundMatches
+                const alreadyExists = nextRoundMatches.some(([id]) => 
+                    id === pendingMatchId || id.includes(winner.id)
+                );
+                
+                if (!alreadyExists) {
+                    nextRoundMatches.push([pendingMatchId, {
+                        player1: winner,
+                        player2: null,
+                        winner: null
+                    }]);
+                }
+            }
+        }
+    }
+    
+    return nextRoundMatches;
+}
 
+export function progressMatch(bracketState, matchId, winnerName) {
+    const { bracket, currentRound, rounds, initialMatchCount } = bracketState;
+    console.log("=== PROGRESS MATCH START ===");
+    console.log("Match ID:", matchId);
+    console.log("Winner Name:", winnerName);
+    console.log("Current Round:", currentRound);
+    console.log("Initial match count for this round:", initialMatchCount);
+    
+    // Find the match in the ORIGINAL current round (not the incremented one)
+    const currentMatches = rounds[currentRound - 1];
+    if (!currentMatches) {
+        console.error("No matches found for current round", currentRound);
+        return bracketState;
+    }
+    
+    const matchEntry = currentMatches.find(([id, _]) => id === matchId);
+    if (!matchEntry) {
+        console.error("Match not found in round", currentRound - 1, "Match ID:", matchId);
+        console.error("Available matches:", currentMatches.map(([id]) => id));
+        return bracketState;
+    }
+    
+    const match = matchEntry[1];
     const { player1, player2 } = match;
+    
+    // Check if match already has a winner
+    if (match.winner) {
+        console.log("Match already has a winner, ignoring click");
+        return bracketState;
+    }
     
     // Record the winner
     let winnerId;
@@ -71,10 +155,13 @@ export function progressMatch(bracketState, matchId, winnerName) {
     } else if (player2 && player2.name === winnerName) {
         winnerId = player2.id;
     } else {
+        console.error("Winner name doesn't match any player");
         return bracketState;
     }
 
-    // Resolve the actual key stored in bracket.matches (IDs can differ or be placeholders)
+    console.log("Winner ID:", winnerId);
+
+    // Resolve the actual key stored in bracket.matches
     let bracketKey = matchId;
     const normalize = (id) => id ? String(id).replace(/_pending$/,'') : null;
 
@@ -82,18 +169,16 @@ export function progressMatch(bracketState, matchId, winnerName) {
         const mp1Id = normalize(match.player1 && match.player1.id ? match.player1.id : (typeof match.player1 === 'string' ? match.player1 : null));
         const mp2Id = normalize(match.player2 && match.player2.id ? match.player2.id : (typeof match.player2 === 'string' ? match.player2 : null));
 
-        // First try to find in bracket.matches by player id (order-insensitive)
+        // Try to find in bracket.matches by player id (order-insensitive)
         for (const [k, m] of bracket.matches.entries()) {
             const p1Id = normalize(m.player1 && m.player1.id ? m.player1.id : (typeof m.player1 === 'string' ? m.player1 : null));
             const p2Id = normalize(m.player2 && m.player2.id ? m.player2.id : (typeof m.player2 === 'string' ? m.player2 : null));
             if (mp1Id && mp2Id) {
-                // both players present: unordered match
                 if ((p1Id === mp1Id && p2Id === mp2Id) || (p1Id === mp2Id && p2Id === mp1Id)) {
                     bracketKey = k;
                     break;
                 }
             } else if (mp1Id) {
-                // only one player known (pending): match where either player equals mp1Id
                 if (p1Id === mp1Id || p2Id === mp1Id) {
                     bracketKey = k;
                     break;
@@ -101,27 +186,7 @@ export function progressMatch(bracketState, matchId, winnerName) {
             }
         }
 
-        // If still not found, try nextRoundMatches as a candidate (sometimes winners are staged there)
-        if (!bracket.matches.has(bracketKey)) {
-            for (const [k, m] of bracket.nextRoundMatches.entries()) {
-                const p1Id = normalize(m.player1 && m.player1.id ? m.player1.id : (typeof m.player1 === 'string' ? m.player1 : null));
-                const p2Id = normalize(m.player2 && m.player2.id ? m.player2.id : (typeof m.player2 === 'string' ? m.player2 : null));
-                if (mp1Id && mp2Id) {
-                    if ((p1Id === mp1Id && p2Id === mp2Id) || (p1Id === mp2Id && p2Id === mp1Id)) {
-                        bracketKey = k;
-                        break;
-                    }
-                } else if (mp1Id) {
-                    if (p1Id === mp1Id || p2Id === mp1Id) {
-                        bracketKey = k;
-                        break;
-                    }
-                }
-            }
-        }
-
-        // As a last resort, if we can find the id inside the current round array (rounds[currentRound-1])
-        // use that id and ensure bracket.matches contains the mapping (create it if necessary)
+        // Last resort: search in current round array
         if (!bracket.matches.has(bracketKey)) {
             const currentRoundArr = rounds[currentRound - 1] || [];
             for (const [rid, rmatch] of currentRoundArr) {
@@ -130,7 +195,6 @@ export function progressMatch(bracketState, matchId, winnerName) {
                 if (mp1Id && mp2Id) {
                     if ((rmp1 === mp1Id && rmp2 === mp2Id) || (rmp1 === mp2Id && rmp2 === mp1Id)) {
                         bracketKey = rid;
-                        // ensure bracket.matches knows about this mapping
                         if (!bracket.matches.has(bracketKey)) {
                             bracket.matches.set(bracketKey, rmatch);
                         }
@@ -149,54 +213,56 @@ export function progressMatch(bracketState, matchId, winnerName) {
         }
     }
 
-    // Debug if we couldn't find the key
     if (!bracket.matches.has(bracketKey)) {
-        console.error('Could not find match in bracket.matches for id:', matchId, 'resolvedKey:', bracketKey, 'bracket.matches keys:', Array.from(bracket.matches.keys()));
-        // don't crash the entire UI; return state unchanged
+        console.error('Could not find match in bracket.matches');
+        console.error('Match ID:', matchId);
+        console.error('Resolved Key:', bracketKey);
+        console.error('Bracket matches keys:', Array.from(bracket.matches.keys()));
         return bracketState;
     }
 
+    console.log("Recording result with bracket key:", bracketKey);
+    
     // Record result and update bracket state
     bracket.recordResult(bracketKey, winnerId);
     
-    // Create updated rounds array with winners progressing
+    // Also update the match in our rounds array to mark it as complete
+    match.winner = winnerId;
+    
+    console.log("After recording:");
+    console.log("Bracket matches size:", bracket.matches.size);
+    console.log("Next round matches size:", bracket.nextRoundMatches.size);
+    console.log("Pending winners:", bracket._winnersCurrentRound);
+    console.log("Next round matches:", Array.from(bracket.nextRoundMatches.entries()));
+    
+    // Create updated rounds array
     const updatedRounds = [...rounds];
-    const placeholders = [];
-    const winners = Array.from(bracket.nextRoundMatches.entries());
     
-    // If we have winners ready to progress
-    if (winners.length > 0) {
-        for (const [nextMatchId, nextMatch] of winners) {
-            // Convert player IDs to full team objects
-            if (typeof nextMatch.player1 === "string") {
-                nextMatch.player1 = bracketState.teams.find(t => t.id === nextMatch.player1);
-            }
-            if (typeof nextMatch.player2 === "string") {
-                nextMatch.player2 = bracketState.teams.find(t => t.id === nextMatch.player2);
-            }
-            
-            // Create match ID using team IDs
-            const matchId = nextMatch.player1 && nextMatch.player2 ? 
-                `${nextMatch.player1.id}_vs_${nextMatch.player2.id}` : 
-                nextMatch.player1 ? `${nextMatch.player1.id}_pending` : nextMatchId;
-                
-            placeholders.push([matchId, nextMatch]);
-        }
-    }
-
-    // Ensure there's a next-round array slot and put placeholders there
-    if (updatedRounds.length > currentRound) {
-        updatedRounds[currentRound] = placeholders;
-    } else {
-        updatedRounds.push(placeholders);
+    // Build next round matches (including partial matches with pending winners)
+    const nextRoundMatchesArray = buildNextRoundMatches(bracket, bracketState.teams, currentRound);
+    
+    console.log("Built next round matches:", nextRoundMatchesArray);
+    
+    // Update or create the next round in the rounds array
+    if (nextRoundMatchesArray.length > 0) {
+        updatedRounds[currentRound] = nextRoundMatchesArray;
     }
     
-    // Check if round is complete
-    const isRoundComplete = Array.from(bracket.matches.values())
-        .every(match => match.winner !== undefined);
+    console.log("Updated rounds:", updatedRounds);
+    
+    // Check if current round is complete by counting completed matches in our rounds array
+    // NOT by checking bracket.matches (which gets modified by Bracket.js)
+    const currentRoundMatches = updatedRounds[currentRound - 1];
+    const completedMatchesInRound = currentRoundMatches.filter(([_, m]) => m.winner !== undefined && m.winner !== null).length;
+    const isRoundComplete = completedMatchesInRound === initialMatchCount;
+    
+    console.log(`Round completion: ${completedMatchesInRound}/${initialMatchCount} matches complete`);
+    console.log("Is round complete?", isRoundComplete);
         
     if (isRoundComplete) {
-        // Set up next round
+        console.log("Round complete! Moving to next round");
+        
+        // Move to next round
         bracket.matches = new Map(bracket.nextRoundMatches);
         bracket.nextRoundMatches.clear();
         
@@ -205,42 +271,48 @@ export function progressMatch(bracketState, matchId, winnerName) {
             const processedMatches = [];
             
             // Process each match for the next round
-            for (const [nextMatchId, match] of nextRoundMatches) {
+            for (const [nextMatchId, nextMatch] of nextRoundMatches) {
                 // Convert player IDs to full team objects
-                if (typeof match.player1 === "string") {
-                    match.player1 = bracketState.teams.find(t => t.id === match.player1);
+                if (typeof nextMatch.player1 === "string") {
+                    nextMatch.player1 = bracketState.teams.find(t => t.id === nextMatch.player1);
                 }
-                if (typeof match.player2 === "string") {
-                    match.player2 = bracketState.teams.find(t => t.id === match.player2);
+                if (typeof nextMatch.player2 === "string") {
+                    nextMatch.player2 = bracketState.teams.find(t => t.id === nextMatch.player2);
                 }
                 
                 // Create consistent match ID using team IDs
-                const matchId = match.player1 && match.player2 ? 
-                    `${match.player1.id}_vs_${match.player2.id}` : 
+                const matchId = nextMatch.player1 && nextMatch.player2 ? 
+                    `${nextMatch.player1.id}_vs_${nextMatch.player2.id}` : 
                     nextMatchId;
                     
-                processedMatches.push([matchId, match]);
+                processedMatches.push([matchId, nextMatch]);
             }
+            
+            console.log("Processed matches for new current round:", processedMatches);
             
             // Update the bracket's match mapping
             bracket.matches = new Map(processedMatches);
-            // set the resolved next round into the updated rounds list
+            
+            // Set the resolved next round into the updated rounds list
             updatedRounds[currentRound] = processedMatches;
 
+            console.log("=== RETURNING NEW STATE (ROUND COMPLETE) ===");
             return {
                 bracket,
                 currentRound: currentRound + 1,
                 rounds: updatedRounds,
-                teams: bracketState.teams  // Preserve teams array
+                teams: bracketState.teams,
+                initialMatchCount: processedMatches.length  // New round's match count
             };
         }
     }
     
+    console.log("=== RETURNING NEW STATE (ROUND ONGOING) ===");
     return {
         bracket,
         currentRound,
         rounds: updatedRounds,
-        teams: bracketState.teams  // Preserve teams array
+        teams: bracketState.teams,
+        initialMatchCount  // Keep the same match count
     };
 }
-

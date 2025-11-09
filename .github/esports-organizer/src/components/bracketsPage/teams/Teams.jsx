@@ -1,13 +1,13 @@
 import "./Teams.css";
 
 function Teams({ teamNames = [], teamLogos = [], onTeamClick, matchId, winnerName }) {
-  const defaultNames = ["Team Name", "Team Name"];
+  const defaultNames = ["", ""];
   const defaultLogos = ["https://via.placeholder.com/150", "https://via.placeholder.com/150"];
   const displayNames = teamNames.length > 0 ? teamNames : defaultNames;
   const displayLogos = teamLogos.length > 0 ? teamLogos : defaultLogos;
 
   const handleClick = (name, logo) => {
-    if (onTeamClick && name !== "Team Name") {
+    if (onTeamClick && name !== "") {
       onTeamClick(name, logo, matchId);
     }
   };
