@@ -1,5 +1,5 @@
 import { addToGoogleCalendar } from "../../utils/helpers";
-
+import { useNavigate, useLocation } from "react-router-dom";
 function TournamentCard({ 
   tournament, 
   index, 
@@ -9,13 +9,26 @@ function TournamentCard({
   onJoinEvent 
 }) {
   const cardId = prefix ? `${prefix}-${index}` : index;
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
     <div className="tournament-card">
-      <div className="tournament-image-wrapper">
-        <img 
-          src="/assets/images/fortnite.png" 
-          alt="Tournament" 
+      <div
+        className="tournament-image-wrapper"
+        role="button"
+        tabIndex={0}
+        onClick={() => handleNavigation("/brackets-tournaments")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") handleNavigation("/brackets-tournaments");
+        }}
+      >
+        <img
+          src="/assets/images/fortnite.png"
+          alt="Tournament"
           className="tournament-image"
         />
         <div className="tournament-overlay">
