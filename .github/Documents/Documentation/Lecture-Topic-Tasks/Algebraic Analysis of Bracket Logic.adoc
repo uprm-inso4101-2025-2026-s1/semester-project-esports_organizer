@@ -17,6 +17,7 @@ This document aims to provide a formal algebraic specification of the tournament
 
 === Scope
 Covers the core Bracket class operations including:
+
 * Match creation and initialization
 * Result recording and validation
 * Winner advancement between rounds
