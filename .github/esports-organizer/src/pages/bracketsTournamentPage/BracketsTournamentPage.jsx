@@ -22,6 +22,7 @@ function BracketsTournamentPage(){
     // State to hold the tournament state and selected team
     const [bracketState, setBracketState] = useState(null);
     const [champion, setChampion] = useState(null);
+    const [eliminationOrder, setEliminationOrder] = useState(null);
 
     // Handler for when a team is clicked (progress a match)
     const handleTeamClick = (teamName, teamLogo, matchId) => {
@@ -55,7 +56,10 @@ function BracketsTournamentPage(){
             const winnerId = newState.bracket._winnersCurrentRound?.[0];
             if (winnerId) {
                 const winner = newState.teams?.find(t => t.id === winnerId);
-                if (winner) setChampion(winner);
+                if (winner) {
+                    setChampion(winner);
+                    setEliminationOrder(newState.eliminationOrder.concat([champion]));
+                }
             }
         }
     };
@@ -179,7 +183,12 @@ function BracketsTournamentPage(){
         if (!match || !match.winner) return null;
         return bracketState?.teams?.find(t => t.id === match.winner)?.name || null;
     }
+    // end of tournament, call report result
     
+    if(champion){
+        resultReport(eliminationOrder)
+    }
+
     return(
         <div className="brackets-tournament-page">
         <Navbar/>

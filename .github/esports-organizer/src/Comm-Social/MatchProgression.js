@@ -50,7 +50,8 @@ export function initializeBracket(teams) {
         currentRound: 1,
         rounds: [initializedMatches],
         teams,
-        initialMatchCount: initializedMatches.length  // Track how many matches started this round
+        initialMatchCount: initializedMatches.length,
+        eliminationOrder: []  // Track teams as they're eliminated (first eliminated at index 0)
     };
 }
 
@@ -118,7 +119,7 @@ function buildNextRoundMatches(bracket, teams, currentRoundIndex) {
 }
 
 export function progressMatch(bracketState, matchId, winnerName) {
-    const { bracket, currentRound, rounds, initialMatchCount } = bracketState;
+    const { bracket, currentRound, rounds, initialMatchCount, eliminationOrder } = bracketState;
     console.log("=== PROGRESS MATCH START ===");
     console.log("Match ID:", matchId);
     console.log("Winner Name:", winnerName);
@@ -148,18 +149,30 @@ export function progressMatch(bracketState, matchId, winnerName) {
         return bracketState;
     }
     
-    // Record the winner
-    let winnerId;
+    // Record the winner and loser
+    let winnerId, loserId, loser;
     if (player1.name === winnerName) {
         winnerId = player1.id;
+        loserId = player2?.id;
+        loser = player2;
     } else if (player2 && player2.name === winnerName) {
         winnerId = player2.id;
+        loserId = player1.id;
+        loser = player1;
     } else {
         console.error("Winner name doesn't match any player");
         return bracketState;
     }
 
     console.log("Winner ID:", winnerId);
+    console.log("Loser ID:", loserId);
+    
+    // Add the loser to elimination order (first eliminated at index 0)
+    const updatedEliminationOrder = [...eliminationOrder];
+    if (loser) {
+        updatedEliminationOrder.push(loser);
+        console.log("Added to elimination order:", loser.name);
+    }
 
     // Resolve the actual key stored in bracket.matches
     let bracketKey = matchId;
@@ -234,6 +247,7 @@ export function progressMatch(bracketState, matchId, winnerName) {
     console.log("Next round matches size:", bracket.nextRoundMatches.size);
     console.log("Pending winners:", bracket._winnersCurrentRound);
     console.log("Next round matches:", Array.from(bracket.nextRoundMatches.entries()));
+    console.log("Elimination order so far:", updatedEliminationOrder.map(t => t.name));
     
     // Create updated rounds array
     const updatedRounds = [...rounds];
@@ -302,7 +316,25 @@ export function progressMatch(bracketState, matchId, winnerName) {
                 currentRound: currentRound + 1,
                 rounds: updatedRounds,
                 teams: bracketState.teams,
-                initialMatchCount: processedMatches.length  // New round's match count
+                initialMatchCount: processedMatches.length,
+                eliminationOrder: updatedEliminationOrder
+            };
+        } else {
+            // Tournament is complete - the last winner is the champion
+            console.log("=== TOURNAMENT COMPLETE ===");
+            const champion = bracketState.teams.find(t => t.id === winnerId);
+            console.log("Champion:", champion?.name);
+            console.log("Final elimination order:", updatedEliminationOrder.map(t => t.name));
+            
+            return {
+                bracket,
+                currentRound: currentRound + 1,
+                rounds: updatedRounds,
+                teams: bracketState.teams,
+                initialMatchCount: 0,
+                eliminationOrder: updatedEliminationOrder,
+                champion: champion,
+                isComplete: true
             };
         }
     }
@@ -313,6 +345,41 @@ export function progressMatch(bracketState, matchId, winnerName) {
         currentRound,
         rounds: updatedRounds,
         teams: bracketState.teams,
-        initialMatchCount  // Keep the same match count
+        initialMatchCount,
+        eliminationOrder: updatedEliminationOrder
+    };
+}
+
+/**
+ * Get tournament results in the format expected by resultReport
+ * @param {Object} bracketState - The final bracket state after tournament completion
+ * @returns {Object} - Object with results array (index 0 = first eliminated, index n-1 = champion)
+ */
+export function getTournamentResults(bracketState) {
+    if (!bracketState.isComplete) {
+        console.warn("Tournament is not yet complete");
+        return {
+            results: [],
+            champion: null,
+            rounds: bracketState.rounds
+        };
+    }
+    
+    // eliminationOrder already has teams in order: first eliminated at index 0
+    // Just need to add the champion at the end
+    const results = [...bracketState.eliminationOrder];
+    if (bracketState.champion) {
+        results.push(bracketState.champion);
+    }
+    
+    console.log("Final results (first eliminated to champion):");
+    results.forEach((team, index) => {
+        console.log(`${index}: ${team.name}`);
+    });
+    
+    return {
+        results: results,  // Index 0 = first eliminated, index n-1 = champion
+        champion: bracketState.champion,
+        rounds: bracketState.rounds
     };
 }
