@@ -7,7 +7,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    z-index: 1000;
+    z-index: 5000 !important;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -22,6 +22,7 @@
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
+  color: white
 }   
 
 .user-option:hover {

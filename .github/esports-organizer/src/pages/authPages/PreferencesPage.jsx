@@ -76,6 +76,9 @@ const PreferencesPage = () => {
 
   // State to manage selected theme (light, dark, or auto)
   const [selectedTheme, setSelectedTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme-preference");
+    if (savedTheme) return savedTheme;
+
     const systemPrefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
@@ -88,19 +91,24 @@ const PreferencesPage = () => {
 
   // Sync theme with system preference when "auto" is selected
   useEffect(() => {
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    if (selectedTheme === "auto") {
-      if (isDarkMode !== systemPrefersDark) {
-        toggleTheme();
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleSystemChange = (e) => {
+      if (selectedTheme === "auto") {
+        if (e.matches && !isDarkMode) toggleTheme();
+        if (!e.matches && isDarkMode) toggleTheme();
       }
-    }
+    };
+
+    mediaQuery.addEventListener("change", handleSystemChange);
+    return () => mediaQuery.removeEventListener("change", handleSystemChange);
   }, [selectedTheme, isDarkMode, toggleTheme]);
 
   // Handle theme change based on user selection
   const handleThemeChange = (theme) => {
     setSelectedTheme(theme);
+    localStorage.setItem("theme-preference", theme);
+
     if (theme === "light") {
       if (isDarkMode) toggleTheme();
     } else if (theme === "dark") {
