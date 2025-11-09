@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { use, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
 import { NAV_ITEMS } from "../../constants/navigation";
 import { IoPerson } from "react-icons/io5";
@@ -16,6 +16,8 @@ function Navbar() {
   const [isUserProfilePopUpOpen, setIsUserProfilePopUpOpen] = useState(false);
 
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(true); // Placeholder for user authentication state TODO: Integrate with auth system
+  const userButtonRef = useRef(null); 
+  const userPopupRef = useRef(null);
 
   const toggleUserProfilePopUp = () => {
     setIsUserProfilePopUpOpen(!isUserProfilePopUpOpen);
@@ -35,6 +37,24 @@ function Navbar() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!isUserProfilePopUpOpen) return;
+
+      const clickedOutsidePopup =
+        userPopupRef.current && !userPopupRef.current.contains(event.target);
+      const clickedOutsideButton =
+        userButtonRef.current && !userButtonRef.current.contains(event.target);
+
+      if (clickedOutsidePopup && clickedOutsideButton) {
+        setIsUserProfilePopUpOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isUserProfilePopUpOpen]);
 
   return (
     <>
@@ -75,14 +95,16 @@ function Navbar() {
             <Notifications inline />
             {/* TODO: Logic to load user preferences */}
             {userIsLoggedIn ? (
-              <Button
-                text="UserName"
-                variant="primary"
-                isUserProfileButton={true}
-                // There is a {imgSrc} prop to pass the user profile image source, e.g., imgSrc="/path/to/user/profile.jpg"
-                // For now, it uses the default image defined in Button.jsx
-                onClick={toggleUserProfilePopUp}
-              />
+              <span ref={userButtonRef}>
+                <Button
+                  text="UserName"
+                  variant="primary"
+                  isUserProfileButton={true}
+                  // There is a {imgSrc} prop to pass the user profile image source, e.g., imgSrc="/path/to/user/profile.jpg"
+                  // For now, it uses the default image defined in Button.jsx
+                  onClick={toggleUserProfilePopUp}
+                />
+              </span>
             ) : (
               <Button
                 text="Login/Sign Up"
@@ -113,11 +135,11 @@ function Navbar() {
 
       {/* User Profile Pop up */}
       {isUserProfilePopUpOpen && (
-        <div className="user-profile-popup">
+        <div className="user-profile-popup" ref={userPopupRef}>
           <button
             className="user-option"
             onClick={() => {
-              // TODO: Implement view profile functionality
+              navigate("/profile")
             }}
           >
             <IoPerson size={20} style={{ marginRight: "8px" }} />
