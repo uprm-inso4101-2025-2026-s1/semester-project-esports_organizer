@@ -176,7 +176,7 @@ winner(m) ≠ null ⇒ winner(m) ∈ {player1(m).id, player2(m)?.id}
 .Operation Mapping Table
 [cols="2,2,2"]
 |===
-| Mathematical Operation | JavaScript Implementation | Description |
+| Mathematical Operation | JavaScript Implementation | Description
 
 | `createInitialMatches(b)`
 | `bracket.createInitialMatches()`
