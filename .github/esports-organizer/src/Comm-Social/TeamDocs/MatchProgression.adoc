@@ -1,10 +1,10 @@
-= Bracket Tournament System Documentation
+= Match Progression System Documentation
 :toc: left
 :toclevels: 3
 
 == Overview
 
-The bracket tournament system is a JavaScript module that simulates and manages single-elimination tournaments. It takes an array of teams and runs them through a bracket-style competition until a champion is determined.
+The Match Progression system is a JavaScript module that manages interactive, user-driven single-elimination tournaments. Unlike automated simulation, this system allows users to select winners manually through UI interactions, providing real-time bracket updates and tracking elimination order for final results reporting.
 
 == Dependencies
 
@@ -17,246 +17,608 @@ import Team from "../database/examples/Teams.js";
 ----
 
 * `Bracket`: Manages the tournament bracket structure and match progression
-* `Team`: Represents individual teams with properties like `id`, `name`, and `score`
+* `Team`: Represents individual teams with properties like `id`, `name`, and `logo`
 
-== Main Function: runBracket
+== Main Functions
 
-=== Function Signature
+=== initializeBracket
+
+==== Function Signature
 
 [source,javascript]
 ----
-export function runBracket(teams)
+export function initializeBracket(teams)
 ----
 
-=== Parameters
+==== Parameters
 
-* `teams` (Array<Team>): Array of team objects with `name` and `score` properties
+* `teams` (Array<Team>): Array of team objects with `id`, `name`, and `logo` properties
 
-=== Returns
+==== Returns
 
 * `Object` containing:
-  * `results`: Array of winners/losers in order of elimination (last element is champion)
-  * `rounds`: Array containing matchups for each round of the tournament
+  * `bracket`: Bracket instance managing tournament state
+  * `currentRound`: Current round number (starts at 1)
+  * `rounds`: Array of match arrays for each round
+  * `teams`: Reference to original teams array
+  * `initialMatchCount`: Number of matches in the current round
+  * `eliminationOrder`: Array tracking teams as they're eliminated
 
-=== Error Handling
+==== Error Handling
 
 * Throws `Error` if:
   * `teams` is not an array
   * Fewer than 2 teams are provided
 
-== Algorithm Flow
+==== Process Flow
 
-=== 1. Initialization
-
+1. *Creates Bracket Instance*
++
 [source,javascript]
 ----
 const bracket = new Bracket(teams);
 bracket.createInitialMatches();
 ----
 
-* Creates a new bracket instance with the provided teams
-* Sets up initial matches based on the team list
-
-=== 2. Tournament Loop
-
-The main loop continues until all matches are completed:
-
-[source,javascript]
-----
-while (bracket.matches && bracket.matches.size > 0)
-----
-
-==== For Each Round
-
-* Logs current round number
-* Converts current matches from Map to Array for processing
-* Stores current round matches in `rounds` array for final output
-
-=== 3. Match Processing
-
-==== Team Resolution
-
-* Converts team IDs to full team objects if necessary
-* Handles "BYE" situations where a team may not have an opponent
-
+2. *Converts Team IDs to Objects*
++
+Ensures all match participants are full team objects (not just IDs):
++
 [source,javascript]
 ----
 if (typeof player1 === "string") {
-  // Find full team object by ID
-}
-if (typeof player2 === "string") {
-  // Handle potential BYE situation
+  const fullTeam = teams.find(t => t.id === player1);
+  if (fullTeam) match.player1 = fullTeam;
 }
 ----
 
-==== Validation
+3. *Creates Consistent Match IDs*
++
+Format: `teamId_vs_teamId` or `teamId_vs_BYE`
++
+[source,javascript]
+----
+const newMatchId = `${match.player1.id}_vs_${match.player2 ? match.player2.id : "BYE"}`;
+----
 
-* Ensures both players exist and have valid IDs
-* Handles cases where player2 might be null (BYE)
+4. *Returns Initial State*
++
+Contains first round matches ready for user interaction
 
-==== BYE Handling
+=== progressMatch
 
-If a team has no opponent (BYE), they advance automatically:
+==== Function Signature
 
 [source,javascript]
 ----
-if (!player2) {
-  console.log(`${player1.name} advances automatically (BYE)`);
-  bracket.recordResult(matchId, player1.id);
-  continue;
+export function progressMatch(bracketState, matchId, winnerName)
+----
+
+==== Parameters
+
+* `bracketState` (Object): Current tournament state from previous call
+* `matchId` (string): Unique identifier for the match (format: `team1_vs_team2`)
+* `winnerName` (string): Name of the winning team
+
+==== Returns
+
+* `Object` containing updated tournament state:
+  * `bracket`: Updated bracket instance
+  * `currentRound`: Current round number
+  * `rounds`: Updated array of all rounds
+  * `teams`: Original teams array
+  * `initialMatchCount`: Match count for current round
+  * `eliminationOrder`: Updated elimination order
+  * `champion`: (when complete) The tournament champion
+  * `isComplete`: (when complete) Boolean flag indicating tournament end
+
+==== Key Features
+
+===== 1. Match Validation
+
+* Verifies match exists in current round
+* Prevents duplicate winner selection
+* Validates winner name matches a participant
+
+[source,javascript]
+----
+if (match.winner) {
+  console.log("Match already has a winner, ignoring click");
+  return bracketState;
 }
 ----
 
-=== 4. Match Simulation
+===== 2. Elimination Tracking
 
-==== Score Generation
-
-* Generates random scores for testing purposes:
-  * `score1 = Math.round(Math.random() * 150)`
-  * `score2 = Math.round(Math.random() * 150)`
-
-==== Winner Determination
-
-1. *Higher Score Wins*: Team with higher randomly generated score wins
-2. *Tie Breaker*: If scores are equal, randomly selects winner
+Records losing team for final results:
 
 [source,javascript]
 ----
-if (score1 > score2) {
-  // player1 wins, player2 eliminated
-} else if (score2 > score1) {
-  // player2 wins, player1 eliminated
-} else {
-  // Random tie breaker
+const updatedEliminationOrder = [...eliminationOrder];
+if (loser) {
+  updatedEliminationOrder.push(loser);
+  console.log("Added to elimination order:", loser.name);
 }
 ----
 
-==== Result Recording
+===== 3. Bracket Key Resolution
 
-* Records winner using `bracket.recordResult(matchId, winnerId)`
-* Adds losing team to `finalTeamList` (elimination order)
+Handles various match ID formats through intelligent matching:
 
-=== 5. Round Progression
-
-[source,javascript]
-----
-bracket.matches = new Map(bracket.nextRoundMatches);
-bracket.nextRoundMatches.clear();
-round++;
-----
-
-* Moves to next round matches
-* Clears the next round matches container
-* Increments round counter
-
-=== 6. Tournament Completion
-
-==== Champion Determination
+* Direct key lookup
+* Player ID comparison (order-insensitive)
+* Normalized ID matching (removes `_pending` suffix)
+* Fallback to rounds array search
 
 [source,javascript]
 ----
-const finalWinnerId = bracket._winnersCurrentRound?.[0];
-const finalWinner = teams.find(t => t.id === finalWinnerId);
-finalTeamList.push(finalWinner);
+const normalize = (id) => id ? String(id).replace(/_pending$/,'') : null;
 ----
 
-* Retrieves the final winner from bracket's winners list
-* Adds champion as the last element in `finalTeamList`
+===== 4. Next Round Match Building
+
+Helper function `buildNextRoundMatches()` creates:
+
+* *Complete Matches*: Both players determined
+* *Partial Matches*: One player determined, one pending
+  ** Displays as `teamId_pending` in UI
+  ** Updates when second winner determined
+
+[source,javascript]
+----
+if (bracket._winnersCurrentRound && bracket._winnersCurrentRound.length > 0) {
+  // Create partial matches for pending winners
+  const pendingMatchId = `${winner.id}_pending`;
+  nextRoundMatches.push([pendingMatchId, {
+    player1: winner,
+    player2: null,
+    winner: null
+  }]);
+}
+----
+
+===== 5. Round Completion Detection
+
+Uses `initialMatchCount` to determine when round is complete:
+
+[source,javascript]
+----
+const completedMatchesInRound = currentRoundMatches.filter(
+  ([_, m]) => m.winner !== undefined && m.winner !== null
+).length;
+
+const isRoundComplete = completedMatchesInRound === initialMatchCount;
+----
+
+This prevents premature round advancement even though `bracket.matches` size changes.
+
+===== 6. Tournament Completion
+
+When final match completes:
+
+[source,javascript]
+----
+if (bracket.matches.size === 0) {
+  console.log("=== TOURNAMENT COMPLETE ===");
+  const champion = bracketState.teams.find(t => t.id === winnerId);
+  
+  return {
+    ...state,
+    champion: champion,
+    isComplete: true
+  };
+}
+----
+
+=== getTournamentResults
+
+==== Function Signature
+
+[source,javascript]
+----
+export function getTournamentResults(bracketState)
+----
+
+==== Parameters
+
+* `bracketState` (Object): Final tournament state after completion
+
+==== Returns
+
+* `Object` containing:
+  * `results`: Array from first eliminated to champion
+  * `champion`: Champion team object
+  * `rounds`: All tournament rounds
+
+==== Usage
+
+Call after tournament completion to format results:
+
+[source,javascript]
+----
+if (bracketState.isComplete) {
+  const results = getTournamentResults(bracketState);
+  // results.results[0] = first eliminated
+  // results.results[n-1] = champion
+}
+----
 
 == Data Structures
 
-=== Bracket Object
+=== BracketState Object
 
-The Bracket class manages:
-* Current matches (Map)
-* Next round matches (Map)
-* Winner tracking
-* Match result recording
-
-=== Team Object
-
-Expected structure:
-[source,javascript]
-----
-{
-  id: string | number,
-  name: string,
-  score: number
-}
-----
-
-=== Output Structure
+The main state object passed between functions:
 
 [source,javascript]
 ----
 {
-  results: [ // Elimination order: first eliminated -> champion
-    Team,    // First team eliminated
-    Team,    // Second team eliminated
-    ...,
-    Team     // Champion (last element)
-  ],
-  rounds: [  // Tournament progression
-    [        // Round 1
-      [matchId1, {player1: Team, player2: Team}],
-      [matchId2, {player1: Team, player2: Team}],
+  bracket: Bracket,              // Bracket instance
+  currentRound: number,          // Current round (1-based)
+  rounds: [                      // All tournament rounds
+    [                            // Round array
+      [matchId, matchObject],    // Match tuple
       ...
     ],
-    [        // Round 2
-      ...
-    ]
-  ]
+    ...
+  ],
+  teams: Array<Team>,            // Original teams
+  initialMatchCount: number,     // Matches in current round
+  eliminationOrder: Array<Team>, // Teams as eliminated
+  champion: Team,                // (optional) Final winner
+  isComplete: boolean            // (optional) Tournament done
 }
 ----
 
-== Console Output
+=== Match Object
 
-The function provides detailed console logging:
+Structure of each match:
 
-* Round headers: `--- Round X ---`
-* Match results: `Team A (score) vs Team B (score)`
-* Winner announcements: `Winner: Team Name`
-* BYE notifications: `Team advances automatically (BYE)`
-* Tie resolutions: `Tie! Randomly selected winner: Team Name`
-* Final champion: `Champion: Team Name`
+[source,javascript]
+----
+{
+  player1: Team,      // First team (full object)
+  player2: Team,      // Second team (or null if pending)
+  winner: string      // Winner's team ID (or null/undefined)
+}
+----
 
-== Key Features
+=== Match ID Formats
 
-=== Automatic BYE Handling
-* Teams without opponents automatically advance
-* Common in tournaments with non-power-of-2 team counts
+* *Standard*: `team1_vs_team2`
+* *Pending*: `team5_pending` (one winner determined, waiting for opponent)
+* *BYE*: `team3_vs_BYE` (automatic advancement)
 
-=== Error Resilience
-* Validates team objects before processing
-* Continues processing even if some teams are missing
-* Provides warning messages for potential issues
+=== Elimination Order Array
 
-=== Flexible Team Resolution
-* Can handle both team objects and team IDs
-* Resolves team references dynamically
+Teams ordered by elimination time:
 
-=== Test-Friendly
-* Uses random scoring for demonstration
-* Easy to replace with real scoring logic
+[source,javascript]
+----
+eliminationOrder = [
+  team16,  // Index 0: First eliminated (lost Round 1)
+  team15,  // Index 1: Second eliminated (lost Round 1)
+  team14,  // Index 2: Third eliminated (lost Round 1)
+  ...      // More Round 1 losers
+  team9,   // Lost Round 2 (quarterfinals)
+  team8,   // Lost Round 2
+  ...      // More Round 2 losers
+  team3,   // Lost Round 3 (semifinals)
+  team4,   // Lost Round 3 (semifinals)
+  team2    // Index n-1: Lost finals (runner-up)
+]
+// Champion added separately, not in eliminationOrder
+----
+
+=== Final Results Array
+
+For result reporting:
+
+[source,javascript]
+----
+results = [
+  ...eliminationOrder,  // All eliminated teams in order
+  champion              // Last element: tournament winner
+]
+----
+
+== Algorithm Flow
+
+=== Initialization Phase
+
+[plantuml]
+----
+@startuml
+start
+:Receive teams array;
+:Create Bracket instance;
+:Shuffle and pair teams;
+:Convert IDs to team objects;
+:Generate match IDs;
+:Return initial state;
+stop
+@enduml
+----
+
+=== Match Progression Phase
+
+[plantuml]
+----
+@startuml
+start
+:User clicks team;
+:Validate match exists;
+if (Already has winner?) then (yes)
+  :Return unchanged state;
+  stop
+else (no)
+  :Identify winner and loser;
+  :Add loser to eliminationOrder;
+  :Record result in bracket;
+  :Build next round matches;
+  if (Round complete?) then (yes)
+    :Move to next round;
+    :Update bracket.matches;
+    :Increment currentRound;
+  else (no)
+    :Keep same round;
+  endif
+  if (Tournament complete?) then (yes)
+    :Set champion;
+    :Set isComplete flag;
+  endif
+  :Return updated state;
+  stop
+endif
+@enduml
+----
+
+=== Round Completion Logic
+
+[source,javascript]
+----
+// Count completed matches in current round
+const currentRoundMatches = rounds[currentRound - 1];
+const completedCount = currentRoundMatches.filter(
+  ([_, match]) => match.winner !== undefined
+).length;
+
+// Compare to initial match count (not bracket.matches.size)
+if (completedCount === initialMatchCount) {
+  // Round is complete
+  moveToNextRound();
+}
+----
+
+IMPORTANT: We compare against `initialMatchCount` because `bracket.matches.size` changes as matches complete, which would cause premature round advancement.
+
+== Integration with UI
+
+=== React Component Usage
+
+[source,javascript]
+----
+// In BracketsTournamentPage.jsx
+const [bracketState, setBracketState] = useState(null);
+
+// Initialize on mount
+useEffect(() => {
+  const tournament = test1();
+  const initial = initializeBracket(tournament.teams);
+  initial.teams = tournament.teams;
+  setBracketState(initial);
+}, []);
+
+// Handle team clicks
+const handleTeamClick = (teamName, teamLogo, matchId) => {
+  const newState = progressMatch(bracketState, matchId, teamName);
+  setBracketState(newState);
+  
+  if (newState.isComplete) {
+    // Tournament finished - show results
+    const results = {
+      results: [...newState.eliminationOrder, newState.champion],
+      champion: newState.champion,
+      rounds: newState.rounds
+    };
+    resultReport(results);
+  }
+};
+----
+
+=== Rendering Matches
+
+[source,javascript]
+----
+// Access current round matches
+const rounds = bracketState?.rounds || [];
+const round1Matches = rounds[0] || [];
+const round2Matches = rounds[1] || [];
+
+// Render each match
+{round1Matches.map(([matchId, match]) => (
+  <Teams
+    key={matchId}
+    teamNames={[match.player1?.name, match.player2?.name]}
+    teamLogos={[match.player1?.logo, match.player2?.logo]}
+    onTeamClick={handleTeamClick}
+    matchId={matchId}
+    winnerName={getWinnerName(match)}
+  />
+))}
+----
+
+== Console Logging
+
+The system provides comprehensive logging for debugging:
+
+=== Match Progression Logs
+
+[source]
+----
+=== PROGRESS MATCH START ===
+Match ID: team12_vs_team11
+Winner Name: Clashers
+Current Round: 1
+Initial match count for this round: 8
+Winner ID: team12
+Loser ID: team11
+Added to elimination order: Red devils
+Recording result with bracket key: team12_vs_team11
+----
+
+=== Round Status Logs
+
+[source]
+----
+After recording:
+Bracket matches size: 7
+Next round matches size: 0
+Pending winners: ['team12']
+Next round matches: []
+Built next round matches: [['team12_pending', {...}]]
+Round completion: 1/8 matches complete
+Is round complete? false
+----
+
+=== Tournament Completion Logs
+
+[source]
+----
+=== TOURNAMENT COMPLETE ===
+Champion: Vikings
+Final elimination order: ["Avengers", "Red devils", ..., "Clashers"]
+Elimination order so far: (16) ["Avengers", "Red devils", ..., "Clashers"]
+----
+
+== Error Handling
+
+=== Match Not Found
+
+[source,javascript]
+----
+if (!matchEntry) {
+  console.error("Match not found in round", currentRound - 1);
+  console.error("Available matches:", currentMatches.map(([id]) => id));
+  return bracketState;
+}
+----
+
+=== Invalid Winner
+
+[source,javascript]
+----
+if (winner name doesn't match player1 or player2) {
+  console.error("Winner name doesn't match any player");
+  return bracketState;
+}
+----
+
+=== Bracket Key Resolution Failure
+
+[source,javascript]
+----
+if (!bracket.matches.has(bracketKey)) {
+  console.error('Could not find match in bracket.matches');
+  console.error('Match ID:', matchId);
+  console.error('Resolved Key:', bracketKey);
+  return bracketState;  // Fail gracefully
+}
+----
+
+== Key Differences from runBracket
+
+|===
+|Feature |runBracket (Old) |progressMatch (New)
+
+|Execution Mode
+|Automated (runs to completion)
+|Interactive (user-driven)
+
+|Winner Selection
+|Random scores
+|User clicks
+
+|State Management
+|Single function call
+|Stateful (bracketState object)
+
+|UI Integration
+|None
+|Full React integration
+
+|Elimination Tracking
+|Added at end
+|Real-time as matches complete
+
+|Round Progression
+|Automatic
+|Only when all matches complete
+
+|Partial Matches
+|Not supported
+|Shows pending matches in UI
+
+|Match Validation
+|None
+|Prevents duplicate selections
+|===
 
 == Usage Example
 
 [source,javascript]
 ----
+// 1. Initialize tournament
 const teams = [
-  { id: 1, name: "Team A", score: 0 },
-  { id: 2, name: "Team B", score: 0 },
-  { id: 3, name: "Team C", score: 0 },
-  { id: 4, name: "Team D", score: 0 }
+  { id: "team1", name: "Team A", logo: "a.png" },
+  { id: "team2", name: "Team B", logo: "b.png" },
+  // ... 14 more teams for 16-team bracket
 ];
 
-const tournamentResults = runBracket(teams);
-console.log("Elimination order:", tournamentResults.results.map(t => t.name));
-console.log("Number of rounds:", tournamentResults.rounds.length);
+const bracketState = initializeBracket(teams);
+
+// 2. User selects winner of first match
+const matchId = bracketState.rounds[0][0][0]; // First match ID
+const updatedState = progressMatch(bracketState, matchId, "Team A");
+
+// 3. Continue progressing matches
+let state = updatedState;
+// ... more progressMatch calls as users click winners
+
+// 4. When tournament completes
+if (state.isComplete) {
+  const results = {
+    results: [...state.eliminationOrder, state.champion],
+    champion: state.champion,
+    rounds: state.rounds
+  };
+  
+  // Pass to result report
+  const report = resultReport(results);
+  // report.placements[0] = ["1st", championTeam]
+  // report.placements[1] = ["2nd", runnerUpTeam]
+  // etc.
+}
 ----
 
-== Limitations & TODO Items
+== Performance Considerations
 
-* Currently uses random scores (marked for replacement)
-* No organizer input for real results
-* No support for different bracket types (double elimination, etc.)
+* *Immutable State Updates*: Always returns new state object
+* *Array Copying*: Uses spread operator for rounds and eliminationOrder
+* *Match ID Lookup*: O(n) search through rounds if not in bracket.matches
+* *Team Resolution*: O(n) find operation for each team ID conversion
+
+=== Optimization Tips
+
+1. For large tournaments, consider indexing teams by ID
+2. Cache match ID lookups in a Map
+3. Memoize next round match calculations
+
+== Future Enhancements
+
+* Double elimination support
+* Swiss-style tournament format
+* Seeding based on team rankings
+* Match scheduling with time slots
+* Undo/redo functionality
+* Save/load tournament state
+* Real-time multiplayer synchronization
