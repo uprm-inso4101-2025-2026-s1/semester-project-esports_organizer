@@ -50,7 +50,7 @@ banner;
         this.name = init.name;
         this.description = init.description;
         this.admin=init.admin;
-       this.members=init.members ?? [];
+        this.members=init.members ?? [];
         this.posts=init.posts ?? [];
         this.tags=init.tags ?? [] ;
         this.id=init.id;
@@ -60,7 +60,6 @@ banner;
         this.icon=init.icon;
         this.banner=init.banner;
     
-   
     Community.allCommunities.set(this.id, this);
 
     }
@@ -194,6 +193,23 @@ banner;
         this.tags.splice(index, 1);
     }
     
+    toFirestore(){
+        return{
+            name: this.name,
+            description: this.description,
+            admin: this.admin,
+            members: this.members,
+            posts: this.posts,
+            tags: this.tags,
+            id: this.id,
+            dateCreated: this.dateCreated,
+            game: this.game,
+            location: this.location,
+            icon: this.icon,
+            banner: this.banner
+        };
+    }
+
     // Saves info into firestore to it generates an id
     // async firestoreSave(db){ 
     //     const docRef = await addDoc(collection(db, "communities"), {
