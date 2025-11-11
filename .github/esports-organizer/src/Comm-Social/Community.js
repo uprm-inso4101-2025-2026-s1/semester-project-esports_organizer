@@ -193,6 +193,7 @@ banner;
         this.tags.splice(index, 1);
     }
     
+    //Converts community object to Firestore storable
     toFirestore(){
         return{
             name: this.name,
@@ -215,18 +216,6 @@ banner;
         return new Community(data);
     }
     
-    // Saves info into firestore to it generates an id
-    // async firestoreSave(db){ 
-    //     const docRef = await addDoc(collection(db, "communities"), {
-    //         name: this.name,
-    //         admin: this.admin,
-    //         members: this.members,
-    //         posts: this.posts,
-    //         tags: this.tags,            
-    //     });
-    //     this.id = docRef.id;
-    //     return this.id;
-    // }
 } 
 
 
