@@ -4,27 +4,37 @@
 This section describes the essential components and interactions within an the esports tournament platform. It defines how players, teams, and organizers interact through the platform and identifies the terminology and conceptual abstractions that structure the system. The description includes a rough sketch of the domain, key terms, a narrative of typical processes, and breakdowns of events, actions, behaviors, and function signatures.
 
 === 2.1.1 Rough Sketch
-* [.hl-red]#Players register in a community and can either create new teams or join existing ones advertised within the platform.#
-* [.hl-red]#Each team designates a captain, who manages invitations, roster changes, and tournament registrations.#
-* [.hl-red]#Organizers publish tournament announcements with eligibility rules such as age limits, roster size, or regional restrictions.#
-* [.hl-red]#Teams submit their rosters before the registration deadline, depending on the ruleset, limited roster chances may be permitted later.#
-* [.hl-red]#Tournament seeding is determined by prior rankings, past results, or qualifiers.#
-* [.hl-red]#Supported formats include single-elimination, double-elimination, Swiss, or round-robin.#
-* [.hl-red]#Teams must check in before each match; missing a grace period may cause a forfeit.#
-* [.hl-red]#Results are recorded; tiebreakers decide standings in round-robins or Swiss.#
-* [.hl-red]#Spectators and media follow brackets, standings, and schedules.#
+•⁠  ⁠[.hl-red]#Players register in a community and can either create new teams or join existing ones advertised within the platform.#
+•⁠  ⁠[.hl-red]#Each team designates a captain, who manages invitations, roster changes, and tournament registrations.#
+•⁠  ⁠[.hl-red]#Organizers publish tournament announcements with eligibility rules such as age limits, roster size, or regional restrictions.#
+•⁠  ⁠[.hl-red]#Teams submit their rosters before the registration deadline, depending on the ruleset, limited roster chances may be permitted later.#
+•⁠  ⁠[.hl-red]#Tournament seeding is determined by prior rankings, past results, or qualifiers.#
+•⁠  ⁠[.hl-red]#Supported formats include single-elimination, double-elimination, Swiss, or round-robin.#
+•⁠  ⁠[.hl-red]#Teams must check in before each match; missing a grace period may cause a forfeit.#
+•⁠  ⁠[.hl-red]#Results are recorded; tiebreakers decide standings in round-robins or Swiss.#
+•⁠  ⁠[.hl-red]#Spectators and media follow brackets, standings, and schedules.#
 
 [.hl-green]#The following are statements people would say in their day to day life.#
-* [.hl-green]#"I have a difficult time making friends and I wanted to be able to be apart of a commmunity that enjoyed the same games I do. As well as participate in a variety of events with them."#
-* [.hl-green]#"Ive been playing Super Smash Bros day and night but dont have anyone to play against. I want to somehow organize an event in a neatly manner where I can find suitable opponents and make a fun competition for everyone."#
-* [.hl-green]#"My friends and I wanted to compete in the UPRM Marvel Rivals tournament back in May. We needed one more member to complete the roster qualifications if we wanted to compete and also have our team registered two weeks before the tournament".#
-* [.hl-green]#"My friends and I decided to form a team, but someone had to take charge so we decided to make Tomas the captain. He takes care of inviting people, updating the roster and signing us up to tournaments.".#
-* [.hl-green]#"For the Mario Kart Tournament back in Febraury the organizers posted all the rules online. They mentioned things like you had to be older than 13, teams had to have 4 members and only people from the west side of the island could enter this specific tournament".#
-* [.hl-green]#"I noticed while competing that the organizer didnt just put teams randomly in a bracket; instead they seeded teams based on how well they did in previous tournaments or online qualifiers".#
-* [.hl-green]#"It was fun to play in events with different formats. Some are single elimination so you lose once you're out. Others are double elimination, round robin or that Swiss system where you keep playing people with similar records."#
-* [.hl-green]#"Before every match we had to check in on the website. If you didnt check in withing the grace period your team would automatically forfeit."#
-* [.hl-green]#"After every match score were reported. I remember in a round robin tournament two teams ended with the same number of wins, things like head-to-head results or point diferences were used to decide who plased higher"#
-* [.hl-green]#"I got surprised by how much popularity the esports community gained. People who weren’t even playing still followed everything. I heard on reddit some kept checking the brackets, match schedules, and standings to see who was winning and who got knocked out. Some even streamed or shared updates on instagram and facebook."#
+
+•⁠  ⁠[.hl-yellow]#"Hey Carlos, I just wanted to say that im very glad I met you at the last tournament. I had a really difficutl time making friends and always wanted to be part of a community that enjoyed the same games as I do. Ever since joining the Smash Bros community here, Ive made a lot of good friends like you and have had a great time participating in events with them."#
+
+•⁠  ⁠[.hl-yellow]#"Hey Fabian, Ive been playing Super Smash Bros day and night but dont have anyone to play against. I was thinking of organizing an event in a neat manner where I can find suitable opponents and make a fun competition for everyone. Would you be interested in helping me set it up?"#
+
+•⁠  ⁠[.hl-yellow]#"What are we gonna do guys? We need one more member to complete the roster qualifications if we want to compete in the UPRM Marvel Rivals tournament in May. We need to make sure our team is registered two weeks before the tournament too. Any ideas on who we can invite to join us?"#
+
+•⁠  ⁠[.hl-yellow]#"Alright people if we're seriours about forming our esports team we need to decide on a captain. This person will be in charge of inviting people, updating the roster and signing us up to tournaments. I think Tomas would be a great choice since he's organized and knows a lot about the games we play. What do you guys think?"#
+
+•⁠  ⁠[.hl-yellow]#"Hi Maria, have you seen the requirements posted on the site for the Mario Kart Tournament in February? The organizers stated that you have to be older than 13. They also mentioned that teams need to have 4 members and only people from the west side of the island can enter this specific tournament. Would you be interested in participating with me? Im looking for people from campus that live around here like me in order to be able to form my team."#
+
+•⁠  ⁠[.hl-yellow]#"Hi are you one of the organizers for the tournament? I just wanted to say that I noticed how you didnt just put teams randomly in a bracket; instead it seems that teams where seeded based on how well they did in previous tournaments or online qualifiers. I think that was a great idea since I could see and experience first-hand how it made the competition more balanced and fair for everyone."#
+
+•⁠  ⁠[.hl-yellow]#"Oh hi Gabriela! Sorry I havent been able to go out with you much this month. Ive been really busy competing on events around the island. Its been fun to play in events with different formats. Some are single elimination so you lose once you're out. Others are double elimination, round robin or that Swiss system where you keep playing people with similar records. Although I've been busy with the torunaments and school work I've had a grat time and have met a lot of people passionate about the same games as me."#
+
+•⁠  ⁠[.hl-yellow]#"Hey team, just a reminder that we have a match coming up this Saturday at 3 PM. Make sure to check in on the website at least 15 minutes before the match starts. If we dont check in within the grace period, our team will automatically forfeit the match. Let's make sure we're all on time and ready to play!"#
+
+•⁠  ⁠[.hl-yellow]#"Bro, last night's match was insane! Since after every match  score were reported you could see how close each team was to winning. I remember in a round robin tournament two teams ended with the same number of wins, so they had to use things like head-to-head results or point differences to decide who placed higher. It made every point count, and it was so exciting to watch!"#
+
+•⁠  ⁠[.hl-yellow]#"The popularity the esports community is gaining is surprising. Even people who aren’t playing still follow everything. I heard on reddit that some people keep checking the brackets, match schedules, and standings to see who is winning and who got knocked out. Some even stream or share updates on Instagram and Facebook. Yesterday I even heard my grandma talk about how some kid won a five thousand dollar price on Fortnite tournament in Alabama. It's amazing to see how much interest there is in esports nowadays!"#
 
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 
