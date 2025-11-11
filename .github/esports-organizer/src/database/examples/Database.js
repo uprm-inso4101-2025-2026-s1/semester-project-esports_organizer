@@ -2,6 +2,7 @@
 import Team from "./Teams.js";
 import Event from "./Events.js";
 import User from "./UsersColection.js";
+import Community from "../../Comm-Social/Community.js";
 import { app, db } from "./firebase.js";
 
 /* For storage management */
@@ -158,7 +159,7 @@ export class Database {
         }
     }
 
-    /* Retrieves teams from Firestore. Not needed to have the team list; simply database.teams will sufice. */
+    /* Retrieves teams from Firestore. */
     async getAllTeamsFromDatabase() {
         const teamCollection = collection(this.firestore, "Teams");
         const teamsSnapshot = await getDocs(teamCollection);
@@ -249,7 +250,7 @@ export class Database {
         }
     }
 
-    /* Given an event, if founf in the database, adjusts its start date and end date. */
+    /* Given an event, if found in the database, adjusts its start date and end date. */
     async setEventDate(event, startDate, endDate) {
         const existing = await this.getEventFromFirestore(event.name);
         if (existing) {
@@ -261,7 +262,7 @@ export class Database {
         }
     }
 
-    /* Retrieves events from Firestore. Not needed to have the team list; simply database.teams will sufice. */
+    /* Retrieves events from Firestore. */
     async getAllEventsFromDatabase() {
         const eventCollection = collection(this.firestore, "Events");
         const eventsSnapshot = await getDocs(eventCollection);
@@ -290,7 +291,7 @@ export class Database {
         return this.getUserFromFireStore(user.uID).then(result => !!result);
     }
 
-    /* Given an Event object, adds a key value pair array to the database. Event names must be unique. */
+    /* Given a User object, adds a key value pair array to the database. Usernames/UserIDs must be unique. */
     async addUserToDatabase(user) {
         const existing = await this.getUserFromFireStore(user.uID);
         if (!existing) {
@@ -309,7 +310,7 @@ export class Database {
         return null;
     }
 
-    /* Retrieves users from Firestore. Not needed to have the user list; simply database.users will sufice. */
+    /* Retrieves users from Firestore. */
     async getAllUsersFromDatabase() {
         const userCollection = collection(this.firestore, "Users");
         const userSnapshot = await getDocs(userCollection);
@@ -428,5 +429,48 @@ export class Database {
                 console.log("User signed out");
             }
         });
+    }
+
+    /* Checks if a given Community is in the database. */
+    isCommunityInDataBase(community) {
+        // Checks Firestore for existence of a community by name
+        return this.getCommunityFromFireStore(community.name).then(result => !!result);
+    }
+
+    /* Given a Community object, adds a key value pair array to the database. Community names must be unique. */
+    async addCommunityToDatabase(community) {
+        const existing = await this.getCommunityFromFireStore(community.name);
+        if (!existing) {
+            await setDoc(doc(this.firestore, "Communities", community.name), community.toFirestore());
+        } else {
+            console.log("Community already exists.");
+        }
+    }
+
+    /* Given a Community name, searches for the community and returns it if it was found and returns null if not. */
+    async getCommunityFromFireStore(commName) {
+        const snap = await getDoc(doc(this.firestore, "Communities", commName));
+        if(snap.exists()){
+            return Community.fromFirestore(snap.data());
+        }
+        return null;
+    }
+
+    /* Retrieves communities from Firestore. */
+    async getAllCommunitiesFromDatabase() {
+        const communityCollection = collection(this.firestore, "Community");
+        const communitySnapshot = await getDocs(communityCollection);
+        return communitySnapshot.docs.map(doc => Community.fromFirestore(doc.data()));
+    }
+
+    /* Deletes a Community given its name. Proper cleanup should be in place in order to avoid users accessing null Community values. */
+    async deleteCommunity(commName) {
+        try {
+            const communityRef = doc(this.firestore, "Community", commName);
+            await deleteDoc(communityRef);
+            console.log("Community ${commName} deleted successfully.");
+        } catch (error) {
+            console.error("Error deleting community: ", error);
+        }
     }
 }

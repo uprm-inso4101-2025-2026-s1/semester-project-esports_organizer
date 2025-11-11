@@ -210,6 +210,11 @@ banner;
         };
     }
 
+    /* Converts from a key value pair to an Event object. */
+    static fromFirestore(data) {
+        return new Community(data);
+    }
+    
     // Saves info into firestore to it generates an id
     // async firestoreSave(db){ 
     //     const docRef = await addDoc(collection(db, "communities"), {
