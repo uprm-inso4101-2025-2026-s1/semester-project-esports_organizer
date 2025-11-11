@@ -5,7 +5,6 @@ import TournamentCard from "../components/shared/TournamentCard";
 import { TOURNAMENT_DATA, EVENTS_DATA } from "../data/mockData";
 import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
-import NotificationsUI from "../notifications/notificationsUI";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -39,8 +38,6 @@ function TournamentsPage() {
     }
   };
 
-  const [notificationsRef, setNotificationsRef] = useState(null);
-
 
   // Event handlers
 
@@ -52,9 +49,6 @@ function TournamentsPage() {
     setSelectedEvent(eventTitle);
     setShowJoinModal(true);
     setModalStep(1);
-    if (notificationsRef) {
-    notificationsRef(`You joined the event "${eventTitle}" 🎉`);
-  }
 
   };
 
@@ -253,12 +247,6 @@ function TournamentsPage() {
     <div className="tournaments-page">
       <Navbar />
       
-      {/* Notifications */}
-      <NotificationsUI 
-        userId="demoUser123"
-        onAddNotification={(fn) => setNotificationsRef(() => fn)}
-      />
-
       <PageHeader />
       <RecommendedSection />
       <EventsSection />
