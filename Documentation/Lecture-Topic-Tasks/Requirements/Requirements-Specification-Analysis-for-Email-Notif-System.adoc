@@ -71,9 +71,9 @@ It does *not* define UI, database schema, or general account logic except where 
 - **User Profile** – Contains email & verification status  
 - **SMTP Provider** – External mail service  
 - **Backoff Retry** – Increasing delay between retries  
-- **Rate Limit** – Max emails per user per hour  
+- **Rate Limit** – Max emails per user per hour
 
----
+'''
 
 == 2. Functional Requirements (FR)
 
@@ -118,7 +118,7 @@ It does *not* define UI, database schema, or general account logic except where 
 - FR7.1: Templates must insert username, event name, metadata  
 - FR7.2: Support reusable partials (header, footer)
 
----
+'''
 
 == 3. Non-Functional Requirements (NFR)
 
@@ -147,7 +147,7 @@ It does *not* define UI, database schema, or general account logic except where 
 - NFR5.1: Support ≥100 emails per hour  
 - NFR5.2: Handle multiple tournaments at once without failure
 
----
+'''
 
 == 4. Requirements Analysis
 
@@ -184,9 +184,9 @@ Tests must verify:
 - Rate limiting behavior  
 - Retry & exponential backoff  
 - Failure modes (SMTP down, invalid emails)  
-- Reminder scheduling correctness  
+- Reminder scheduling correctness
 
----
+'''
 
 == 5. Logbook Entry
 

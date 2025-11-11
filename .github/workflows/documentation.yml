@@ -30,27 +30,27 @@ jobs:
       - name: Verify pdf-theme.yml
         run: |
           echo "Checking for theme file..."
-          if [ ! -f ".github/Documents/Documentation/pdf-theme.yml" ]; then
-            echo "ERROR: pdf-theme.yml not found in .github/Documents/Documentation/"
+          if [ ! -f "Documentation/pdf-theme.yml" ]; then
+            echo "ERROR: pdf-theme.yml not found in Documentation/"
             exit 1
           fi
           echo "Found pdf-theme.yml"
-          head -n 10 .github/Documents/Documentation/pdf-theme.yml
+          head -n 10 Documentation/pdf-theme.yml
         
       - name: Build PDF
         run: |
           asciidoctor-pdf \
-            -a pdf-themesdir=.github/Documents/Documentation \
+            -a pdf-themesdir=Documentation \
             -a pdf-theme=pdf-theme.yml \
             -a allow-uri-read \
-            .github/Documents/Documentation/mainDoc.adoc \
-            -o .github/Documents/Documentation/documentation.pdf
+            Documentation/mainDoc.adoc \
+            -o Documentation/documentation.pdf
 
 
       - name: Commit PDF
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .github/Documents/Documentation/documentation.pdf
+          git add Documentation/documentation.pdf
           git commit -m "Update generated documentation.pdf" || echo "No changes to commit"
           git push
