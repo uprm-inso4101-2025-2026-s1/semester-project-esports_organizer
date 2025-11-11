@@ -1,0 +1,76 @@
+.history-container {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 120px 24px 24px; 
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .history-title {
+    text-align: center;
+    color: #333 ;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .notif-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: #f9f9f9;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .notif-card:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .notif-icon {
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  
+  .notif-content strong {
+    display: block;
+    color: #222 ;
+    font-size: 1rem;
+    margin-bottom: 3px;
+  }
+  
+  .notif-content p {
+    margin: 2px 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  .notif-content small {
+    color: #888;
+    font-size: 0.8rem;
+  }
+  
+  .load-more {
+    display: block;
+    margin: 18px auto 0;
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .load-more:hover {
+    background-color: #0056b3;
+  }
+  
+  .loading-text, .empty-text {
+    text-align: center;
+    color: #666;
+  }

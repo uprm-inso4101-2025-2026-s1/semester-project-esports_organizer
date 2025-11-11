@@ -5,6 +5,7 @@ export const NAV_ITEMS = [
   { path: "/teams", label: "Teams" },
   { path: "/community", label: "Community" },
   { label: "Help", path: "/help-center" },
+  { label: "Notifications", path: "/notifications" },
 ];
 
 export const GAMES = [
