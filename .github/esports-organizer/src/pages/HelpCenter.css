@@ -1,149 +1,185 @@
+/* Page Shell (full-page wrapper) */
 .help-center-page {
-    background: #f5f5f5;
-    min-height: 100vh;
-    padding-top: 88px;
-    font-family: var(--font-body);
-  }
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  padding-top: 88px;
+  background: var(--gradient);
+  color: rgba(255, 255, 255, 0.87);
+}
   
-  .help-center-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  }
+/* Main Container Card */
+.help-center-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: var(--container);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
   
-  .help-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #333;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
+/* Section Title (page heading) */
+.help-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: rgba(255, 255, 255, 0.87);
+  text-align: center;
+  margin-bottom: 2rem;
+}
   
-  /* FAQ Section */
-  .faq-section {
+/* FAQ SECTION */
+.faq-section {
     margin-bottom: 3rem;
   }
   
-  .faq-search {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    margin-bottom: 1.5rem;
-  }
+/* Search input (FAQ filter) */
+.faq-search {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 1.5rem;
+}
+
+.faq-search::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
   
-  .faq-item {
-    border-bottom: 1px solid #eee;
-    padding: 1rem 0;
-  }
+/* Question Box (single FAQ item) */
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1rem 0;
+}
   
-  .faq-item h4 {
-    margin: 0;
-    font-weight: 600;
-    color: #222;
-  }
+/* Question title */
+.faq-item h4 {
+  margin: 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.98);
+}
   
-  .faq-item p {
-    color: #555;
-    margin: 0.5rem 0;
-  }
+/* Answer text */
+.faq-item p {
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0.5rem 0;
+}
   
-  .faq-category {
-    font-size: 0.9rem;
-    color: #888;
-    background: #f0f0f0;
-    padding: 0.25rem 0.75rem;
-    border-radius: 6px;
-  }
+/* Category chip (FAQ meta) */
+.faq-category {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
   
-  /* Feedback Section */
-  .feedback-section h2 {
+/* FEEDBACK SECTION */
+.feedback-section h2 {
     margin-bottom: 1rem;
   }
   
-  .feedback-form {
+/* Feedback form wrapper */
+.feedback-form {
     display: flex;
     flex-direction: column;
   }
   
-  .feedback-form label {
+/* Field label */
+.feedback-form label {
     margin-top: 1rem;
     font-weight: 600;
   }
   
-  .feedback-form input,
-  .feedback-form select,
-  .feedback-form textarea {
-    padding: 0.75rem;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    margin-top: 0.25rem;
-    font-family: var(--font-body);
-  }
+/* Text fields (input/select) */
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+  margin-top: 0.25rem;
+  font-family: var(--font-body);
+}
+
+.feedback-form input::placeholder,
+.feedback-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
   
-  .feedback-form textarea {
+/* Textarea sizing */
+.feedback-form textarea {
     min-height: 100px;
     resize: vertical;
   }
   
-  .submit-button {
-    margin-top: 1.5rem;
-    background: #d72638;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
+/* Submit button (send feedback) */
+.submit-button {
+  margin-top: 1.5rem;
+  background: var(--link);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 12px 28px rgba(0, 168, 232, 0.32);
+}
   
-  .submit-button:hover {
-    background: #b01e2e;
-  }
+/* Submit button hover */
+.submit-button:hover {
+  background: var(--hover);
+  transform: translateY(-1px);
+}
   
-  .success-message {
-    color: #2e8b57;
-    margin-top: 1rem;
-  }
+/* Success message */
+.success-message {
+  color: var(--link);
+  margin-top: 1rem;
+}
   
-  .error-message {
-    color: #d72638;
-    margin-top: 1rem;
-  }
+/* Error message */
+.error-message {
+  color: var(--error-msg);
+  margin-top: 1rem;
+}
 
-  /*Tabs (Notifications / Scheduling) */
+/* TABS (Notifications / Scheduling) */
 .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem; /* espacio entre botones */
-    margin: 1.5rem 0;
-  }
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
   
-  .tabs button {
-    background: #f0f0f0;
-    color: #333;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 0.6rem 1.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: var(--font-heading);
-  }
+/* Tab button */
+.tabs button {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-heading);
+}
   
-  /* Hover (cuando pasas el mouse) */
-  .tabs button:hover {
-    background: #e4e4e4;
-    border-color: #d72638;
-  }
+/* Tab button hover */
+.tabs button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--link);
+}
   
-  /* Estado activo */
-  .tabs button.active {
-    background: #d72638;
-    color: white;
-    border-color: #d72638;
-    box-shadow: 0 4px 10px rgba(215, 38, 56, 0.3);
-  }
+/* Tab button active */
+.tabs button.active {
+  background: var(--link);
+  color: white;
+  border-color: var(--link);
+  box-shadow: 0 4px 10px rgba(0, 168, 232, 0.3);
+}

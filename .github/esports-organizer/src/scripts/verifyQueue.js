@@ -14,7 +14,7 @@ const db = admin.firestore();
 
 async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
-  const col = db.collection(`tournaments/${tid}/internal/meta/recalc_queue`);
+  const col = db.collection(`Tournaments/${tid}/internal/meta/recalc_queue`);
   const snap = await col.get();
   if (snap.empty) {
     console.log(`No queue events for tournament ${tid}`);

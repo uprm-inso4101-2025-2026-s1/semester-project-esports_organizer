@@ -478,11 +478,5 @@
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-    .community-feed-page {
-        background: var(--dark-gradient);
-    }
-}
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .community-feed-page { background: var(--dark-gradient); }

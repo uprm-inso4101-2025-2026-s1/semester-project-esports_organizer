@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import Button from "../components/shared/Button";
 import "./HomePage.css";
 import { addToGoogleCalendar } from "../utils/helpers";
+import Navbar from "../components/shared/Navbar";
 
 function HomePage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
@@ -31,9 +31,6 @@ function HomePage() {
     setIsMobileMenuOpen(false);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
 
   const handleJoinEvent = (eventTitle) => {
     setSelectedEvent(eventTitle);
@@ -46,30 +43,10 @@ function HomePage() {
   };
 
   // Bookmark functionality
-  const toggleSaved = (cardId) => {
-    setSavedCards(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(cardId)) {
-        newSet.delete(cardId);
-      } else {
-        newSet.add(cardId);
-      }
-      return newSet;
-    });
-  };
-
-  // Navigation menu items
-  const navItems = [
-    { path: "/homepage", label: "Home" },
-    { path: "/tournaments", label: "Tournaments" },
-    { path: "/teams", label: "Teams" },
-    { path: "/community", label: "Community" },
-    { path: "/help-center", label: "Help" },
-  ];
 
   // Bookmark button component
-  const BookmarkButton = ({ cardId, isSaved, tournament }) => {
-    const handleClick = (e) => {
+  const BookmarkButton = ({ isSaved, tournament }) => {
+    const handleClick = () => {
       addToGoogleCalendar(tournament);
       
     };
@@ -201,55 +178,7 @@ function HomePage() {
 
   return (
     <div className="homepage">
-      {/* Navigation Header */}
-      <header className="nav-header">
-        <div className="nav-container">
-          <div className="nav-left">
-            <div className="nav-logo" onClick={() => handleNavigation("/homepage")}>
-              <div className="logo-icon">
-                <img 
-                  src="/assets/images/LOGO.png" 
-                  alt="Esport Organizer Logo" 
-                  className="logo-image"
-                />
-              </div>
-            </div>
-            
-            <nav className={`nav-menu ${isMobileMenuOpen ? 'nav-menu-open' : ''}`}>
-              {navItems.map((item) => (
-                <button
-                  type="button"
-                  key={item.path}
-                  className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                  onClick={() => handleNavigation(item.path)}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-          
-          <div className="nav-actions">
-            <Button
-              text="Login/Sign Up"
-              onClick={() => handleNavigation("/login")}
-              variant="primary"
-            />
-            <button 
-              type="button"
-              className="mobile-menu-toggle"
-              onClick={toggleMobileMenu}
-              aria-label="Toggle mobile menu"
-            >
-              <span className={`hamburger ${isMobileMenuOpen ? 'hamburger-open' : ''}`}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </button>
-          </div>
-        </div>
-      </header>
+     <Navbar />
 
       {/* Hero Section */}
       <section className="hero-section">

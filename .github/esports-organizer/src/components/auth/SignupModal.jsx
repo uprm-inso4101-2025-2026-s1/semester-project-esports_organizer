@@ -5,6 +5,7 @@ import DropDown from "../shared/DropDown";
 import Label from "../shared/Label";
 import "../shared/Modal.css";
 import { useNavigate } from "react-router-dom";
+import { saveProfile } from "../../services/profile-service"; // Adjust path if needed
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ function SignupForm() {
   const [errors, setErrors] = useState({});
 
   const securityQuestions = [
-    { value: "sq1", label: "Security Question 1" },
-    { value: "sq2", label: "Security Question 2" },
-    { value: "sq3", label: "Security Question 3" },
+    { value: "What is your favorite color?", label: "What is your favorite color?" },
+    { value: "What was the name of your first pet?", label: "What was the name of your first pet?" },
+    { value: "What is your dream car brand?", label: "What is your dream car brand?" },
   ];
 
   // Handle Changes
@@ -50,12 +51,30 @@ function SignupForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    console.log("Signup data:", form);
-    navigate("/create-profile");
+    // Map form fields to profile-service.js expected fields
+    const profileData = {
+      Email: form.email,
+      Password: form.password,
+      Question: form.securityQuestion,
+      Answer: form.sqAnswer,
+      role: "player",
+    };
+
+    try {
+      const result = await saveProfile(profileData);
+      if (result.success && result.uid) {
+        localStorage.setItem("uid", result.uid); // Save the uid for later use
+        navigate("/create-profile");
+      } else {
+        setErrors({ form: result.error || "Could not create account." });
+      }
+    } catch (err) {
+      setErrors({ form: err.message || "Error creating account." });
+    }
   };
 
   return (
@@ -137,6 +156,7 @@ function SignupForm() {
           className={errors.sqAnswer ? "error-input" : ""}
         />
         <p className="error">{errors.sqAnswer}</p>
+        {errors.form && <p className="error">{errors.form}</p>}
       </form>
     </Modal>
   );
