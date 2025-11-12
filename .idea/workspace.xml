@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-1.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-1.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-3.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-3.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/End/Sub-Sections/appOfTopics.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/appOfTopics.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/End/Sub-Sections/logBook.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/logBook.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/End/end.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/end.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/legend.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/legend.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

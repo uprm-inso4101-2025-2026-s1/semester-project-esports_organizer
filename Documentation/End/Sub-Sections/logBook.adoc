@@ -1,6 +1,7 @@
 == LogBook
 
 [width="100%", cols="4*", options="header", frame=all, grid=all, halign=center]
+
 |===
 | Section Name | Member | Added or Modified | Description
 
@@ -15,3 +16,4 @@
 | Desciptive Sections 2.2.1-2.2.2| Pedro Bonilla | Modified | Rephrased to improve clarity and provide more detail as per feedback.
 | Derived Goals | Jayden Sánchez | Modified | Revised the Derived Goals section to clarify their independence from the main objectives and strengthen the section's purpose.
 | Application of Topics | Abby Gotay Almonte | Added | Wrote Application of Topics section, taking into account multiple LTTs.
+|===

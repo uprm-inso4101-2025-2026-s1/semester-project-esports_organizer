@@ -1,3 +1,4 @@
+[discrete]
 === Table of Contents
 
 [.hl-green]#*0 Introductory Part*# +

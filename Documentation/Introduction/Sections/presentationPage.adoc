@@ -1,3 +1,5 @@
+:imagesdir: {includedir}
+
 :pdf-page-size: Letter
 
 [cols="<,>", frame=none, grid=none, width=100%]
