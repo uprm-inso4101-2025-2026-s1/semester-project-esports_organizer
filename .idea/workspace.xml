@@ -4,52 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Documentation location and lecture topic task change">
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Analytic/Sub-Sections/3-1.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Analytic/Sub-Sections/3-1.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Analytic/Sub-Sections/3-2.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Analytic/Sub-Sections/3-2.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Analytic/Sub-Sections/database_wrapper_diagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Analytic/Sub-Sections/database_wrapper_diagram.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Analytic/analyticDoc.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Analytic/analyticDoc.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/Sub-Sections/2-1.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-1.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/Sub-Sections/2-3.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-3.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/Sub-Sections/2.2.1-2.2.2.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2.2.1-2.2.2.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/Sub-Sections/2.2.3-2.2.5.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2.2.3-2.2.5.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/Sub-Sections/Simple_Example_Flowchart_Communities.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/Simple_Example_Flowchart_Communities.JPG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/Sub-Sections/profiles_architecture.svg" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/profiles_architecture.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Descriptive/descriptiveDoc.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/descriptiveDoc.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/End/Sub-Sections/appOfTopics.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/appOfTopics.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/End/Sub-Sections/app_flow_diagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/app_flow_diagram.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/End/Sub-Sections/logBook.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/logBook.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/End/end.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/end.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Informative/Sub-Sections/1-1.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Informative/Sub-Sections/1-1.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Informative/Sub-Sections/1-2.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Informative/Sub-Sections/1-2.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Informative/Sub-Sections/1-3.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Informative/Sub-Sections/1-3.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Informative/Sub-Sections/1-4.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Informative/Sub-Sections/1-4.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Informative/Sub-Sections/1-5.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Informative/Sub-Sections/1-5.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Informative/informativeDoc.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Informative/informativeDoc.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Introduction/Sections/introduction.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/introduction.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Introduction/Sections/legend.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/legend.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Introduction/Sections/presentationPage.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Introduction/Sections/tableOfContents.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Introduction/introductionDoc.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/introductionDoc.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/DatabaseAlgebras[Events].adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Algebras/DatabaseAlgebras[Events].adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/DatabaseSequenceDiagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Message-Sequence-Charts/DatabaseSequenceDiagram.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Requirements-Specification-Analysis-for-Email-Notif-System.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements-Specification-Analysis-for-Email-Notif-System.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/TSD_requirements.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design/TSD_requirements.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/TSD_requirements.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design/TSD_requirements.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/class-diagram-communities.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Modularisation-Objects/class-diagram-communities.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/class-diagram-communities.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Modularisation-Objects/class-diagram-communities.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/test-file.adoc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Simple_Example_Flowchart_Communities.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Simple_Example_Flowchart_Communities.JPG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/contributingGuidelines.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/contributingGuidelines.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/database_wrapper_diagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/database_wrapper_diagram.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/documentation.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/documentation.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/images/upr-escudo.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/upr-escudo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/images/uprm-escudo.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/uprm-escudo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/mainDoc.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/mainDoc.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/pdf-theme.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/pdf-theme.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/profiles_architecture.svg" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/profiles_architecture.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/documentation.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/documentation.yml" afterDir="false" />
+    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Phenomena-and-Concepts/ProfilePrivacy_Toggles.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/The-Triptych-SE-Paradigm/TriptychProfiles.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements-Specification-Analysis-for-Email-Notif-System.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements-Facets/Requirements-Specification-Analysis-for-Email-Notif-System.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements_Engineering_NotificationSystem.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements Engineering /Requirements_Engineering_NotificationSystem.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements_Facets_Notification_System.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements-Facets/Requirements_Facets_Notification_System.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,24 +28,24 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "documentation-branch",
-    "last_opened_file_path": "/Users/wilsonmorales/AndroidStudioProjects/semester-project-esports_organizer/.github/Documents/Documentation/Lecture-Topic-Tasks",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;documentation-branch&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wilsonmorales/AndroidStudioProjects/semester-project-esports_organizer/.github/Documents/Documentation/Lecture-Topic-Tasks&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements Engineering " />
       <recent name="$PROJECT_DIR$/Documentation/Introduction/Sections" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design" />
       <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Requirements" />
-      <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Message-Sequence-Charts" />
     </key>
   </component>
   <component name="TaskManager">
