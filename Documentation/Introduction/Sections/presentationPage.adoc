@@ -1,11 +1,9 @@
-:imagesdir: {includedir}
-
 :pdf-page-size: Letter
 
 [cols="<,>", frame=none, grid=none, width=100%]
 |===
-|image:upr-escudo.png[width=115]
-|image:uprm-escudo.png[width=115]
+|image:images/upr-escudo.png[width=115]
+|image:images/uprm-escudo.png[width=115]
 |===
 
 [.spacer%hardbreaks]

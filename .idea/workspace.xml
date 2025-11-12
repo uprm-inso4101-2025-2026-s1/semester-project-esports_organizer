@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="">
+    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Error fixes in intro and end">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/End/Sub-Sections/logBook.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/logBook.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/End/end.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/end.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/legend.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/legend.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/upr-escudo.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/images/upr-escudo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/uprm-escudo.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/images/uprm-escudo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,18 +40,28 @@
       <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements Engineering " />
       <recent name="$PROJECT_DIR$/Documentation/Introduction/Sections" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design" />
-      <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Requirements" />
+      <recent name="$PROJECT_DIR$/Documentation" />
+      <recent name="$PROJECT_DIR$/Documentation/Introduction" />
+      <recent name="$PROJECT_DIR$/Documentation/images" />
+      <recent name="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements Engineering " />
     </key>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Error fixes in intro and end">
+      <option name="closed" value="true" />
+      <created>1762927521311</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762927521311</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Documentation location and lecture topic task change" />
-    <option name="LAST_COMMIT_MESSAGE" value="Documentation location and lecture topic task change" />
+    <MESSAGE value="Error fixes in intro and end" />
+    <option name="LAST_COMMIT_MESSAGE" value="Error fixes in intro and end" />
   </component>
 </project>

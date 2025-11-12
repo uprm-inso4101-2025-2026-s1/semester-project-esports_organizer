@@ -1,5 +1,3 @@
-:imagesdir: Sub-Sections
-
 include::Sub-Sections/appOfTopics.adoc[]
 
 include::Sub-Sections/logBook.adoc[]
