@@ -5,15 +5,18 @@
 [.hl-green]#For Milestone 2, this section has been expanded to include current progress on the Profiles module, showing concrete examples of backend and frontend integration that transform previous design concepts into a functional system.#
 
 The **software architecture** captures the big picture of the system:
+
 * Main modules include authentication, user profiles, tournament
 management, match reporting, and community management.
 * These modules communicate through well defined APIs and shared
 data stored in Firestore.
 * [.hl-green]#A backend service (Node.js/Express) now handles the Profiles module, which interacts with Firestore and the React client through REST endpoints.#
 * [.hl-green]#The local environment has been successfully tested and launched, confirming connectivity between modules and databases.#
+
 [.hl-green]#The `/profiles` endpoint was used for testing profile retrieval functionality in the local development environment.#
 
 The **software design** explains how each component is realized:
+
 * **Authentication:** Implemented with Firebase Authentication and
 OAuth2 providers such as Google, Discord, and Twitch.
 * **User profiles:** Stored in Firestore, including usernames, emails,
@@ -26,7 +29,9 @@ automatically update user rankings.
 * **Communities and teams:** Users can create or join them, ensuring
 inclusivity and adaptability.
 * [.hl-green]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#
+
 [.hl-green]#Implemented functions such as `getParticipatedTournaments()` within the Profiles module retrieve user data directly from Firestore, ensuring up-to-date synchronization between the backend and the database.#
+
 [.hl-green]#Additionally, asynchronous functions like `saveProfile`, `getProfile`, and `updateProfile` manage the creation, retrieval, and updating of user profiles within Firestore, maintaining accurate and timestamped records.#
 
 [.hl-green]#**Architecture Diagram:**#
@@ -37,6 +42,7 @@ inclusivity and adaptability.
 image::profiles_architecture.svg[align=center]
 
 Diagrams and screen mockups complement the text:
+
 * Architecture diagrams highlight module interactions.
 * Sequence diagrams show workflows such as user login and event
 creation.
@@ -149,6 +155,7 @@ They interact directly with Firestore, adding timestamps (`createdAt`, `updatedA
 This code demonstrates how the system fulfills requirements such as *“the system must provide a way to create and manage user profile data”* and *“the system must provide means to update stored information reliably.”*#
 
 Best practices followed in this documentation:
+
 * **No screenshots** of code — only properly formatted snippets.
 * **Scalable images** (SVG, PDF) for diagrams and mockups instead of
 raster images (JPEG, PNG).

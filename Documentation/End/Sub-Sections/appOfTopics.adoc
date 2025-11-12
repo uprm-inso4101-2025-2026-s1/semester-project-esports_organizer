@@ -58,31 +58,8 @@ Single elimination bracket generation implements mathematical models using power
 
 === Diagrams
 
-----
-classDiagram
-  class App { App.jsx }
-  class Main { main.jsx }
-  class Team { team.js }
-  class CommSocial { Comm-Social/ }
-  class Components { components/ }
-  class Pages { pages/ }
-  class Services { services/ }
-  class Database { database/ }
-  class Lib { lib/ }
-  class Events { events/ }
-  class Functions { functions/ }
+image::app_flow_diagram.png[align=center]
 
-  App --> Main : bootstrap
-  App --> Team : imports data
-  App --> Components : uses UI
-  App --> Pages : routes to
-  Pages --> Components : compose
-  Services --> Database : reads/writes
-  Functions --> Events : handles triggers
-  Lib --> Database : utils
-  CommSocial --> Pages : community features
-  Events --> Services : publishes events
-----
 App bootstraps Main and pulls in domain models (Team, Events), UI (Components, Pages, CommSocial), logic (Services, Functions), and persistence (Database, Lib). Arrows indicate directional dependencies (e.g., Pages compose Components; Services read/write Database; Functions handle event triggers).
 
 In practice this means user interactions flow from Pages -> Services -> Database, yielding clear separation of concerns, easier testing, and safer evolution of UI and storage/persistence layers.

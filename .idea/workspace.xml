@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Phenomena-and-Concepts/ProfilePrivacy_Toggles.adoc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/The-Triptych-SE-Paradigm/TriptychProfiles.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements-Specification-Analysis-for-Email-Notif-System.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements-Facets/Requirements-Specification-Analysis-for-Email-Notif-System.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements_Engineering_NotificationSystem.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements Engineering /Requirements_Engineering_NotificationSystem.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements/Requirements_Facets_Notification_System.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements-Facets/Requirements_Facets_Notification_System.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-1.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-1.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-3.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Descriptive/Sub-Sections/2-3.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/End/Sub-Sections/appOfTopics.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/appOfTopics.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/presentationPage.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

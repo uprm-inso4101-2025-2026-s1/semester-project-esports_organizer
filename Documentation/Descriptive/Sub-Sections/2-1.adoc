@@ -5,13 +5,21 @@ This section describes the essential components and interactions within an the e
 
 === 2.1.1 Rough Sketch
 •⁠  ⁠[.hl-red]#Players register in a community and can either create new teams or join existing ones advertised within the platform.#
+
 •⁠  ⁠[.hl-red]#Each team designates a captain, who manages invitations, roster changes, and tournament registrations.#
+
 •⁠  ⁠[.hl-red]#Organizers publish tournament announcements with eligibility rules such as age limits, roster size, or regional restrictions.#
+
 •⁠  ⁠[.hl-red]#Teams submit their rosters before the registration deadline, depending on the ruleset, limited roster chances may be permitted later.#
+
 •⁠  ⁠[.hl-red]#Tournament seeding is determined by prior rankings, past results, or qualifiers.#
+
 •⁠  ⁠[.hl-red]#Supported formats include single-elimination, double-elimination, Swiss, or round-robin.#
+
 •⁠  ⁠[.hl-red]#Teams must check in before each match; missing a grace period may cause a forfeit.#
+
 •⁠  ⁠[.hl-red]#Results are recorded; tiebreakers decide standings in round-robins or Swiss.#
+
 •⁠  ⁠[.hl-red]#Spectators and media follow brackets, standings, and schedules.#
 
 [.hl-green]#The following are statements people would say in their day to day life.#
@@ -66,9 +74,10 @@ This diagram illustrates the relationship between players, organizers, and commu
 
 The esports tournament process begins with the organizer, who creates and publishes the tournament on the platform. The organizer defines important parameters such as the tournament name, format, ruleset, and registration window. Once registration opens, teams—created by players within communities—can submit their rosters. Each team must designate a captain, who serves as the primary contact for communications, match coordination, and administrative updates.
 
-[.hl-green]#During the registration phase, eligibility is verified (account status, ranking limits, and roster size). If the number of registered teams exceeds capacity, the extra teams are placed on a waitlist queue. When registration closes, the tournament bracket generation algorithm initializes:#
+* [.hl-green]#During the registration phase, eligibility is verified (account status, ranking limits, and roster size). If the number of registered teams exceeds capacity, the extra teams are placed on a waitlist queue. When registration closes, the tournament bracket generation algorithm initializes:#
 
-* [.hl-green]#For single-elimination tournaments, the bracket is structured as a balanced binary tree, ensuring fair seeding based on rank or random assignment.
+* [.hl-green]#For single-elimination tournaments, the bracket is structured as a balanced binary tree, ensuring fair seeding based on rank or random assignment.#
+
 * Teams may receive byes if the total participant count is not a power of two.#
 
 [.hl-green]#As the event progresses, matches are conducted round by round. Winners advance automatically to the next stage, while losers are eliminated. After every match, results are updated in real time through the system’s front end, using listeners or state updates that propagate score and bracket changes across the platform. Once the final match concludes, the tournament state transitions to “closed,” and the results are recorded for ranking and statistical purposes.#
@@ -103,8 +112,8 @@ The esports tournament process begins with the organizer, who creates and publis
 
 ** [.hl-green]#Run Tournament Flow: Create → Register → Generate Bracket → Conduct Matches → Update Results → Close Tournament.#
 ** [.hl-green]#Handle Registration: Check eligibility → Validate team → Add to confirmed or waitlist → Confirm participation.#
-** [.hl-green]#Update Bracket Progression: Identify match → Update scores → Propagate winners to the next match → Refresh tournament state.
-** Manage Real-Time Updates: Listen for database changes → Trigger UI updates → Re-render bracket with new data.#
+** [.hl-green]#Update Bracket Progression: Identify match → Update scores → Propagate winners to the next match → Refresh tournament state.#
+** [.hl-green]#Manage Real-Time Updates: Listen for database changes → Trigger UI updates → Re-render bracket with new data.#
 
 [.hl-green]#These behavioral groupings form the operational backbone of the esports system. Each process is modeled to support agile and event-driven design principles, ensuring the platform reacts to real-time changes (e.g., new registrations, match completions, or team updates) without manual intervention.#
 
