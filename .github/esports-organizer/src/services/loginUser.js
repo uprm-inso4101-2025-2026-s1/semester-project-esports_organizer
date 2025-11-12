@@ -34,5 +34,6 @@ export async function loginUser(emailOrUsername, password) {
     return { success: false, error: "Incorrect password." };
   }
 
+  localStorage.setItem("currentUserUid", userData.uid);
   return { success: true, user: userData };
 }
