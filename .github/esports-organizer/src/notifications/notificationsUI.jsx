@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { db } from '../lib/firebase';
 import { collection, addDoc, onSnapshot, serverTimestamp, orderBy, query } from 'firebase/firestore';
@@ -8,6 +8,7 @@ export default function Notifications({ inline = false }) {
   const [showList, setShowList] = useState(false);
   const [newMessage, setNewMessage] = useState('');
   const [newTitle, setNewTitle] = useState('');
+  const containerRef = useRef(null);
 
   // It will show notifications from firebase to the page in real time
   useEffect(() => {
@@ -18,6 +19,21 @@ export default function Notifications({ inline = false }) {
     });
     return () => unsubscribe();
   }, []);
+
+
+  // To closes dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setShowList(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
 
   //  notification will be added to FireBase
   const addNotification = async () => {
@@ -39,8 +55,8 @@ export default function Notifications({ inline = false }) {
   const styles = getStyles(inline);
 
   return (
-    <div style={styles.container}>
-      {/* 🔔 Bell icon */}
+    <div ref={containerRef} style={styles.container}>
+      {/* Bell icon */}
       <div style={styles.bellContainer} onClick={() => setShowList(!showList)}>
         <FaBell size={30} color="#de9906ff" />
         {notifications.length > 0 && (
