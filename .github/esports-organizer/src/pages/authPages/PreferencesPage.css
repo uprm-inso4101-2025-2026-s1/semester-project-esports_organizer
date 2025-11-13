@@ -1,0 +1,43 @@
+.preferences-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: var(--container);
+  border-radius: 20px;
+  padding: 20px 0;
+  padding: clamp(3%, 2vh, 5%);
+}
+
+
+.pref-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.preference-option {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  flex: 1;
+}
+
+.preference-option label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px; /* Add spacing below the label */
+  text-align: center; /* Center text inside the label */
+}
+
+h2 {
+  margin-left: 20px;
+}
+
+.preferences-container input,
+.preferences-container textarea {
+  background: white;
+  color: black;
+  border-radius: 9px;
+  padding: 1%;
+}

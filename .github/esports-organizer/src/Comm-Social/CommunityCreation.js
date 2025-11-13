@@ -1,6 +1,5 @@
 import {Community} from "./Community.js";
-
-//WORK IN PROGRESS FILE
+import Database from "../database/examples/Database.js";
 
 //Function receives the following arguments:
 /**
@@ -13,11 +12,14 @@ import {Community} from "./Community.js";
  * @argument {string} icon community icon image location string
  * @argument {string} banner community banner image location string
  */
-export function createCommunity(name, description, admin, tags, game, location, icon, banner){
+export async function createCommunity(name, description, admin, tags, game, location, icon, banner){
 
     //Members will start as an empty array to house the ids of future members with the admin id added as first member
     const members = [];
     members.push(admin);
+
+    //Community starts off with an empty post array
+    const posts = [];
 
     //Date the community was created in
     const dateCreated = new Date();
@@ -25,8 +27,22 @@ export function createCommunity(name, description, admin, tags, game, location, 
     //Generate a random UUID
     const id = crypto.randomUUID();
 
-    const communityObject = Community(name, description, admin, members, posts, tags, id);
+    const communityObject = new Community({name, description, admin, members, posts, tags, id, dateCreated, game, location, 
+    icon, banner});
 
-    //TO DO: send community object to database
+    try{
+        
+        const database = await Database.createDatabase();
+
+        await database.addCommunityToDatabase(communityObject);
+
+        return "Community successfully created!";
+    }
+    catch(error){
+
+        console.log("Error when creating community:" + error);
+
+        return "Failed to create community: " + error; 
+    }
 
 }

@@ -7,70 +7,69 @@
 /* ==========================================================================
    DARK MODE
    ========================================================================== */
-@media (prefers-color-scheme: dark) {
-  .player-profile {
-    background: var(--dark-gradient) !important;
-    color: #f5f5f5 !important;
-  }
 
-  .profile-hero-title { 
-    color: var(--dark-container) !important;
-  }
-
-  .flag,
-  .username,
-  .bio,
-  .chip,
-  .achievements,
-  .games-played {
-    background: var(--dark-container) !important;
-    border-color: rgba(255,255,255,0.12) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-    color: #f5f5f5 !important;
-  }
-
-  .bio-counter {
-    color: rgba(245,245,245,0.8) !important;
-    background: rgba(255,255,255,0.08) !important;
-  }
-
-  .ach-title-center,
-  .games-played h2 { 
-    color: #fff !important; 
-  }
-
-  .games-played::after {
-    background: linear-gradient(
-      to top,
-      color-mix(in srgb, var(--dark-container) 100%, transparent) 0%,
-      color-mix(in srgb, var(--dark-container) 53%, transparent) 72%,
-      color-mix(in srgb, var(--dark-container) 0%, transparent) 100%
-    ) !important;
-  }
-
-  .game-desc { color: #f5f5f5 !important; }
-
-  .edit-select--chip,
-  .edit-select--compact {
-    background: rgba(255,255,255,0.06) !important;
-    color: #f5f5f5 !important;
-    border: 1px solid rgba(255,255,255,0.18) !important;
-  }
-
-  .ach-nav-btn { text-shadow: 0 4px 16px rgba(0,0,0,0.85) !important; }
-  .avatar-hint { color: rgba(255,255,255,0.4) !important; }
-
-  .avatar-circle { background-color: #847979 !important; }
-  .avatar-circle.has-image { background-color: transparent !important; }
-
-  /* button variants */
-  .player-profile .btn.primary {
-    background: #D72638 !important;
-    color: #fff !important;
-  }
-  .player-profile .btn.primary:hover {
-    background: #B01E2E !important;
-  }
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .player-profile {
+  background: var(--dark-gradient) !important;
+  color: #f5f5f5 !important;
+}
+.dark-mode .profile-hero-title {
+  color: var(--dark-container) !important;
+}
+.dark-mode .flag,
+.dark-mode .username,
+.dark-mode .bio,
+.dark-mode .chip,
+.dark-mode .achievements,
+.dark-mode .games-played {
+  background: var(--dark-container) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  color: #f5f5f5 !important;
+}
+.dark-mode .bio-counter {
+  color: rgba(245, 245, 245, 0.8) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+.dark-mode .ach-title-center,
+.dark-mode .games-played h2 {
+  color: #fff !important;
+}
+.dark-mode .games-played::after {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--dark-container) 100%, transparent) 0%,
+    color-mix(in srgb, var(--dark-container) 53%, transparent) 72%,
+    color-mix(in srgb, var(--dark-container) 0%, transparent) 100%
+  ) !important;
+}
+.dark-mode .game-desc {
+  color: #f5f5f5 !important;
+}
+.dark-mode .edit-select--chip,
+.dark-mode .edit-select--compact {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f5f5f5 !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+.dark-mode .ach-nav-btn {
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85) !important;
+}
+.dark-mode .avatar-hint {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+.dark-mode .avatar-circle {
+  background-color: #847979 !important;
+}
+.dark-mode .avatar-circle.has-image {
+  background-color: transparent !important;
+}
+.dark-mode .player-profile .btn.primary {
+  background: #d72638 !important;
+  color: #fff !important;
+}
+.dark-mode .player-profile .btn.primary:hover {
+  background: #b01e2e !important;
 }
 
 /* ==========================================================================
@@ -106,8 +105,14 @@
   margin-top: 15px;
 }
 
-.profile-hero { grid-column: 2; grid-row: 1; }
-.games-played { grid-column: 3; grid-row: 1; }
+.profile-hero {
+  grid-column: 2;
+  grid-row: 1;
+}
+.games-played {
+  grid-column: 3;
+  grid-row: 1;
+}
 
 /* ==========================================================================
    PROFILE CARD (top-left)
@@ -131,7 +136,7 @@
   grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
-  gap: 0.50rem;
+  gap: 0.5rem;
 }
 
 .flag {
@@ -140,7 +145,7 @@
   height: 75px;
   object-fit: cover;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   display: grid;
   place-items: center;
   font-size: 50px;
@@ -153,7 +158,7 @@
   width: 255px;
   height: 75px;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 700;
@@ -176,7 +181,7 @@
   height: 248px;
   border-radius: 15px;
   padding: 1.25rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   overflow-wrap: anywhere;
   word-break: break-word;
   font-family: var(--font-body);
@@ -195,7 +200,7 @@
   bottom: 8px;
   font-size: 0.78rem;
   color: #aeb9d1;
-  background: rgba(0,0,0,0.18);
+  background: rgba(0, 0, 0, 0.18);
   padding: 2px 6px;
   border-radius: 8px;
   pointer-events: none;
@@ -208,7 +213,7 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.50rem;
+  gap: 0.5rem;
   justify-content: center;
   position: relative;
   z-index: 1;
@@ -222,7 +227,7 @@
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
   background: var(--light-container);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   border-radius: 15px;
   font-family: var(--font-body);
   font-size: 16px;
@@ -247,33 +252,33 @@
   font-weight: 700;
   color: #fff;
   border: none;
-  transition: background .2s ease, transform .1s ease, filter .2s ease;
+  transition: background 0.2s ease, transform 0.1s ease, filter 0.2s ease;
 }
 
 .player-profile .btn.primary {
   background: #4a90e2;
 }
-.player-profile .btn.primary:hover { 
-  background: #357abd; 
+.player-profile .btn.primary:hover {
+  background: #357abd;
 }
 .player-profile .btn.primary:active {
   background: #357abd;
   box-shadow: inset 0 2px 30px rgba(0, 0, 0, 0.4);
 }
 
-.player-profile .btn.success { 
+.player-profile .btn.success {
   background: rgba(34, 197, 94, 0.18) !important;
 }
 .player-profile .btn.success:hover {
-  background: rgba(34, 197, 94, 0.30) !important;
+  background: rgba(34, 197, 94, 0.3) !important;
 }
 .player-profile .btn.success:active {
-  background: rgba(34, 197, 94, 0.30) !important;
+  background: rgba(34, 197, 94, 0.3) !important;
   box-shadow: inset 0 2px 30px rgba(0, 0, 0, 0.4);
 }
 
-.player-profile .btn.secondary { 
-  background: rgba(255,255,255,0.06) !important;
+.player-profile .btn.secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
 }
 .player-profile .btn.secondary:hover {
   background: rgba(255, 255, 255, 0.14) !important;
@@ -291,10 +296,10 @@
   position: relative;
   margin-top: 25px;
   background: var(--light-container);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 15px;
   padding: 1.25rem 1.25rem 1.5rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   display: grid;
   gap: 0.75rem;
   width: 425px;
@@ -337,7 +342,7 @@
   width: 100px;
   height: 100px;
   object-fit: contain;
-  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
   user-select: none;
   pointer-events: none;
 }
@@ -361,15 +366,24 @@
   font-size: 60px;
   line-height: 1;
   cursor: pointer;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.65);
-  transition: transform .12s ease, filter .2s ease;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
+  transition: transform 0.12s ease, filter 0.2s ease;
   padding: 0;
   z-index: 2;
 }
-.ach-nav-btn:hover { filter: brightness(1.15); transform: scale(1.05); }
-.ach-nav-btn:active { transform: scale(0.95); }
-.ach-nav-left { left: -4px; }
-.ach-nav-right { right: -4px; }
+.ach-nav-btn:hover {
+  filter: brightness(1.15);
+  transform: scale(1.05);
+}
+.ach-nav-btn:active {
+  transform: scale(0.95);
+}
+.ach-nav-left {
+  left: -4px;
+}
+.ach-nav-right {
+  right: -4px;
+}
 
 /* ==========================================================================
    HERO (center column)
@@ -412,12 +426,17 @@
   background-size: cover;
   background-position: center;
   border: 2px solid #000000;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.3),
-              inset 0 0 0 2px rgba(255,255,255,0.08);
-  transition: box-shadow .2s ease, transform .12s ease, filter .2s ease;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.2s ease, transform 0.12s ease, filter 0.2s ease;
 }
-.avatar-circle:hover { transform: translateY(-2px); filter: brightness(1.03); }
-.avatar-circle.has-image { background-color: transparent; }
+.avatar-circle:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+.avatar-circle.has-image {
+  background-color: transparent;
+}
 
 .avatar-hint {
   text-align: center;
@@ -425,7 +444,7 @@
   line-height: 1.2;
   font-family: var(--font-heading);
   font-size: clamp(14px, 2vw, 24px);
-  color: rgba(255,255,255,0.40);
+  color: rgba(255, 255, 255, 0.4);
   pointer-events: none;
 }
 
@@ -436,7 +455,7 @@
   bottom: 16px;
   width: clamp(90px, 12vw, 160px);
   height: auto;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
   user-select: none;
   pointer-events: none;
 }
@@ -458,10 +477,10 @@
 
 .games-played {
   background: var(--light-container);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 15px;
   padding: 1.25rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -475,9 +494,11 @@
 
 /* Subtle fade at bottom of list */
 .games-played::after {
-  content: '';
+  content: "";
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 200px;
   background: linear-gradient(
     to top,
@@ -498,7 +519,7 @@
   transform: translateX(-50%) rotate(90deg);
   font-size: 60px;
   color: #fff;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.65);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
   pointer-events: none;
   z-index: 6;
 }
@@ -537,12 +558,14 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(10,14,25,0.28);
+  background: rgba(10, 14, 25, 0.28);
   opacity: 1;
   transition: background 180ms ease;
 }
 .game-card:hover::after,
-.game-card:focus-within::after { background: rgba(10,14,25,0.55); }
+.game-card:focus-within::after {
+  background: rgba(10, 14, 25, 0.55);
+}
 
 .game-center {
   position: relative;
@@ -558,7 +581,7 @@
   color: #fff;
   font-weight: 800;
   text-align: center;
-  text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
   padding: 0 1rem;
 }
 
@@ -595,7 +618,9 @@
    EDITABLE PATTERN
    ========================================================================== */
 
-.editable { position: relative; }
+.editable {
+  position: relative;
+}
 
 .display-layer {
   pointer-events: auto;
@@ -630,11 +655,18 @@
   height: 50%;
   padding: 0 1.5rem 0 0.5rem;
   border-radius: inherit;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   color: #eaf0ff;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   text-align: center;
-  font-family: var(--font-body, system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
+  font-family: var(
+    --font-body,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    sans-serif
+  );
   font-size: 16px;
   line-height: 1.2;
 }
@@ -650,32 +682,70 @@
    ========================================================================== */
 
 @media (max-width: 1200px) {
-  .player-profile { grid-template-columns: 0.9fr 1.1fr 0.9fr; }
+  .player-profile {
+    grid-template-columns: 0.9fr 1.1fr 0.9fr;
+  }
 }
 
 @media (max-width: 1024px) {
-  .player-profile { grid-template-columns: 1fr; }
-  .left-col, .profile-hero, .games-played { grid-column: 1; }
-  .left-col { grid-row: 1; }
-  .profile-hero { grid-row: 2; justify-items: center; margin-bottom: clamp(16px, 5vw, 32px); }
-  .games-played { grid-row: 3; margin-top: 0; justify-self: center; }
-  .bio { width: 353px; }
-  .achievements { width: 420px; }
-  .username { font-size: 24px; }
-  .avatar-circle { width: min(75vw, 400px); }
+  .player-profile {
+    grid-template-columns: 1fr;
+  }
+  .left-col,
+  .profile-hero,
+  .games-played {
+    grid-column: 1;
+  }
+  .left-col {
+    grid-row: 1;
+  }
+  .profile-hero {
+    grid-row: 2;
+    justify-items: center;
+    margin-bottom: clamp(16px, 5vw, 32px);
+  }
+  .games-played {
+    grid-row: 3;
+    margin-top: 0;
+    justify-self: center;
+  }
+  .bio {
+    width: 353px;
+  }
+  .achievements {
+    width: 420px;
+  }
+  .username {
+    font-size: 24px;
+  }
+  .avatar-circle {
+    width: min(75vw, 400px);
+  }
 }
 
 @media (max-width: 600px) {
-  .avatar-circle { width: min(80vw, 300px); }
+  .avatar-circle {
+    width: min(80vw, 300px);
+  }
 }
 
 @media (max-width: 380px) {
-  .bio, .achievements { width: 100%; max-width: 420px; }
-  .game-card { width: 100%; }
+  .bio,
+  .achievements {
+    width: 100%;
+    max-width: 420px;
+  }
+  .game-card {
+    width: 100%;
+  }
 }
 
-.bio .display-layer { text-align: left; }
-.edit-layer--center { text-align: center; }
+.bio .display-layer {
+  text-align: left;
+}
+.edit-layer--center {
+  text-align: center;
+}
 
 /* ==========================================================================
    UNIFIED BORDERS + VALIDATION
@@ -687,7 +757,7 @@
 .achievements,
 .games-played,
 .chips .chip {
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .username input:invalid {

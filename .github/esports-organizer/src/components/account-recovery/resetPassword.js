@@ -3,16 +3,24 @@ import { db } from '../../lib/firebase.js';
 
 async function resetPassword(emailOrUsername, newPassword) {
     try {
-        const emailQuery = query(collection(db, "User"), where("Email", "==", emailOrUsername.toLowerCase()));
+        const input = emailOrUsername.trim().toLowerCase();
+
+        // Try to find by email (case-insensitive)
+        const emailQuery = query(collection(db, "User"), where("Email", "==", input));
         let querySnapshot = await getDocs(emailQuery);
 
-        // If not found by email, try by username
+        // If not found by email, try by username (case-insensitive)
         if (querySnapshot.empty) {
-            const usernameQuery = query(collection(db, "User"), where("Username", "==", emailOrUsername.toLowerCase()));
-            querySnapshot = await getDocs(usernameQuery);
+            const allUsers = await getDocs(collection(db, "User"));
+            const match = allUsers.docs.find(
+                doc => doc.data().Username && doc.data().Username.trim().toLowerCase() === input
+            );
+            if (match) {
+                querySnapshot = { docs: [match] };
+            }
         }
 
-        if (querySnapshot.empty) {
+        if (querySnapshot.empty || querySnapshot.docs.length === 0) {
             console.log("No user found for email/username:", emailOrUsername);
             return { success: false, message: "User not found." };
         }

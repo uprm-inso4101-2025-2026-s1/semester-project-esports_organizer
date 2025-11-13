@@ -11,7 +11,7 @@ const db = admin.firestore();
 
 async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
-  const ref = db.doc(`tournaments/${tid}/derived/bracket`);
+  const ref = db.doc(`Tournaments/${tid}/derived/bracket`);
   const snap = await ref.get();
   if (!snap.exists) {
     console.error('Derived bracket doc not found');

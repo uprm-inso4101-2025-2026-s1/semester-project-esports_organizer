@@ -4,6 +4,7 @@ import Modal from "../shared/Modal";
 import "../shared/Modal.css";
 import { Link, useNavigate } from "react-router-dom";
 import Label from "../shared/Label";
+import { loginUser } from "../../services/loginUser"; 
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -32,11 +33,18 @@ function LoginForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    console.log("Signup data:", form);
+    // Use loginUser to check credentials
+    const result = await loginUser(form.emailOrUsername, form.password);
+    if (!result.success) {
+      setErrors({ form: result.error });
+      return;
+    }
+
+    // Successful login
     navigate("/homepage");
   };
 
@@ -81,6 +89,7 @@ function LoginForm() {
           required
         />
         {errors.password && <p className="error">{errors.password}</p>}
+        {errors.form && <p className="error">{errors.form}</p>}
       </form>
 
       <div id="forgotPassword">
