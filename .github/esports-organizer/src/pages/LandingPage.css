@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  background: var(--gradient-landing);
+  background: var(--gradient);
   font-family: var(--font-body);
   font-weight: 400; /* not bold by default */
   color: var(--primary);
