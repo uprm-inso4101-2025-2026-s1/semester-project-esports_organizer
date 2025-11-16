@@ -1,0 +1,194 @@
+= Email Notification System Requirements Specification & Analysis
+Oscar Santana – Esports Organizer Project  
+Team: Events & Notifications  
+INSO4101-080
+
+== 1. Informative / Prescription Documentation
+
+=== 1.1 Direct Users
+- Esports players  
+- Tournament participants
+
+=== 1.2 Indirect Users
+- Community admins  
+- Tournament organizers
+
+=== 1.3 External Systems
+- SMTP providers (Gmail, Outlook, institutional mail)
+
+=== 1.4 Needs / Ideas
+Users require reliable email notifications regarding events, tournaments, reminders, and security verification.  
+The system must:
+- Support all email domains (not only Gmail)
+- Produce timely and consistent notifications
+- Provide reusable templates
+- Implement email verification for security
+
+=== 1.5 Current Situation
+- A working email adapter exists (SMTP + retry + rate limiting).
+- Email templates exist but are not connected to triggers.
+- No end-to-end notification flow implemented.
+- Requirements documentation did not previously exist.
+
+=== 1.6 Relevant Domain Concepts
+- Events, tournaments, matches  
+- User profiles & email verification  
+- Admin announcements  
+- Deadlines & scheduled reminders  
+- Rate limits, backoff retries  
+- HTML email templates
+
+=== 1.7 Scope & Span
+This document specifies **ONLY** the behavior, flows, and constraints of the **Email Notification System**.  
+It does *not* define UI, database schema, or general account logic except where emails require it.
+
+=== 1.8 Assumptions & Dependencies
+- SMTP provider reachable and accepts valid credentials  
+- Users provide functional emails  
+- Scheduled task system exists for reminders  
+- User model exposes email, username, verification status  
+- Event/tournament models are available  
+- System logs delivery failures
+
+=== 1.9 Implicit / Derivative Goals
+- Emails must be professional, mobile-friendly, and secure  
+- Must not leak private data  
+- Notification behavior must be consistent across all features
+
+=== 1.10 Rough Sketch (Primary Notification Triggers)
+1. User creates account → send verification email  
+2. User joins event/tournament → send confirmation  
+3. Event/tournament approaching → send reminder  
+4. Tournament brackets updated → send summary  
+5. Admin posts announcement → notify all members  
+6. Event canceled → notify participants  
+7. Match results → send recap  
+8. Registration denied (event full, canceled, or past)
+
+=== 1.11 Terminology
+- **Notification Trigger** – Event that causes email sending  
+- **Email Template** – HTML + plaintext files  
+- **User Profile** – Contains email & verification status  
+- **SMTP Provider** – External mail service  
+- **Backoff Retry** – Increasing delay between retries  
+- **Rate Limit** – Max emails per user per hour
+
+'''
+
+== 2. Functional Requirements (FR)
+
+=== 2.1 FR1 – Email Sending Core
+- FR1.1: System sends an email when a notification trigger occurs  
+- FR1.2: Supports SMTP providers across all domains  
+- FR1.3: Uses HTML + plaintext fallback templates  
+- FR1.4: Logs all sent, failed, or rate-limited messages
+
+=== 2.2 FR2 – Verification Email Flow
+- FR2.1: Send verification email at account creation  
+- FR2.2: Include tokenized unique URL  
+- FR2.3: Validate token and mark user as *verified*  
+- FR2.4: Tokens must expire (final duration TBD)  
+- FR2.5: Unverified users cannot access account features
+
+=== 2.3 FR3 – Event & Tournament Notifications
+- FR3.1: Notify users upon joining an event  
+- FR3.2: Notify when event becomes full  
+- FR3.3: Send reminders before event (e.g., 24h, 1h)  
+- FR3.4: Notify all participants if event is canceled  
+- FR3.5: Confirm tournament registration  
+- FR3.6: Notify users about new brackets  
+- FR3.7: Notify users about match times and updates  
+- FR3.8: Notify users of tournament finals & winners
+
+=== 2.4 FR4 – Admin & Community Notifications
+- FR4.1: Admins can broadcast announcements  
+- FR4.2: Admin announcements must obey rate limits
+
+=== 2.5 FR5 – Retry & Failure Logic
+- FR5.1: Use exponential backoff with ≥ 3 retry attempts  
+- FR5.2: Stop retrying on fatal SMTP errors  
+- FR5.3: Log all retry attempts and failures
+
+=== 2.6 FR6 – Rate Limiting
+- FR6.1: Limit = 8 emails per user per hour *(final number TBD)*  
+- FR6.2: Excess emails must be queued or rejected  
+- FR6.3: Log all rate-limit violations
+
+=== 2.7 FR7 – Template Personalization
+- FR7.1: Templates must insert username, event name, metadata  
+- FR7.2: Support reusable partials (header, footer)
+
+'''
+
+== 3. Non-Functional Requirements (NFR)
+
+=== 3.1 NFR1 – Performance
+- NFR1.1: Emails queued within 200 ms of trigger  
+- NFR1.2: Reminders delivered within ±2 minutes of scheduled time
+
+=== 3.2 NFR2 – Reliability
+- NFR2.1: System tolerates SMTP outages up to 30 minutes  
+- NFR2.2: Guarantees delivery or clear failure state  
+- NFR2.3: Retry logic ensures 99–100% delivery under normal conditions
+
+=== 3.3 NFR3 – Security
+- NFR3.1: Tokens must be cryptographically secure & unpredictable  
+- NFR3.2: Tokens must expire and be single-use  
+- NFR3.3: System must not reveal if an email is registered  
+- NFR3.4: All verification URLs must use HTTPS  
+- NFR3.5: No credentials stored in repository
+
+=== 3.4 NFR4 – Usability
+- NFR4.1: Emails must be mobile-friendly  
+- NFR4.2: Templates must clearly define the sender  
+- NFR4.3: Verification links must be easily noticeable
+
+=== 3.5 NFR5 – Scalability
+- NFR5.1: Support ≥100 emails per hour  
+- NFR5.2: Handle multiple tournaments at once without failure
+
+'''
+
+== 4. Requirements Analysis
+
+=== 4.1 Inconsistencies
+- Rate-limit numbers not final  
+- Reminder timing conflicts may occur under load
+
+=== 4.2 Conflicts
+- Admin announcements vs. global rate limit  
+- Reminder scheduler vs. email queue capacity
+
+=== 4.3 Incompleteness
+- Token expiration time TBD  
+- Exact rate limit TBD  
+- Multi-language support TBD
+
+=== 4.4 Validation Plan
+Requirements will be validated with:
+- User Profiles team  
+- Database team  
+- Events & Notifications team  
+
+=== 4.5 Traceability
+Each requirement will map to:
+- A trigger  
+- A template  
+- An E2E test  
+- A specific email adapter function
+
+=== 4.6 Verification
+Tests must verify:
+- Verification flow  
+- 8+ notification types  
+- Rate limiting behavior  
+- Retry & exponential backoff  
+- Failure modes (SMTP down, invalid emails)  
+- Reminder scheduling correctness
+
+'''
+
+== 5. Logbook Entry
+
+| Section Name | Member | Added or Modified | Description  
+| Lecture-Topic-Tasks | Oscar Santana | Added | Full requirements specification and analysis document for Email Notification System.
