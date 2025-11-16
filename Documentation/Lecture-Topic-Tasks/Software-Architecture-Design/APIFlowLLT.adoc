@@ -89,7 +89,8 @@ updates, ensuring data integrity and responsiveness.
 
 *Diagram: API Integration Flow Diagram (Conceptual Layout)*
 
-image:media/image1.png[media/image1,width=601,height=521]
+//TODO
+//image:media/image1.png[media/image1,width=601,height=521]
 
 *Example Scenario*
 
