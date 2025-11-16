@@ -207,7 +207,10 @@ export default class Post {
      * Decreases the number of likes of the post by 1
      */
     removeLike(){
-        this.likes -= 1;
+        
+        if (this.likes > 0){
+            this.likes -= 1;
+        } 
     }
     /**
      * Generates a random ID for the post
