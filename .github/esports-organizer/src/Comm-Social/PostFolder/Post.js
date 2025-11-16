@@ -27,14 +27,14 @@ export default class Post {
      */
     constructor (data){
 
-        this.content = data.content;
-        this.author = data.author;
-        this.authorUsername = data.authorUsername;
+        this.content = data?.content ?? "";
+        this.author = data?.author ?? null;
+        this.authorUsername = data?.authorUsername ?? null;
         this.date = new Date();
-        this.community = data.community;
+        this.community = data?.community ?? null;
         this.likes = 0;
         this.comments = [];
-        this.id = Post.generateId();
+        this.id = Post.#generateId();
         this.state = "Draft"; 
     } 
 
@@ -114,12 +114,6 @@ export default class Post {
      */
     setAuthorUsername(username){
         this.authorUsername = username;
-    }
-    /**
-     * @param {string} id - Sets the ID of the post
-     */
-    setId(id){
-        this.id = id;
     }
     /** 
      * Getters for the post
@@ -218,8 +212,9 @@ export default class Post {
     /**
      * Generates a random ID for the post
      * @returns {string} - The generated ID
+     * Use encapsulation to prevent external access and use only in the class.
      */
-    static generateId(){
+    static #generateId(){
         return '_' + Math.random().toString(36).slice(2, 9);
     }
    
