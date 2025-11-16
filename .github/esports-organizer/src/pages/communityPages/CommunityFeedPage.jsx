@@ -6,6 +6,7 @@ import TournamentCard from "../../components/shared/TournamentCard.jsx";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
+import CreateCommunityModalComponent from "../../components/CreateCommunityModal/CreateCommunityModalComponent.jsx";
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -325,6 +326,7 @@ export default function CommunityFeedPage() {
   const [isLoggedIn] = useState(true); // For testing only, change later
   const [posts, setPosts] = useState(mockPosts);
   const { communityId } = useParams();
+  const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
   console.log("Viewing community:", communityId);
 
   const handleNavigation = (path) => {
@@ -335,7 +337,12 @@ export default function CommunityFeedPage() {
     console.log(`Navigating to community ${communityId}`);
   };
   const handleCreateCommunity = () => {
-    console.log("Create community clicked");
+    setIsCreateCommunityModalOpen(true);
+  };
+
+  const handleSubmitCommunity = (communityData)=>{
+  //   TODO add new community to backend here\
+    setIsCreateCommunityModalOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -352,11 +359,11 @@ export default function CommunityFeedPage() {
   // Handling button clicks
 
   const handleToggleSaved = (tournamentId, isSaved) => {
-    //proper functionality added in the future
+    // TODO proper functionality added in the future
     console.log(`${isSaved ? "Unsaving" : "Saving"} tournament:`, tournamentId);
   };
   const handleJoinEvent = (tournamentTitle) => {
-    //proper functionality added later
+    // TODO proper functionality added later
     console.log(`${isSaved ? "Unsaving" : "Saving"} tournament:`, tournamentId);
   };
 
@@ -466,6 +473,12 @@ export default function CommunityFeedPage() {
           />
         </aside>
       </div>
+    {/*  Modal rendering*/}
+      {isCreateCommunityModalOpen && (
+          <CreateCommunityModalComponent onClose={()=>setIsCreateCommunityModalOpen(false)}
+                                         onSubmit={handleSubmitCommunity}
+                                         />
+      )}
     </div>
   );
 }

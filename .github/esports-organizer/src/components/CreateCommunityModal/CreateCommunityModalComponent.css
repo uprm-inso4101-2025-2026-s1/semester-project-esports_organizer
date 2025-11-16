@@ -1,0 +1,157 @@
+.modal-background {
+  position: fixed;
+  inset: 0; /* (top, right, bottom, left = 0) */
+  background-color: rgba(10, 16, 28, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-content {
+  background: #1e293b; /* Dark slate color from reference */
+  color: white;
+  padding: 28px 32px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: modal-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  font-family: var(--font-heading, "Arial", sans-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: #f1f5f9; /* Lighter text for title */
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8; /* Grayish color */
+  font-size: 28px;
+  font-weight: 300;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: #f1f5f9;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #cbd5e1; /* Light gray for labels */
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  background: #334155; /* Darker input background */
+  border: 1px solid #475569;
+  color: #f1f5f9;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: var(--font-body, "Arial", sans-serif);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--link); /* Use platform's link color */
+  box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.3); /* Based on --link color */
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #334155;
+}
+
+.modal-btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-btn.cancel {
+  background: #475569;
+  color: #f1f5f9;
+}
+
+.modal-btn.cancel:hover:not(:disabled) {
+  background: #64748b;
+}
+
+.modal-btn.create {
+  background: var(--link);
+  color: white;
+}
+
+.modal-btn.create:hover:not(:disabled) {
+  background: var(--hover);
+  transform: translateY(-1px);
+}
+
+.modal-btn:disabled {
+  background: #475569;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
