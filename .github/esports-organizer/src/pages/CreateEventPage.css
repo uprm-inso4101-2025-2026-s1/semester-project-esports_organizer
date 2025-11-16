@@ -1,0 +1,779 @@
+/* Create Event Page Styles */
+.create-event-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  color: #333;
+  font-family: var(--font-body);
+  padding-top: 88px;
+}
+
+/* ==========================================================================
+   NAVIGATION HEADER
+   ========================================================================== */
+
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1b2a41;
+  z-index: 1000;
+  border-bottom: none;
+  padding-bottom: 8px;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .nav-header {
+    background: #1A0D0D !important;
+  }
+
+  .nav-link:hover {
+    background: #B28D8D !important;
+  }
+
+  .nav-link.active::after {
+    background: #B28D8D !important;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: #B28D8D !important;
+  }
+
+  .nav-indicator {
+    background: #B28D8D !important;
+  }
+
+  .back-button {
+    background: #D72638 !important;
+  }
+
+  .back-button:hover {
+    background: #B01E2E !important;
+  }
+
+  .form-input:focus,
+  .form-select:focus {
+    border-color: #B28D8D !important;
+    box-shadow: 0 0 0 3px rgba(178, 141, 141, 0.1) !important;
+  }
+
+
+  .create-button {
+    background: #D72638 !important;
+  }
+
+  .create-button:hover {
+    background: #B01E2E !important;
+    box-shadow: 0 4px 12px rgba(215, 38, 56, 0.3) !important;
+  }
+
+  .create-button:active {
+    background: #B01E2E !important;
+  }
+
+  .nav-actions .btn {
+    background: #1A0D0D !important;
+  }
+
+  .static-time-picker-container .MuiButton-root.MuiButton-textPrimary {
+    background: #D72638 !important;
+    color: white !important;
+  }
+
+  .static-time-picker-container .MuiButton-root.MuiButton-textPrimary:hover {
+    background: #B01E2E !important;
+  }
+
+  /* Time picker text colors - white text */
+  .static-time-picker-container .MuiPickersToolbar-content {
+    color: white !important;
+  }
+
+  .static-time-picker-container .MuiPickersClockNumber-root {
+    color: white !important;
+  }
+
+  .static-time-picker-container .MuiPickersClock-meridiemText {
+    color: white !important;
+  }
+
+  .static-time-picker-container .MuiButton-root {
+    color: white !important;
+  }
+
+  /* Clock elements - change all blue elements to D72638 with more specific selectors */
+  .static-time-picker-container .MuiPickersClock-pin,
+  .static-time-picker-container .MuiPickersClock-pin * {
+    background: #D72638 !important;
+    background-color: #D72638 !important;
+  }
+
+  .static-time-picker-container .MuiPickersClock-pointer,
+  .static-time-picker-container .MuiPickersClock-pointer * {
+    background: #D72638 !important;
+    background-color: #D72638 !important;
+  }
+
+  .static-time-picker-container .MuiPickersClock-thumb,
+  .static-time-picker-container .MuiPickersClock-thumb * {
+    background: #D72638 !important;
+    background-color: #D72638 !important;
+    border: 3px solid white !important;
+  }
+
+  .static-time-picker-container .MuiPickersClockNumber-root.Mui-selected,
+  .static-time-picker-container .MuiPickersClockNumber-root.Mui-selected *,
+  .static-time-picker-container .MuiPickersClockNumber-root.MuiPickersClockNumber-selected,
+  .static-time-picker-container .MuiPickersClockNumber-root.MuiPickersClockNumber-selected * {
+    background: #D72638 !important;
+    background-color: #D72638 !important;
+    color: white !important;
+  }
+
+  .static-time-picker-container .MuiPickersClock-tick.MuiPickersClock-tickLarge,
+  .static-time-picker-container .MuiPickersClock-tick.MuiPickersClock-tickLarge * {
+    background: #D72638 !important;
+    background-color: #D72638 !important;
+  }
+
+  /* Force override any remaining blue elements */
+  .static-time-picker-container *[style*="blue"],
+  .static-time-picker-container *[style*="#4a90e2"],
+  .static-time-picker-container *[style*="#1976d2"],
+  .static-time-picker-container *[style*="#2196f3"] {
+    background: #D72638 !important;
+    background-color: #D72638 !important;
+    color: white !important;
+  }
+
+  .static-time-picker-container .MuiPickersClockNumber-root:hover {
+    background: rgba(215, 38, 56, 0.1) !important;
+  }
+
+  .static-time-picker-container .MuiPickersClockNumber-root.Mui-selected:hover {
+    background: #D72638 !important;
+  }
+
+  /* Time picker custom buttons */
+  .time-picker-accept {
+    background: #D72638 !important;
+    color: white !important;
+    border: 2px solid #D72638 !important;
+  }
+
+  .time-picker-accept:hover {
+    background: #B01E2E !important;
+    border-color: #B01E2E !important;
+  }
+
+  .time-picker-cancel {
+    background: transparent !important;
+    color: #D72638 !important;
+    border: 2px solid #D72638 !important;
+  }
+
+  .time-picker-cancel:hover {
+    background: rgba(215, 38, 56, 0.1) !important;
+    color: #D72638 !important;
+  }
+}
+
+.nav-container {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover {
+  opacity: 0.8;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: white;
+  background: #7d5ba6;
+  border-radius: 6px;
+}
+
+.nav-link.active {
+  color: white;
+  background: none;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 3px;
+  background: #7d5ba6;
+  border-radius: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-actions .btn {
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  background: #1b2a41;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-actions .btn p {
+  font-size: 16px !important;
+  font-family: var(--font-heading) !important;
+}
+
+.nav-actions .btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
+  height: 16px;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 2px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger-open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 88px;
+  left: 0;
+  right: 0;
+  background: #1b2a41;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 999;
+}
+
+.mobile-nav-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0.75rem 0;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: #7d5ba6;
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background: #7d5ba6;
+  border-radius: 2px;
+}
+
+/* Header */
+.create-event-header {
+  background: transparent;
+  padding: 2rem 0;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.back-button {
+  background: #4a90e2;
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #7d5ba6;
+  color: white;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  font-family: var(--font-heading);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Form Section */
+.create-event-form-section {
+  padding: 3rem 0;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.create-event-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  background: white;
+  color: #333;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #7d5ba6;
+  box-shadow: 0 0 0 3px rgba(125, 91, 166, 0.1);
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+/* Time Picker Wrapper */
+.time-picker-wrapper {
+  position: relative;
+}
+
+.time-input {
+  cursor: pointer;
+}
+
+/* Static Time Picker Styles */
+.static-time-picker-container {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  min-width: 350px;
+}
+
+.static-time-picker-container .MuiStaticTimePicker-root {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+  max-width: 320px;
+  width: 100%;
+}
+
+.static-time-picker-container .MuiPickersToolbar-root {
+  background: white;
+  color: #333;
+  border-radius: 0;
+  padding: 1rem;
+  min-height: 60px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.static-time-picker-container .MuiPickersToolbar-content {
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+
+.static-time-picker-container .MuiPickersClock-root {
+  background: white;
+  padding: 1rem;
+}
+
+.static-time-picker-container .MuiPickersClock-pin {
+  background: #7d5ba6;
+  width: 8px;
+  height: 8px;
+}
+
+.static-time-picker-container .MuiPickersClock-pointer {
+  background: #7d5ba6;
+  width: 3px;
+}
+
+.static-time-picker-container .MuiPickersClock-thumb {
+  background: #7d5ba6;
+  border: 3px solid white;
+  width: 12px;
+  height: 12px;
+  box-shadow: 0 2px 8px rgba(125, 91, 166, 0.3);
+}
+
+.static-time-picker-container .MuiPickersClock-meridiemText {
+  color: #333;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.static-time-picker-container .MuiPickersActionBar-root {
+  background: #f5f5f5;
+  border-radius: 0;
+  padding: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.static-time-picker-container .MuiButton-root {
+  color: #7d5ba6;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  text-transform: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.static-time-picker-container .MuiButton-root:hover {
+  background: rgba(125, 91, 166, 0.1);
+  transform: translateY(-1px);
+}
+
+.static-time-picker-container .MuiButton-root.MuiButton-textPrimary {
+  background: #4a90e2;
+  color: white;
+}
+
+.static-time-picker-container .MuiButton-root.MuiButton-textPrimary:hover {
+  background: #357abd;
+}
+
+/* Clock numbers styling */
+.static-time-picker-container .MuiPickersClockNumber-root {
+  color: #333;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.static-time-picker-container .MuiPickersClockNumber-root.Mui-selected {
+  color: white;
+  background: #7d5ba6;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clock ticks styling */
+.static-time-picker-container .MuiPickersClock-tick {
+  background: #e0e0e0;
+}
+
+.static-time-picker-container .MuiPickersClock-tick.MuiPickersClock-tickLarge {
+  background: #7d5ba6;
+  width: 2px;
+}
+
+/* Custom Time Picker Actions */
+.time-picker-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+}
+
+.time-picker-cancel,
+.time-picker-accept {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.time-picker-cancel {
+  background: transparent;
+  color: #666;
+  border: 1px solid #e0e0e0;
+}
+
+.time-picker-cancel:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.time-picker-accept {
+  background: #4a90e2;
+  color: white;
+}
+
+.time-picker-accept:hover {
+  background: #357abd;
+  transform: translateY(-1px);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.cancel-button {
+  background: transparent;
+  border: 2px solid #e0e0e0;
+  color: #666;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  border-color: #999;
+  color: #333;
+}
+
+.create-button {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-button:hover {
+  background: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.create-button:active {
+  background: #7d5ba6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .form-container {
+    padding: 0 1rem;
+  }
+
+  .create-event-form {
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .create-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .create-event-form {
+    padding: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}

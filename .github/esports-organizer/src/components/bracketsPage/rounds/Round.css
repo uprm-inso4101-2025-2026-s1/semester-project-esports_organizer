@@ -1,0 +1,21 @@
+.round-bar {
+  display: flex;
+  gap: 0px;
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0 0 0;
+}
+
+.round-label {
+  background: var(--container);
+  color: #fff;
+  font-size: 1.0rem;
+  font-weight: 500;
+  padding: 10px 60px;
+  border-radius: 0;
+  text-align: center;
+  min-width: 120px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 0px rgba(0, 0, 0, 0.2);
+}

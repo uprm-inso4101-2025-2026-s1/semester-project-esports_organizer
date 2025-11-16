@@ -1,0 +1,31 @@
+.round-bar-right {
+  margin-right: 45px;
+}
+.round-bar-left {
+  margin-left: 45px;
+}
+.round-bar-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px
+}
+
+.round-bar-left,
+.round-bar-right {
+
+  min-width: 0;
+}
+
+.round-bar-right {
+  min-width: 0;
+}
+
+.round-bar-center {
+  flex: 0 0 180px;
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  min-width: 0;
+}

@@ -1,0 +1,147 @@
+.auth-page {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--gradient);
+}
+
+/* Layout login/signup */
+.auth-page.with-greetings {
+  flex-direction: row;
+}
+
+/* Layout AccountRecovery */
+.auth-page.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.greetings-section {
+  color: white;
+  flex: 1 1 45%;
+  min-width: 350px;
+  padding: 3% 0;
+  background: var(--primary);
+  border-radius: 0 19px 19px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: space-around;
+  align-items: center;
+  align-items: stretch;
+}
+
+.greetings-section h1 {
+  text-align: center;
+}
+
+.form-section {
+  flex: 1 1 55%;
+  min-width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Carrousel Rules */
+.image-carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  align-items: center;
+  height: 40vh;
+  width: 100%;
+  background: var(--container);
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.image-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.image-carousel-track {
+  display: flex;
+  width: max-content;
+  gap: 30px;
+  animation: scroll 100s linear infinite;
+}
+
+.image-carousel:hover .image-carousel-track {
+  animation-play-state: paused;
+  animation: none;
+}
+.image-carousel:hover .image-carousel-track {
+  transform: translateX(0) !important;
+  width: max-content;
+}
+
+.image-carousel-container {
+  flex-shrink: 0;
+  background-color: transparent;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+.image-carousel-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.image-carousel-container:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.01);
+}
+
+/* Carrousel Animation */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Media Querries */
+@media (max-width: 900px) {
+  .auth-page.with-greetings {
+    flex-direction: column;
+  }
+
+  .greetings-section {
+    display: none;
+  }
+
+  .form-section {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    padding: 2%;
+  }
+
+  .greetings-section {
+    padding: 20px 0;
+  }
+
+  .image-carousel {
+    height: 30vh;
+  }
+
+  .image-carousel-track {
+    animation: scroll 40s linear infinite;
+  }
+}

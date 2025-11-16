@@ -1,0 +1,138 @@
+.event-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 260px; /* don't grow, don't shrink, 260px basis */
+  width: 260px; /* for safety/older browsers */
+  background: var(--light-container);
+  color: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Header just holds the badge */
+.ecard__header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.ecard__badge {
+  align-self: flex-start;
+  background: #7d5ba6;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.4px;
+}
+
+.ecard__badge--placeholder {
+  visibility: hidden; /* keeps the space, not the visuals */
+}
+
+/* NEW: Media block for the image (between badge and title) */
+.ecard__media {
+  height: 140px; /* tweak as needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Body (title right below the image) */
+.ecard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  
+}
+
+.ecard__title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+/* Meta list */
+.ecard__meta-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.ecard__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ecard__icon-wrap {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #cfe9ff;
+}
+
+.ecard__meta-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ecard__meta-text--accent {
+  color: #6cf06c;
+  font-weight: 700;
+}
+
+/* Footer */
+.ecard__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  padding-top: 8px;
+}
+
+.ecard__join-btn {
+  flex: 1;
+  background: var(--light-link);
+  color: #fff;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.ecard__join-btn:hover {
+  filter: brightness(1.05);
+}
+
+.ecard__save-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #112138;
+  color: #a7c7ff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.ecard__save-btn.is-active {
+  color: #ffffff;
+}

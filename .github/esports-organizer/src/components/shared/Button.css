@@ -1,0 +1,71 @@
+.btn {
+  display: flex;
+  box-sizing: border-box;
+  padding: 2%;
+  height: 53px;
+  width: 100%;
+  aspect-ratio: 5/2;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  overflow-wrap: break-word;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.pstyle {
+  font-family: "Ubuntu", sans-serif;
+  font-size: clamp(18px, 1vw, 23px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  white-space: nowrap;
+  text-align: center; 
+  overflow: hidden;
+  text-transform: ellipsis;
+}
+
+button {
+  border: 1px solid transparent;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.btn.primary {
+  background: var(--link);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: var(--hover);
+}
+
+.btn.primary:active {
+  background: var(--hover);
+  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
+}
+
+.btn.primary:disabled {
+  background: #8f8f8f;
+  color: #505256;
+}
+
+.btn.secondary {
+  background: #3E4C59;
+  color: white;
+}
+
+.btn.secondary:hover {
+  background:  var(--hover);
+}
+
+.btn.secondary:active {
+  background: var(--hover);
+  box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.4) inset;
+}
+
+.btn.secondary:disabled {
+  background: #4e4e4e;
+  color: black;
+}

@@ -1,0 +1,181 @@
+.brackets-tournament-page {
+    background-color: var(--primary);
+    min-height: 100vh;
+    padding-top: 88px;
+}
+
+.brackets-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px 50px;
+    padding-right: 0;
+    padding-left: 50px;
+    
+}
+
+.column-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    padding:80px 2px 50px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0px;
+}
+.column-3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 50px 50px;
+    padding-left: 0;
+    padding-right: 0px;
+}
+
+.column-4{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 150px 30px 50px;
+    padding-left: 0 !important;
+    margin-right: -12px;
+    padding-right: 27px;
+}
+.columns-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: auto;
+  margin-left: -50px;
+  
+}
+
+.lines{
+    padding-top: 40px;
+    padding-left: 0px;
+}
+.lines2{
+    padding-top: 105px;
+    padding-left: 0px;
+}
+.lines3 {
+    padding-top: 120px;
+    padding-left: 0px;
+}
+.lines3-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.lines-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+}
+
+.lines4-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 150px;
+}
+.lines4{
+    padding-top: 5px;
+    padding-left: 0px;
+}
+
+.column-5 {
+    display: flex;
+    flex-direction: column;
+    gap: 200px;
+    padding: 120px 2px 50px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
+    padding-right:20px;
+    margin-left: -35px;
+}
+.column-6 {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    padding: 80px 2px 50px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0 !important;
+    margin-right: -12px;
+}
+.column-7 {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px 50px;
+    padding-right: 0 !important;
+    margin-left: -15px;
+}
+.lines5-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+.lines5{
+    padding-top: 155px;
+    padding-left: 0px;
+}
+.lines6-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+.lines6{
+    padding-top: 120px;
+    padding-left: 0px;
+}
+.lines7-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+.lines7{
+    padding-top: 40px;
+    padding-left: 30px;
+    padding-right: 10px;
+}
+.lines8-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+.lines8{
+    padding-top: 100px;
+    padding-left: 20px;
+}
+.winnersline {
+  padding-top: 10px;
+  padding-bottom: 0px;
+}

@@ -1,0 +1,248 @@
+= Bracket Tournament Runner Documentation
+:toc:
+:toclevels: 3
+:sectnums:
+
+== Overview
+
+The `runBracket` function implements a single-elimination bracket tournament system that processes teams through multiple rounds until a champion is determined.
+
+== Function Signature
+
+[source,javascript]
+----
+export function runBracket(brackets)
+----
+
+=== Parameters
+
+* `brackets` (`Array<Array<Team>>`): A 2D array containing team objects organized in brackets
+** Each team object must have `name` and `score` properties
+** The array structure supports multiple brackets that will be flattened
+
+=== Returns
+
+* `Array<Team>`: Returns an array of teams sorted by their elimination order, with the champion as the last element
+
+== Dependencies
+
+=== Required Team Structure
+
+Team objects must implement the following interface:
+
+[source,javascript]
+----
+interface Team {
+    name: string;
+    score: number;
+    // Additional properties exist, but are not required for this function
+}
+----
+
+== Function Logic
+
+=== Input Validation
+
+The function performs the following validations:
+
+1. *Empty Array Check*: Verifies the brackets contain teams
+2. *Minimum Team Requirement*: Ensures at least 2 teams are present
+3. *Null/Undefined Check*: Validates all team objects are properly instantiated
+
+=== Tournament Flow
+
+.The tournament follows this process:
+[arabic]
+. Flatten the 2D brackets array into a single team list
+. Initialize round counter and team tracking variables
+. While more than one team remains:
+.. Process teams in pairs (team i vs team i+1)
+.. Compare scores to determine winners
+.. Handle tie-breakers randomly
+.. Advance winners to next round
+.. Track eliminated teams
+. Continue until one champion remains
+
+=== Round Processing
+
+For each round:
+
+* Teams are processed in sequential pairs
+* If an odd number of teams exists, the last team advances automatically
+* Winners are determined by score comparison
+* Winning teams receive a +1 score bonus (can be adjusted as needed)
+* Elimination order is tracked in `finalTeamList`
+
+=== Match Resolution Logic
+
+[cols="1,3"]
+|===
+| Scenario | Action
+
+| Team A score > Team B score
+| Team A advances, Team B eliminated
+| Team receives score bonus
+
+| Team A score < Team B score
+| Team B advances, Team A eliminated
+| Team receives score bonus
+
+| Scores are equal
+| Random selection determines winner
+| Both teams maintain original scores
+
+| Odd number of teams
+| Last team advances automatically
+| No score modification
+|===
+
+== Important Considerations
+
+=== Team Count Requirements
+
+* *Ideal*: Number of teams should be a power of two (2, 4, 8, 16, etc.)
+* *Non-power-of-two*: Some teams may receive byes in early rounds
+* *Minimum*: At least 2 teams required
+
+=== Score Modification
+
+* Winning teams receive a +1 score increment in each round they win
+* This creates a cumulative scoring effect throughout the tournament
+* Tie-breakers do not modify scores
+
+=== Output Order
+
+The returned array has specific ordering:
+
+* First elements: Teams eliminated in earliest rounds
+* Last element: Tournament champion
+* Elimination order is preserved within each round
+
+== Error Handling
+
+The function throws errors in these scenarios:
+
+[source,javascript]
+----
+// Not enough teams
+throw new Error("Not enough teams to run a tournament.");
+
+// Invalid team objects
+throw new Error("There are null or undefined team objects in the array.");
+----
+
+== Console Output
+
+The function provides detailed round-by-round console logging with the following format:
+
+.Round Header
+[source,text]
+----
+--- Round {roundNumber} ---
+----
+
+.Match Results
+[source,text]
+----
+{TeamA.name} vs {TeamB.name}
+{winnerTeam.name} wins with score {winnerTeam.score}
+----
+
+.Tie-Breaker Scenario (random selection, to be changed)
+[source,text]
+----
+{TeamA.name} vs {TeamB.name}
+Tie! Randomly selected {winnerTeam.name} as winner
+----
+
+.Bye Scenario
+[source,text]
+----
+{teamName} advances automatically (no opponent)
+----
+
+.Final Result
+[source,text]
+----
+Champion: {championTeam.name}
+----
+
+=== Complete Example Output
+
+[source,text]
+----
+--- Round 1 ---
+Los duros vs Los marcianos
+Los duros wins with score 85
+Los yanki vs Los monki
+Los monki wins with score 92
+Los solos vs Los lokos
+Tie! Randomly selected Los solos as winner
+
+--- Round 2 ---
+Los duros vs Los monki
+Los duros wins with score 86
+Los solos advances automatically (no opponent)
+
+--- Round 3 ---
+Los duros vs Los solos
+Los duros wins with score 87
+
+Champion: Los duros
+----
+
+=== Output Notes
+
+* Each round is clearly demarcated with header lines
+* All matchups are displayed before results
+* Winner announcements include the winning score
+* Tie-breakers are explicitly noted as random selections
+* Teams receiving byes are clearly identified
+* The tournament champion is prominently displayed at the end
+
+
+== Usage Example
+
+[source,javascript]
+----
+// Import the function
+import { runBracket } from './tournament.js';
+
+// Create sample brackets
+const brackets = [
+    [team1, team2, team3],
+    [team4, team5, team6]
+];
+
+// Run the tournament
+try {
+    const results = runBracket(brackets);
+    const champion = results[results.length - 1];
+    console.log(`Tournament champion: ${champion.name}`);
+} catch (error) {
+    console.error('Tournament failed:', error.message);
+}
+----
+
+== Testing Notes
+
+The commented code at the bottom shows testing patterns:
+
+* Team registration and confirmation
+* Event initialization
+* Bracket assignment
+* Result reporting
+* Comprehensive console output for debugging
+
+== Limitations and Future Improvements
+
+* *Tie-breaking*: Currently uses random selection - planned for enhancement
+* *Score System*: Simple numeric comparison - could support complex scoring algorithms
+* *Bracket Seeding*: No inherent seeding logic - relies on input ordering
+* *Performance*: Linear processing suitable for moderate team counts
+
+== See Also
+
+* `TournamentRegistration.js` - Team management and bracket assignment
+* `ResultReport.js` - Results processing and reporting
+* `team.js` - Team class definition and methods
