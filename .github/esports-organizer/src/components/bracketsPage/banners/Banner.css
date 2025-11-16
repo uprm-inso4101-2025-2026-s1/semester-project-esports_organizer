@@ -1,13 +1,15 @@
+/* ---------------------- */
+/* BASE (DESKTOP / LARGE) */
+/* ---------------------- */
+
 .banner-bottom-container {
     width: 100%;
     background: var(--container);
-    padding: 10px 18px;
+    padding: 16px 24px;
     box-sizing: border-box;
     border-radius: 0 0 8px 8px;
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
 .tournament-info-bar {
@@ -25,26 +27,32 @@
     align-items: flex-start;
     min-width: 120px;
 }
+
 .info-label {
     font-size: 0.95rem;
     font-weight: 600;
     color: #d3d3e0;
     margin-bottom: 2px;
 }
+
 .info-value {
     font-size: 1.05rem;
     font-weight: 700;
     color: #fff;
 }
+
 .host-group {
+    display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: auto;
 }
+
 .host-group .info-label {
     margin-bottom: 0;
     margin-right: 8px;
 }
+
 .host-box {
     background: var(--host-color);
     border-radius: 4px;
@@ -53,14 +61,6 @@
     color: #fff;
     font-size: 1.05rem;
     letter-spacing: 1px;
-}
-.banner-bottom-container {
-    width: 100%;
-    padding: 16px 24px;
-    box-sizing: border-box;
-    border-radius: 0 0 8px 8px;
-    color: #fff;
-    text-align: center;
 }
 
 .banner {
@@ -77,7 +77,6 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    border-radius: inherit inherit 0 0;
 }
 
 .game-photo-img {
@@ -87,6 +86,69 @@
     border-radius: inherit;
     background: #333;
     display: block;
-    margin: 0;
-    padding: 0;
+}
+
+
+/* ---------------------- */
+/* TABLET (<= 900px)      */
+/* ---------------------- */
+
+@media (max-width: 900px) {
+    .tournament-info-bar {
+        gap: 40px;
+    }
+
+    .info-group {
+        min-width: 100px;
+    }
+
+    .host-box {
+        padding: 4px 12px;
+        font-size: 1rem;
+    }
+
+    .game-photo-img {
+        height: 150px;
+    }
+}
+
+
+/* ---------------------- */
+/* MOBILE (<= 600px)      */
+/* ---------------------- */
+
+@media (max-width: 600px) {
+    .tournament-info-bar {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .info-group {
+        align-items: center;
+        min-width: unset;
+    }
+
+    .host-group {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .banner {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .game-photo-img {
+        height: 130px;
+    }
+
+    .info-label {
+        font-size: 0.85rem;
+    }
+
+    .info-value {
+        font-size: 0.95rem;
+    }
 }

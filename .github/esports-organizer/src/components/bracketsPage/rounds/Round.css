@@ -12,10 +12,11 @@
   color: #fff;
   font-size: 1.0rem;
   font-weight: 500;
-  padding: 10px 60px;
+  padding: 10px 6px;
   border-radius: 0;
   text-align: center;
   min-width: 120px;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 0px rgba(0, 0, 0, 0.2);
 }
+

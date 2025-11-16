@@ -3,14 +3,20 @@
     min-height: 100vh;
     padding-top: 88px;
 }
+.columns-row-wrapper{
+    overflow-x: auto;
+    width: 100%;  
 
+
+}
 .brackets-column {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 0 20px 50px;
+    padding: 30px 20px 50px;
     padding-right: 0;
     padding-left: 50px;
+
     
 }
 
@@ -18,7 +24,7 @@
     display: flex;
     flex-direction: column;
     gap: 100px;
-    padding:80px 2px 50px;
+    padding:40px 2px 50px;
     justify-content: center;
     align-items: center;
     padding-left: 0px;
@@ -28,9 +34,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 120px 50px 50px;
+    padding: 85px 50px 50px;
     padding-left: 0;
     padding-right: 0px;
+    gap: 100px;
 }
 
 .column-4{
@@ -38,31 +45,33 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 150px 30px 50px;
+    padding: 200px 30px 50px;
     padding-left: 0 !important;
     margin-right: -12px;
     padding-right: 27px;
+    gap: 20px;
 }
 .columns-row {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: flex-start;
   overflow-x: auto;
-  margin-left: -50px;
+  margin-left: clamp(0px, 10vw + 5%, 50%);
+
   
 }
 
 .lines{
-    padding-top: 40px;
+    padding-top: 170px;
     padding-left: 0px;
+    padding-right: 0;
 }
 .lines2{
     padding-top: 105px;
     padding-left: 0px;
 }
 .lines3 {
-    padding-top: 120px;
+    padding-top: 250px;
     padding-left: 0px;
 }
 .lines3-stack {
@@ -88,15 +97,15 @@
   padding-top: 150px;
 }
 .lines4{
-    padding-top: 5px;
+    padding-top: 140px;
     padding-left: 0px;
 }
 
 .column-5 {
     display: flex;
     flex-direction: column;
-    gap: 200px;
-    padding: 120px 2px 50px;
+    gap: 100px;
+    padding: 85px 2px 50px;
     justify-content: center;
     align-items: center;
     padding-left: 50px;
@@ -107,7 +116,7 @@
     display: flex;
     flex-direction: column;
     gap: 100px;
-    padding: 80px 2px 50px;
+    padding: 40px 2px 50px;
     justify-content: center;
     align-items: center;
     padding-left: 0 !important;
@@ -117,7 +126,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 0 20px 50px;
+    padding: 30px 20px 50px;
     padding-right: 0 !important;
     margin-left: -15px;
 }
@@ -131,7 +140,7 @@
   margin-right: -16px;
 }
 .lines5{
-    padding-top: 155px;
+    padding-top: 290px;
     padding-left: 0px;
 }
 .lines6-stack {
@@ -145,7 +154,7 @@
 }
 
 .lines6{
-    padding-top: 120px;
+    padding-top: 250px;
     padding-left: 0px;
 }
 .lines7-stack {
@@ -158,7 +167,7 @@
   margin-right: -16px;
 }
 .lines7{
-    padding-top: 40px;
+    padding-top: 170px;
     padding-left: 30px;
     padding-right: 10px;
 }
@@ -176,6 +185,6 @@
     padding-left: 20px;
 }
 .winnersline {
-  padding-top: 10px;
-  padding-bottom: 0px;
+    margin-top: -15px;
+    margin-bottom: -20px;
 }
