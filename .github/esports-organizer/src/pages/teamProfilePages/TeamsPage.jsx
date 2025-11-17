@@ -4,6 +4,7 @@ import Navbar from "../../components/shared/Navbar";
 import { TEAMS } from "../../data/teams";
 import "./TeamsPage.css";
 import "./TeamForms.css";
+import { assignUserRole } from "../../Roles/assignUserRole";
 
 function TeamModal({ title, children, onClose, footer }) {
   return (
@@ -36,6 +37,8 @@ export default function TeamsPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const uid = localStorage.getItem("uid");
 
   const filteredTeams = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -140,7 +143,21 @@ export default function TeamsPage() {
               <button
                 type="button"
                 className="team-modal__btn team-modal__btn--primary"
-                onClick={closeCreateModal}
+                onClick={async () => {closeCreateModal(); assignUserRole(uid,"Team Manager",{
+                  viewTournaments:true,
+                  createCommunities: true,
+                  canCreatePrivateTournaments: true,
+                  canCreatePublicTournaments:true,
+                  joinTournament:true,
+                  joinCommunities:true,
+                  joinTournamentwithTeam:true,
+                  editTeamProfile:true,
+                  editTeamRoster:true,
+                  invitePlayerstoTeam:true,
+                  assignTeamClasses:true,
+                  addPlayerToRoster:true,
+                  removePlayerFromRoster:true,
+                });}} 
               >
                 Create team
               </button>
