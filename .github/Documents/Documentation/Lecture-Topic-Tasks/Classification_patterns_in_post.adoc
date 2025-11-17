@@ -1,0 +1,39 @@
+= Classification patterns in post
+Juan L. Muñiz Ramos - November 5, 2025
+
+== What is going tobe used
+
+Creational patterns will be used, and factory methods will be used for post.
+
+== Why will Factory method be used for Post?
+
+* It helps us centralize normalization, 
+validation, and mapping of data.
+
+* Makes it easy to change how post are created.
+
+* Improves stability.
+
+* Can support new sources.
+
+== Factory method Diagram in post
+
+image::Classification_patterns_in_post.png[Factory Method Diagram for Post, 1947, 1047]
+
+== Explenation of the Diagrama
+
+* PostCreator - Represents the creator of the factory method. In this case, it would be the class that encapsulates the logic of the creation of the post.
+* PostCreator (CommunityFeedPage) - From CommunityFeedPage you call postCreator, to request the creation of a single post.
+* Post (post.js) - This is the class of the actual product. Where the constructors is included.
+* Post instance - Represents the created instance or object. In this place work() corresponds to the behavior that the instance can perform.
+
+== What does Work() mean in Post?
+
+it means  the operations that the produc performs on which the system acts.
+
+*	Constructor – Post(data) – Post creation
+*	toFireStore() - Serialize
+*	setPublicState() / setDrafState() – Change post status.
+*	setContetn(), setAuthor,setCommunity(), setAuthorUsername(), setDate(), setCurrentDate-mutators.
+*	addCoomment() / removeComments(), addLike()/ removeLike() – User interactions
+*	getContent(), getAuthor(), getDate(), getLikes(), getComments(), getId(), getState() – Getters.
