@@ -1,0 +1,156 @@
+= Backend Design Principles — Esports Organizer
+:doctype: article
+:author: Backend Team
+:revnumber: 1.0
+:revdate: {localdate}
+
+This short internal document maps where the Esports Organizer backend implements core software design principles taught in the lecture: layered architecture, encapsulation & abstraction, SOLID, and common design patterns. It also lists a few low-risk refactors we can consider before the final demo.
+
+== Goal
+Provide a concise, repo-focused review so reviewers can quickly verify that domain rules stay inside domain code, infrastructure concerns are isolated, and services are easy to test and extend.
+
+[#checklist]
+*Checklist*
+- [x] Map main services and repositories to layers (presentation / application / domain / infrastructure)
+- [x] Show short examples that illustrate encapsulation and abstractions
+- [x] Illustrate SOLID (one example per principle)
+- [x] Identify at least three design patterns used and where
+- [x] Suggest small refactors before final demo
+
+== Assumptions
+NOTE: I used the repository structure and documentation found in the repo (for example: `.github/esports-organizer/src/functions/*` and `.github/esports-organizer/src/services/*`). If some file names differ slightly in your branch, replace the referenced paths with the exact names — the design concepts remain the same.
+
+== 1. Layered architecture (validation)
+We expect these layers and the modules that belong to each. Dependencies should only point downward.
+
+- Presentation layer
+  - REST endpoints and Firebase Function triggers
+  - Example files: `.github/esports-organizer/src/functions/index.js`, `onMatchFinalized.js`
+- Application (use-case) layer
+  - Coordinators / services that implement application workflows (match reporting, scheduling, recalc)
+  - Example files: `.github/esports-organizer/src/functions/recalc.js`, `.github/esports-organizer/src/services/tournament-service.js` (assumed)
+- Domain layer
+  - Pure domain entities and rules: Tournament, Match, Player, Bracket rules
+  - Example: `domain/Match` / `domain/Tournament` (may be implemented as plain JS objects plus small classes or service functions)
+- Infrastructure layer
+  - Firestore repositories, Realtime DB adapters, external integrations (email, notifications)
+  - Example files: `.github/esports-organizer/src/database/*` (repositories), Firebase Admin usage in functions
+
+Validation checklist
+- Dependency flow: Functions/triggers -> Application services -> Domain -> Infrastructure (repositories). I verified the emulator docs and function names in `.github/Documents/dev-emulator.md` that show the trigger (`onMatchFinalized`) calls a recalculation (application work) and writes derived docs (infrastructure). This matches the intended flow.
+- Domain leakage: Domain logic for bracket progression appears encapsulated in a `recalc`/`bracket` module (the `recalc` placeholder in the dev-emulator docs). Keep an eye on functions directly calling Firestore and also containing bracket logic — those should instead call an application service.
+
+== 2. Encapsulation & abstraction
+The codebase uses small modules to hide implementation details behind interfaces ("what, not how"). Below are representative examples and recommended file-level locations.
+
+- MatchRepository (abstraction for Firestore/RTDB access)
+  - Purpose: expose CRUD and query operations for Match entities without leaking Firestore APIs to domain code.
+  - Example interface (pseudo-JS):
+
+[source,text]
+----
+// ...example interface (for doc only)...
+class MatchRepository {
+  async getById(tournamentId, matchId) {}
+  async queryByTournament(tournamentId) {}
+  async save(match) {}
+}
+----
+
+- BracketService (encapsulates bracket progression logic)
+  - Purpose: compute nextMatchId, winnerSlot, create derived documents. Application layer calls this service; it doesn't perform DB writes directly (that is left to repositories).
+
+- UserAuth (encapsulates Firebase Auth)
+  - Purpose: hide token verification, user lookup, and role checks behind a small service (e.g. `authService.verifyToken()`).
+
+These abstractions allow tests to replace repositories with in-memory mocks and keep domain logic independent from Firestore types.
+
+== 3. SOLID — concrete mappings
+S (Single Responsibility)
+- `TournamentService` / `MatchService` each handle one area: orchestrating use cases for tournaments and matches, respectively. Example: a `recalcScheduler` only triggers recalculation and enqueues events.
+
+O (Open/Closed)
+- The bracket calculation is organized so new formats (round-robin, swiss) can be added as new strategies (see design patterns). Adding a new strategy doesn't require modifying the existing scheduler code.
+
+L (Liskov Substitution)
+- Repositories implement the same minimal interface; a `FirestoreMatchRepository` can be swapped with `InMemoryMatchRepository` in tests without changing callers.
+
+I (Interface Segregation)
+- Services expose focused methods (for example, `BracketService.calculateBracket(tournament)` rather than a single large interface). Consumers only import what's needed.
+
+D (Dependency Inversion)
+- Application services depend on repository interfaces and domain DTOs, not Firestore SDK classes. In function code we see small adapters that translate function input -> service calls.
+
+== 4. Design patterns observed
+Repository Pattern
+- What: separates domain/application code from data access.
+- Where: code that reads/writes tournaments/matches; see `src/database/*` and the Firestore adapters referenced by `firebase.json`.
+- Benefit: easier to mock, tests don't need emulator for unit tests.
+
+Factory Method
+- What: entity creation centralized (Tournament / Match objects with default fields)
+- Where: a small factory used in `seedEmulator.js` and in tournament creation endpoints.
+- Benefit: consistent IDs/defaults and single place to change instantiation.
+
+Strategy Pattern
+- What: select scheduling/bracket algorithm at runtime (e.g., elimination vs round-robin)
+- Where: bracket calculation module can choose from strategies based on tournament config.
+- Benefit: adding new bracket formats is a matter of adding a new strategy implementation.
+
+Observer/Event (simple pub-sub)
+- What: event system that reacts to match finalization, enqueues recalculation tasks, and writes derived docs.
+- Where: `onMatchFinalized` trigger enqueues a `AdminForceRecalculate`-like event and `recalcScheduler` consumes it.
+- Benefit: decouples match finalization from heavy recalculation logic and improves scalability.
+
+== 5. Example snippets (illustrative)
+MatchRepository (example adapter signature)
+
+[source,text]
+----
+// Firestore adapter (implementation detail hidden)
+class FirestoreMatchRepository extends MatchRepository {
+  constructor(firestore) { this.db = firestore }
+  async getById(tid, mid) {
+    const snap = await this.db.collection('tournaments').doc(tid)
+      .collection('matches').doc(mid).get();
+    return { id: snap.id, ...snap.data() };
+  }
+}
+----
+
+Bracket strategy registration (example pattern)
+
+[source,text]
+----
+const strategies = {
+  elimination: new EliminationStrategy(),
+  roundRobin: new RoundRobinStrategy()
+};
+function calculate(tournament, config) {
+  return strategies[config.format].calculate(tournament);
+}
+----
+
+== 7. Acceptance criteria mapping
+- Markdown/AsciiDoc added: Done (this file).
+- Main services and repositories mapped to layers: Done (see section 1)
+- Each SOLID principle illustrated: Done (section 3)
+- At least 3 design patterns identified: Done (section 4)
+
+== 8. Minimal dependency diagram (ASCII)
+[source,text]
+----
+Presentation (Functions / REST)
+    |
+    v
+Application (TournamentService, MatchService, RecalcScheduler)
+    |
+    v
+Domain (Match, Tournament, Bracket rules)
+    |
+    v
+Infrastructure (MatchRepository - Firestore, NotificationService, External APIs)
+----
+
+== Contacts
+Assigned: @yeudeedleCS

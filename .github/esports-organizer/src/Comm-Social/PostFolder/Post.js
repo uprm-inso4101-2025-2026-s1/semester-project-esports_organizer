@@ -25,43 +25,38 @@ export default class Post {
      * Also the default state is always Draft when creating a post.
      * 
      */
+    constructor (data){
 
-    constructor (){
-
-        this.title = "";
-        this.content = "";
-        this.author = "";
+        this.content = data?.content ?? "";
+        this.author = data?.author ?? null;
+        this.authorUsername = data?.authorUsername ?? null;
         this.date = new Date();
-        this.community = "";
+        this.community = data?.community ?? null;
         this.likes = 0;
         this.comments = [];
-        this.id = Post.generateId();
-        this.state = "Draft"; 
-
-    }
-
-    constructor (title, content, author, community){
-
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.date = new Date();
-        this.community = community;
-        this.likes = 0;
-        this.comments = [];
-        this.id = Post.generateId();
+        this.id = Post.#generateId();
         this.state = "Draft"; 
     } 
+
+    toFireStore(){
+
+        return {
+            content: this.content,
+            author: this.author,
+            authorUsername: this.authorUsername,
+            date: this.date,
+            community: this.community,
+            likes: this.likes,
+            comments: this.comments,
+            id: this.id,
+            state: this.state
+        };
+    }
+ 
     /**
      * Setters for post
      */
 
-    /**
-     * @param {string} title - Sets the title of the post
-     */
-    setTitle(title){
-        this.title = title;
-    }
     /** 
      * @param {string} content - Sets the content of the post
      */
@@ -107,16 +102,23 @@ export default class Post {
     setDate(date){
         this.date = date;
     }
+    /**
+     * Sets the current date to the post
+     */
+    setCurrentDate(){
+        this.date = new Date();
+    }
+    /**
+     * 
+     * @param {string} username - Sets the author's username of the post.
+     */
+    setAuthorUsername(username){
+        this.authorUsername = username;
+    }
     /** 
      * Getters for the post
     */
 
-    /**
-     * @returns {string} - The title of the post
-     */
-    getTitle(){
-        return this.title;
-    }
     /**
      * @returns {string} - The content of the post
      */
@@ -165,6 +167,18 @@ export default class Post {
     getState(){
         return this.state;
     }
+    /**
+     * @returns {number} - The number of comments on the post
+     */
+    getNumberOfComments(){
+        return this.comments.length;
+    }
+    /**
+     * @returns {string} - The author's username of the post
+     */
+    getAuthorUsername(){
+        return this.authorUsername;
+    }
     /** 
      * Other methods
      */
@@ -193,13 +207,17 @@ export default class Post {
      * Decreases the number of likes of the post by 1
      */
     removeLike(){
-        this.likes -= 1;
+        
+        if (this.likes > 0){
+            this.likes -= 1;
+        } 
     }
     /**
      * Generates a random ID for the post
      * @returns {string} - The generated ID
+     * Use encapsulation to prevent external access and use only in the class.
      */
-    static generateId(){
+    static #generateId(){
         return '_' + Math.random().toString(36).slice(2, 9);
     }
    

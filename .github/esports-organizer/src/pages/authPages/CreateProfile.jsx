@@ -5,13 +5,14 @@ import Modal from "../../components/shared/Modal";
 import "./AuthPages.css";
 import Label from "../../components/shared/Label";
 import { useNavigate } from "react-router-dom";
+import { updatePlayerProfile } from "../../services/profile-service";
 
 function CreateProfile() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     country: "",
-    role: "",
+    role: "", // <-- change GameRole to role
     bio: "",
   });
 
@@ -20,15 +21,15 @@ function CreateProfile() {
   const fileInputRef = useRef(null);
 
   const countries = [
-    { value: "country1", label: "Puerto Rico" },
-    { value: "country2", label: "United States" },
-    { value: "country3", label: "Spain" },
+    { value: "Puerto Rico", label: "Puerto Rico" },
+    { value: "United States", label: "United States" },
+    { value: "Spain", label: "Spain" },
   ];
 
   const roles = [
-    { value: "role1", label: "Tank" },
-    { value: "role2", label: "Assault" },
-    { value: "role3", label: "Support" },
+    { value: "Tank", label: "Tank" },
+    { value: "Assault", label: "Assault" },
+    { value: "Support", label: "Support" },
   ];
 
   // Handle File upload
@@ -58,7 +59,7 @@ function CreateProfile() {
       newErrors.username = "Max 14 characters.";
 
     if (!form.country) newErrors.country = "Select a country.";
-    if (!form.role) newErrors.role = "Select a role.";
+    if (!form.role) newErrors.role = "Select a role."; // <-- update role validation
 
     if (form.bio.length > 300)
       newErrors.bio = "Bio must be 300 characters or less.";
@@ -68,13 +69,36 @@ function CreateProfile() {
   };
 
   // Submit Handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    console.log("Profile created:", { ...form, preview });
-    alert("Profile successfully created!");
-    navigate("/homepage");
+    const uid = localStorage.getItem("uid");
+
+    if (!uid) {
+      alert("Error Fetching uid");
+      return;
+    }
+
+    const updateData = {
+      Username: form.username,
+      country: form.country,
+      role: form.role, // <-- use role here
+      bio: form.bio,
+      // Optionally add photoUrl if you handle image upload
+    };
+
+    try {
+      const result = await updatePlayerProfile(uid, updateData);
+      if (result.success) {
+        alert("Profile successfully created!");
+        navigate("/homepage");
+      } else {
+        alert(result.error || "Error updating profile.");
+      }
+    } catch (err) {
+      alert("Error updating profile.");
+    }
   };
 
   // Cancel Handler
