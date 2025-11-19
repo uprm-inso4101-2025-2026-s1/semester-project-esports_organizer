@@ -480,3 +480,17 @@
 
 /* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
 .dark-mode .community-feed-page { background: var(--dark-gradient); }
+
+
+/*team forms modal overrides*/
+.team-form__input,
+.team-form__textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--container);
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: white;
+  color: black;
+}
