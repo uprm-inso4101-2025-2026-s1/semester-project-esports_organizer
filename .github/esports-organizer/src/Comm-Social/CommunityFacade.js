@@ -17,7 +17,7 @@ CommunityFacade.create({
   banner: "/banners/classic.jpg"
 });
 
-Currently, a string is returned that indicates successful community creation
+Currently, a string is returned that indicates whether community creation was successful or not
 */
     static create(init){
 
