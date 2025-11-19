@@ -1,5 +1,5 @@
-= End to end Log in and Sign out workflow testing
-Juan L. Muñiz Ramos - November 18,2025
+= End-to-end Log-in and Sign-out workflow testing
+Juan L. Muñiz Ramos - November 18, 2025
 :pagelayout: docs
 :toc: left
 :toclevels: 3
@@ -8,190 +8,168 @@ Juan L. Muñiz Ramos - November 18,2025
 
 == Overview
 
-This document describes the tests conducted to verify the workflow when the user logs in or logs out of the page. Tests were also conducted for when the user forgets their password and wants to create a new one. It will discuss the tests performed, their results, and also visual images. The variables used in the tests will be shown to have a better understanding of what was done.
+This document describes the tests conducted to verify the workflow when the user logs in or logs out of the page. Tests were also conducted for account recovery (forgot password) and creating a new profile. It includes the tests performed, their results, and relevant notes. Test data used is shown for clarity.
 
-== Used variables in testing
+== Test users and variables
 
 *User test 1*
 
 * Email: Testdummylogin@gmail.com
-* Password: Test@12 - Test1 (La contraseña fue cambiada en una de las pruebas)
-* SQ answer: Nut
+* Password: Test@12 - Test1 (Password was changed during one of the tests)
+* Security question answer: Nut
 
 *User test 2*
 
 * Email: shortTestdummy@gmail.com
 * Password: Test2
-* SQ answer: Oreo
+* Security question answer: Oreo
 
 *User test 3*
 
 * Email: Testdummy2@gmail.com
 * Password: test3
-* SQ answer: Nutella
+* Security question answer: Nutella
 
-=== Role of the tests users
+=== Roles and purpose of test users
 
-* User test 1: Used for de sing in, log in and log out tests.This is the main user used for the testing.
-* User test 2: Used for invalid log in, and non-existing account log in tests. Also used for sign in with half information tests
-* User test 3: Used for the test of another sign in account after creating the first account.
+* User test 1: Main user for sign in, log in and log out tests.
+* User test 2: Used for invalid login and non-existing account tests; also for partial-signup tests.
+* User test 3: Used to test creating and using an additional account.
 
 == Create account (Sign in) testing
 
-*Test 1:* Routing to AuthPages.
+*Test 1:* Routing to Auth pages
 
-    * Description: Verify that the route to AuthPages is working when the user clicks to sign in.
-    * Steps taken:
-
-        1. Enter the page
-
-        2. Click on the "Sign in" button.
-
+    * Description: Verify that navigation to Auth pages works when the user clicks "Sign in".
+    * Steps:
+        1. Open the site.
+        2. Click the "Sign in" button.
     * Result: Passed.
-    * Status: The route is working.
+    * Status: Navigation works.
 
-*Test 2:* Routing to homePage after createing a account.
+*Test 2:* Routing to Home page after creating an account
 
-    * Description: Verefy if the route to homePage is working when the user creates an accoint.
-    * Steps taken:
-        1. Click on the "sign in" button.
-        2. Enter the valid information.
-        3. Click on the "sign in" button.
-    * Result: Passed.
-    * Status: The route is working.
-
-*Test 3:* Sing in with half filled ansewers.
-
-    * Description: verify when de user tries to sing and some of the questions are not ansewered.
-
-    * Steps take:
-
-        1. Click on the "Sign in" button.
-        2. Enter half of the information asked.
-        3. Click on the "sign in" button.
-    * Result: Passed.
-    * Status: The user can not sign in with half filled answer.
-
-*Test 4:* Puting a invalid email.
-
-    * Description: Verify when the user tries to put a invalid email.
-
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
-        2. Enter a invalid email.
-        3. Enter the rest of the information asked.
-        4. Click on the "sign in" button.
-    * Result: Passed.
-    * Status: The user can not sign in with an invalid email.
-
-*Test 5:* Sing in with valid information.
-
-    * Description: Verify when the user puts all the valid information asked.
-
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
+    * Description: Verify navigation to Home page after successful account creation.
+    * Steps:
+        1. Click "Sign in".
         2. Enter valid information.
-        3. Click on the "sign in" button.
+        3. Submit the form.
     * Result: Passed.
-    * Status: The user can sign in with the valid information for crating a account.
+    * Status: Navigation works.
 
-*Test 6:* Sign in with other cuestion in blank.
+*Test 3:* Sign in with partially completed form
 
-    * Description: Verify when the user leaves other question in blank.
-
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
-        2. Enter valid information but leave other question in blank.
-        3. Click on the "sign in" button.
+    * Description: Verify that the user cannot sign up with required fields missing.
+    * Steps:
+        1. Click "Sign in".
+        2. Fill only some required fields.
+        3. Submit the form.
     * Result: Passed.
-    * Status: The user can not sign in with the questions in blank.
+    * Status: The user cannot sign up with missing required fields.
+
+*Test 4:* Invalid email format
+
+    * Description: Verify sign up is blocked when an invalid email is provided.
+    * Steps:
+        1. Click "Sign in".
+        2. Enter an invalid email and other required info.
+        3. Submit the form.
+    * Result: Passed.
+    * Status: Invalid email is rejected.
+
+*Test 5:* Sign in with valid information
+
+    * Description: Verify account creation with all valid information.
+    * Steps:
+        1. Click "Sign in".
+        2. Enter valid information.
+        3. Submit the form.
+    * Result: Passed.
+    * Status: Account is created successfully.
+
+*Test 6:* Missing one required question
+
+    * Description: Verify sign up is blocked when a required question is left blank.
+    * Steps:
+        1. Click "Sign in".
+        2. Leave one required question blank.
+        3. Submit the form.
+    * Result: Passed.
+    * Status: The user cannot sign up with required questions blank.
 
 *Test 7:* Sign in with a existing account.
 
-    * Description: Verify when the user sign in with a existing account.
-    * Steps taken:
-        1. Click on the "Sign in" button.
-        2. Enter the information of a existing account.
-        3. Click on the "sign in" button.
+    * Description: Verify the system prevents creating an account with an existing email.
+    * Steps:
+        1. Click "Sign in".
+        2. Enter an existing account's information.
+        3. Submit the form.
     * Result: Passed.
-    * Status: The user can not sign in with an exsiting account when creating an account.
+    * Status: Duplicate account creation is prevented.
 
-*Test 8:* Sign in whiout confirming password.
+*Test 8:* Sign in without confirming password.
 
-    * Description: Verify when the user tries to sign in without confirming the password.
-
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
-        2. Enter valid information but do not confirm the password.
-        3. Click on the "sign in" button.
+    * Description: Verify sign up is blocked when password confirmation is missing.
+    * Steps:
+        1. Click "Sign in".
+        2. Enter password but do not confirm it.
+        3. Submit the form.
     * Result: Passed.
-    * Status: The user can not sign in if they not confirme password.
+    * Status: Confirmation is required.
 
 *Test 9:* Sign in with a mismatched password.
 
-    * Description: Verify when the user tries to put a mismatched password.
-
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
-        2. Enter valid information but put a mismatched password.
-        3. Click on the "sign in" button.
+    * Description: Verify sign up is blocked when passwords do not match.
+    * Steps:
+        1. Click "Sign in".
+        2. Enter mismatched passwords.
+        3. Submit the form.
     * Result: Passed.
-    * Status: The user must enter the same password to be hable to create account.
+    * Status: Passwords must match.
 
-*Test 10:* Sing in and resiving the email for a new account created.
+*Test 10:* Confirmation email for newly created account
 
-    * Description: Verefy when if the user resives a email  of a creted account after sign in.
-
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
-        2. Enter valid information.
-        3. Click on the "sign in" button.
-        4. Check the email inbox for the email of a new account created.
-    * Resulta: Not passed.
-    * Status: The confirmation email was not resived.
+    * Description: Verify whether a confirmation email is received after account creation.
+    * Steps:
+        1. Create an account (Sign in).
+        2. Check the email inbox for a confirmation message.
+    * Result: Not passed.
+    * Status: Confirmation email was not received (email service likely not implemented).
 
 *Test 11:* Sing in with a new created account.
 
-    * Description: Verify when the user creates a other new account and sign in with it.
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
+    * Description: Verify creating an additional account works.
+    * Steps:
+        1. Click "Sign in".
         2. Enter valid information for a new account.
-        3. Click on the "sign in" button.
+        3. Submit the form.
     * Result: Passed.
-    * Status: Lets the user to create an account.
+    * Status: Additional account creation works.
 
 *Test 12:* Request in firestore after sign in
 
-    * Description: Verify if the user data is requested in firesore after sing in.
-    * Steps taken:
+    * Description: Verify if the user data is requested in firestore after sign in.
+    * Steps:
 
         1. Click on the "Sign in" button.
         2. Enter valid information.
         3. Click on the "sign in" button.
         4. Check firestore for the user data request.
     * Result: Passed.
-    * Status: In firestore on request we can see that de data is passing.
+    * Status: Data is sent to Firestore.
 
-*test 13:* Routing to loginModal
+*Test 13:* Routing to Login modal ("I already have an account")
 
-    * Description: Verify if the route to loginModal is working when the user clicks to on  aredy have an account button.
-    * Steps taken:
-
-        1. Click on the "Sign in" button.
-        2. Click on the "I already have an account" button.
+    * Description: Verify navigation to the Login modal works.
+    * Steps:
+        1. Click "Sign in".
+        2. Click "I already have an account".
     * Result: Passed.
-    * Status: When the user has an account, take them to the site to log in.
+    * Status: Navigation to login modal works.
 
 === Result of not passed test (Sing in)
 
-Test 9 was the only test that i made that did no pass. The confirmation email was not resived after signing in. This could be that the email services is not implimented yet and that is why the email was not resived.
+Test 10 was the only test that i made that did no pass. The confirmation email was not received after signing in. This could be that the email services is not implemented yet and that is why the email was not received.
 
 == Log out testing 
 
@@ -202,275 +180,246 @@ Test 9 was the only test that i made that did no pass. The confirmation email wa
         1. Sign in with the valid information.
         2. Click on the "Log out" button.
     * Result: Passed.
-    * Status: When the user clicks log out it takes you to the LandinPage.
+    * Status: User is routed to Landing Page.
 
 *Test 2:* Log out after signing in
 
-    * Description: Verify if the user can log out after signing in.
-    * Steps taken:
-
-        1. Sign in with the valid information.
-        2. Click on the "Log out" button.
+    * Description: Verify the user can log out successfully.
+    * Steps:
+        1. Sign in.
+        2. Click "Log out".
     * Result: Passed.
-    * Status: The user clicks log out and you ar taking to the LandingPage.
+    * Status: Log out works.
 
 *Test 3:* Log out and log in 
 
-    * Description: Verify if the user can log in after logging out.
-    * Steps taken:
-        1. create account with the valid information.
-        2. Click on the "Log out" button.
-        3. Try to log in with the same account.
+    * Description: Verify the user can log in again after logging out.
+    * Steps:
+        1. Create or sign in to an account.
+        2. Click "Log out".
+        3. Attempt to log in with the same account.
     * Result: Passed.
-    * Status: When the user logs out, the user can log in.
+    * Status: Log in after log out works.
 
 == Log in testing
 
 *Test 1:* Routing to AuthPages.
 
-    * Description: Verify that the route to AuthPages is working when the user clicks to log in.
-    * Steps taken:
-
-        1. Enter the page
-        2. Click on the "Log in" button.
-
+    * Description: Verify navigation to AuthPages when clicking "Log in".
+    * Steps:
+        1. Open the site.
+        2. Click "Log in".
     * Result: Passed.
-    * Status: When the user clicks "Log in" it take you to the page to put your accoutn.
+    * Status: Navigation works.
 
-*Test 2:* Routing to homePage after log in.
+*Test 2:* Routing to HomePage after log in.
 
-    * Description: Verefy if the route to homePage is working when the user logs in.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Enter the valid information.
-        3. Click on the "Log in" button.
+    * Description: Verify navigation to Home page after successful log in.
+    * Steps:
+        1. Click "Log in".
+        2. Enter valid credentials.
+        3. Submit the form.
     * Result: Passed.
-    * Status: When the user clicks "Log in" it take you to the page to put your accout.
+    * Status: Navigation works.
 
-*Test 3:* Log in with the valid information.
+*Test 3:* Log in with valid credentials
 
-    * Description: Verify if the user can log in with the valid information and existing account.
-    * Steps taken:
-
-        1. Click on the "Log in" button.
-        2. Enter the valid information.
-        3. Click on the "Log in" button.
+    * Description: Verify log in with an existing account and correct credentials.
+    * Steps:
+        1. Click "Log in".
+        2. Enter valid credentials.
+        3. Submit the form.
     * Result: Passed.
-    * Status: Lets you log in when the user puts all the right information.
+    * Status: User can log in.
 
-*Test 4:* Log in with invalid information.
+*Test 4:* Log in with invalid credentials
 
-    * Description: Verefy if the user can log in whith invalid information.
-
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Enter the invalid information.
-        3. Click on the "Log in" button. 
+    * Description: Verify the system rejects invalid credentials.
+    * Steps:
+        1. Click "Log in".
+        2. Enter invalid credentials.
+        3. Submit the form.
     * Result: Passed.
-    * Status: When the user puts a invalid information does not let you log in.
+    * Status: Invalid credentials are rejected.
 
-*Test 5:* Log in with all the cuestions in blank.
+*Test 5:* Log in with all fields blank
 
-    * Description: Verify if the user can log in with all the cuestion in blank.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Not answer any cuestions.
-        3. Click on the "Log in" button. 
+    * Description: Verify the system blocks login when fields are blank.
+    * Steps:
+        1. Click "Log in".
+        2. Leave all fields blank.
+        3. Submit the form.
     * Result: Passed.
-    * Status: When the user leaves all the questions in blank does't let you log in.
+    * Status: Blank fields are rejected.
 
-*Test 6:* Log in with a non-existing account.
+*Test 6:* Log in with a non-existing account
 
-    * Description: Verify when the user tries to enter a non-existing account.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Enter the information of a non-existing account.
-        3. Click on the "Log in" button.
+    * Description: Verify the system rejects login for non-existing accounts.
+    * Steps:
+        1. Click "Log in".
+        2. Enter credentials for a non-existing account.
+        3. Submit the form.
     * Result: Passed.
-    * Status: Does not let the user if they pues a non-existing account in this case an created account.
+    * Status: Non-existing accounts are rejected.
 
-*Test 7:* Log in with a incorrect password.
+*Test 7:* Log in with incorrect password
 
-    * Description: Verify when the user enters the incorrect password.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Enter a existing email with an incorrect password.
-        3. Click on the "Log in" button.
+    * Description: Verify the system rejects incorrect passwords.
+    * Steps:
+        1. Click "Log in".
+        2. Enter an existing email and incorrect password.
+        3. Submit the form.
     * Result: Passed.
-    * Status: When the user enters the wrong answer does't let the user log in.
+    * Status: Incorrect password is rejected.
 
-*test 8:* Routing to SignupModal
+*Test 8:* Routing to Signup modal ("Don't have an account?")
 
-    * Description: Verify if the route to loginModal is working when the user clicks to on dont have a account.
-    * Steps taken:
-
-        1. Click on the "Log in" button.
-        2. Click on the "Don't have an account?" button.
+    * Description: Verify navigation to Signup modal works.
+    * Steps:
+        1. Click "Log in".
+        2. Click "Don't have an account?".
     * Result: Passed.
-    * Status: When the user does't have an accout the are taken to SignupModal to create an account.
+    * Status: Navigation to signup modal works.
 
 == Create profile testing
 
 *Test 1:* Routin to CreateProfile after sign in.
 
-    * Description: Verify if the route to CreateProfile is working when the user signs in for the first time.
-    * Steps taken:
-        1. Click on the "Sign in" button.
-        2. Enter valid information for a new account.
-        3. Click on the "sign in" button.
+    * Description: Verify navigation to Create Profile for first-time users.
+    * Steps:
+        1. Sign in after account creation.
     * Result: Passed.
-    * Status: When the user create an account it takes the user to CreatrProfile.
+    * Status: User is routed to CreateProfile.
 
 *Test 2:* Creating a profile 
 
-    * Description: Verify if the user can createa profile after sing in.
-    * Steps taken:
-        1. Click on the "sign in" button.
-        2. Enter the information asked to create a profile.
-        3. Click on the "Create Profile" button.
+    * Description: Verify the user can create a profile after signing in.
+    * Steps:
+        1. Fill profile data.
+        2. Click "Create Profile".
     * Result: Passed.
-    * Status: Lets the user create a profile.
+    * Status: Profile creation works.
 
-*Test 3:* Creation of profile with the information in blank.
+*Test 3:* Profile creation with blank fields
 
-    * Description: Verify if the user can create a profile with the information in blank.
-    * Steps taken:
-        1. Click on the "sign in" button.
-        2. Not enter any information.
-        3. Click on the "Create Profile" button.
+    * Description: Verify profile creation is blocked when required fields are blank.
+    * Steps:
+        1. Leave required fields blank.
+        2. Click "Create Profile".
     * Result: Passed.
-    * Status: The user can't create a profile if the questions are in blank.
+    * Status: Blank required fields are rejected.
 
-*Test 4:* Cration of a profile with some information in blank.
+*Test 4:* Profile creation with some fields blank
 
-    * Description: Verify if the user can create a profile with some infotmation in blank.
-    * Steps taken:
-        1. Click on the "sign in" button.
-        2. Enter some information but leave other in blank.
-        3. Click on the "Create Profile" button.
+    * Description: Verify profile creation is blocked when some required fields are blank.
+    * Steps:
+        1. Enter partial information.
+        2. Click "Create Profile".
     * Result: Passed.
-    * Status: The user can't crete a profile if sum of the question are in blank.
+    * Status: Partial information is rejected.
 
-*Test 5:* Creat profile with valid information.
+*Test 5:* Create profile with valid information
 
-    * Description: Verify when the user creates an profile whit all the valid information asked.
-    * Steps taken:
-        1. Click on the "sign in" button.
-        2. Enter all the valid information asked.
-        3. Click on the "Create Profile" button.
+    * Description: Verify profile creation with all valid data.
+    * Steps:
+        1. Enter all required valid information.
+        2. Click "Create Profile".
     * Result: Passed.
-    * Status: The user can create a profiles with the valid information.
+    * Status: Profile is created successfully.
 
-== Forgot password testing
+== Forgot password (Account recovery) testing
 
-*Test 1:* Routing to AccountRecovery.
+*Test 1:* Routing to Account Recovery
 
-    * Description: Verify it the route to AccoutnRecovery is working when the user forgets the password.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
+    * Description: Verify navigation to account recovery when clicking "Forgot your password?".
+    * Steps:
+        1. Click "Log in".
+        2. Click "Forgot your password?".
     * Result: Passed.
-    * Status: The user is taken to AccountRecovery.
+    * Status: Navigation works.
 
-*Teest 2:* Putting a non-existing account.
+*Teest 2:* Reset for non-existing account.
 
-    * Description: Verify when the user tries to change the password and puts a non-existing account.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter a non-existing account email.
-        4. Click "Next" button.
+    * Description: Verify the system blocks password reset for non-existing emails.
+    * Steps:
+        1. Enter a non-existing account email.
+        2. Attempt reset.
     * Result: Passed.
-    * Status: The user can't reset the password of non-existing account.
+    * Status: Reset is blocked.
 
-*Test 3:* Putting an existing account.
+*Test 3:* Reset for existing account
 
-    * Description: Verify when the user tries to change the password with an existing account.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
+    * Description: Verify password reset flow for existing accounts.
+    * Steps:
+        1. Enter an existing account email.
+        2. Follow reset steps.
     * Result: Passed.
-    * Status: When the user enter an existing en valid account it lets you change password.
+    * Status: Reset flow proceeds for existing accounts.
 
-*Test 4:* Resiving the email that lets me now that the has been changed.
+*Test 4:* Email for password-change notification
 
-    * Description: Verify when the user resives the email to change the password.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
-        5. change the password.
-        6. Check the email inbox for the password change email.
+    * Description: Verify the user receives an email notifying password change.
+    * Steps:
+        1. Change password for an existing account.
+        2. Check email inbox.
     * Result: Not passed.
-    * Status: The user does't resive email of change password.
+    * Status: Password-change notification email was not received.
 
-*Test 5:* changing the password and log in with the new password.
+*Test 5:* Change password and log in with the new password
 
-    * Description: Verify when the user changes the password and log in with the new password.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
-        5. change the password.
-        6. Try to log in with the new password.
+    * Description: Verify login with the new password after reset.
+    * Steps:
+        1. Change the password.
+        2. Log in with the new password.
     * Result: Passed.
-    * Status: Lets the user Log in with the new password.
+    * Status: New password works.
 
-*Test 6:* Puting the old password in the change password section.
+*Test 6:* Reusing the old password during change
 
-    * Description: Verify when the user tries to change tha password and puts the old password.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
-        5. Try to change the password putting the old password.
-    * Resilt: Not passed.
-    * Status: It lets you put the same password has your old one..
+    * Description: Verify whether the system allows reusing the old password when changing it.
+    * Steps:
+        1. Attempt to set the new password equal to the old one.
+    * Result: Not passed.
+    * Status: System currently allows reusing the old password (validation missing).
 
-*Test 7:* Not putting any password in the change password section.
+*Test 7:* Attempting change without entering a new password
 
-    * Description: Verify when the user tries to change the password without putting any new password.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
-        5. Try to change the password without putting any new password.
+    * Description: Verify the system blocks change when no new password is provided.
+    * Steps:
+        1. Submit the change password form without a new password.
     * Result: Passed.
-    * Status: If the user does't put any password it says that needs a the new password to change it.
+    * Status: New password is required.
 
-*Test 8:* Security question ansewer correct.
+*Test 8:* Correct security question answer
 
-    * Description: Verify when the user puts the correct answer to the security question.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
-        5. Enter the correct answer to the security question.
+    * Description: Verify reset flow proceeds when the correct security answer is provided.
+    * Steps:
+        1. Provide the correct security answer.
     * Result: Passed.
-    * Status: When the user puts the right security answer it lets you to change password.
+    * Status: Security question validation works.
 
-*Test 9:* Security question ansewer incorrect.
+*Test 9:* Incorrect security question answer
 
-    * Description: Verify when the user puts the incorrect answer to the security question.
-    * Steps taken:
-        1. Click on the "Log in" button.
-        2. Click on the "Forgot your password?" button.
-        3. Enter an existing account email.
-        4. Click "Next" button.
-        5. Enter the incorrect answer to the security question.
+    * Description: Verify reset flow blocks when the security answer is incorrect.
+    * Steps:
+        1. Provide an incorrect security answer.
     * Result: Passed.
-    * Status: When the user puest the wrong security answer it lets you enter another answer.
+    * Status: Incorrect answer prompts retry.
 
-=== Result not passe (Reset Password)
+*Test 10:* Change password and attempt to log in with the old password
 
-Test 4: Not resiving emails, of changes to the password, this can be that is not implemented to send emails tho the user.
+    * Description: Verify that the old password no longer works after a successful change.
+    * Steps:
+        1. Change the password.
+        2. Attempt to log in with the old password.
+    * Result: Passed.
+    * Status: Old password is rejected after change.
 
-Test 6: It let you us the same old password that the user had when you change password. Maybe is not implemented to validate this.
+=== Not-passed tests (Password reset)
 
+* Test 4: No notification emails sent after password change — email service likely not configured.
+* Test 6: System allows reusing old password — add validation to prevent reuse.
+
+== Conclusion
+
+All core login and logout functions work correctly, with the majority of tests passing. Two issues were identified during testing. The first and most significant is that users do not receive an email notification when a new account is created or if the password is changed. This could be problematic, as users may not know for sure whether their account was created or if their password was changed. The second issue is that users can re-enter their old password when changing it. This poses a security risk, as users should be required to enter a different password. Aside from these two issues, the remaining tests were successful, and the core login and logout workflows function correctly.
