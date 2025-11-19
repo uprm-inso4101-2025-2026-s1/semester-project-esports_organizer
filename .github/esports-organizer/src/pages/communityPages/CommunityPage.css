@@ -288,18 +288,8 @@
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-    .sidebar {
-        background: var(--primary) !important;
-    }
-    .mini-community-card:hover{
-    background: #B01E2E !important;
-    }
-    .community-card {
-        color: white !important;
-    }
-    .ccard__title {
-        color: white;
-    }
-}
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .sidebar { background: var(--primary) !important; }
+.dark-mode .mini-community-card:hover { background:#B01E2E !important; }
+.dark-mode .community-card { color:white !important; }
+.dark-mode .ccard__title { color:white !important; }

@@ -36,6 +36,7 @@ export async function saveProfile(profileData) {
     createdAt: serverTimestamp()
   });
 
+  localStorage.setItem("currentUserUid", uniqueId);
   return { success: true, uid: uniqueId };
 }
 

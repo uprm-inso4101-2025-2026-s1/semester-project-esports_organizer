@@ -104,7 +104,7 @@ export default class Event {
     setDate(dateVal) {
         const d = (dateVal instanceof Date) ? dateVal : new Date(dateVal);
         if (isNaN(d.getTime())) throw new Error('Date must be a valid date');
-        this.dateTime = d;
+        this.dateValue = d;
     }
 
     setParticipants(participants) {
@@ -167,7 +167,7 @@ export default class Event {
 
     /** READ: get one event by ID. Returns plain object or null. */
     async GetEventByID(ID) {
-        const theId = ID ?? this.ID;
+        const theId = ID ?? this.id;
         if (!theId) throw new Error("ID is required");
         const snap = await getDoc(doc(db, "events", theId));
         return snap.exists() ? fromDocData(snap.id, snap.data()) : null;
@@ -180,7 +180,7 @@ export default class Event {
         // if args provided, overwrite the instance first
         if (title !== undefined) this.setTitle(title);
         if (dateValue !== undefined) this.setDate(dateValue);
-        if (location !== undefined) this.setLocation(Location);
+        if (location !== undefined) this.setLocation(location);
         if (description !== undefined) this.setDescription(description);
         if (participants !== undefined) this.setParticipants(participants);
         if (game !== undefined) this.setGame(game);
@@ -195,7 +195,7 @@ export default class Event {
 
     /** DELETE: remove by ID. */
     async DeleteEvent(ID)  {
-        const theId = ID ?? this.ID;
+        const theId = ID ?? this.id;
         if (!theId) throw new Error("ID is required");
         await deleteDoc(doc(db, "events", theId));
         return theId;
@@ -243,7 +243,7 @@ function toDocData(evt, { isCreate = false } = {}) {
         createdBy: evt.createdBy ?? null,
         community: evt.community ?? null,
         tournament: evt.tournament ?? null,
-        startAt: toTs(evt.dateValue) ?? serverTimestamp(),
+        //startAt: toTs(evt.dateValue) ?? serverTimestamp(),
     };
     if (isCreate) data.createdAt = serverTimestamp();
     // strip undefined
@@ -270,8 +270,8 @@ function toDocData(evt, { isCreate = false } = {}) {
 // ================================
 // Use example
 // ================================
-
-    async function run() {
+/**
+    async function exampleFunction() {
         console.log("=== EventsClass + Firestore Emulator test ===");
         const evt = new Event({
             title: "Valorant Champions Qualifier 2024",
@@ -305,5 +305,4 @@ function toDocData(evt, { isCreate = false } = {}) {
         console.log("Deleted:", id);
         console.log("Finished running database test");
     }
-
-    run().catch(e => console.error("[EventsClass test error]", e));
+ */
