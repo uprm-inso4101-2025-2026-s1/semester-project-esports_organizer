@@ -1,0 +1,78 @@
+= Testing Journal
+:toc:
+:toclevels: 2
+
+== Test Entry - November 3, 2025
+
+=== Testing Phase #1: User Interface Interaction
+
+*Objective*: Verify and identify bugs related to the appearance and rendering of Communities components.
+
+=== Test Cases
+
+.Test 1: Routing to Communities Page
+****
+- **Description**: Verify routing to Communities page is accessible from all required pages
+- **Result**: PASS
+- **Status**: Routing is correct
+****
+
+.Test 2: Back and Forward Navigation
+****
+- **Description**: Test back and forward routing from Community main page to community
+- **Result**: PASS
+- **Status**: Routing is correct
+****
+
+.Test 3: Search Functionality
+****
+- **Description**: Test community main page search bar
+- **Result**: PASS
+- **Status**: Works as intended
+****
+
+.Test 4: Post Publication
+****
+- **Description**: Verify page registers attempt to publish a post
+- **Result**: PASS 
+- **Status**: Works well (actual implementation scheduled for future)
+****
+
+.Test 5: Likes Rendering
+****
+- **Description**: Test likes rendering functionality
+- **Result**: PASS 
+- **Status**: Works as intended (back-end integration needed)
+****
+
+.Test 6: Events in Communities
+****
+- **Description**: Test events linked in communities
+- **Result**: PASS 
+- **Status**: Works as intended, events are saved in calendar ("Join" event feature pending implementation)
+****
+
+=== Conclusions
+
+The current system (unfinished state) demonstrates:
+
+* No bugs affecting performance
+* No issues impacting user experience
+* All tested features functioning as intended
+* Missing features identified for future implementation
+
+*Next Steps*: Further testing required once missing features are implemented.
+
+== Test Entry - November 19, 2025
+=== Testing Phase #2: Create Community UI
+
+*Objective*: Verify and identify bugs related to the Create Community user interface.
+
+The system correctly displays the Create Community UI form without any bugs. All elements are present and functional.
+
+Important notes: Back-end integration for community creation is pending and will be tested in future phases. However, this is subject to time constraints.
+
+=== Testing Phase #3: Join Event UI
+*Objective*: Verify and identify bugs related to the Join Event user interface.
+
+This feature is to be implemented in the future. No UI is currently available for testing. This is also tied to time constraints.
