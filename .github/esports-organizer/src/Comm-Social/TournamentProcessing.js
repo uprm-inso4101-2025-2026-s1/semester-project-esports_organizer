@@ -1,4 +1,4 @@
-import { runBracket } from "./MatchProgression";
+import { runBracket } from "./MatchProgression.js";
 
 /**
   * @returns {Object} - A object that returns the tournament rounds and the champion.
