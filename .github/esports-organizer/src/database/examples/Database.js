@@ -437,7 +437,7 @@ export class Database {
         return this.getCommunityFromFirestore(community.id).then(result => !!result);
     }
 
-    /* Given a Community object, adds a key value pair array to the database. Community names must be unique. */
+    /* Given a Community object, adds a key value pair array to the database. Community IDs must be unique. */
     async addCommunityToDatabase(community) {
         const existing = await this.getCommunityFromFirestore(community.id);
         if (!existing) {
@@ -447,7 +447,7 @@ export class Database {
         }
     }
 
-    /* Given a Community name, searches for the community and returns it if it was found and returns null if not. */
+    /* Given a Community ID, searches for the community and returns it if it was found and returns null if not. */
     async getCommunityFromFirestore(commId) {
         const snap = await getDoc(doc(this.firestore, "Communities", commId));
         if(snap.exists()){
@@ -471,7 +471,7 @@ export class Database {
     }
     
 
-    /* Deletes a Community given its name. Proper cleanup should be in place in order to avoid users accessing null Community values. */
+    /* Deletes a Community given its ID. Proper cleanup should be in place in order to avoid users accessing null Community values. */
     async deleteCommunity(commId) {
         try {
             const communityRef = doc(this.firestore, "Communities", commId);
