@@ -49,14 +49,13 @@ The update method serves to update the community given its id and newSettings
       database.updateCommunity(community.getId(),community);
 
       return "Community successfully updated!";
-  }
-  catch(error){
+    }
+    catch(error){
 
-      console.log("Error when updating community:" + error);
+        console.log("Error when updating community:" + error);
 
-      return "Failed to update community: " + error; 
-  }
-
+        return "Failed to update community: " + error; 
+    }
 
   }
 
