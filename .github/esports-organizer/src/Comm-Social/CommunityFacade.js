@@ -27,7 +27,8 @@ Currently, a string is returned that indicates whether community creation was su
     }
 
 /*
-The update method serves to update the community given its id and newSettings
+The update method serves to update the community given its id and newSettings, returns string to indicate 
+if the creation was successful or not
 */
 
   static async update(communityId, newSettings) {
