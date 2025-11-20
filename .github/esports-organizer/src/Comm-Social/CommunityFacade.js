@@ -30,7 +30,7 @@ Currently, a string is returned that indicates whether community creation was su
 The update method serves to update the community given its id and newSettings
 */
 
-  static update(communityId, newSettings) {
+  static async update(communityId, newSettings) {
 
     const community = Community.getCommunityById(communityId);
     if (!community) throw new Error("Community not found.");
@@ -42,8 +42,21 @@ The update method serves to update the community given its id and newSettings
     if (newSettings.location) community.setLocation(newSettings.location);
     if (newSettings.tags) community.setTags(newSettings.tags);
 
-    //Later this could call Firestore update logic
-    return community;
+    try{
+        
+      const database = await Database.createDatabase();
+
+      database.updateCommunity(community.getId(),community);
+
+      return "Community successfully updated!";
+  }
+  catch(error){
+
+      console.log("Error when updating community:" + error);
+
+      return "Failed to update community: " + error; 
+  }
+
 
   }
 

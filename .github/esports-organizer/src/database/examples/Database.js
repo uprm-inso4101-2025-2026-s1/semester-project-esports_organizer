@@ -448,8 +448,8 @@ export class Database {
     }
 
     /* Given a Community name, searches for the community and returns it if it was found and returns null if not. */
-    async getCommunityFromFireStore(commName) {
-        const snap = await getDoc(doc(this.firestore, "Communities", commName));
+    async getCommunityFromFireStore(commId) {
+        const snap = await getDoc(doc(this.firestore, "Communities", commId));
         if(snap.exists()){
             return Community.fromFirestore(snap.data());
         }
@@ -464,17 +464,17 @@ export class Database {
     }
 
     /* Updates community in the database */
-    async updateCommunity(commName, updatedCommunity) {
-        const communityRef = doc(this.firestore, "Communities", commName);
+    async updateCommunity(commId, updatedCommunity) {
+        const communityRef = doc(this.firestore, "Communities", commId);
         await setDoc(communityRef, updatedCommunity.toFirestore());
-        console.log(`Community ${commName} updated successfully.`);
+        console.log(`Community of ID ${commId} updated successfully.`);
     }
     
 
     /* Deletes a Community given its name. Proper cleanup should be in place in order to avoid users accessing null Community values. */
-    async deleteCommunity(commName) {
+    async deleteCommunity(commId) {
         try {
-            const communityRef = doc(this.firestore, "Community", commName);
+            const communityRef = doc(this.firestore, "Community", commId);
             await deleteDoc(communityRef);
             console.log("Community ${commName} deleted successfully.");
         } catch (error) {
