@@ -463,6 +463,14 @@ export class Database {
         return communitySnapshot.docs.map(doc => Community.fromFirestore(doc.data()));
     }
 
+    /* Updates community in the database */
+    async updateCommunity(commName, updatedCommunity) {
+        const communityRef = doc(this.firestore, "Communities", commName);
+        await setDoc(communityRef, updatedCommunity.toFirestore());
+        console.log(`Community ${commName} updated successfully.`);
+    }
+    
+
     /* Deletes a Community given its name. Proper cleanup should be in place in order to avoid users accessing null Community values. */
     async deleteCommunity(commName) {
         try {

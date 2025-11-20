@@ -1,5 +1,6 @@
 import {createCommunity} from "./CommunityCreation.js";
 import {Community} from "./Community.js";
+import Database from "../database/examples/Database.js";
 
 export class CommunityFacade {
 
@@ -30,6 +31,7 @@ The update method serves to update the community given its id and newSettings
 */
 
   static update(communityId, newSettings) {
+
     const community = Community.getCommunityById(communityId);
     if (!community) throw new Error("Community not found.");
 
@@ -42,6 +44,7 @@ The update method serves to update the community given its id and newSettings
 
     //Later this could call Firestore update logic
     return community;
+
   }
 
 }
