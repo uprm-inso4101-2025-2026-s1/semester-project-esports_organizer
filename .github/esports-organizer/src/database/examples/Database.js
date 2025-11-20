@@ -466,7 +466,7 @@ export class Database {
     /* Updates community in the database */
     async updateCommunity(commId, updatedCommunity) {
         const communityRef = doc(this.firestore, "Communities", commId);
-        await setDoc(communityRef, updatedCommunity.toFirestore(), {merge: true});
+        await setDoc(communityRef, updatedCommunity.toFirestore());
         console.log(`Community of ID ${commId} updated successfully.`);
     }
     
