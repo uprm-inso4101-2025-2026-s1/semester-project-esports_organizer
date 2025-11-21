@@ -192,6 +192,7 @@ export default function LandingPage() {
         <div className="lp__cards">
           {communities.map((t) => (
             <CommunityCard
+              key={t.id}
               imageUrl={t.imageUrl}
               title={t.title}
               currentEvents={t.currentEvents}

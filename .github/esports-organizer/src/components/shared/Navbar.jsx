@@ -7,6 +7,8 @@ import { IoMdSettings } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import "./Navbar.css";
 import Notifications from '../../notifications/notificationsUI';
+import { auth } from "../../lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 
 function Navbar() {
@@ -15,7 +17,7 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserProfilePopUpOpen, setIsUserProfilePopUpOpen] = useState(false);
 
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(true); // Placeholder for user authentication state TODO: Integrate with auth system
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false); // Real Auth state, starts as logged out
   const userButtonRef = useRef(null); 
   const userPopupRef = useRef(null);
 
@@ -37,6 +39,22 @@ function Navbar() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUserIsLoggedIn(!!user);
+      console.log("Auth state changed. Logged in? =>", !!user);
+    });
+  
+    // TEMP: Sign in automatically for testing
+    import("firebase/auth").then(({ signInWithEmailAndPassword }) => {
+      signInWithEmailAndPassword(auth, "test@example.com", "password123")
+        .then(() => console.log("✔ Test login successful"))
+        .catch((err) => console.log("⚠ Test login failed:", err));
+    });
+  
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {

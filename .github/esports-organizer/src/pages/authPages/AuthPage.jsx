@@ -45,7 +45,7 @@ function AuthPage({ mode = "login" }) {
             ))}
             {/* Second List to give infinite effect */}
             {games_images.map((image, index) => (
-              <div key={`first-${image.id}`} className="image-carousel-container">
+              <div key={`second-${image.id}`} className="image-carousel-container">
                 <img src={image.url} alt={`Juego ${index + 1}`} />
               </div>
             ))}
