@@ -28,13 +28,13 @@ Currently, a string is returned that indicates whether community creation was su
 
 /*
 The update method serves to update the community given its id and newSettings, returns string to indicate 
-if the creation was successful or not
+whether the update was successful or not
 */
 
   static async update(communityId, newSettings) {
 
     const community = Community.getCommunityById(communityId);
-    if (!community) throw new Error("Community not found.");
+    if (!community) throw new Error(`Community of ID ${communityId} not found.`);
 
     if (newSettings.name) community.setName(newSettings.name);
     if (newSettings.description) community.setDescription(newSettings.description);
