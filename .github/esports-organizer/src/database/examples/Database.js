@@ -433,7 +433,7 @@ export class Database {
 
     /* Checks if a given Community is in the database. */
     isCommunityInDataBase(community) {
-        // Checks Firestore for existence of a community by name
+        // Checks Firestore for existence of a community by ID
         return this.getCommunityFromFirestore(community.id).then(result => !!result);
     }
 
@@ -443,7 +443,7 @@ export class Database {
         if (!existing) {
             await setDoc(doc(this.firestore, "Communities", community.id), community.toFirestore());
         } else {
-            console.log("Community already exists.");
+            console.log(`Community of ID ${community.id} already exists.`);
         }
     }
 
