@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Event from "../EventClass.js"; // <-- adjust path
 import "../../pages/CreateEventWizard.css";
 import {getProfileById} from "../../services/profile-service.js";
+import { db } from "../../database/firebaseClient";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 
 export default function Step4Review({ data, onBack, onSubmit }) {
   const [isSaving, setIsSaving] = useState(false);
@@ -16,6 +19,27 @@ export default function Step4Review({ data, onBack, onSubmit }) {
   const handleConfirm = async () => {
     try {
       setIsSaving(true);
+      // Verifica si evento existe este día y hora
+      const eventDate = toDate(date, time);
+      const start = eventDate.getTime();
+      const end = start + 1000 * 60; // 1-minute range
+
+      const eventsRef = collection(db, "events");
+      const q = query(
+        eventsRef,
+        where("startAt", ">=", Timestamp.fromMillis(start - 1000)),
+        where("startAt", "<=", Timestamp.fromMillis(end + 1000))
+      );
+
+      const snap = await getDocs(q);
+
+      if (!snap.empty) {
+      setIsSaving(false);
+
+      alert("This time slot is already taken. Please choose a different time.");
+
+      return;
+      }
 
       const evt = new Event({
         title,

@@ -243,7 +243,7 @@ function toDocData(evt, { isCreate = false } = {}) {
         createdBy: evt.createdBy ?? null,
         community: evt.community ?? null,
         tournament: evt.tournament ?? null,
-        //startAt: toTs(evt.dateValue) ?? serverTimestamp(),
+        startAt: toTs(evt.dateValue) ?? serverTimestamp(),
     };
     if (isCreate) data.createdAt = serverTimestamp();
     // strip undefined
