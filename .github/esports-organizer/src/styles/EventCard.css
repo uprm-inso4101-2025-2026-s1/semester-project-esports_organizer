@@ -4,7 +4,7 @@
   flex-direction: column;
   flex: 0 0 260px; /* don't grow, don't shrink, 260px basis */
   width: 260px; /* for safety/older browsers */
-  background: var(--light-container);
+  background: var(--container);
   color: #fff;
   border-radius: 14px;
   overflow: hidden;
@@ -106,7 +106,7 @@
 
 .ecard__join-btn {
   flex: 1;
-  background: var(--light-link);
+  background: var(--link);
   color: #fff;
   border: none;
   padding: 12px 14px;
