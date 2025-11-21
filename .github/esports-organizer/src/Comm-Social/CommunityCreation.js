@@ -1,5 +1,6 @@
 import {Community} from "./Community.js";
 import Database from "../database/examples/Database.js";
+import { db } from "../database/examples/firebase.js";
 
 //Function receives the following arguments:
 /**
@@ -31,10 +32,8 @@ export async function createCommunity(name, description, admin, tags, game, loca
     icon, banner});
 
     try{
-        
-        const database = await Database.createDatabase();
 
-        await database.addCommunityToDatabase(communityObject);
+        await db.addCommunityToDatabase(communityObject);
 
         return "Community successfully created!";
     }
