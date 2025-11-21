@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "emulator:start": "firebase emulators:start --project demo-esports-organizer --only firestore,functions",
+    "emulator:start": "firebase emulators:start --project demo-esports-organizer --only firestore,functions,auth",
     "seed": "node .github/esports-organizer/src/scripts/seedEmulator.js",
     "mark:final": "node .github/esports-organizer/src/scripts/markFinal.js",
     "verify:derived": "node .github/esports-organizer/src/scripts/verifyDerived.js",

@@ -1,0 +1,34 @@
+= Lecture Topic Task
+:doctype: article
+
+
+== Events and Behaviors within Result Report
+
+[cols="1,3", options="header"]
+|===
+| Event | Behavior
+
+| Function is called | A Tournament object is received, and the result reporting process begins.
+
+| Tournament data requested | The function `getTournamentData()` is called to gather the tournament outcomes, and the result of its rounds.
+
+| Tournament data received | If tournament data is received, it is stored in the following variables: `finalTeamList`, `rounds`, and `champion`.
+
+| Ranking lists initialized | The empty arrays, `rankinglist` and `finalPlacements`, are created with the purpose of storing team order and their final standings.
+
+| Placement assigned | Each team is labeled with their respective rank.
+
+| Placement stored | The placement for each corresponding team is stored in the previously empty array called `finalPlacements`.
+
+| Placement logged | The placement for each corresponding team is logged onto the console.
+
+| Final report generated | The variables `champion`, `placements`, and `rounds` are returned as the result of the function.
+
+| Error encountered | If an error is encountered, the function logs the error onto the console and returns a `null` champion variable, an empty array of placements, and an empty array of rounds.
+|===
+
+== Summary
+
+Identifying the events and behaviors within the Result Report process is essential to ensure that outcomes of tournaments are generated and presented with accuracy.  
+This table shows all important events and their behaviors within the Result Report process.  
+By documenting these clearly, it ensures correctness of outcomes and reduces the potential for error, while also simplifying rigorous testing.

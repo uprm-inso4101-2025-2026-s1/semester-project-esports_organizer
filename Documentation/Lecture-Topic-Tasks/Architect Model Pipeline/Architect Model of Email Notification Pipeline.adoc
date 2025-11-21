@@ -1,0 +1,144 @@
+= Architect Model of Email Notification Pipeline
+Oscar Santana  
+Esports Organizer — Notification & Events Team  
+INOS4101-080  
+
+== Overview
+[.hl-green]#This section describes the architectural structure of the Email Notification Pipeline and how it integrates with the broader Esports Organizer system.#  
+The pipeline manages notification triggers, template rendering, email dispatch, retries, rate limiting, and verification flows.
+
+== Component Diagram Description
+The component model consists of the following interconnected modules:
+
+=== Frontend (React App)
+- Initiates user actions (registration, joining events, etc.).
+- Sends requests to backend API routes.
+
+=== Backend API Gateway / Express Server
+- Routes requests to internal services.
+- Central location where email-related triggers are detected.
+
+=== User Profile Service
+- Stores `email`, `username`, and `isVerified` flags.
+- Provides user data to template engine and adapter.
+
+=== Event Service
+- Handles event creation, registration, updates, cancellations.
+
+=== Tournament Service
+- Stores bracket data, match results, and schedules.
+
+=== Email Trigger Controller
+- Evaluates which user actions require notifications.
+- Prevents duplicate email dispatches.
+- Passes appropriate template + context to the email adapter.
+
+=== Email Adapter
+- Uses Nodemailer and SMTP to send email.
+- Applies retry logic, rate limiting, and logs results.
+
+=== Template Engine
+- Uses Handlebars (`.hbs` files).
+- Produces HTML + plain text variants based on context data.
+
+=== Scheduler
+- Cron-based timed reminders.
+- Sends “upcoming event” and “tournament starting soon” notifications.
+
+=== Rate Limiter
+- Ensures users cannot receive too many notifications at once.
+- Prevents accidental spamming during heavy activity.
+
+=== Retry Module
+- Retries failed email attempts using exponential backoff.
+
+=== Database
+Contains the following key tables/data sets:
+- Users
+- Events
+- Tournaments
+- Verification Tokens
+- Email Logs
+
+=== SMTP Provider
+External system (Gmail, Outlook, Corporate SMTP).
+
+== Data Flow Diagram (DFD) Description
+The following data flow describes how information travels across the pipeline.
+
+=== External Entities
+- **User:** triggers actions in the system.
+- **Admin:** creates/updates tournaments.
+- **SMTP Provider:** sends outgoing emails.
+
+=== Processes
+1. **User Action Detector**  
+   Detects relevant actions (join event, create account).
+2. **Trigger Controller**  
+   Determines appropriate notification.
+3. **Data Collector**  
+   Fetches user/event/tournament context.
+4. **Template Renderer**  
+   Loads `.hbs` templates and injects data.
+5. **Email Sender**  
+   Sends email through SMTP.
+6. **Retry Manager**  
+   Handles failures with exponential backoff.
+7. **Rate Limiter**  
+   Ensures user receives safe number of emails.
+
+=== Data Stores
+- User records  
+- Events  
+- Tournaments  
+- Tokens  
+- Email logs  
+
+== Sequence Diagrams (Textual Description)
+
+=== 1. Account Creation + Verification Email
+1. User submits registration form.  
+2. Frontend sends request → Backend API.  
+3. Backend creates user + verification token.  
+4. Trigger Controller identifies “verification email” event.  
+5. Template Engine loads verification template.  
+6. Email Adapter sends email to SMTP provider.  
+7. User clicks verification link.  
+8. Backend validates token and sets `isVerified = true`.
+
+=== 2. Event Registration + Confirmation Email
+1. User clicks “Join Event.”  
+2. Event Service stores registration.  
+3. Trigger Controller detects event-registration trigger.  
+4. Data Collector fetches event + user details.  
+5. Template Engine builds confirmation email.  
+6. Email Adapter dispatches notification.  
+7. Logs stored for E2E verification.
+
+=== 3. Scheduled Reminder Delivery
+1. Scheduler runs via cron (e.g., every hour).  
+2. Queries events starting within a given time window.  
+3. Identifies users registered to those events.  
+4. For each user:
+   - Trigger Controller prepares reminder context.
+   - Template Engine generates reminder email.
+   - Email Adapter sends via SMTP.
+5. Failures → Retry Module applies backoff.
+
+== Architectural Responsibilities Summary
+- **Email Adapter:** Manages SMTP communication, failure handling.  
+- **Trigger Controller:** Orchestrates notification logic.  
+- **Template Engine:** Generates personalized HTML content.  
+- **Scheduler:** Executes timed reminders.  
+- **Rate Limiter:** Protects users from receiving too many messages.  
+- **Database:** Stores user, event, tournament, verification, and email log data.
+
+== Bottlenecks & Risks
+- Rate limiting blocking important notifications.  
+- Template engine slowdown during peak renders.  
+- SMTP provider rate limiting or downtime.  
+- Duplicate email triggers during tournament updates.  
+- Reminder emails not sent if scheduler fails.
+
+== Logbook Entry
+| Architect Model of Email Notification Pipeline | Oscar Santana | Added | Created analytic section describing system architecture and diagram connections. |

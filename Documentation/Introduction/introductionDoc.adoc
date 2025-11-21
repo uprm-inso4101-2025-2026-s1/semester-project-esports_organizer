@@ -1,0 +1,7 @@
+include::Sections/presentationPage.adoc[]
+
+include::Sections/tableOfContents.adoc[]
+
+include::Sections/legend.adoc[]
+
+include::Sections/introduction.adoc[]

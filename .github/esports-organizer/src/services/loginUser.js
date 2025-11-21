@@ -1,39 +1,71 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../lib/firebase"; // Adjust path if needed
+import { db, auth } from "../lib/firebase"; // Adjust path if needed
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export async function loginUser(emailOrUsername, password) {
   const input = emailOrUsername.trim().toLowerCase();
-  // Try email (lowercase)
-  let userSnapshot = await getDocs(
-    query(collection(db, "User"), where("Email", "==", input))
-  );
 
-  // Try Username (case-insensitive)
-  if (userSnapshot.empty) {
-    userSnapshot = await getDocs(
-      query(collection(db, "User"), where("Username", "==", input))
-    );
-    // If still not found, try to find by lowercasing all usernames in the collection
-    if (userSnapshot.empty) {
-      const allUsers = await getDocs(collection(db, "User"));
-      const match = allUsers.docs.find(
-        (doc) => doc.data().Username && doc.data().Username.toLowerCase() === input
-      );
-      if (match) {
-        userSnapshot = { docs: [match] };
+  try {
+    let emailToUse = input;
+
+    // if there is no @ we assume is a username
+    if (!input.includes("@")) {
+      const usersRef = collection(db, "User");
+      const q = query(usersRef, where("Username", "==", input));
+      const snap = await getDocs(q);
+
+      if (snap.empty) {
+        return {
+          success: false,
+          error: "No account found with that E-mail or Username.",
+        };
       }
+
+      const userData = snap.docs[0].data();
+      if (!userData.Email) {
+        return {
+          success: false,
+          error: "No account found with that E-mail or Username.",
+        };
+      }
+
+      emailToUse = userData.Email.toLowerCase();
     }
-  }
 
-  if (userSnapshot.empty || userSnapshot.docs.length === 0) {
-    return { success: false, error: "No account found with that E-mail or Username." };
-  }
+    // We use Firebase Auth for login
+    const cred = await signInWithEmailAndPassword(auth, emailToUse, password);
+    console.log("✅ loginUser: logged in as", cred.user.email);
 
-  const userData = userSnapshot.docs[0].data();
-  if (userData.Password !== password) {
-    return { success: false, error: "Incorrect password." };
-  }
+    // We save uid
+    localStorage.setItem("currentUserUid", cred.user.uid);
 
-  localStorage.setItem("currentUserUid", userData.uid);
-  return { success: true, user: userData };
+    
+    let userData = { email: cred.user.email, uid: cred.user.uid };
+    const userSnap = await getDocs(
+      query(collection(db, "User"), where("uid", "==", cred.user.uid))
+    );
+    if (!userSnap.empty) {
+      userData = userSnap.docs[0].data();
+    }
+
+    return { success: true, user: userData };
+  } catch (error) {
+    console.error("⚠ loginUser error:", error);
+
+    let message = "There was a problem logging in. Please try again.";
+
+    if (error.code === "auth/user-not-found") {
+      message = "No account found with that E-mail or Username.";
+    } else if (error.code === "auth/wrong-password") {
+      message = "Incorrect password.";
+    } else if (error.code === "auth/invalid-credential") {
+      message = "Email or password is incorrect.";
+    }
+
+    return {
+      success: false,
+      error: message,
+      rawError: error,
+    };
+  }
 }

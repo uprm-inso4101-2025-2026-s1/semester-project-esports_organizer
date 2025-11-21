@@ -1,0 +1,99 @@
+= Requirements Facets in the Esports Web – Notifications System
+Yamilet Gomez Marte – Esports Organizer Project  
+Team: Events & Notifications  
+INSO4101-080
+
+==  Objective
+
+Explain the concept of *requirements facets* and analyze how each facet applies to the development of the *Notifications System* in the *Esports Organizer Web Platform*.  
+Understanding the different dimensions of system requirements — *functional, non-functional, data, interface,* and *constraints* — helps define what the notifications feature must achieve for its users and administrators.
+
+== Definition
+
+In software engineering, *requirement facets* represent the various perspectives from which a system’s requirements can be analyzed and specified.  
+Each facet captures a different expectation of the system:  
+
+- What it should do  
+- How it should behave  
+- What information it must manage  
+- And under what conditions it must operate  
+
+Understanding these facets ensures *adequacy*, meaning that all user expectations are covered, and that every requirement is *implementable, verifiable, testable,* and *validatable.*  
+
+For the *Esports Notifications System*, analyzing these facets ensures that key features — such as tournament alerts, community updates, help page assistance, and Google Calendar integration — align with both *user needs* and *technical capabilities.*
+
+A well-defined set of requirements facets:
+
+* Provides a complete understanding of the system’s purpose and scope.  
+* Serves as a reference for developers during design and testing.  
+* Prevents missing, ambiguous, or conflicting requirements.  
+* Strengthens communication among developers, administrators, and users to maintain a shared vision of the feature.
+
+== Characterization of Requirements
+
+Requirements can be characterized by the properties of the “machine” (the system) being built.  
+Each characteristic represents a fundamental aspect of the *Notifications System*.
+
+=== *Entities the System Must Maintain*
+The Notifications System must maintain essential entities such as:
+
+* **Notifications** – information sent to users about tournaments, community activities, or system updates.  
+* **Users** – recipients of notifications, including players, organizers, and community members.  
+* **Senders** – the *admin* and *event managers* who have permission to create and send notifications.  
+* **Status Flags** – such as *read* or *unread* states for notifications.  
+* **Feedback Messages** – collected from users through the help page.  
+
+All these entities are stored securely in the system’s database, ensuring that notification history and feedback remain traceable and organized.
+
+=== *Functions the System Must Offer*
+The *Notifications System* must perform several key functions:
+
+* Send notifications when:
+** A tournament is created, updated, or about to start.  
+** A community post or event is published.  
+** System announcements are made by the admin.  
+* Allow users to:
+** View all notifications in their notification panel.  
+** Mark notifications as read, either individually or “Mark all as read.”  
+** Save tournament dates directly to Google Calendar.  
+** Access a *Help Page* with pre-made frequently asked questions (FAQs).  
+** Send feedback or report issues directly from the help page.  
+
+These functions ensure that users stay informed, engaged, and supported within the platform.
+
+=== *Behaviors the System Must Carry Out*
+* The system must automatically display new notifications in real time without requiring a page reload.  
+* Notifications should be ordered from newest to oldest, allowing easy visibility of recent updates.  
+* When users mark notifications as read, their status updates immediately both in the interface and in the database.  
+* The help page should provide quick access to FAQs and dynamically confirm when feedback is submitted.  
+* If users add a tournament event to Google Calendar, the system should confirm successful integration with a clear message.
+
+=== *Events the System Must Handle*
+The system must handle several events triggered by both users and administrators:
+
+* Admin or manager sends a new notification about a tournament or community event.  
+* Tournament is updated (date, time, or rules) — notification sent automatically to participants.  
+* User interacts with notifications (mark as read, open, or delete).  
+* User opens the help page and submits feedback or reads FAQs.  
+
+These events define how the system reacts to different interactions and updates in real time.
+
+== Adequacy and Communication
+
+To ensure *adequacy*, requirements must:
+
+* Cover all relevant user and admin needs for managing and receiving notifications.  
+* Be measurable and testable (e.g., “Notifications must appear within 3 seconds of being sent by an admin”).  
+* Reflect realistic technical constraints and platform capabilities.  
+
+Continuous *communication* between developers, administrators, and users ensures:
+
+* Each notification type and delivery rule is correctly implemented.  
+* The help page’s FAQ content and feedback collection system address actual user concerns.  
+* Ongoing improvements can be made based on user feedback and analytics.  
+
+== Conclusion
+
+Understanding and documenting the *requirements facets* of the *Notifications System* ensures that the Esports Organizer Web Platform provides an efficient, reliable, and user-focused communication feature.  
+
+By clearly defining how notifications are sent, displayed, and managed — and by maintaining collaboration between stakeholders — the project guarantees a system that enhances tournament organization, fosters community engagement, and delivers a smooth user experience across all roles.

@@ -3,15 +3,19 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
 // For emulator-only dev, projectId is sufficient
 const firebaseConfig = {
+  apiKey: "fake-api-key",
+  authDomain: "localhost",
   projectId: 'demo-esports-organizer',
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const functions = getFunctions(app);
+const auth = getAuth(app);
 
 // Connect to the root emulator suite ports
 if (typeof window !== 'undefined') {
@@ -19,7 +23,10 @@ if (typeof window !== 'undefined') {
   if (host === 'localhost' || host === '127.0.0.1') {
     connectFirestoreEmulator(db, '127.0.0.1', 58180);
     connectFunctionsEmulator(functions, '127.0.0.1', 5002);
+    connectAuthEmulator(auth, 'http://127.0.0.1:9099', {
+      disableWarnings: true,
+    });
   }
 }
 
-export { app, db, functions };
+export { app, db, functions, auth };

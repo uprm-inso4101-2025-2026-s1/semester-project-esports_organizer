@@ -1,0 +1,167 @@
+*Lecture Topic Task - API Integration Flow Diagram*
+
+*By:* Sebastian A Santiago Perez
+
+*Course:* INSO 4101 – Software Engineering
+
+*Date:* November 2, 2025
+
+*Introduction*
+
+This lecture topic task focuses on the concept of API Integration and
+its role in connecting the
+
+frontend and backend systems of the Esports Organizer platform. API
+integration allows data to be
+
+exchanged between user interfaces and backend services in real time.
+Understanding this flow is
+
+essential to ensure that information moves efficiently through the
+application, allowing users to access
+
+accurate and updated data without needing to reload or manually refresh
+the page.
+
+*Relation to Class Topics*
+
+This topic connects directly to the Software Design and Human–Computer
+Interaction (HCI) lectures,
+
+This topic connects to *Software Design* and *System Architecture*
+lectures, specifically focusing on
+
+modularity, communication layers, and coupling between system
+components. In the Triptych Model,
+
+this concept bridges the *requirements* and *design* phases—where the
+functional need for data
+
+exchange is defined and then implemented through structured interfaces
+and endpoints. The use of
+
+APIs also aligns with software engineering principles of reusability and
+separation of concerns, since
+
+each layer performs a clear and independent role.
+
+*Objective*
+
+The main objective of this task is to document and visualize how the
+Esports Organizer frontend
+
+communicates with the backend through APIs. The diagram aims to show how
+user actions trigger
+
+API requests, how data is retrieved from the database, and how the
+responses are processed and
+
+displayed on the user interface. This analysis helps the team understand
+the internal communication
+
+flow and dependencies between components, which is crucial for
+maintainability and debugging.
+
+*Process and Design Decisions*
+
+The process began by identifying which components of the platform
+interact directly with backend
+
+services, such as the *Login*, *Register*, and *Events* sections. Each
+of these components sends requests
+
+to the backend to either fetch or submit data.
+
+When a user performs an action, such as logging in or viewing
+tournaments, the frontend sends a
+
+request to the corresponding API endpoint. The backend receives this
+request, processes it, and
+
+returns a structured response—typically in JSON format. The frontend
+then updates its state and
+
+re-renders the interface to reflect the new data.Through this process,
+the system maintains a real-time connection between user actions and
+database
+
+updates, ensuring data integrity and responsiveness.
+
+*Diagram: API Integration Flow Diagram (Conceptual Layout)*
+
+//TODO
+//image:media/image1.png[media/image1,width=601,height=521]
+
+*Example Scenario*
+
+For example, when a user logs into the Esports Organizer platform, the
+frontend component
+
+collects the credentials and sends them to the authentication API. The
+API verifies the
+
+credentials, retrieves the user’s data from Firebase, and sends it back
+to the frontend. The
+
+React component then updates the state and navigates the user to their
+dashboard,
+
+displaying personalized information.
+
+This process occurs seamlessly, giving the appearance of an
+instantaneous response and
+
+reinforcing a smooth user experience.
+
+*Connection with Software Engineering Principles*
+
+The process of implementing responsive design aligns with several key
+engineering practices:
+
+●Modularity**:** Layout components are reusable and independent.
+
+●Maintainability**:** CSS variables and consistent design tokens
+simplify future edits.
+
+●Scalability**:** The design supports additional sections (like Events
+or News) without major
+
+refactoring.
+
+●User-Centered Design**:** Prioritizing accessibility and legibility
+enhances user satisfaction and
+
+engagement.
+
+*Reflections and Findings*
+
+This task demonstrates how API integration supports the overall
+structure of the Esports Organizer by
+
+enabling modular communication between the frontend and backend. It also
+highlights the importance
+
+of error handling and asynchronous operations, as delays or failures in
+API communication can
+
+directly affect user experience. Properly designed APIs and
+well-structured data handling reduce
+
+coupling, making the system easier to maintain and scale in future
+iterations.
+
+*Conclusion*
+
+The API Integration Flow Diagram provides a clear visualization of how
+information travels through
+
+the system and how the frontend and backend cooperate to deliver dynamic
+content. By documenting
+
+this flow, the development team gains a deeper understanding of data
+dependencies and component
+
+responsibilities. This ensures a more stable, maintainable, and
+efficient application architecture for the
+
+Esports Organizer platform.

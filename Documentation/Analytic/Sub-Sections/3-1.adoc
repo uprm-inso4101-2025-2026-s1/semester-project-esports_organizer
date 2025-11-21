@@ -1,0 +1,47 @@
+== 3 Analytic Part
+=== 3.1 Concept Analysis
+
+Based on our understanding of the esports domain and the problem space, we identify the following key concepts [.hl-green]#with their derivation from stakeholder input:#
+
+**Game vs Gaming Community:**
+*Games* are the software titles (Tekken, Valorant), while *Gaming Communities* are groups of players who compete in specific games within geographic regions.
+
+[.hl-green]#Derived from: "people who play Tekken" and "Valorant players in our city" indicate distinct player groups organized around specific game titles within geographic boundaries.#
+
+**Tournament vs Match:**
+*Tournaments* are organized competitive events with multiple participants, while *Matches* are individual competitions between players/teams within tournaments. The bracket reference indicates tournaments contain structured match progressions.
+
+[.hl-green]#Derived from: "organize tournaments," "track results from multiple events," and "bracket" references demonstrate the hierarchical relationship between tournaments and their constituent matches.#
+
+**Geographic Locality:**
+Multiple references to "local," "in our city," and "geographic areas" reveal that competitive gaming operates within *Local Competitive Scenes* - geographically-bounded communities where players can feasibly attend in-person events.
+
+[.hl-green]#Derived from: "hard to know who's actually good in our area," "local competitive scene," and "in our city" emphasize the geographic boundaries that define competitive communities.#
+
+
+**Performance and Rankings:**
+The "3rd place" and "ranking across events" statements show that *Competition Results* and *Player Rankings* are important domain concepts that currently exist in fragmented form.
+
+[.hl-green]#Derived from: "I got 3rd place at X tournament," "track my performance across events," and "hard to know who's actually good", indicates that performance tracking and comparative rankings are central concerns.#
+
+*Individual vs Team Competition:* Some games support both individual and team play (e.g., fighting games typically individual, MOBAs typically team-based). Our domain model must accommodate both.
+
+[.hl-green]#Derived from: References to "players" (individual) and the diversity of game types mentioned (Tekken as fighting game, Valorant as team-based) imply different competition structures.#
+
+*Casual vs Competitive Players:* The distinction between someone who "plays games" and someone who "competes in tournaments" is crucial for our domain focus.
+
+[.hl-green]#Derived from: "people who play Tekken" versus "organize tournaments" and "track results from multiple events" distinguish recreational players from competitive participants who engage in structured competition.#
+
+image::database_wrapper_diagram.png[align=center]
+
+[.hl-green]#The diagram above illustrates our system's data architecture, which directly implements the domain concepts identified in our analysis. The architecture consists of four primary components:#
+
+[.hl-green]#**Database Wrapper:** Serves as the central data management layer, handling the creation, deletion, and modification of events, users, and teams. This component ensures consistent data operations across all entity types and maintains data integrity throughout the system.#
+
+[.hl-green]#**Users Entity:** Represents individual competitive players (mapping to our "Competitive Players" concept), storing user ID, username, email, password, and account creation timestamp. This entity distinguishes tournament participants from casual players.#
+
+[.hl-green]#**Teams Entity:** Accommodates team-based competition (supporting our "Individual vs Team Competition" concept), containing team name, members, organizer ID, rank metrics, and capacity constraints. This enables team-based games while maintaining performance tracking.#
+
+[.hl-green]#**Events Entity:** Implements our "Tournament" concept, storing event name, game subject, organizer, participants, location (supporting "Geographic Locality"), dates, completion status, and participant capacity. This entity provides the foundation for tracking "Competition Results" across the "Local Competitive Scene."#
+
+[.hl-green]#The relationships between entities enable tracking individual and team performance across multiple events, managing team compositions, associating events with geographic locations, and linking organizers to their tournaments.#

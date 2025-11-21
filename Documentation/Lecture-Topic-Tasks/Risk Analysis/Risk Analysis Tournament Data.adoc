@@ -1,0 +1,65 @@
+== Risk Matrix
+
+|===
+| *Risk* | *Impact* | *Likelihood* | *Mitigation*
+
+| Concurrent Match Updates - Two organizers can update the match result at the same time, which can create conflicting or lost data.
+
+| High - Data can be overwritten and create confliting results or inconsistent bracket progression
+
+| Medium
+
+| Implement Firestore transactions or batch writes to ensure atomic and serialized updates when multiple users modify match results simultaneously.
+  Use optimistic concurrency control to detect conflicts before commit.
+
+
+| Duplicate Registrations - A participant registers multiple times because of asynchronous UI upadtes or incorrect client validation
+
+| Medium - Duplicate entries can cause unabalanced brackets or create inavlid matches
+
+| High
+
+| Validate unique participant identifiers both client-side and server-side before writing to the database.
+  Apply composite indexes or use Firestore security rules to reject duplicate entries automatically.
+
+
+| Broken NextMatch References - Incomplete propagation of winners due to missing or invalid Ids values for the next match
+
+| High - Tournament progression could stop and the data integrity issues may prevent determining a winner
+
+| Medium
+
+| Perform pre-commit validation of all match dependencies. Each match should confirm that its `nextMatchId` field exists and correctly
+  references a valid document. Introduce scheduled integrity checks to detect orphaned references.
+
+
+| Incomplete Tournament Finalization - The tournament is marked as ended prematurely, even if there are unresolved matches or unreported results
+
+| High - The system could mark the tournament as finisehd even if it still has matches to be started or finished
+
+| Low
+
+| Add server-side checks to verify all matches are complete before allowing the host or admin to finalize the tournament.
+  Ensure that incomplete results cannot mark the tournament as “ended.”
+
+
+| Unauthorized Data Modifications - Users without the proper authorization (TO or admin) attempt to change match results or tournament metadata
+
+| Critical - Unauthorized User could alter the tournament structure or modify results.
+
+| Low
+
+| Enforce strict Firestore security rules to ensure only authorized roles (tournament organizers or admins) can modify sensitive tournament documents.
+  Combine with Firebase Authentication for secure identity verification.
+|===
+
+
+== Conclusion
+
+To maintain tournament data consistency, the platform requires control of concurrency, validation and proper user permissions.
+Since the system handles real-time updates from multiple users (Tournament Organizers, admins and players) where they all interact with shared data,
+synchronization errors can lead to inconsistent results or broken tournament logic.
+
+The identified risk highlight the possible issues that could be faced when dealing with a event-driven system (Concurrent writes, duplicate data, etc).
+Mitigation strategies such as Firestore transaction, pre-commit validation and restricting write permissions through Firebase Authentication and user
+roles can help to ensure the tournament data is accurate.
