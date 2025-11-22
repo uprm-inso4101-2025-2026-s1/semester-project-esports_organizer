@@ -8,7 +8,7 @@ import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
 import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
-
+import Community from "../../Comm-Social/Community.js";
 // Mock data as placeholders
 const mockCommunity = {
     id: 1,
@@ -528,19 +528,22 @@ export default function CommunityFeedPage() {
                 return;
             }
 
+            console.log("Creating post for community:", currentCommunity.id);
+            console.log("Post instance:", postInstance);
+
             // Add post to Firestore Posts collection
             await postInstance.addPostToCommunity(postInstance);
+            console.log("Post added to Firestore Posts collection");
 
-            // Add post ID to the community's posts array
-            const updatedPosts = [...(currentCommunity.posts || []), postInstance.id];
-            const updatedCommunity = {...currentCommunity, posts: updatedPosts};
-            await updateCommunity(currentCommunity.id, updatedCommunity);
+            // Add post ID to the community's posts array using addPost method
+            currentCommunity.addPost(postInstance.id);
+            
+            // Update the community in Firestore with the modified Community object
+            await updateCommunity(currentCommunity.id, currentCommunity);
+            console.log("Community posts array updated");
 
             // Update local community state
-            setCurrentCommunity(prev => ({
-                ...prev,
-                posts: updatedPosts
-            }));
+            setCurrentCommunity({...currentCommunity});
 
             // Create display object for UI
             const timestamp = postInstance.date instanceof Date
@@ -569,6 +572,7 @@ export default function CommunityFeedPage() {
             console.log("Post added to community:", currentCommunity.id, "Post ID:", postInstance.id);
         } catch (error) {
             console.error("Error creating post:", error);
+            console.error("Error details:", error.message);
             alert("Failed to create post. Please try again.");
         }
     };
