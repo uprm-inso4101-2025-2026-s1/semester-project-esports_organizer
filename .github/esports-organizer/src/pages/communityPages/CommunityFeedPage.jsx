@@ -7,7 +7,7 @@ import "../teamProfilePages/TeamForms.css";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
-import { createCommunity } from "../../Comm-Social/CommunityCreation.js";
+import { createCommunity, getAllCommunitiesFromDatabase } from "../../Comm-Social/CommunityCreation.js";
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -78,11 +78,6 @@ const mockSidebarCommunities = {
             title: "League of Legends",
             imageUrl: "/assets/images/valorant.png",
         },
-    ],
-    top: [
-        {id: 5, title: "Valorant", imageUrl: "/assets/images/valorant.png"},
-        {id: 6, title: "Fortnite", imageUrl: "/assets/images/fortnite.png"},
-        {id: 7, title: "Apex Legends", imageUrl: "/assets/images/valorant.png"},
     ],
 };
 
@@ -302,20 +297,26 @@ function ActionCard({title, onClick}) {
 }
 
 // Community Section Component using MiniCommunityCard
-function CommunitySection({title, communities, onCommunityClick}) {
+function CommunitySection({title, communities, onCommunityClick, isLoading}) {
     return (
         <div className="community-section">
             <h3>{title}</h3>
-            <div className="community-section-list">
-                {communities.map((community) => (
-                    <MiniCommunityCard
-                        key={community.id}
-                        title={community.title}
-                        imageUrl={community.imageUrl}
-                        onView={() => onCommunityClick(community.id)}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className="loading-message">Loading communities...</div>
+            ) : communities.length === 0 ? (
+                <div className="empty-message">No communities found</div>
+            ) : (
+                <div className="community-section-list">
+                    {communities.map((community) => (
+                        <MiniCommunityCard
+                            key={community.id}
+                            title={community.title}
+                            imageUrl={community.imageUrl}
+                            onView={() => onCommunityClick(community.id)}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
@@ -363,14 +364,51 @@ export default function CommunityFeedPage() {
     const [iconUrl, setIconUrl] = useState("");
     const [bannerUrl, setBannerUrl] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    // New state for fetched communities
+    const [topCommunities, setTopCommunities] = useState([]);
+    const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
+
+    // Fetch communities from Firestore on component mount
+    useEffect(() => {
+        const fetchCommunities = async () => {
+            try {
+                setIsLoadingCommunities(true);
+                const communities = await getAllCommunitiesFromDatabase();
+                
+                // Transform Firestore data to match the expected format
+                const transformedCommunities = communities.map(community => ({
+                    id: community.id,
+                    title: community.name,
+                    imageUrl: community.icon || null, // Use icon as imageUrl, fallback to null
+                    game: community.game,
+                    location: community.location
+                }));
+                
+                setTopCommunities(transformedCommunities);
+                console.log("Fetched communities:", transformedCommunities);
+            } catch (error) {
+                console.error("Error fetching communities:", error);
+                setTopCommunities([]);
+            } finally {
+                setIsLoadingCommunities(false);
+            }
+        };
+
+        fetchCommunities();
+    }, []);
 
     const handleNavigation = (path) => {
         navigate(path);
         setIsMobileMenuOpen(false);
     };
+    
     const handleCommunityClick = (communityId) => {
         console.log(`Navigating to community ${communityId}`);
+        // You can navigate to a specific community page here
+        // navigate(`/community/${communityId}`);
     };
+    
     const handleCreateCommunity = () => {
         setName("")
         setDescription("")
@@ -381,23 +419,60 @@ export default function CommunityFeedPage() {
         setIsSubmitting(false)
         setIsCreateCommunityModalOpen(true);
     };
-    const handleSubmitCommunity = (e) => {
+    
+    const handleSubmitCommunity = async (e) => {
         e.preventDefault();
         if (!name || !game) {
-            alert("Community Name and Game are required."); // test plz
+            alert("Community Name and Game are required.");
             return;
         }
         setIsSubmitting(true);
-        const communityData={name, description, game, location, iconUrl, bannerUrl,};
-        createCommunity(communityData.name, communityData.description, "currentUserId", [], communityData.game, communityData.location, communityData.iconUrl, communityData.bannerUrl);
         
-        setTimeout(() => {
+        try {
+            const communityData = {
+                name, 
+                description, 
+                game, 
+                location, 
+                iconUrl, 
+                bannerUrl
+            };
+            
+            await createCommunity(
+                communityData.name, 
+                communityData.description, 
+                "currentUserId", 
+                [], 
+                communityData.game, 
+                communityData.location, 
+                communityData.iconUrl, 
+                communityData.bannerUrl
+            );
+            
+            // Re-fetch communities to include the newly created one
+            const updatedCommunities = await getAllCommunitiesFromDatabase();
+            const transformedCommunities = updatedCommunities.map(community => ({
+                id: community.id,
+                title: community.name,
+                imageUrl: community.icon || null,
+                game: community.game,
+                location: community.location
+            }));
+            setTopCommunities(transformedCommunities);
+            
             setIsSubmitting(false);
             setIsCreateCommunityModalOpen(false);
-            alert(`Community created successfully!`);
-        }, 1500);
+            alert(`Community "${name}" created successfully!`);
+        } catch (error) {
+            console.error("Error creating community:", error);
+            alert("Failed to create community. Please try again.");
+            setIsSubmitting(false);
+        }
     };
-    const closeCreateModal = ()=>{  setIsCreateCommunityModalOpen(false);    }
+    
+    const closeCreateModal = () => {
+        setIsCreateCommunityModalOpen(false);
+    }
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -411,14 +486,12 @@ export default function CommunityFeedPage() {
     ];
 
     // Handling button clicks
-
     const handleToggleSaved = (tournamentId, isSaved) => {
-        // TODO proper functionality added in the future
         console.log(`${isSaved ? "Unsaving" : "Saving"} tournament:`, tournamentId);
     };
-    const handleJoinEvent = (tournamentTitle) => {
-        // TODO proper functionality added later
-        console.log(`${isSaved ? "Unsaving" : "Saving"} tournament:`, tournamentId);
+    
+    const handleJoinEvent = (eventId, isJoining) => {
+        console.log(`${isJoining ? "Joining" : "Leaving"} event:`, eventId);
     };
 
     const handleCreatePost = (postObj) => {
@@ -447,7 +520,6 @@ export default function CommunityFeedPage() {
     };
 
     const handleLoadMore = () => {
-        // functionality to be later added
         console.log("Loading more posts...");
         alert("Loading more posts...");
     };
@@ -511,21 +583,24 @@ export default function CommunityFeedPage() {
                         />
                     </div>
 
-                    {/* Other Communities You Follow */}
+                    {/* Other Communities You Follow (mock data) */}
                     <CommunitySection
                         title="Other Communities You Follow"
                         communities={mockSidebarCommunities.followed}
                         onCommunityClick={handleCommunityClick}
+                        isLoading={false}
                     />
 
-                    {/* Top Communities */}
+                    {/* Top Communities from Firestore */}
                     <CommunitySection
                         title="Top Communities"
-                        communities={mockSidebarCommunities.top}
+                        communities={topCommunities}
                         onCommunityClick={handleCommunityClick}
+                        isLoading={isLoadingCommunities}
                     />
                 </aside>
             </div>
+            
             {/*  Modal rendering*/}
             {isCreateCommunityModalOpen && (
                 <CommunityModal
@@ -545,14 +620,14 @@ export default function CommunityFeedPage() {
                                 className="team-modal__btn team-modal__btn--primary"
                                 disabled={isSubmitting || !name || !game}
                             >{isSubmitting ? "Creating..." : "Create"}</button>
-                    </>
+                        </>
                     }
                 >
                     <form
                         id="create-community-form"
                         className="team-form"
                         onSubmit={handleSubmitCommunity}
-                        >
+                    >
                         <label className="team-form__label" htmlFor="communityName">Community Name</label>
                         <input
                             id="communityName"
@@ -562,7 +637,7 @@ export default function CommunityFeedPage() {
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g., Marvel Rivals Champions"
                             required
-                            />
+                        />
                         <label className="team-form__label" htmlFor="communityGame">Primary Game</label>
                         <input
                             id="communityGame"
@@ -572,7 +647,7 @@ export default function CommunityFeedPage() {
                             onChange={(e) => setGame(e.target.value)}
                             placeholder="e.g., Marvel Rivals"
                             required
-                            />
+                        />
                         <label className="team-form__label" htmlFor="communityLocation">Location</label>
                         <input
                             id="communityLocation"
@@ -581,7 +656,7 @@ export default function CommunityFeedPage() {
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder="e.g., North America"
-                            />
+                        />
                         <label className="team-form__label" htmlFor="communityDescription">Description</label>
                         <textarea
                             id="communityDescription"
@@ -590,7 +665,7 @@ export default function CommunityFeedPage() {
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Tell the community what your place is about..."
                             rows={3}
-                            />
+                        />
                         <div className="team-form__group">
                             <span className="team-form__label">Assets (Optional)</span>
                             <input
@@ -600,7 +675,7 @@ export default function CommunityFeedPage() {
                                 value={iconUrl}
                                 onChange={(e) => setIconUrl(e.target.value)}
                                 placeholder="Icon URL: https://.../my_icon.png"
-                                />
+                            />
                             <input
                                 id="communityBanner"
                                 type="text"
@@ -608,7 +683,7 @@ export default function CommunityFeedPage() {
                                 value={bannerUrl}
                                 onChange={(e) => setBannerUrl(e.target.value)}
                                 placeholder="Banner URL: https://.../my_banner.jpg"
-                                />
+                            />
                         </div>
                     </form>
                 </CommunityModal>

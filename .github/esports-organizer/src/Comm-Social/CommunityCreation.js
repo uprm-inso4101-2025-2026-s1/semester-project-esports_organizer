@@ -23,7 +23,7 @@ import {db} from "../database/firebaseClient.js"
  */
 const firestore = db;
 
-export async function createCommunity(name, description, admin, tags, game, location, icon, banner){
+async function createCommunity(name, description, admin, tags, game, location, icon, banner){
 
     //Members will start as an empty array to house the ids of future members with the admin id added as first member
     const members = [];
@@ -45,6 +45,7 @@ export async function createCommunity(name, description, admin, tags, game, loca
         console.log(community)
         await addCommunityToDatabase(community);
         console.log("Community successfully created!");
+
         return true;
     }
     catch(error){
@@ -106,3 +107,4 @@ export async function createCommunity(name, description, admin, tags, game, loca
             console.error("Error deleting community: ", error);
         }
     }
+export{getAllCommunitiesFromDatabase, createCommunity}
