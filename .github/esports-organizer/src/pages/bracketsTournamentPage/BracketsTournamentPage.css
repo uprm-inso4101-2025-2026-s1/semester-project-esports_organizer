@@ -56,9 +56,10 @@
   flex-direction: row;
   align-items: flex-start;
   overflow-x: auto;
-  margin-left: clamp(0px, 10vw + 5%, 50%);
 
-  
+  max-width: 1300px;  
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .lines{
