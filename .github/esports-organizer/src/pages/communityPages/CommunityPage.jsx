@@ -1,9 +1,10 @@
 import Navbar from "../../components/shared/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../components/shared/Button.jsx";
 import CommunityCard from "../../components/CommunityCard.jsx";
 import "./CommunityPage.css";
+import { getAllCommunitiesFromDatabase } from "../../Comm-Social/CommunityCreation.js";
 
 // Fixed Mini community card component - proper props destructuring
 function MiniCommunityCard({ imageUrl, title, onView }) {
@@ -30,65 +31,46 @@ export default function CommunityPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [search, setSearch] = useState("");
+  const [communities, setCommunities] = useState([]);
+  const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
+
+  // Fetch communities from Firestore on component mount
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        setIsLoadingCommunities(true);
+        const fetchedCommunities = await getAllCommunitiesFromDatabase();
+        
+        // Transform Firestore data to match the expected format
+        const transformedCommunities = fetchedCommunities.map(community => ({
+          id: community.id,
+          title: community.name,
+          imageUrl: community.icon || null,
+          currentEvents: 0, // You can add this to your Firestore schema if needed
+          followers: community.members ? community.members.length : 0,
+          location: community.location || "Global",
+          game: community.game,
+        }));
+        
+        setCommunities(transformedCommunities);
+        console.log("Fetched communities:", transformedCommunities);
+      } catch (error) {
+        console.error("Error fetching communities:", error);
+        setCommunities([]);
+      } finally {
+        setIsLoadingCommunities(false);
+      }
+    };
+
+    fetchCommunities();
+  }, []);
 
   const handleNavigation = (path) => {
     navigate(path);
   };
 
-  // Better placeholder data with variety
-  const placeholderCommunities = [
-    {
-      id: 1,
-      title: "Fortnite",
-      imageUrl: "/assets/images/fortnite.png",
-      currentEvents: 3,
-      followers: 1200,
-      location: "United States",
-    },
-    {
-      id: 2,
-      title: "Valorant",
-      imageUrl: "/assets/images/valorant.png",
-      currentEvents: 5,
-      followers: 2500,
-      location: "Global",
-    },
-    {
-      id: 3,
-      title: "League of Legends",
-      imageUrl: "/assets/images/valorant.png",
-      currentEvents: 8,
-      followers: 4200,
-      location: "Global",
-    },
-    {
-      id: 4,
-      title: "Counter-Strike 2",
-      imageUrl: "/assets/images/fortnite.png",
-      currentEvents: 4,
-      followers: 1800,
-      location: "Europe",
-    },
-    {
-      id: 5,
-      title: "Apex Legends",
-      imageUrl: "/assets/images/valorant.png",
-      currentEvents: 2,
-      followers: 950,
-      location: "United States",
-    },
-    {
-      id: 6,
-      title: "Rocket League",
-      imageUrl: "/assets/images/fortnite.png",
-      currentEvents: 3,
-      followers: 1100,
-      location: "Global",
-    },
-  ];
-
-  // Filter communities based on search and filter
-  const filteredCommunities = placeholderCommunities.filter((community) => {
+  // Filter communities based on search
+  const filteredCommunities = communities.filter((community) => {
     const matchesSearch = community.title
       .toLowerCase()
       .includes(search.toLowerCase());
@@ -146,7 +128,11 @@ export default function CommunityPage() {
                 />
               </div>
             </div>
-            {filteredCommunities.length === 0 ? (
+            {isLoadingCommunities ? (
+              <div className="loading-state">
+                <p>Loading communities...</p>
+              </div>
+            ) : filteredCommunities.length === 0 ? (
               <div className="no-results">
                 <p>No communities found matching your criteria.</p>
               </div>
