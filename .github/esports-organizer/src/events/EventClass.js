@@ -152,7 +152,7 @@ export default class Event {
         }
     }
 
-    async ListEvents(opts = {}) {
+    static async ListEvents(opts = {}) {
         const { status, from, to, max = 50 } = opts;
         const parts = [collection(db, "events")];
         if (status) parts.push(where("status", "==", String(status)));

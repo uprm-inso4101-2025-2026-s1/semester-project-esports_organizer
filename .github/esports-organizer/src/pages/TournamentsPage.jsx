@@ -7,6 +7,42 @@ import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import Event from "../events/EventClass";
+
+function PageHeader({search, setSearch, handleCreateEvent}) {
+  return (
+    <section className="page-header">
+      <div className="page-header-content">
+        <h1 className="page-title">EVENTS</h1>
+        <div className="search-and-create-container">
+          <div className="search-container">
+            <input 
+              type="text" 
+              placeholder="Search for the event" 
+              className="search-input"
+              value={search} 
+              onChange={(event) => setSearch(event.target.value)}
+            />
+            <div className="search-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+            </div>
+          </div>
+          <button 
+            className="create-event-button"
+            onClick={handleCreateEvent}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            Create Event
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function TournamentsPage() {
   // State management
@@ -15,8 +51,28 @@ function TournamentsPage() {
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [, setSelectedEvent] = useState(null);
   const [modalStep, setModalStep] = useState(1);
+  const [search, setSearch] = useState("");
+  const[events, setEvents] = useState([]);
 
   // Effects
+  useEffect(() => {
+    async function loadEvents() {
+        const data = await Event.ListEvents();
+        const displayEvents = data.map((event, index) => ({
+          id: "event-" + (index + 1),
+          title: event.title || "Title",
+          game: event.game || "Game",
+          price: "Free",
+          date: event.dateValue.toDateString() || "TBD",
+          location: event.location || "TBD"
+        }));
+
+        setEvents(displayEvents);
+    }
+
+    loadEvents();
+  }, []);
+
   useEffect(() => {
     document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
     return () => { document.body.style.overflow = 'unset'; };
@@ -38,6 +94,10 @@ function TournamentsPage() {
     }
   };
 
+  const filteredEvents = events.filter((event) => {
+    const matches = event.title.toLowerCase().includes(search);
+    return matches;
+  });
 
   // Event handlers
 
@@ -65,37 +125,6 @@ function TournamentsPage() {
   };
 
   // Components
-
-  const PageHeader = () => (
-    <section className="page-header">
-      <div className="page-header-content">
-        <h1 className="page-title">EVENTS</h1>
-        <div className="search-and-create-container">
-          <div className="search-container">
-            <input 
-              type="text" 
-              placeholder="Search for the event" 
-              className="search-input"
-            />
-            <div className="search-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-              </svg>
-            </div>
-          </div>
-          <button 
-            className="create-event-button"
-            onClick={handleCreateEvent}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-            Create Event
-          </button>
-        </div>
-      </div>
-    </section>
-  );
 
   const RecommendedSection = () => (
     <section className="recommended-section">
@@ -136,7 +165,7 @@ function TournamentsPage() {
           </div>
         </div>
         <div className="events-grid">
-          {EVENTS_DATA.map((tournament, index) => (
+          {filteredEvents.map((tournament, index) => (
             <TournamentCard 
               key={tournament.id} 
               tournament={tournament} 
@@ -247,9 +276,9 @@ function TournamentsPage() {
     <div className="tournaments-page">
       <Navbar />
       
-      <PageHeader />
-      <RecommendedSection />
+      <PageHeader search={search} setSearch={setSearch} handleCreateEvent={handleCreateEvent}/>
       <EventsSection />
+      <RecommendedSection />
       <JoinEventModal />
     </div>
   );
