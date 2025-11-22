@@ -53,8 +53,8 @@ export default class Team {
 
   /* Adds a member to the members list unless it has reached the member limit. */
   addMember(member) {
-    if (team.members.length < 30) {
-      team.members.push(member);
+    if (this.members.length < 30) {
+      this.members.push(member);
     } else {
       console.log("Maximum Member limit reached.");
     }
@@ -63,7 +63,7 @@ export default class Team {
   /* Removes a member from the members list. */
   removeMember(memberID) {
     let memberIndex = this.findMemberByID(memberID);
-    if (teamIndex !== -1) {
+    if (memberIndex !== -1) {
       this.members.splice(memberIndex, 1);
     }    
   }
