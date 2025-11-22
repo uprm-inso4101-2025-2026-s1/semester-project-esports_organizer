@@ -350,7 +350,7 @@ export default function CommunityFeedPage() {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isLoggedIn] = useState(true); // For testing only, change later
-    const [posts, setPosts] = useState(mockPosts);
+    const [posts, setPosts] = useState([]);
     const {communityId} = useParams();
     const [currentCommunity, setCurrentCommunity] = useState(null);
     const [isLoadingCommunity, setIsLoadingCommunity] = useState(true);
@@ -366,6 +366,9 @@ export default function CommunityFeedPage() {
     // New state for fetched communities
     const [topCommunities, setTopCommunities] = useState([]);
     const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
+
+    // New State for fetched Posts
+    const [isLoadingPosts, setIsLoadingPosts] = useState(true);
 
     // Fetch the current community by ID
     useEffect(() => {
@@ -424,6 +427,39 @@ export default function CommunityFeedPage() {
         };
 
         fetchCommunities();
+    }, []);
+
+    // Fetch Posts from the community
+    useEffect(() => {
+        const fetchCommunityPosts = async () => {
+            try{
+                setIsLoadingPosts(true);
+                const posts = currentCommunity ? currentCommunity.posts : [];
+                
+                const transformedPosts = posts.map(post => ({
+                    id: post.id,
+                    user: {name: post.authorUsername || "Unknown"},
+                    timestamp: post.date,
+                    content: post.content,
+                    likes: post.likes || 0,
+                    comments: post.comments.length || 0,
+                    shares: 0, // to be implemented
+                    community: currentCommunity ? currentCommunity.name.toUpperCase() : "UNKNOWN",
+                }))
+
+                setPosts(transformedPosts);    
+                console.log("Fetched posts:", transformedPosts);
+            }
+            catch(error){
+                console.error("Error fetching posts:", error);
+                setPosts([]);
+            }
+            finally{
+                setIsLoadingPosts(false);
+            };
+        };
+
+        fetchCommunityPosts(); 
     }, []);
 
     const handleNavigation = (path) => {
@@ -632,7 +668,8 @@ export default function CommunityFeedPage() {
 
                     {/* Activity Feed */}
                     <section className="activity-feed">
-                        <ActivityFeed posts={posts} onLoadMore={handleLoadMore}/>
+                        <ActivityFeed posts={posts} onLoadMore={handleLoadMore}
+                        isLoading={isLoadingPosts}/>
                     </section>
                 </main>
 
