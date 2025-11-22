@@ -430,37 +430,77 @@ export default function CommunityFeedPage() {
     }, []);
 
     // Fetch Posts from the community
+
+// Fetch Posts from the community - now depends on currentCommunity
     useEffect(() => {
         const fetchCommunityPosts = async () => {
-            try{
-                setIsLoadingPosts(true);
-                const posts = currentCommunity ? currentCommunity.posts : [];
-                
-                const transformedPosts = posts.map(post => ({
-                    id: post.id,
-                    user: {name: post.authorUsername || "Unknown"},
-                    timestamp: post.date,
-                    content: post.content,
-                    likes: post.likes || 0,
-                    comments: post.comments.length || 0,
-                    shares: 0, // to be implemented
-                    community: currentCommunity ? currentCommunity.name.toUpperCase() : "UNKNOWN",
-                }))
-
-                setPosts(transformedPosts);    
-                console.log("Fetched posts:", transformedPosts);
+            // Don't fetch if community isn't loaded yet
+            if (!currentCommunity) {
+                setIsLoadingPosts(false);
+                return;
             }
-            catch(error){
+            
+            try {
+                setIsLoadingPosts(true);
+                
+                // Get post IDs from the community
+                const postIds = currentCommunity.posts || [];
+                
+                // If no posts, set empty array
+                if (postIds.length === 0) {
+                    setPosts([]);
+                    console.log("No posts in this community");
+                    return;
+                }
+                
+                // Fetch each post from Firestore using the Post class
+                const postInstance = new Post({});
+                const fetchedPosts = await Promise.all(
+                    postIds.map(async (postId) => {
+                        try {
+                            // Handle both string IDs and object references
+                            const id = typeof postId === 'string' ? postId : postId.id;
+                            const post = await postInstance.getPost(id);
+                            return post;
+                        } catch (err) {
+                            console.error("Error fetching post:", postId, err);
+                            return null;
+                        }
+                    })
+                );
+                
+                // Filter out null posts and transform for UI
+                const transformedPosts = fetchedPosts
+                    .filter(post => post !== null)
+                    .map(post => ({
+                        id: post.id,
+                        user: {
+                            name: post.author || "Unknown",
+                            username: post.authorUsername || "@unknown",
+                            avatar: null
+                        },
+                        timestamp: post.date instanceof Date 
+                            ? post.date.toLocaleString() 
+                            : new Date(post.date?.seconds * 1000 || post.date).toLocaleString(),
+                        content: post.content,
+                        likes: post.likes || 0,
+                        comments: Array.isArray(post.comments) ? post.comments.length : 0,
+                        shares: 0,
+                        community: currentCommunity.name.toUpperCase(),
+                    }));
+
+                setPosts(transformedPosts);
+                console.log("Fetched posts:", transformedPosts);
+            } catch (error) {
                 console.error("Error fetching posts:", error);
                 setPosts([]);
-            }
-            finally{
+            } finally {
                 setIsLoadingPosts(false);
-            };
+            }
         };
 
-        fetchCommunityPosts(); 
-    }, []);
+        fetchCommunityPosts();
+    }, [currentCommunity]); 
 
     const handleNavigation = (path) => {
         navigate(path);
