@@ -389,21 +389,13 @@ export default function CommunityFeedPage() {
         }
         setIsSubmitting(true);
         const communityData={name, description, game, location, iconUrl, bannerUrl,};
-        let valid = createCommunity(communityData.name, communityData.description, "currentUserId", [], communityData.game, communityData.location, communityData.iconUrl, communityData.bannerUrl);
+        createCommunity(communityData.name, communityData.description, "currentUserId", [], communityData.game, communityData.location, communityData.iconUrl, communityData.bannerUrl);
         
-        let message=""
-
-        if(valid === true){
-            message="Community created successfully!";            
-        }
-        else{
-            message="Error creating community. Please try again.";
-        }
         setTimeout(() => {
-                setIsSubmitting(false);
-                setIsCreateCommunityModalOpen(false);
-                alert(`${message}`);
-            }, 1500);
+            setIsSubmitting(false);
+            setIsCreateCommunityModalOpen(false);
+            alert(`Community created successfully!`);
+        }, 1500);
     };
     const closeCreateModal = ()=>{  setIsCreateCommunityModalOpen(false);    }
 
