@@ -7,7 +7,7 @@ import "../teamProfilePages/TeamForms.css";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
-import { createCommunity, getAllCommunitiesFromDatabase } from "../../Comm-Social/CommunityCreation.js";
+import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -102,7 +102,7 @@ function MiniCommunityCard({imageUrl, title, onView}) {
     );
 }
 
-function CreatePostForm({onSubmit}) {
+function CreatePostForm({onSubmit, communityName}) {
     const [postContent, setPostContent] = useState("");
 
     const handleSubmit = (e) => {
@@ -115,15 +115,11 @@ function CreatePostForm({onSubmit}) {
             content: content,
             author: "Current User",
             authorUsername: "@currentuser",
-            community: mockCommunity.name.toUpperCase(),
+            community: communityName.toUpperCase(),
         });
-        postCreation.setPublicState();
-        const postObj = postCreation.toObject
-            ? postCreation.toObject()
-            : postCreation;
-
-        // pasar el objeto al padre
-        onSubmit(postObj);
+        
+        // Pass the Post instance to parent
+        onSubmit(postCreation);
 
         setPostContent("");
     };
@@ -356,6 +352,8 @@ export default function CommunityFeedPage() {
     const [isLoggedIn] = useState(true); // For testing only, change later
     const [posts, setPosts] = useState(mockPosts);
     const {communityId} = useParams();
+    const [currentCommunity, setCurrentCommunity] = useState(null);
+    const [isLoadingCommunity, setIsLoadingCommunity] = useState(true);
     const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -369,6 +367,36 @@ export default function CommunityFeedPage() {
     const [topCommunities, setTopCommunities] = useState([]);
     const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
 
+    // Fetch the current community by ID
+    useEffect(() => {
+        const fetchCurrentCommunity = async () => {
+            if (!communityId) {
+                setIsLoadingCommunity(false);
+                return;
+            }
+
+            try {
+                setIsLoadingCommunity(true);
+                const community = await getCommunityFromFirestore(communityId);
+                
+                if (community) {
+                    setCurrentCommunity(community);
+                    console.log("Current community loaded:", community);
+                } else {
+                    console.error("Community not found:", communityId);
+                    setCurrentCommunity(mockCommunity); // Fallback to mock
+                }
+            } catch (error) {
+                console.error("Error fetching community:", error);
+                setCurrentCommunity(mockCommunity); // Fallback to mock
+            } finally {
+                setIsLoadingCommunity(false);
+            }
+        };
+
+        fetchCurrentCommunity();
+    }, [communityId]);
+
     // Fetch communities from Firestore on component mount
     useEffect(() => {
         const fetchCommunities = async () => {
@@ -380,7 +408,7 @@ export default function CommunityFeedPage() {
                 const transformedCommunities = communities.map(community => ({
                     id: community.id,
                     title: community.name,
-                    imageUrl: community.icon || null, // Use icon as imageUrl, fallback to null
+                    imageUrl: community.icon || null,
                     game: community.game,
                     location: community.location
                 }));
@@ -405,8 +433,7 @@ export default function CommunityFeedPage() {
     
     const handleCommunityClick = (communityId) => {
         console.log(`Navigating to community ${communityId}`);
-        // You can navigate to a specific community page here
-        // navigate(`/community/${communityId}`);
+        navigate(`/community/${communityId}`);
     };
     
     const handleCreateCommunity = () => {
@@ -494,35 +521,64 @@ export default function CommunityFeedPage() {
         console.log(`${isJoining ? "Joining" : "Leaving"} event:`, eventId);
     };
 
-    const handleCreatePost = (postObj) => {
-        const timestamp =
-            postObj.date instanceof Date
-                ? postObj.date.toLocaleString()
-                : new Date(postObj.date).toLocaleString();
+    const handleCreatePost = async (postInstance) => {
+        try {
+            if (!currentCommunity) {
+                alert("Community not loaded. Please try again.");
+                return;
+            }
 
-        const obj = {
-            id: postObj.id,
-            user: {
-                name: postObj.author || "Current User",
-                username: postObj.authorUsername || "@currentuser",
-                avatar: null,
-            },
-            timestamp,
-            content: postObj.content,
-            likes: postObj.likes,
-            comments: Array.isArray(postObj.comments) ? postObj.comments.length : 0,
-            shares: 0,
-            community: postObj.community || mockCommunity.name,
-        };
-        setPosts((prev) => [obj, ...prev]);
+            // Add post to Firestore Posts collection
+            await postInstance.addPostToCommunity(postInstance);
 
-        alert(`Post created: "${obj.content}"`);
+            // Add post ID to the community's posts array
+            const updatedPosts = [...(currentCommunity.posts || []), postInstance.id];
+            const updatedCommunity = {...currentCommunity, posts: updatedPosts};
+            await updateCommunity(currentCommunity.id, updatedCommunity);
+
+            // Update local community state
+            setCurrentCommunity(prev => ({
+                ...prev,
+                posts: updatedPosts
+            }));
+
+            // Create display object for UI
+            const timestamp = postInstance.date instanceof Date
+                ? postInstance.date.toLocaleString()
+                : new Date(postInstance.date).toLocaleString();
+
+            const displayPost = {
+                id: postInstance.id,
+                user: {
+                    name: postInstance.author || "Current User",
+                    username: postInstance.authorUsername || "@currentuser",
+                    avatar: null,
+                },
+                timestamp,
+                content: postInstance.content,
+                likes: postInstance.likes,
+                comments: Array.isArray(postInstance.comments) ? postInstance.comments.length : 0,
+                shares: 0,
+                community: postInstance.community || currentCommunity.name.toUpperCase(),
+            };
+
+            // Add to UI
+            setPosts((prev) => [displayPost, ...prev]);
+
+            alert(`Post created successfully in ${currentCommunity.name}!`);
+            console.log("Post added to community:", currentCommunity.id, "Post ID:", postInstance.id);
+        } catch (error) {
+            console.error("Error creating post:", error);
+            alert("Failed to create post. Please try again.");
+        }
     };
 
     const handleLoadMore = () => {
         console.log("Loading more posts...");
         alert("Loading more posts...");
     };
+
+    const displayCommunity = currentCommunity || mockCommunity;
 
     return (
         <div className="community-feed-page">
@@ -553,13 +609,20 @@ export default function CommunityFeedPage() {
                 {/* MIDDLE COLUMN - MAIN CONTENT */}
                 <main className="feed-main-content">
                     <section className="community-header">
-                        <h1>Activity in {mockCommunity.name} Community</h1>
+                        {isLoadingCommunity ? (
+                            <h1>Loading community...</h1>
+                        ) : (
+                            <h1>Activity in {displayCommunity.name} Community</h1>
+                        )}
                     </section>
 
                     {/* Create Post Form */}
-                    {isLoggedIn && (
+                    {isLoggedIn && !isLoadingCommunity && (
                         <section className="create-post-section">
-                            <CreatePostForm onSubmit={handleCreatePost}/>
+                            <CreatePostForm 
+                                onSubmit={handleCreatePost}
+                                communityName={displayCommunity.name}
+                            />
                         </section>
                     )}
 

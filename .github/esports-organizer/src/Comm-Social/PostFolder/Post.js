@@ -71,7 +71,7 @@ export default class Post {
 
     async addPostToCommunity(post){
         try{
-            await setDoc(doc(firestore, "Posts", post.id), post.toFirestore());
+            await setDoc(doc(firestore, "Posts", post.id), post.toFireStore());
         }
         catch(error){
             console.log("Failed to send post do DataBase. " + error);
@@ -205,7 +205,7 @@ export default class Post {
                 state: oldPost.state
             }
 
-            await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFirestore());
+            await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFireStore());
         }
         else{
             console.log("Post Does not exist");

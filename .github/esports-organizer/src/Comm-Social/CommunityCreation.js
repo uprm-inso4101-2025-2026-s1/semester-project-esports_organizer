@@ -107,4 +107,4 @@ async function createCommunity(name, description, admin, tags, game, location, i
             console.error("Error deleting community: ", error);
         }
     }
-export{getAllCommunitiesFromDatabase, createCommunity}
+export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity}
