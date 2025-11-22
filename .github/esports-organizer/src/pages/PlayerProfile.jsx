@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import "./PlayerProfile.css";
 import Navbar from "../components/shared/Navbar";
+import { checkUserPermission } from "../Roles/checkUserPermission";
 
 // Constants
 const FLAG_EMOJI = { US: "🇺🇸", PR: "🇵🇷", ES: "🇪🇸" };
 const BADGE_PATH = "/assets/images/LOGO1.png";
+const uid = localStorage.getItem("uid");
 
 function PlayerProfile() {
   // Primary player state
@@ -268,7 +270,14 @@ function PlayerProfile() {
 
             <div className="actions">
               {!isEditing && (
-                <button className="btn primary" type="button" onClick={startEdit}>
+                <button className="btn primary" type="button" onClick={async () => {
+                  if (await checkUserPermission(uid, "canEditUserProfile")==true) {
+                    // Allowed
+                    startEdit();
+                  } else {
+                    alert("You do not have permission to edit the profile.");
+                  }
+                }}>
                   Edit Profile
                 </button>
               )}

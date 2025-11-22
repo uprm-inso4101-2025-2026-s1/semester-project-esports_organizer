@@ -6,6 +6,7 @@ import "./AuthPages.css";
 import Label from "../../components/shared/Label";
 import { useNavigate } from "react-router-dom";
 import { updatePlayerProfile } from "../../services/profile-service";
+import { assignUserRole } from "../../Roles/assignUserRole";
 
 function CreateProfile() {
   const navigate = useNavigate();
@@ -92,6 +93,19 @@ function CreateProfile() {
       const result = await updatePlayerProfile(uid, updateData);
       if (result.success) {
         alert("Profile successfully created!");
+        await assignUserRole(uid,"Player",{
+          viewTournaments:true,
+          createCommunities: true,
+          canCreatePrivateTournaments: true,
+          canCreatePublicTournaments:true,
+          joinTournament:true,
+          joinCommunities:true,
+          canEditUserProfile:true,
+          requestToJoinTeam:true,
+          editUserEvent:true,
+          createUserEvent:true,
+          removeUserEvent:true,
+        })
         navigate("/homepage");
       } else {
         alert(result.error || "Error updating profile.");

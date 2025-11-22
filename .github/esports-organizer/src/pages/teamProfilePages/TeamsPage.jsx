@@ -4,6 +4,9 @@ import Navbar from "../../components/shared/Navbar";
 import { TEAMS } from "../../data/teams";
 import "./TeamsPage.css";
 import "./TeamForms.css";
+import { assignUserRole } from "../../Roles/assignUserRole";
+
+uid = localStorage.getItem("uid");
 
 function TeamModal({ title, children, onClose, footer }) {
   return (
@@ -140,7 +143,11 @@ export default function TeamsPage() {
               <button
                 type="button"
                 className="team-modal__btn team-modal__btn--primary"
-                onClick={closeCreateModal}
+                onClick={()=>{
+                  assignUserRole(uid,"Team Manager",{
+                    
+                  });
+                  closeCreateModal()}}
               >
                 Create team
               </button>

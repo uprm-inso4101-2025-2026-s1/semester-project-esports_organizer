@@ -7,6 +7,7 @@ import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { checkUserPermission } from "../Roles/checkUserPermission";
 
 function TournamentsPage() {
   // State management
@@ -24,6 +25,7 @@ function TournamentsPage() {
 
   //Notifications
   const userId = 'demoUser123'; 
+  const uid = localStorage.getItem("uid");
 
   const sendJoinNotification = async (eventTitle) => {
     try {
@@ -85,7 +87,14 @@ function TournamentsPage() {
           </div>
           <button 
             className="create-event-button"
-            onClick={handleCreateEvent}
+            onClick={async () => {
+                if (await checkUserPermission(uid, "createUserEvent")==true || checkUserPermission(uid, "createTeamEvent")==true ) {
+                    // Allowed
+                    handleCreateEvent();
+                    } else {
+                      alert("You do not have permission to create an event.");
+                    }
+              }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>

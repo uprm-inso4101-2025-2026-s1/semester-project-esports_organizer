@@ -6,6 +6,9 @@ import TournamentCard from "../../components/shared/TournamentCard.jsx";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
+import { checkUserPermission } from "../../Roles/checkUserPermission.js";
+
+const uid = localStorage.getItem("uid");
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -447,7 +450,13 @@ export default function CommunityFeedPage() {
             />
             <ActionCard
               title="Create Communities"
-              onClick={handleCreateCommunity}
+              onClick={async ()=>{
+                if (await checkUserPermission(uid, "createCommunities")==true) {
+                      
+                  handleCreateCommunity();
+                } else {
+                  alert("You do not have permission to create communities.");
+                }}}
             />
           </div>
 
