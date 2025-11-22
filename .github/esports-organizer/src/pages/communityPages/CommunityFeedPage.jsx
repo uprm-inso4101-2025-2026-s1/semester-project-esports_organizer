@@ -7,6 +7,7 @@ import "../teamProfilePages/TeamForms.css";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
+import { createCommunity } from "../../Comm-Social/CommunityCreation.js";
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -388,8 +389,21 @@ export default function CommunityFeedPage() {
         }
         setIsSubmitting(true);
         const communityData={name, description, game, location, iconUrl, bannerUrl,};
-        //   TODO add new community to backend here\
+        let valid = createCommunity(communityData.name, communityData.description, "currentUserId", [], communityData.game, communityData.location, communityData.iconUrl, communityData.bannerUrl);
+        
+        let message=""
 
+        if(valid === true){
+            message="Community created successfully!";            
+        }
+        else{
+            message="Error creating community. Please try again.";
+        }
+        setTimeout(() => {
+                setIsSubmitting(false);
+                setIsCreateCommunityModalOpen(false);
+                alert(`${message}`);
+            }, 1500);
     };
     const closeCreateModal = ()=>{  setIsCreateCommunityModalOpen(false);    }
 
