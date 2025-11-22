@@ -6,7 +6,7 @@ import "./TeamsPage.css";
 import "./TeamForms.css";
 import { assignUserRole } from "../../Roles/assignUserRole";
 
-uid = localStorage.getItem("uid");
+const uid = localStorage.getItem("uid");
 
 function TeamModal({ title, children, onClose, footer }) {
   return (
@@ -145,7 +145,24 @@ export default function TeamsPage() {
                 className="team-modal__btn team-modal__btn--primary"
                 onClick={()=>{
                   assignUserRole(uid,"Team Manager",{
-                    
+                  viewTournaments:true,
+                  createCommunities: true,
+                  canCreatePrivateTournaments: true,
+                  canCreatePublicTournaments:true,
+                  joinTournament:true,
+                  joinCommunities:true,
+                  joinTournamentwithTeam:true,
+                  editTeamProfile:true,
+                  editTeamRoster:true,
+                  invitePlayerstoTeam:true,
+                  assignTeamClasses:true,
+                  addPlayerToRoster:true,
+                  removePlayerFromRoster:true,
+                  canEditUserProfile:true,
+                  requestToJoinTeam:true,
+                  editUserEvent:true,
+                  createUserEvent:true,
+                  removeUserEvent:true,
                   });
                   closeCreateModal()}}
               >
