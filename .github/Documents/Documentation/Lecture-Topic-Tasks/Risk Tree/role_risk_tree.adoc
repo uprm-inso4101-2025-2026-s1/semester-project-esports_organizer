@@ -1,0 +1,29 @@
+= Role Management System Risk Tree
+
+image::risk-tree-roles.png[Role Risk Tree,width=800]
+
+== Role Management System Risk Tree Explanation
+
+=== Role Management System Risk
+This represents the overall risk that the system fails to manage user roles and 
+permissions securely or correctly.
+
+=== Unauthorized Access
+Occurs when a user gains access they should not have.
+
+==== Weak Authentication
+Due to poor password policies, missing multi-factor authentication, or easily 
+guessable credentials.
+
+==== Lack of Oversight
+Could be due to the absence of audit logs or lack of monitoring of role changes.
+
+=== Insufficient Permission Levels
+This happens when permissions are too limited or incorrectly set, preventing 
+legitimate user actions.
+
+=== Role Misassignment
+Occurs when users are assigned to incorrect roles.
+
+
+
