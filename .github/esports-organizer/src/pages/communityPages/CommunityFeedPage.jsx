@@ -8,7 +8,8 @@ import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
 import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
-import Community from "../../Comm-Social/Community.js";
+import { getProfileById} from "../../services/profile-service.js"; 
+
 // Mock data as placeholders
 const mockCommunity = {
     id: 1,
@@ -17,38 +18,6 @@ const mockCommunity = {
     onlineCount: 342,
 };
 
-const mockPosts = [
-    {
-        id: 1,
-        user: {name: "John", username: "@john67", avatar: null},
-        timestamp: "1hr ago",
-        content: "wassssssssssuuuuuuup guys",
-        likes: 256,
-        comments: 5,
-        shares: 1,
-        community: "MARVEL RIVALS",
-    },
-    {
-        id: 2,
-        user: {name: "Johnie", username: "@john420", avatar: null},
-        timestamp: "56hr ago",
-        content: "wasdwasdwasdwasdwasdw",
-        likes: 986,
-        comments: 10,
-        shares: 698,
-        community: "MARVEL RIVALS",
-    },
-    {
-        id: 3,
-        user: {name: "Johnster", username: "@john21", avatar: null},
-        timestamp: "83hr ago",
-        content: "Yelllowww wa",
-        likes: 24,
-        comments: 3,
-        shares: 2,
-        community: "MARVEL RIVALS",
-    },
-];
 
 const mockEvents = [
     {
@@ -102,7 +71,7 @@ function MiniCommunityCard({imageUrl, title, onView}) {
     );
 }
 
-function CreatePostForm({onSubmit, communityName}) {
+function CreatePostForm({onSubmit, communityName, currentUser}) {
     const [postContent, setPostContent] = useState("");
 
     const handleSubmit = (e) => {
@@ -110,11 +79,11 @@ function CreatePostForm({onSubmit, communityName}) {
         const content = postContent;
         if (!content) return;
 
-        // Creates a new Post instance
+        // Creates a new Post instance with current user's info
         const postCreation = new Post({
             content: content,
-            author: "Current User",
-            authorUsername: "@currentuser",
+            author: currentUser?.Username || "Unknown User",
+            authorUsername: currentUser?.Username ? `@${currentUser.Username}` : "@unknown",
             community: communityName.toUpperCase(),
         });
         
@@ -263,20 +232,28 @@ function EventCard({event, onJoin}) {
 }
 
 // Add this component after EventCard
-function ActivityFeed({posts, onLoadMore}) {
+function ActivityFeed({posts, onLoadMore, isLoading}) {
     return (
         <div className="activity-feed">
             <h2>Recent Activity</h2>
-            <div className="posts-container">
-                {posts.map((post) => (
-                    <PostCard key={post.id} post={post}/>
-                ))}
-            </div>
-            <div className="load-more-section">
-                <button className="load-more-btn" onClick={onLoadMore}>
-                    See more...
-                </button>
-            </div>
+            {isLoading ? (
+                <div className="loading-message">Loading posts...</div>
+            ) : posts.length === 0 ? (
+                <div className="empty-message">No posts yet. Be the first to post!</div>
+            ) : (
+                <>
+                    <div className="posts-container">
+                        {posts.map((post) => (
+                            <PostCard key={post.id} post={post}/>
+                        ))}
+                    </div>
+                    <div className="load-more-section">
+                        <button className="load-more-btn" onClick={onLoadMore}>
+                            See more...
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
@@ -369,6 +346,41 @@ export default function CommunityFeedPage() {
 
     // New State for fetched Posts
     const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+    
+    // New State for current user
+    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUserUid, setCurrentUserUid] = useState(null);
+
+    // Fetch the current user on component mount
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            try {
+                // Get the UID from localStorage
+                const uid = localStorage.getItem("currentUserUid");
+                
+                if (!uid) {
+                    console.warn("No user UID found in localStorage");
+                    return;
+                }
+                
+                setCurrentUserUid(uid);
+                
+                // Fetch user profile from Firestore
+                const userProfile = await getProfileById(uid);
+                
+                if (userProfile) {
+                    setCurrentUser(userProfile);
+                    console.log("Current user loaded:", userProfile);
+                } else {
+                    console.error("User profile not found");
+                }
+            } catch (error) {
+                console.error("Error fetching current user:", error);
+            }
+        };
+
+        fetchCurrentUser();
+    }, []);
 
     // Fetch the current community by ID
     useEffect(() => {
@@ -429,9 +441,7 @@ export default function CommunityFeedPage() {
         fetchCommunities();
     }, []);
 
-    // Fetch Posts from the community
-
-// Fetch Posts from the community - now depends on currentCommunity
+    // Fetch Posts from the community - now depends on currentCommunity
     useEffect(() => {
         const fetchCommunityPosts = async () => {
             // Don't fetch if community isn't loaded yet
@@ -544,7 +554,7 @@ export default function CommunityFeedPage() {
             await createCommunity(
                 communityData.name, 
                 communityData.description, 
-                "currentUserId", 
+                currentUserUid || "currentUserId", // Use actual user UID if available
                 [], 
                 communityData.game, 
                 communityData.location, 
@@ -697,19 +707,23 @@ export default function CommunityFeedPage() {
                     </section>
 
                     {/* Create Post Form */}
-                    {isLoggedIn && !isLoadingCommunity && (
+                    {isLoggedIn && !isLoadingCommunity && currentUser && (
                         <section className="create-post-section">
                             <CreatePostForm 
                                 onSubmit={handleCreatePost}
                                 communityName={displayCommunity.name}
+                                currentUser={currentUser}
                             />
                         </section>
                     )}
 
                     {/* Activity Feed */}
                     <section className="activity-feed">
-                        <ActivityFeed posts={posts} onLoadMore={handleLoadMore}
-                        isLoading={isLoadingPosts}/>
+                        <ActivityFeed 
+                            posts={posts} 
+                            onLoadMore={handleLoadMore}
+                            isLoading={isLoadingPosts}
+                        />
                     </section>
                 </main>
 
