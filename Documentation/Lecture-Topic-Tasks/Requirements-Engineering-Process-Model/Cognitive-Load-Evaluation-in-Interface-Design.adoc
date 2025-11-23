@@ -1,0 +1,93 @@
+= Cognitive Load Evaluation in Interface Design for Esports Organizer
+Eliel Hernández González
+:toc: left
+:sectnums:
+
+== Introduction: Cognitive Load in UI/UX
+Cognitive Load Theory describes how much mental effort a user must spend to understand and complete a task.
+
+In interface design, high cognitive load often appears when:
+
+* The UI requires remembering steps or information
+* There is unclear feedback
+* The navigation is confusing
+* Visual clutter forces users to scan too much
+* Tasks require multiple unnecessary actions
+
+Lowering cognitive load makes interfaces quicker to use, more intuitive, and less prone to errors.
+
+== UI Tasks Evaluated
+For this analysis, three key interactions were evaluated within the *Esports Organizer* platform:
+
+1. Login / Sign Up Flow
+2. Tournament Creation Initial Form
+3. Navigation Bar Menu Switching
+
+== Cognitive Load Analysis Tables
+
+.Cognitive Load Analysis for Login/Signup Flow
+[cols="2,2,3,3", options="header"]
+|===
+| Task | User Effort Level | Issue Identified | Suggested Improvement
+
+| Enter email and password | Low | None | Maybe add focus color when typing in a specific field
+| Submit login | Low | No system response when accessing the database | Add a loading state when creating a new account or fetching user preferences from the database
+| Toggle password visibility | Low | Icon meaning (eye/eye-slash) might be unclear for some users | Add tooltip or label: "Show password"
+|===
+
+.Cognitive Load Analysis for Tournament Creation
+[cols="2,2,3,3", options="header"]
+|===
+| Task | User Effort Level | Issue Identified | Suggested Improvement
+
+| Select tournament type | Medium | Options are too precise and generic | Add game-specific options system that varies depending on the game
+| Fill basic info (name, region, etc.) | Medium | Majority of basic info is asked except region | Add region selection field
+| Click "Continue" | Medium | No immediate confirmation that data was saved | Add small success banner or "Saved ✓" indicator
+|===
+
+.Cognitive Load Analysis for Navigation Bar Menu Switching
+[cols="2,2,3,3", options="header"]
+|===
+| Task | User Effort Level | Issue Identified | Suggested Improvement
+
+| Locate the current page via navbar | Low | None | N/A
+| Switch between dashboards, teams, tournaments | Medium | Some categories feel visually equal even if they differ in importance | Use hierarchy through spacing or grouping (e.g., notification bell and notifications history; Teams and Communities)
+| Identify where the profile/preferences section is | Low | None | N/A
+|===
+
+== Summary of Findings
+
+=== Login / Sign Up Flow
+* Cognitive load is already low overall.
+* No major usability blockers were identified.
+* Improvements mainly relate to visual clarity (focus states) and system responsiveness (loading indicators), which help reduce uncertainty during interactions.
+
+=== Tournament Creation
+* This flow introduces higher cognitive load, mostly due to incomplete or overly generic inputs.
+* The tournament form requires users to interpret generic categories without contextual help.
+* Missing input fields, like region, force the user to pause, think, and later return to editing.
+* These gaps increase mental effort because the user needs to infer missing logic or guess what the system expects.
+
+=== Navigation Bar
+* Navigation is generally lightweight with minimal cognitive demand.
+* Lack of hierarchy among categories requires users to scan more than necessary (e.g., communities vs. teams look equally important).
+* Because profile/preferences placement is intuitive and visible, no issues were found — reducing recognition load.
+
+Overall, cognitive load issues appear mainly in form-heavy or decision-heavy flows (*Tournament Creation*), while navigation and login remain low-load experiences with minor polish needed.
+
+== Proposed Design Improvements
+
+=== For Login / Sign Up
+* Add input focus color states — helps users visually anchor which field they are interacting with.
+* Introduce loading states — reduces uncertainty when waiting for account creation or preference fetching.
+* Tooltip for password visibility icon — enhances clarity for less familiar users.
+
+=== For Tournament Creation
+* Implement game-specific tournament type presets — avoids forcing users to interpret generic categories and reduces reasoning load.
+* Add missing region selection field — ensures completeness of the form and reduces back-and-forth revisiting.
+* Provide a lightweight "Saved ✓" confirmation — gives immediate system feedback and reduces user doubt about progress.
+
+=== For Navigation Bar
+* Introduce visual hierarchy through spacing and grouping — helps users quickly understand which sections relate to each other, reducing scanning effort.
+* Refine categories like Notifications and Teams — example: grouping Teams + Communities, Notifications + Notification History.
+* Because the profile/preferences entry point works well, no changes are recommended there.
