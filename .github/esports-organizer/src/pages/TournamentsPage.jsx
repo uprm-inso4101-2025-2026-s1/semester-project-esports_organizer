@@ -88,7 +88,7 @@ function TournamentsPage() {
           <button 
             className="create-event-button"
             onClick={async () => {
-                if (await checkUserPermission(uid, "createUserEvent")==true || checkUserPermission(uid, "createTeamEvent")==true ) {
+                if (await checkUserPermission(uid, "createUserEvent")==true || await checkUserPermission(uid, "createTeamEvent")==true ) {
                     // Allowed
                     handleCreateEvent();
                     } else {
