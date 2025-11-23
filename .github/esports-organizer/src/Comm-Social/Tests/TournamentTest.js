@@ -1,5 +1,5 @@
-import Team from "../../database/examples/Teams.js";
-import Tournament from "../../database/examples/Tournament.js";
+import Team from "../../database/core/Teams.js";
+import Tournament from "../../database/core/Tournament.js";
 import { registerTeam, confirmAttendance, startEvent, ReOpenEvent } from "../TournamentRegistration.js";
 import { resultReport } from "../ResultReport.js";
 import { db } from "../../database/firebaseClient.js";

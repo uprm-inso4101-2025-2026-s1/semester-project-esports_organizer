@@ -1,4 +1,4 @@
-import { Database } from './Database.js';
+import { Database } from '../core/Database.js';
 
 // This test file avoids calling real Firebase services by injecting mocks into Database.
 

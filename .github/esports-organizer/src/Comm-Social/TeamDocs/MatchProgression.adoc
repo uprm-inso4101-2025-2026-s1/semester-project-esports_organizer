@@ -12,8 +12,8 @@ The Match Progression system is a JavaScript module that manages interactive, us
 
 [source,javascript]
 ----
-import Bracket from "../database/examples/Brackets.js";
-import Team from "../database/examples/Teams.js";
+import Bracket from "../database/core/Brackets.js";
+import Team from "../database/core/Teams.js";
 ----
 
 * `Bracket`: Manages the tournament bracket structure and match progression

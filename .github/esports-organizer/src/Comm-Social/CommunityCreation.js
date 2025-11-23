@@ -1,5 +1,5 @@
 import {Community} from "./Community.js";
-import Database from "../database/examples/Database.js";
+import Database from "../database/core/Database.js";
 
 //Function receives the following arguments:
 /**

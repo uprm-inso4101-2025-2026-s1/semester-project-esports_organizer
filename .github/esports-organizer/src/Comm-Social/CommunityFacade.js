@@ -1,6 +1,6 @@
 import {createCommunity} from "./CommunityCreation.js";
 import {Community} from "./Community.js";
-import Database from "../database/examples/Database.js";
+import Database from "../database/core/Database.js";
 
 export class CommunityFacade {
 

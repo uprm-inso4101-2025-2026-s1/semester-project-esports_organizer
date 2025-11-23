@@ -1,9 +1,9 @@
 /* Class Imports */
 import Team from "./Teams.js";
 import Event from "./Events.js";
-import User from "./UsersColection.js";
+import User from "./UsersCollection.js";
 import Community from "../../Comm-Social/Community.js";
-import { app, db } from "./firebase.js";
+import { app, db } from "./Firebase.js";
 
 /* For storage management */
 import {
