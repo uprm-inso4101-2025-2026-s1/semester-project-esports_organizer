@@ -4,6 +4,7 @@ import {
     updateDoc, deleteDoc, query, orderBy, where, limit as qLimit,
     Timestamp, serverTimestamp
 } from "firebase/firestore";
+import EventTeam from "./EventTeams.js";
 
 class UserProfile {
     constructor(username, email) {
@@ -49,21 +50,28 @@ export default class Event {
         description,
         dateValue,
         participants,
+        teams,
         game,
         location,
         createdBy, // UserProfile object
         community = null, // Community object
-        tournament = null // Tournament object
+        tournament = null, // Tournament object
+
+        maxTeams,
+        maxPlayersPerTeam
     }) {
         // Required fields
         this.title = title;
         this.id = id; // optional (if set, we'll upsert with this id)
         this.description = description;
         this.dateValue = dateValue; // JS Date, ms, ISO, or Firestore Timestamp are OK (we normalize)
-        this.participants = participants; // number for now
         this.game = game;
         this.location = location || "TBD"; // default to "TBD" if not specified
-
+        this.participants = participants;
+        this.teams = teams;
+        this.maxTeams = maxTeams;
+        this.maxPlayersPerTeam = maxPlayersPerTeam;
+        
         // Relations to other features
         this.createdBy = createdBy;
         this.community = community;
@@ -108,8 +116,8 @@ export default class Event {
     }
 
     setParticipants(participants) {
-        if (typeof participants !== 'number' || participants < 1) {
-            throw new Error('Participants must be a positive number');
+        if (!(Array.isArray(participants))) {
+            throw new Error('Participants must be an array');
         }
         this.participants = participants;
     }
@@ -126,6 +134,27 @@ export default class Event {
             throw new Error('Location must be a non-empty string');
         }
         this.location = location;
+    }
+
+    setTeams(teams) {
+        if (!(Array.isArray(teams))) {
+            throw new Error('Teams must be an array');
+        }
+        this.teams = teams;
+    }
+
+    setMaxTeams(maxTeams) {
+        if (typeof maxTeams !== 'number') {
+            throw new Error('Max teams must be a number');
+        }
+        this.maxTeams = maxTeams;
+    }
+
+    setMaxPlayersPerTeam(maxPlayersPerTeam) {
+        if (typeof maxPlayersPerTeam !== 'number') {
+            throw new Error('Max players per team must be a number');
+        }
+        this.maxPlayersPerTeam = maxPlayersPerTeam;
     }
 
     setCreatedBy(userProfile) { this.createdBy = userProfile; }
@@ -174,7 +203,7 @@ export default class Event {
     }
 
     /** UPDATE: update fields by ID (uses current object values unless args are provided). */
-    async UpdateEvent(ID, title, description, dateValue, participants, game, location, community, tournament) {
+    async UpdateEvent(ID, title, description, dateValue, participants, teams, game, location, community, tournament, maxTeams, maxPlayersPerTeam) {
         const theId = ID ?? this.id;
         if (!theId) throw new Error("ID is required");
         // if args provided, overwrite the instance first
@@ -183,15 +212,41 @@ export default class Event {
         if (location !== undefined) this.setLocation(location);
         if (description !== undefined) this.setDescription(description);
         if (participants !== undefined) this.setParticipants(participants);
+        if (teams !== undefined) this.setTeams(teams);
         if (game !== undefined) this.setGame(game);
         if (community !== undefined) this.setCommunity(community);
         if (tournament !== undefined) this.setTournament(tournament);
+        if (maxTeams !== undefined) this.setMaxTeams(maxTeams);
+        if (maxPlayersPerTeam !== undefined) this.setMaxPlayersPerTeam(maxPlayersPerTeam);
 
         const patch = toDocData(this, { isCreate: false }); // adds updatedAt
         await updateDoc(doc(db, "events", theId), patch);
         return theId;
     }
 
+    addTeam({name, members}) {
+        if (this.teams.length < this.maxTeams) {
+            this.teams.push((new EventTeam({name: name, members: members, capacity: this.maxPlayersPerTeam})).toDocData());
+        }
+    }
+
+    addToTeam(teamName, user) {
+        const team = this.teams.find(t => t.name === teamName);
+        if (!team) return;
+
+        if (!team.members.includes(user.uid)) {
+            if (team.members.length < team.capacity) {
+                team.members.push(user.uid);
+            } else {
+                console.warn("Team is full");
+                return;
+            }
+        }
+
+        if (!this.participants.includes(user.uid)) {
+            this.participants.push(user.uid);
+        }
+    }
 
     /** DELETE: remove by ID. */
     async DeleteEvent(ID)  {
@@ -238,11 +293,14 @@ function toDocData(evt, { isCreate = false } = {}) {
         description: evt.description ?? "",
         dateValue: evt.dateValue,
         participants: evt.participants ?? [],
+        teams: evt.teams ?? [], 
         game: evt.game ?? "",
         location: evt.location ?? "",
         createdBy: evt.createdBy ?? null,
         community: evt.community ?? null,
         tournament: evt.tournament ?? null,
+        maxTeams: evt.maxTeams ?? 0,
+        maxPlayersPerTeam: evt.maxPlayersPerTeam ?? 0,
         startAt: toTs(evt.dateValue) ?? serverTimestamp(),
     };
     if (isCreate) data.createdAt = serverTimestamp();
@@ -259,11 +317,14 @@ function toDocData(evt, { isCreate = false } = {}) {
             description: data.description ?? "",
             dateValue: data.startAt instanceof Timestamp ? data.startAt.toDate() : data.startAt ?? null,
             participants: data.participants ?? [],
+            teams: data.teams ?? [],
             game: data.game ?? "",
             location: data.location ?? "",
             createdBy: data.createdBy ?? null,
             community: data.community ?? null,
             tournament: data.tournament ?? null,
+            maxTeams: data.maxTeams ?? 0,
+            maxPlayersPerTeam: data.maxPlayersPerTeam ?? 0
         };
     }
 
