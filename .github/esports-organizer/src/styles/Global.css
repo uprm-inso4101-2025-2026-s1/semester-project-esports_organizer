@@ -25,6 +25,11 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   --container: #3e4c59;
   --link: #00a8e8;
   --hover: #7d5ba6;
+  --gradient-landing: radial-gradient(
+    #fff 0%,
+    #315285 48%,
+    #152338 100%
+  );
   --gradient: linear-gradient(
     180deg,
     #fff 0%,
@@ -39,6 +44,10 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   --dark-container: #2c1a1a;
   --dark-link: #d72638;
   --dark-hover: #b28d8d;
+  --dark-gradient-landing: radial-gradient(
+    #ffff 40%,
+    #FF5A5D 100%
+  );
   --dark-gradient: linear-gradient(
     180deg,
     #7b7b7b 0%,
@@ -73,6 +82,7 @@ Este css está pensado para alcanzar un diseño globalizado centralizado, modifi
   --container: var(--dark-container);
   --link: var(--dark-link);
   --hover: var(--dark-hover);
+  --gradient-landing: var(--dark-gradient-landing);
   --gradient: var(--dark-gradient);
   --error-msg: var(--dark-error-msg);
   --host-color: var(--dark-host-color);
