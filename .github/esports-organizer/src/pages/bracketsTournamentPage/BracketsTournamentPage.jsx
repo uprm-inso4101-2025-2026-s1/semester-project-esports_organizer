@@ -1,4 +1,6 @@
 import "./BracketsTournamentPage.css";
+import Round from "../../components/bracketsPage/rounds/Round";
+
 import Banner from "../../components/bracketsPage/banners/Banner";
 import RoundBar from "../../components/bracketsPage/rounds/RoundBar";   
 import Teams from "../../components/bracketsPage/teams/Teams";
@@ -193,10 +195,14 @@ function BracketsTournamentPage(){
         <div className="brackets-tournament-page">
         <Navbar/>
         <Banner/>
-        <RoundBar/>
+        <div className="columns-row-wrapper">
+
         <div className="columns-row">
             <div className="brackets-column">
+                <Round labels={["Round 1"]} />
                 {/* Left Column */}
+
+
                 {left_Team1 && left_Team1.player1 && left_Team1.player2 ? (
                     <>
                         <Teams 
@@ -257,6 +263,7 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-2">
                 {/* Left Column Round 2 */}
+                <Round labels={["Round 2"]} />
                 {left_team1_Round2 && left_team1_Round2.player1 && left_team1_Round2.player2  ? (
                     <Teams
                         teamNames={[left_team1_Round2.player1.name, left_team1_Round2.player2.name]}
@@ -287,6 +294,7 @@ function BracketsTournamentPage(){
                 </div>
             </div>
             <div className="column-3">
+                <Round labels={["Semi-Finals"]} />
                 {/* Left Column semifinals */}
                 {leftR3 && leftR3.player1 && leftR3.player2 ? (
                     <Teams
@@ -307,6 +315,7 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-4">
                 {/* Middle column final */}
+                <Round labels={["Finals"]} />
                 {final && final.player1 && final.player2 ? (
                     <Teams
                         teamNames={[final.player1.name, final.player2.name]}
@@ -333,6 +342,7 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-5">
                 {/* Right Column semifinals */}
+                <Round labels={["Semi-Finals"]} />
                 {rightR3 && rightR3.player1 && rightR3.player2 ? (
                     <Teams
                         teamNames={[rightR3.player1.name, rightR3.player2.name]}
@@ -352,6 +362,7 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-6">
                 {/* Right Column Round 2 */}
+                <Round labels={["Round 2"]} />
                 {right_team1_Round2 && right_team1_Round2.player1 && right_team1_Round2.player2 ? (
                     <>
                         <Teams
@@ -389,6 +400,7 @@ function BracketsTournamentPage(){
             </div>
             <div className="column-7">
                 {/* Right Column Round 1 */}
+                <Round labels={["Round 1"]} />
                 {right_Team1 && right_Team1.player1 && right_Team1.player2 ? (
                     <>
                         <Teams
@@ -439,6 +451,7 @@ function BracketsTournamentPage(){
                     <Teams/>
                 )}
             </div>
+        </div>
         </div>
         </div>
     );

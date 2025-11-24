@@ -154,7 +154,7 @@ export default function LandingPage() {
             </a>{" "}
             gathers it all together in a single platform.
           </p>
-          <Link to="/homepage" className="lp__cta">
+          <Link to="/login" className="lp__cta">
             Join Communities and Events Now
           </Link>
         </div>

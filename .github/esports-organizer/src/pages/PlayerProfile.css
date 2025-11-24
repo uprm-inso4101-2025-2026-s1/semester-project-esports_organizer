@@ -80,7 +80,7 @@
   --gap: 2rem;
   color: var(--text, rgba(255, 255, 255, 0.87));
   padding: 2rem;
-  padding-top: calc(var(--top-offset) + env(safe-area-inset-top) + 60px);
+  padding-top: calc(var(--top-offset) + 60px);
   min-height: 100svh;
   background: var(--light-gradient);
   display: grid;
@@ -92,7 +92,7 @@
 }
 
 /* ==========================================================================
-   COLUMNS (L / HERO / R)
+   COLUMNS
    ========================================================================== */
 
 .left-col {
@@ -115,7 +115,7 @@
 }
 
 /* ==========================================================================
-   PROFILE CARD (top-left)
+   PROFILE CARD
    ========================================================================== */
 
 .profile-card {
@@ -162,7 +162,6 @@
   font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 700;
-  color: var(--text, rgba(255, 255, 255, 0.87));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,7 +206,7 @@
 }
 
 /* ==========================================================================
-   CHIPS (years active + role select)
+   CHIPS (years active + role)
    ========================================================================== */
 
 .chips {
@@ -224,6 +223,7 @@
   height: 75px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
   background: var(--light-container);
@@ -231,7 +231,6 @@
   border-radius: 15px;
   font-family: var(--font-body);
   font-size: 16px;
-  justify-content: center;
   text-align: center;
 }
 
@@ -289,7 +288,7 @@
 }
 
 /* ==========================================================================
-   ACHIEVEMENTS (carousel)
+   ACHIEVEMENTS
    ========================================================================== */
 
 .achievements {
@@ -353,7 +352,6 @@
   font-size: 14px;
 }
 
-/* Prev/Next arrows */
 .ach-nav-btn {
   position: absolute;
   top: 25px;
@@ -386,7 +384,7 @@
 }
 
 /* ==========================================================================
-   HERO (center column)
+   HERO
    ========================================================================== */
 
 .profile-hero {
@@ -401,7 +399,7 @@
 .profile-hero-title {
   font-family: "Oswald", sans-serif;
   font-weight: 700;
-  font-size: clamp(65px, 6vw, 75px);
+  font-size: 75px;
   line-height: 1.2;
   letter-spacing: -0.05em;
   text-align: center;
@@ -443,18 +441,16 @@
   font-weight: 700;
   line-height: 1.2;
   font-family: var(--font-heading);
-  font-size: clamp(14px, 2vw, 24px);
+  font-size: 24px;
   color: rgba(255, 255, 255, 0.4);
   pointer-events: none;
 }
 
-/* LOGO sits at bottom-right */
 .avatar-badge {
   position: absolute;
   right: 16px;
   bottom: 16px;
-  width: clamp(90px, 12vw, 160px);
-  height: auto;
+  width: 160px;
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
   user-select: none;
   pointer-events: none;
@@ -487,7 +483,7 @@
   margin-top: 4.15rem;
   align-items: center;
   width: fit-content;
-  height: fit-content;
+  height: 773px;
   position: relative;
   overflow: hidden;
 }
@@ -512,7 +508,6 @@
 
 .games-played::before {
   content: "›";
-  display: block;
   position: absolute;
   bottom: -2px;
   left: 50%;
@@ -535,13 +530,11 @@
   display: flex;
   flex-direction: column;
   gap: 1.9rem;
-  max-height: 68.4vh;
   overflow-y: auto;
   padding-right: 6px;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Individual game card */
 .game-card {
   position: relative;
   height: 195px;
@@ -559,7 +552,6 @@
   position: absolute;
   inset: 0;
   background: rgba(10, 14, 25, 0.28);
-  opacity: 1;
   transition: background 180ms ease;
 }
 .game-card:hover::after,
@@ -574,6 +566,7 @@
   height: 100%;
   z-index: 1;
 }
+
 .game-center h3 {
   margin: 0;
   font-family: var(--font-heading);
@@ -606,16 +599,14 @@
   margin: 0;
   font-family: var(--font-body);
   font-size: 14px;
-  color: var(--text, rgba(255, 255, 255, 0.87));
   line-height: 1.35;
-  text-wrap: pretty;
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
 /* ==========================================================================
-   EDITABLE PATTERN
+   EDITABLE
    ========================================================================== */
 
 .editable {
@@ -644,7 +635,6 @@
   outline: none;
 }
 
-/* Selects for role/flag edit */
 .edit-select--chip,
 .edit-select--compact {
   position: absolute;
@@ -687,79 +677,106 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1450px) {
   .player-profile {
     grid-template-columns: 1fr;
+    padding-top: calc(var(--top-offset) + 30px);
+    justify-items: center;
   }
+
   .left-col,
   .profile-hero,
   .games-played {
     grid-column: 1;
   }
-  .left-col {
-    grid-row: 1;
-  }
+  
   .profile-hero {
     grid-row: 2;
-    justify-items: center;
     margin-bottom: clamp(16px, 5vw, 32px);
   }
+
   .games-played {
     grid-row: 3;
     margin-top: 0;
-    justify-self: center;
   }
-  .bio {
-    width: 353px;
+
+  .bio { 
+    width: 353px; 
   }
-  .achievements {
-    width: 420px;
+
+  .achievements { 
+    width: 420px; 
   }
-  .username {
-    font-size: 24px;
+
+  .avatar-circle { 
+    width:min(75vw, 400px); 
   }
-  .avatar-circle {
-    width: min(75vw, 400px);
+
+  .profile-hero-title { 
+    font-size: 65px; transform: translateY(-5px); 
   }
+
+  .avatar-hint { 
+    font-size: 20px; 
+  }
+
+  .avatar-badge { 
+    width: 120px; 
+  }
+
+  .games-played {
+    height: 550px;
+  }
+
 }
 
-@media (max-width: 600px) {
-  .avatar-circle {
-    width: min(80vw, 300px);
+/* Phones */
+@media (max-width: 480px) and (orientation:portrait) {
+  .player-profile {
+    padding-inline: 0rem;
+    padding-top: calc(var(--top-offset) + 15px);
   }
-}
 
-@media (max-width: 380px) {
-  .bio,
-  .achievements {
+  .profile-card,
+  .achievements,
+  .games-played {
     width: 100%;
-    max-width: 420px;
+    max-width: 360px;
   }
+
+  .chips { 
+    width: 353px; 
+  }
+
+  .avatar-hint { 
+    font-size: 16px; 
+  }
+  
+  .avatar-badge { 
+    width: 75px; 
+  }
+
   .game-card {
-    width: 100%;
+    width: 310px;
   }
 }
 
-.bio .display-layer {
-  text-align: left;
+.bio .display-layer { 
+  text-align: left; 
 }
-.edit-layer--center {
-  text-align: center;
+.edit-layer--center { 
+  text-align: center; 
 }
 
 /* ==========================================================================
    UNIFIED BORDERS + VALIDATION
    ========================================================================== */
 
-.flag,
-.username,
-.bio,
-.achievements,
-.games-played,
-.chips .chip {
-  border: 1px solid rgba(255, 255, 255, 0.14);
+.username input:invalid { 
+  border: 2px solid #e11d48; 
 }
 
-.username input:invalid {
-  border: 2px solid #e11d48;
+.ach-nav-btn {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
