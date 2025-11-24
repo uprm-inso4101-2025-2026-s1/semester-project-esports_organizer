@@ -37,4 +37,4 @@ Accessibility ensures that all users, including people with visual, motor, or le
 *Verification:* Trigger validation errors and verify that messages are visible and easy to understand.
 
 == Summary
-These accessibility requirements improve inclusivity and ease of use across the Esports Organizer. By following these checks, users with visual, cognitive, or motor limitations can navigate and interact with the app smoothly, enhancing the overall user experience and aligning the project with accessibility best practices.
+These accessibility requirements improve inclusivity and ease of use across the Esports Organizer. Following these checks helps users with visual, cognitive, or motor limitations can navigate and interact with the app smoothly, enhancing the overall user experience and aligning the project with accessibility best practices.
