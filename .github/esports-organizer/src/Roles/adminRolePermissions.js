@@ -1,6 +1,21 @@
 import { doc, getDoc, collection, query, where, getDocs, updateDoc, setDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
+async function isAdmin(adminUid) {
+    // Check if the user performing the action is an admin
+    const adminRef = doc(db, "User", adminUid);
+    const adminSnap = await getDoc(adminRef);
+
+    if (!adminSnap.exists() || adminSnap.data().role.type !== "Admin") {
+        return { success: false, error: "Permission denied." };
+    }
+
+    // Logic to send notification (to be implemented)
+    console.log("User is admin");
+
+    return { success: true };
+}
+
 // Admin Role Permissions
 async function banUser(inputIdentifier, adminUid) {
     // Check if the user performing the ban is an admin
@@ -46,4 +61,5 @@ async function banUser(inputIdentifier, adminUid) {
     return { success: true };
 }
 
-export { banUser };
+
+export { banUser, isAdmin };
