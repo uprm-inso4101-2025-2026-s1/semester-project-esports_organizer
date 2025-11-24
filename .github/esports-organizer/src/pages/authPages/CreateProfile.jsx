@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { updatePlayerProfile } from "../../services/profile-service";
 import { assignUserRole } from "../../Roles/assignUserRole";
 
+
 function CreateProfile() {
   const navigate = useNavigate();
   const [form, setForm] = useState({

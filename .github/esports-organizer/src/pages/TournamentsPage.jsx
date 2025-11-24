@@ -8,67 +8,34 @@ import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { checkUserPermission } from "../Roles/checkUserPermission";
+import Event from "../events/EventClass";
+import {getProfileById} from "../services/profile-service.js";
 
-function TournamentsPage() {
-  // State management
-  const navigate = useNavigate();
-  const [savedCards, setSavedCards] = useState(new Set());
-  const [showJoinModal, setShowJoinModal] = useState(false);
-  const [, setSelectedEvent] = useState(null);
-  const [modalStep, setModalStep] = useState(1);
-
-  // Effects
-  useEffect(() => {
-    document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [showJoinModal]); 
-
-  //Notifications
-  const userId = 'demoUser123'; 
-  const uid = localStorage.getItem("uid");
-
-  const sendJoinNotification = async (eventTitle) => {
-    try {
-      await addDoc(collection(db, 'users', userId, 'notifications'), {
-        message: `You joined the event "${eventTitle}" `,
-        createdAt: serverTimestamp(),
-        read: false,
+async function getEventById(eventID) {
+  const data = await Event.ListEvents();
+  for (let e of data) {
+    if (e.id === eventID) {
+      return new Event({
+        title: e.title, 
+        id: e.id, 
+        decription: e.description,
+        dateValue: e.dateValue,
+        participants: e.participants,
+        teams: e.teams,
+        game: e.game,
+        location: e.location,
+        createdBy: e.createdBy,
+        community: e.community,
+        tournament: e.tournament,
+        maxTeams: e.maxTeams,
+        maxPlayersPerTeam: e.maxPlayersPerTeam
       });
-      console.log('Notification sent');
-    } catch (error) {
-      console.error('Error sending notification:', error);
     }
-  };
+  }
+}
 
-
-  // Event handlers
-
-  const toggleSaved = (cardId) => {
-    setSavedCards(prev => toggleSetItem(prev, cardId));
-  };
-
-  const handleJoinEvent = (eventTitle) => {
-    setSelectedEvent(eventTitle);
-    setShowJoinModal(true);
-    setModalStep(1);
-
-  };
-
-  const closeModal = () => {
-    setShowJoinModal(false);
-    setSelectedEvent(null);
-    setModalStep(1);
-  };
-
-  const handleNext = () => setModalStep(2);
-  const handleBack = () => setModalStep(1);
-  const handleCreateEvent = () => {
-    navigate("/create-event");
-  };
-
-  // Components
-
-  const PageHeader = () => (
+function PageHeader({search, setSearch, handleCreateEvent}) {
+  return (
     <section className="page-header">
       <div className="page-header-content">
         <h1 className="page-title">EVENTS</h1>
@@ -78,6 +45,8 @@ function TournamentsPage() {
               type="text" 
               placeholder="Search for the event" 
               className="search-input"
+              value={search} 
+              onChange={(event) => setSearch(event.target.value)}
             />
             <div className="search-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -88,6 +57,7 @@ function TournamentsPage() {
           <button 
             className="create-event-button"
             onClick={async () => {
+                 const uid = localStorage.getItem("uid");
                 if (await checkUserPermission(uid, "createUserEvent")==true || await checkUserPermission(uid, "createTeamEvent")==true ) {
                     // Allowed
                     handleCreateEvent();
@@ -105,6 +75,149 @@ function TournamentsPage() {
       </div>
     </section>
   );
+}
+
+function TournamentsPage() {
+  // State management
+  const navigate = useNavigate();
+  const [savedCards, setSavedCards] = useState(new Set());
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [modalStep, setModalStep] = useState(1);
+  const [search, setSearch] = useState("");
+  const[events, setEvents] = useState([]);
+  const [data, setData] = useState([]);
+
+  async function loadEvents() {
+      const data = await Event.ListEvents();
+      const displayEvents = data.map((event) => ({
+        id: event.id,
+        title: event.title,
+        game: event.game,
+        price: "Free",
+        date: event.dateValue.toDateString(),
+        location: event.location,
+
+        dateValue: event.dateValue,
+        participants: event.participants,
+        teams: event.teams,
+        maxTeams: event.maxTeams,
+        maxPlayersPerTeam: event.maxPlayersPerTeam
+      }));
+
+      setEvents(displayEvents);
+      setData(data);
+  }
+
+  // Effects
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [showJoinModal]); 
+
+  //Notifications
+  const userId = 'demoUser123';
+
+  const sendJoinNotification = async (eventTitle) => {
+    try {
+      await addDoc(collection(db, 'users', userId, 'notifications'), {
+        message: `You joined the event "${eventTitle}" `,
+        createdAt: serverTimestamp(),
+        read: false,
+      });
+      console.log('Notification sent');
+    } catch (error) {
+      console.error('Error sending notification:', error);
+    }
+  };
+
+  const filteredEvents = events.filter((event) => {
+    const matches = event.title.toLowerCase().includes(search);
+    return matches;
+  });
+
+  // Event handlers
+
+  const toggleSaved = (cardId) => {
+    setSavedCards(prev => toggleSetItem(prev, cardId));
+  };
+
+  const handleJoinEvent = (event) => {
+    setSelectedEvent(event);
+    setShowJoinModal(true);
+    setModalStep(1);
+
+  };
+
+  const handleJoin = async (event, team) => {
+    const currentEvent = await getEventById(event.id);
+    const currentUser = await getProfileById(localStorage.getItem("currentUserUid"));
+    currentEvent.addToTeam(team.name, currentUser);
+    await currentEvent.UpdateEvent(currentEvent.id);
+    await loadEvents();
+    const updatedEvent = await getEventById(currentEvent.id);
+
+    const selected = {
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
+
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
+      }
+
+    setSelectedEvent(selected);
+  }
+
+  const handleCreateTeam = async (event, teamName) => {
+    const currentEvent = await getEventById(event.id);
+    currentEvent.addTeam({name: teamName, members: []});
+    await currentEvent.UpdateEvent(currentEvent.id);
+    await loadEvents();
+
+    const updatedEvent = await getEventById(currentEvent.id);
+
+    const selected = {
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
+
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
+      }
+
+    setSelectedEvent(selected);
+  }
+
+  const closeModal = () => {
+    setShowJoinModal(false);
+    setSelectedEvent(null);
+    setModalStep(1);
+  };
+
+  const handleNext = () => setModalStep(2);
+  const handleBack = () => setModalStep(1);
+  const handleCreateEvent = () => {
+    navigate("/create-event");
+  };
+
+  // Components
 
   const RecommendedSection = () => (
     <section className="recommended-section">
@@ -145,14 +258,14 @@ function TournamentsPage() {
           </div>
         </div>
         <div className="events-grid">
-          {EVENTS_DATA.map((tournament, index) => (
+          {filteredEvents.map((tournament, index) => (
             <TournamentCard 
               key={tournament.id} 
               tournament={tournament} 
               index={index}
               isSaved={savedCards.has(index)}
               onToggleSaved={toggleSaved}
-              onJoinEvent={handleJoinEvent}
+              onJoinEvent={() => handleJoinEvent(tournament)}
             />
           ))}
         </div>
@@ -179,19 +292,19 @@ function TournamentsPage() {
           </div>
           
           <div className="modal-event-header">
-            <h2 className="modal-event-title">1 VS 1 JUNGLE CUP - FORTNITE</h2>
+            <h2 className="modal-event-title">{selectedEvent.title}</h2>
           </div>
           
           <div className="modal-event-details">
             <div className="event-detail-row">
               <div className="event-detail">Enter Price: Free</div>
-              <div className="modal-capacity">Capacity: 0/16</div>
+              <div className="modal-capacity">Capacity: {selectedEvent.maxTeams * selectedEvent.maxPlayersPerTeam}</div>
             </div>
             <div className="event-detail-row">
-              <div className="event-detail">Date: Saturday, 01 Oct 2025 at 6:00 PM</div>
+              <div className="event-detail">Date: {selectedEvent.date}</div>
               <div className="event-detail">Modality: Teams</div>
             </div>
-            <div className="event-detail">Location: Online Tournament</div>
+            <div className="event-detail">Location: {selectedEvent.location}</div>
           </div>
           
           {modalStep === 1 && (
@@ -230,18 +343,21 @@ function TournamentsPage() {
               
               <div className="teams-container">
                 <div className="teams-list">
-                  {['Team Alpha', 'Team Beta', 'Team Gamma'].map((team, index) => (
+                  {selectedEvent.teams.map((team, index) => (
                     <div key={index} className="team-item">
                       <div className="team-info">
-                        <span className="team-name">{team}</span>
-                        <span className="team-members">{3 - index}/4 members</span>
+                        <span className="team-name">{team.name}</span>
+                        <span className="team-members">{team.members.length}/{team.capacity}</span>
                       </div>
-                      <button className="join-team-button">Join Team</button>
+                      <button className="join-team-button"
+                        onClick={() => handleJoin(selectedEvent, team)}
+                      >Join Team</button>
                     </div>
                   ))}
                 </div>
                 
-                <button className="add-team-button">
+                <button className="add-team-button"
+                  onClick={() => handleCreateTeam(selectedEvent, "teamName")}>
                   + Add New Team
                 </button>
               </div>
@@ -256,9 +372,9 @@ function TournamentsPage() {
     <div className="tournaments-page">
       <Navbar />
       
-      <PageHeader />
-      <RecommendedSection />
+      <PageHeader search={search} setSearch={setSearch} handleCreateEvent={handleCreateEvent}/>
       <EventsSection />
+      <RecommendedSection />
       <JoinEventModal />
     </div>
   );

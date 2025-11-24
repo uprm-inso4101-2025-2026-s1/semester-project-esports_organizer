@@ -40,6 +40,8 @@ export default function TeamsPage() {
   const [search, setSearch] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
+  const uid = localStorage.getItem("uid");
+
   const filteredTeams = useMemo(() => {
     const query = search.trim().toLowerCase();
     if (!query) return TEAMS;
@@ -143,8 +145,7 @@ export default function TeamsPage() {
               <button
                 type="button"
                 className="team-modal__btn team-modal__btn--primary"
-                onClick={()=>{
-                  assignUserRole(uid,"Team Manager",{
+                onClick={async () => {closeCreateModal(); assignUserRole(uid,"Team Manager",{
                   viewTournaments:true,
                   createCommunities: true,
                   canCreatePrivateTournaments: true,
