@@ -24,7 +24,6 @@ export async function saveProfile(profileData) {
 
   const uniqueId = uuidv4().slice(0, 8);
   const ref = doc(db, 'User', uniqueId);
-  const Role = profileData.Role ? profileData.Role : 'player';
 
   await setDoc(ref, {
     uid: uniqueId,
@@ -32,8 +31,7 @@ export async function saveProfile(profileData) {
     Password: profileData.Password,
     Question: profileData.Question,
     Answer: profileData.Answer,
-    Role,
-    createdAt: serverTimestamp()
+    createdAt: serverTimestamp(),
   });
 
   localStorage.setItem("currentUserUid", uniqueId);

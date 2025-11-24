@@ -4,7 +4,9 @@ import Modal from "../shared/Modal";
 import "../shared/Modal.css";
 import { Link, useNavigate } from "react-router-dom";
 import Label from "../shared/Label";
-import { loginUser } from "../../services/loginUser"; 
+import { loginUser } from "../../services/loginUser";
+import { isUserBanned } from "../../services/checkBans"; 
+
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -37,7 +39,12 @@ function LoginForm() {
     e.preventDefault();
     if (!validate()) return;
 
-    // Use loginUser to check credentials
+    // Check first if user is banned then use loginUser to check credentials
+    const isBanned = await isUserBanned(form.emailOrUsername);
+    if (isBanned) {
+      setErrors({ form: "Your account has been banned. Contact support for more information." });
+      return;
+    }
     const result = await loginUser(form.emailOrUsername, form.password);
     if (!result.success) {
       setErrors({ form: result.error });
