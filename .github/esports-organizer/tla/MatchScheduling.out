@@ -1,0 +1,141 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.20 of Day Month 20?? (rev: 30ec586)
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 89 and seed 2389355330238030404 with 1 worker on 10 cores with 3641MB heap and 64MB offheap memory [pid: 47395] (Mac OS X 15.4.1 aarch64, Oracle Corporation 23.0.2 x86_64, MSBDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file /Users/victor/Desktop/intro-to-inso/semester-project-esports_organizer/.github/esports-organizer/tla/MatchScheduling.tla
+Parsing file /private/var/folders/n0/yndlg6z11476fgcm0ntz0b140000gn/T/tlc-17045186514912444600/Naturals.tla (jar:file:/Users/victor/.vscode/extensions/tlaplus.vscode-ide-2025.11.221037/tools/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file /private/var/folders/n0/yndlg6z11476fgcm0ntz0b140000gn/T/tlc-17045186514912444600/FiniteSets.tla (jar:file:/Users/victor/.vscode/extensions/tlaplus.vscode-ide-2025.11.221037/tools/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file /private/var/folders/n0/yndlg6z11476fgcm0ntz0b140000gn/T/tlc-17045186514912444600/Sequences.tla (jar:file:/Users/victor/.vscode/extensions/tlaplus.vscode-ide-2025.11.221037/tools/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module MatchScheduling
+Linting of module MatchScheduling
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2025-11-22 14:10:15)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2025-11-22 14:10:15.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2193:0 @!@!@
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 7.0E-17
+@!@!@ENDMSG 2193 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2025-11-22 14:10:15 (see https://explain.tlapl.us/module-coverage-statistics for how to interpret the following statistics).
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2779:0 @!@!@
+<schedule line 27, col 11 to line 27, col 18 of module MatchScheduling>: 15
+@!@!@ENDMSG 2779 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 36, col 1 to line 36, col 4 of module MatchScheduling>: 1:1
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 37, col 5 to line 37, col 17 of module MatchScheduling: 1
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2775:0 @!@!@
+  |line 37, col 16 to line 37, col 17 of module MatchScheduling: 1:1
+@!@!@ENDMSG 2775 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<AddMatch line 49, col 1 to line 49, col 15 of module MatchScheduling>: 15:32
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 50, col 8 to line 50, col 32 of module MatchScheduling: 96
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 50, col 8 to line 50, col 12 of module MatchScheduling: 64
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 50, col 18 to line 50, col 32 of module MatchScheduling: 64
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 51, col 8 to line 51, col 28 of module MatchScheduling: 96
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 51, col 8 to line 51, col 12 of module MatchScheduling: 64
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 51, col 21 to line 51, col 28 of module MatchScheduling: 64
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 52, col 8 to line 52, col 40 of module MatchScheduling: 32
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 52, col 20 to line 52, col 40 of module MatchScheduling: 32
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 52, col 20 to line 52, col 27 of module MatchScheduling: 32
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2775:0 @!@!@
+  ||line 52, col 34 to line 52, col 40 of module MatchScheduling: 32:72
+@!@!@ENDMSG 2775 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 52, col 35 to line 52, col 39 of module MatchScheduling: 32
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<NoChange line 54, col 1 to line 54, col 8 of module MatchScheduling>: 0:64
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 55, col 5 to line 55, col 24 of module MatchScheduling: 64
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2774:0 @!@!@
+<NoDuplicateTeamsSameTime line 71, col 1 to line 71, col 24 of module MatchScheduling>
+@!@!@ENDMSG 2774 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 72, col 5 to line 78, col 35 of module MatchScheduling: 16
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 73, col 9 to line 78, col 35 of module MatchScheduling: 32
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 74, col 13 to line 78, col 35 of module MatchScheduling: 80
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 74, col 14 to line 74, col 38 of module MatchScheduling: 80
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 74, col 14 to line 74, col 21 of module MatchScheduling: 80
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 74, col 26 to line 74, col 38 of module MatchScheduling: 48
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 75, col 18 to line 78, col 34 of module MatchScheduling: 16
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 73, col 19 to line 73, col 26 of module MatchScheduling: 32
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 72, col 15 to line 72, col 22 of module MatchScheduling: 16
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(5) at 2025-11-22 14:10:15: 97 states generated (20,492 s/min), 16 distinct states found (3,380 ds/min), 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+97 states generated, 16 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 5.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 4 and the 95th percentile is 4).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 285ms at (2025-11-22 14:10:15)
+@!@!@ENDMSG 2186 @!@!@
