@@ -177,8 +177,8 @@ export default function LandingPage() {
               location={t.location}
               gameName={t.gameName}
               badge={t.badge}
-              onJoin={() => alert(`Joining ${t.title}…`)}
-              onSave={() => alert(`Saved ${t.title}!`)}
+              onJoin={() => (window.location.href = "/signup")}
+              onSave={() => (window.location.href = "/signup")}
               isSaved={false}
             />
           ))}
@@ -196,7 +196,7 @@ export default function LandingPage() {
               title={t.title}
               currentEvents={t.currentEvents}
               followers={t.followers}
-              onJoin={() => alert("Joining Marvel Rivals community…")}
+              onJoin={() => (window.location.href = "/signup")}
             />
           ))}
         </div>
