@@ -176,8 +176,8 @@
 
 .community-card:hover {
     transform: translateY(-4px);
-    border-color: var(--light-link);
-    box-shadow: 0 8px 25px rgba(0, 168, 232, 0.15); /* Based on light-link */
+    border-color: var(--link);
+    box-shadow: 0 8px 25px rgba(0, 168, 232, 0.15); /* Based on link */
 }
 
 .ccard__media img {
@@ -272,7 +272,7 @@
     display: block;
     width: 20px;
     height: 2px;
-    background: var(--light-primary);
+    background: var(--primary);
     transition: all 0.3s ease;
 }
 

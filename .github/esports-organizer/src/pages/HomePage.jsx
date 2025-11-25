@@ -226,9 +226,6 @@ function HomePage() {
                   <TournamentCard key={index} index={index} />
                 ))}
               </div>
-              <div className="view-more-button">
-                <span>ver más →</span>
-              </div>
             </div>
         </div>
       </section>
@@ -244,9 +241,8 @@ function HomePage() {
                   <TournamentCard key={index} index={index} prefix="event" />
                 ))}
               </div>
-              <div className="view-more-button">
-                <span>ver más →</span>
-              </div>
+                <button className="view-more-button" onClick={() => handleNavigation("/tournaments")}>ver más →</button>
+
             </div>
         </div>
       </section>
@@ -261,9 +257,7 @@ function HomePage() {
                   <CommunityCard key={index} index={index} />
                 ))}
               </div>
-              <div className="view-more-button">
-                <span>ver más →</span>
-              </div>
+              <button className="view-more-button" onClick={() => handleNavigation("/community")}>ver más →</button>
             </div>
         </div>
       </section>
