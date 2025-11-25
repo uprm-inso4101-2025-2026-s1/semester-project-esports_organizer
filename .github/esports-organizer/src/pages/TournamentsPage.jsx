@@ -78,6 +78,7 @@ function TournamentsPage() {
   const [search, setSearch] = useState("");
   const[events, setEvents] = useState([]);
   const [data, setData] = useState([]);
+  const [wantsNotifications, setWantsNotifications] = useState(true);
 
   async function loadEvents() {
       const data = await Event.ListEvents();
@@ -148,6 +149,10 @@ function TournamentsPage() {
     const currentEvent = await getEventById(event.id);
     const currentUser = await getProfileById(localStorage.getItem("currentUserUid"));
     currentEvent.addToTeam(team.name, currentUser);
+    currentEvent.participants[currentUser.uid] = { //para que se sepa a quien mandarle notifs
+      ...(currentEvent.participants[currentUser.uid] || {}),
+      wantsNotifications: wantsNotifications
+    };
     await currentEvent.UpdateEvent(currentEvent.id);
     await loadEvents();
     const updatedEvent = await getEventById(currentEvent.id);
@@ -317,8 +322,30 @@ function TournamentsPage() {
                 </label>
               </div>
               
-              <button className="join-event-button" onClick={handleNext}>
-                Next
+              {/* Toggle de notificaciones */}
+              <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
+                  <input
+                    type="checkbox"
+                    checked={wantsNotifications}
+                    onChange={(e) => setWantsNotifications(e.target.checked)}
+                    style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
+                  />
+                  Send me reminders and updates for this event
+                </label>
+              </div>
+
+              <button className="join-event-button" 
+              className="join-event-button" 
+              onClick={() => {
+                // se guarda en el evento seleccionado para que handleJoin la vea luego
+                if (selectedEvent) {
+                  setSelectedEvent({ ...selectedEvent, wantsNotifications });
+                }
+                handleNext();
+              }}
+            >
+              Next
               </button>
             </div>
           )}
