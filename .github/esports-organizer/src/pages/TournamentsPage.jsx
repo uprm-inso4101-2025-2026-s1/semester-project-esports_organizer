@@ -148,7 +148,6 @@ function TournamentsPage() {
   })
 
   recommendedEvents.sort((e1, e2) => e2.participants.length - e1.participants.length);
-  if (recommendedEvents.length > 12) recommendedEvents = recommendedEvents.slice(0, 12);
   // Event handlers
 
   const toggleSaved = (cardId) => {
