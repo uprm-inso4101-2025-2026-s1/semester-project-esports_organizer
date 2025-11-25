@@ -33,6 +33,7 @@ export async function saveProfile(profileData) {
     Question: profileData.Question,
     Answer: profileData.Answer,
     Role,
+    teamId,
     createdAt: serverTimestamp()
   });
 
