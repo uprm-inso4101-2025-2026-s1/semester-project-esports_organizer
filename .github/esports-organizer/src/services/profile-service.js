@@ -31,8 +31,7 @@ export async function saveProfile(profileData) {
     Password: profileData.Password,
     Question: profileData.Question,
     Answer: profileData.Answer,
-    Role,
-    teamId,
+    teamId: null,
     createdAt: serverTimestamp()
   });
 
