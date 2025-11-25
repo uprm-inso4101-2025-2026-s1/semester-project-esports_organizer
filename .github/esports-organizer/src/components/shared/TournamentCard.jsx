@@ -32,7 +32,7 @@ function TournamentCard({
           className="tournament-image"
         />
         <div className="tournament-overlay">
-          <div className="tournament-type-overlay">CLASIFICATORIO</div>
+          <div className="tournament-type-overlay">Tournament</div>
         </div>
       </div>
       <div className="tournament-info">
