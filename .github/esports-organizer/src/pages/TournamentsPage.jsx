@@ -8,8 +8,9 @@ import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { checkUserPermission } from "../Roles/checkUserPermission";
-import Event from "../events/EventClass";
 import {getProfileById} from "../services/profile-service.js";
+import Event from "../events/EventClass";
+import SubTeamCreationMenu from "./SubTeamCreationMenu.jsx";
 
 async function getEventById(eventID) {
   const data = await Event.ListEvents();
@@ -86,7 +87,9 @@ function TournamentsPage() {
   const [modalStep, setModalStep] = useState(1);
   const [search, setSearch] = useState("");
   const[events, setEvents] = useState([]);
-  const [data, setData] = useState([]);
+
+  // Sub Team creation menu States
+  const [menuOpen, setMenuOpen] = useState(false);
 
   async function loadEvents() {
       const data = await Event.ListEvents();
@@ -106,7 +109,6 @@ function TournamentsPage() {
       }));
 
       setEvents(displayEvents);
-      setData(data);
   }
 
   // Effects
@@ -140,6 +142,13 @@ function TournamentsPage() {
     return matches;
   });
 
+  const recommendedEvents = events.filter((event) => {
+    const matches = (event.participants.length < event.maxPlayersPerTeam * event.maxTeams);
+    return matches;
+  })
+
+  recommendedEvents.sort((e1, e2) => e2.participants.length - e1.participants.length);
+  recommendedEvents = recommendedEvents.slice(0, 12);
   // Event handlers
 
   const toggleSaved = (cardId) => {
@@ -181,7 +190,7 @@ function TournamentsPage() {
 
   const handleCreateTeam = async (event, teamName) => {
     const currentEvent = await getEventById(event.id);
-    currentEvent.addTeam({name: teamName, members: []});
+    currentEvent.addTeam({name: teamName});
     await currentEvent.UpdateEvent(currentEvent.id);
     await loadEvents();
 
@@ -224,7 +233,7 @@ function TournamentsPage() {
       <div className="section-container">
         <h2 className="section-subtitle">RECOMMENDED EVENTS</h2>
         <div className="recommended-cards">
-          {TOURNAMENT_DATA.map((tournament, index) => (
+          {recommendedEvents.map((tournament, index) => (
             <TournamentCard 
               key={tournament.id} 
               tournament={tournament} 
@@ -244,18 +253,6 @@ function TournamentsPage() {
       <div className="section-container">
         <div className="events-header">
           <h2 className="section-title">EVENTS</h2>
-          <div className="events-filters">
-            <select className="filter-select">
-              <option>All Games</option>
-              <option>Fortnite</option>
-              <option>League of Legends</option>
-            </select>
-            <select className="filter-select">
-              <option>All Dates</option>
-              <option>Today</option>
-              <option>This Week</option>
-            </select>
-          </div>
         </div>
         <div className="events-grid">
           {filteredEvents.map((tournament, index) => (
@@ -350,14 +347,14 @@ function TournamentsPage() {
                         <span className="team-members">{team.members.length}/{team.capacity}</span>
                       </div>
                       <button className="join-team-button"
-                        onClick={() => handleJoin(selectedEvent, team)}
+                        onClick={() => {handleJoin(selectedEvent, team)}}
                       >Join Team</button>
                     </div>
                   ))}
                 </div>
                 
                 <button className="add-team-button"
-                  onClick={() => handleCreateTeam(selectedEvent, "teamName")}>
+                  onClick={() => setMenuOpen(true)}>
                   + Add New Team
                 </button>
               </div>
@@ -374,6 +371,12 @@ function TournamentsPage() {
       
       <PageHeader search={search} setSearch={setSearch} handleCreateEvent={handleCreateEvent}/>
       <EventsSection />
+      <SubTeamCreationMenu 
+        menuOpen={menuOpen} 
+        setMenuOpen={setMenuOpen} 
+        handleCreateTeam={handleCreateTeam}
+        selectedEvent={selectedEvent}
+      />
       <RecommendedSection />
       <JoinEventModal />
     </div>

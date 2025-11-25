@@ -68,67 +68,24 @@ export default class Team {
 // SUBTEAM MANAGEMENT
 //-----------------------------
 
-createSubTeam({ id, name, organizer, maxMembers }) {
-
-    // REQUIREMENT: must belong to main team
-    if (!this.members.includes(organizer))
-      throw new Error("Organizer must belong to the team to create a subteam");
-
-    // REQUIREMENT: cannot create if already in ANY subteam
-    if (this.isUserInAnySubteam(organizer))
-      throw new Error("User is already in a subteam and cannot create another");
-
-    // REQUIREMENT: cannot create multiple subteams
-    if (this.userCreatedSubteam(organizer))
-      throw new Error("User already created a subteam");
-
-    // REQUIREMENT: unique subteam name
-    for (const st of Object.values(this.subteams)) {
-      if (st.name === name)
-        throw new Error("Subteam name already exists");
+  static createSubTeam({ TeamID = null, name, organizer, capacity }) {
+    return {
+      teamID: TeamID,
+      name: name,
+      organizer: organizer,
+      capacity: capacity,
+      members: []
     }
-
-    const subId = id ?? Team._generateId();
-
-    this.subteams[subId] = {
-      id: subId,
-      name,
-      organizer,
-      members: [organizer],
-      maxMembers: maxMembers ?? 5
-    };
-
-    return subId;
   }
 
-joinSubTeam(subteamId, uid) {
-  const st = this.subteams[subteamId];
-  if (!st) throw new Error("Subteam does not exist");
+static removeFromSubteam(subTeam, uid) {
+  const index = subTeam.members.indexOf(uid);
+  if (index !== -1) {
+    subTeam.members.splice(idx, 1);
+    return subTeam;
+  }
 
-  // REQUIREMENT: must belong to main team
-  if (!this.members.includes(uid))
-    throw new Error("User must belong to the team to join a subteam");
-
-  // REQUIREMENT: cannot join if creator of a different subteam
-  if (this.userCreatedSubteam(uid) && st.organizer !== uid)
-    throw new Error("User already created a subteam and cannot join others");
-
-  // REQUIREMENT: cannot join if already in ANY subteam
-  if (this.isUserInAnySubteam(uid))
-    throw new Error("User is already in a subteam");
-
-  if (st.members.length >= st.maxMembers)
-    throw new Error("Subteam is full");
-
-  st.members.push(uid);
-}
-
-leaveSubteam(subteamId, uid) {
-  const st = this.subteams[subteamId];
-  if (!st) throw new Error("Subteam does not exist");
-
-  const idx = st.members.indexOf(uid);
-  if (idx !== -1) st.members.splice(idx, 1);
+  return null;
 }
 
 
