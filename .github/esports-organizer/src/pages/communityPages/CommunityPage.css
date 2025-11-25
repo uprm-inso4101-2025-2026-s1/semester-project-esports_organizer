@@ -1,6 +1,7 @@
 /* CommunityPage.css - Using existing global variables only */
 .communitypage {
     min-height: 100vh;
+    directPadding-left: 0;
     background: var(--gradient);
     color: var(--primary);
     font-family: var(--font-body);
@@ -86,7 +87,7 @@
 .mini-card-title {
     font-size: 14px;
     font-weight: 500;
-    color: var(--primary);
+    color: var(--text) !important;
     font-family: var(--font-body);
 }
 
@@ -139,7 +140,7 @@
 /* Top Communities card grid*/
 .top-communities h2 {
     margin-bottom: 10px;
-    color: var(--primary);
+    color: var(--primary) !important;
     font-family: var(--font-heading);
 }
 
@@ -167,11 +168,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    color: white !important;
     min-height: 330px;
-    background: white;
+    background: var(--primary);
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(12, 20,34, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .community-card:hover {
