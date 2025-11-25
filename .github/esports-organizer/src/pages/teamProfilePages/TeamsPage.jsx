@@ -157,6 +157,7 @@ export default function TeamsPage() {
                   assignTeamClasses:true,
                   addPlayerToRoster:true,
                   removePlayerFromRoster:true,
+                  canSendNotifications: true,
                 });}} 
               >
                 Create team
