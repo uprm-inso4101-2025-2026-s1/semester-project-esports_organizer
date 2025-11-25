@@ -433,23 +433,23 @@ export class Database {
 
     /* Checks if a given Community is in the database. */
     isCommunityInDataBase(community) {
-        // Checks Firestore for existence of a community by name
-        return this.getCommunityFromFireStore(community.name).then(result => !!result);
+        // Checks Firestore for existence of a community by ID
+        return this.getCommunityFromFirestore(community.id).then(result => !!result);
     }
 
-    /* Given a Community object, adds a key value pair array to the database. Community names must be unique. */
+    /* Given a Community object, adds a key value pair array to the database. Community IDs must be unique. */
     async addCommunityToDatabase(community) {
-        const existing = await this.getCommunityFromFireStore(community.name);
+        const existing = await this.getCommunityFromFirestore(community.id);
         if (!existing) {
-            await setDoc(doc(this.firestore, "Communities", community.name), community.toFirestore());
+            await setDoc(doc(this.firestore, "Communities", community.id), community.toFirestore());
         } else {
-            console.log("Community already exists.");
+            console.log(`Community of ID ${community.id} already exists.`);
         }
     }
 
-    /* Given a Community name, searches for the community and returns it if it was found and returns null if not. */
-    async getCommunityFromFireStore(commName) {
-        const snap = await getDoc(doc(this.firestore, "Communities", commName));
+    /* Given a Community ID, searches for the community and returns it if it was found and returns null if not. */
+    async getCommunityFromFirestore(commId) {
+        const snap = await getDoc(doc(this.firestore, "Communities", commId));
         if(snap.exists()){
             return Community.fromFirestore(snap.data());
         }
@@ -458,17 +458,25 @@ export class Database {
 
     /* Retrieves communities from Firestore. */
     async getAllCommunitiesFromDatabase() {
-        const communityCollection = collection(this.firestore, "Community");
+        const communityCollection = collection(this.firestore, "Communities");
         const communitySnapshot = await getDocs(communityCollection);
         return communitySnapshot.docs.map(doc => Community.fromFirestore(doc.data()));
     }
 
-    /* Deletes a Community given its name. Proper cleanup should be in place in order to avoid users accessing null Community values. */
-    async deleteCommunity(commName) {
+    /* Updates community in the database */
+    async updateCommunity(commId, updatedCommunity) {
+        const communityRef = doc(this.firestore, "Communities", commId);
+        await setDoc(communityRef, updatedCommunity.toFirestore());
+        console.log(`Community of ID ${commId} updated successfully.`);
+    }
+    
+
+    /* Deletes a Community given its ID. Proper cleanup should be in place in order to avoid users accessing null Community values. */
+    async deleteCommunity(commId) {
         try {
-            const communityRef = doc(this.firestore, "Community", commName);
+            const communityRef = doc(this.firestore, "Communities", commId);
             await deleteDoc(communityRef);
-            console.log("Community ${commName} deleted successfully.");
+            console.log(`Community of ID ${commId} deleted successfully.`);
         } catch (error) {
             console.error("Error deleting community: ", error);
         }
