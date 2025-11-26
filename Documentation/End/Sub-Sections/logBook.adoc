@@ -16,4 +16,5 @@
 | Desciptive Sections 2.2.1-2.2.2| Pedro Bonilla | Modified | Rephrased to improve clarity and provide more detail as per feedback.
 | Derived Goals | Jayden Sánchez | Modified | Revised the Derived Goals section to clarify their independence from the main objectives and strengthen the section's purpose.
 | Application of Topics | Abby Gotay Almonte | Added | Wrote Application of Topics section, taking into account multiple LTTs.
+| Descriptive Section 2.1.1 - 2.1.6 | Héctor Rivera | Modified | Refactored the entire Domain Description subsection to align with professor feedback. Integrated life-like Rough Sketch statements, corrected domain terminology, restructured Events/Actions/Behaviors, and reorganized function signatures under corresponding actions. Ensured all content reflects real-world domain phenomena without referencing system behavior.
 |===
