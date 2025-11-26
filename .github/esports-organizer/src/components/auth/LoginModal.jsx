@@ -61,13 +61,13 @@ function LoginForm() {
       buttonsDirection="column"
       showLogo={true}
       buttons={[
-        <Button key="login" text="Log In" onClick={handleSubmit}></Button>,
-        <Button
-          key="signup"
-          text="Don't have an account? Sign Up"
-          variant="secondary"
-          onClick={() => navigate("/signup")}
-        ></Button>,
+         <Button key="login" text="Log In" onClick={handleSubmit}></Button>,
+         <Button
+          key="signup-secondary"
+           text="Don't have an account? Sign Up"
+           variant="secondary"
+           onClick={() => navigate("/signup")}
+         ></Button>,
       ]}
     >
       <Label required>E-mail or Username</Label>

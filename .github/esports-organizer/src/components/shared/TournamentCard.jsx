@@ -1,15 +1,18 @@
 import { addToGoogleCalendar } from "../../utils/helpers";
-import { useNavigate, useLocation } from "react-router-dom";
-function TournamentCard({ 
+import { useNavigate } from "react-router-dom";
+function TournamentCard({
   tournament, 
   index, 
   prefix = "", 
   isSaved, 
-  onToggleSaved, 
-  onJoinEvent 
+  onJoinEvent
 }) {
-  const cardId = prefix ? `${prefix}-${index}` : index;
   const navigate = useNavigate();
+
+  // Guard against missing or invalid tournament prop to avoid runtime errors
+  if (!tournament) {
+    return null;
+  }
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -64,12 +67,10 @@ function TournamentCard({
             Join Event
           </button>
           <button 
-
             type="button"
             className={`bookmark-button ${isSaved ? 'saved' : ''}`}
-            onClick={(e) => {
+            onClick={() => {
               addToGoogleCalendar(tournament);
-
             }}
             onMouseDown={(e) => {
               e.preventDefault();

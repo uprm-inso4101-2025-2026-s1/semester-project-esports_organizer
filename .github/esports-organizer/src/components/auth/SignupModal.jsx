@@ -82,9 +82,9 @@ function SignupForm() {
       buttonsDirection="column"
       showLogo={true}
       buttons={[
-        <Button key="signup" text={"Sign Up"} onClick={handleSubmit}></Button>,
+        <Button key="signup-primary" text={"Sign Up"} onClick={handleSubmit}></Button>,
         <Button
-          key="signup"
+          key="signup-secondary"
           text="Already have an account? Log in"
           variant="secondary"
           onClick={() => navigate("/login")}
