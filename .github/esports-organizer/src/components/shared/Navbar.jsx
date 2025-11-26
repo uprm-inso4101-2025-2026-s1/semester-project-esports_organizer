@@ -7,6 +7,7 @@ import { IoMdSettings } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import "./Navbar.css";
 import Notifications from '../../notifications/notificationsUI';
+import { getProfileById } from "../../services/profile-service";
 
 
 function Navbar() {
@@ -14,10 +15,37 @@ function Navbar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserProfilePopUpOpen, setIsUserProfilePopUpOpen] = useState(false);
+  const [userName, setUserName] = useState("Loading...");
 
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(true); // Placeholder for user authentication state TODO: Integrate with auth system
   const userButtonRef = useRef(null); 
   const userPopupRef = useRef(null);
+
+  // Load user's username
+  useEffect(() => {
+    const loadUserName = async () => {
+      try {
+        const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+        if (uid) {
+          const profileData = await getProfileById(uid);
+          if (profileData && profileData.Username) {
+            setUserName(profileData.Username);
+          } else {
+            setUserName("User");
+          }
+        } else {
+          setUserName("User");
+        }
+      } catch (error) {
+        console.error("Error loading username:", error);
+        setUserName("User");
+      }
+    };
+    
+    if (userIsLoggedIn) {
+      loadUserName();
+    }
+  }, [userIsLoggedIn]);
 
   const toggleUserProfilePopUp = () => {
     setIsUserProfilePopUpOpen(!isUserProfilePopUpOpen);
@@ -97,7 +125,7 @@ function Navbar() {
             {userIsLoggedIn ? (
               <span ref={userButtonRef}>
                 <Button
-                  text="UserName"
+                  text={userName}
                   variant="primary"
                   isUserProfileButton={true}
                   // There is a {imgSrc} prop to pass the user profile image source, e.g., imgSrc="/path/to/user/profile.jpg"
@@ -139,7 +167,8 @@ function Navbar() {
           <button
             className="user-option"
             onClick={() => {
-              navigate("/profile")
+              setIsUserProfilePopUpOpen(false);
+              navigate("/profile");
             }}
           >
             <IoPerson size={20} />
