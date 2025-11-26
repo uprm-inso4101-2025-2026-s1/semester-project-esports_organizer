@@ -361,7 +361,6 @@ function TournamentsPage() {
               </div>
 
               <button className="join-event-button" 
-              className="join-event-button" 
               onClick={() => {
                 // se guarda en el evento seleccionado para que handleJoin la vea luego
                 if (selectedEvent) {
