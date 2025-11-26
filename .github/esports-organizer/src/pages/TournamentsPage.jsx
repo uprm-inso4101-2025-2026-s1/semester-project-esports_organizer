@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "../components/shared/Navbar";
 import TournamentCard from "../components/shared/TournamentCard";
@@ -81,6 +81,7 @@ function PageHeader({search, setSearch, handleCreateEvent}) {
 function TournamentsPage() {
   // State management
   const navigate = useNavigate();
+  const location = useLocation();
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -115,6 +116,20 @@ function TournamentsPage() {
   useEffect(() => {
     loadEvents();
   }, []);
+
+  useEffect(() => {
+    const openEventId = location?.state?.openEventId;
+    if (openEventId && events.length > 0) {
+      const evt = events.find((e) => e.id === openEventId);
+      if (evt) {
+        setSelectedEvent(evt);
+        setShowJoinModal(true);
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+        } catch (err) {}
+      }
+    }
+  }, [events, location]);
 
   useEffect(() => {
     document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
