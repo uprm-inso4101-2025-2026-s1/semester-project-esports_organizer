@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} TeamInitialize
  * @property {string} name
@@ -9,14 +8,12 @@
 
 export default class Team {
 
-  constructor ({name, organizer, members = [], maxMembers = 30, subteams = {} }){
-  this.name = name;
-  this.organizer = organizer;
-  this.memebers = Array.isArray(members) && members.length > 0 ? members : [organizer];
-  this.maxMembers = maxMembers;
-
-  //subteams: { subteamID: {id, name, organizer, members: [], maxMembers}}
-  this.subteams = subteams || {};
+  constructor ({name, organizer, members = [], maxMembers = 30, id}) {
+    this.name = name;
+    this.organizer = organizer;
+    this.memebers = Array.isArray(members) && members.length > 0 ? members : [organizer];
+    this.maxMembers = maxMembers;
+    this.id = id;
   }
 
   //---------------------------
@@ -24,11 +21,6 @@ export default class Team {
   //---------------------------
   static _generateId() {
     return Math.random().toString(36).substring(2, 10);
-  }
-
-  /** Returns true if user is already in ANY subteam */
-  isUserInAnySubteam(uid) {
-    return Object.values(this.subteams).some(st => st.members.includes(uid));
   }
 
 
@@ -68,15 +60,15 @@ export default class Team {
 // SUBTEAM MANAGEMENT
 //-----------------------------
 
-  static createSubTeam({ TeamID = null, name, organizer, capacity }) {
-    return {
-      teamID: TeamID,
-      name: name,
-      organizer: organizer,
-      capacity: capacity,
-      members: []
-    }
+static createSubTeam({ TeamID = null, name, organizer, capacity }) {
+  return {
+    teamID: TeamID,
+    name: name,
+    organizer: organizer,
+    capacity: capacity,
+    members: []
   }
+}
 
 static removeFromSubteam(subTeam, uid) {
   const index = subTeam.members.indexOf(uid);
@@ -102,13 +94,12 @@ static removeFromSubteam(subTeam, uid) {
       "organizer": this.organizer,
       "members": this.members,
       "maxMembers": this.maxMembers,
+      "id": this.id
     };
   }
 
   /* Converts from a key value pair to a Team object. */
   static fromFirestore(data) {
-    return new Team(data.name, data.organizer, data.members);
+    return new Team(data.name, data.organizer, data.members, data.maxmembers, data.id);
   }
 };
-
-// module.exports = Team;
