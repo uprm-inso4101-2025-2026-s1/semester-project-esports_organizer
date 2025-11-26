@@ -47,7 +47,7 @@ This section describes the essential components and interactions within an the e
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 
 Figure 2.1.1 – Tournament and Community Interaction Flow.
-This diagram illustrates the relationship between players, organizers, and communities. It shows how tournaments are advertised, how teams are formed and registered, and how interactions move from creation to competition within the ecosystem.
+This diagram illustrates the relationship between players, organizers, and communities. It shows how tournaments are advertised, how teams are formed and registered, and how interactions move from creation to competition within the ecosystem. Actions are the red diamonds and entities are the blue rectangles. 
 
 === 2.1.2 Terminology
 - *Player*: An individual who registers on the platform to participate in esports tournaments.
