@@ -16,7 +16,7 @@ npm install react-icons
 Follow the HostLocally.adoc instructions in the Documents folder
 
 == Start
-cd .github/esports-organizer (Always go here when using commands)
+npm install (from root directory)
 
 Run the npm run dev command (This should start both the web server and the database emulator)
 

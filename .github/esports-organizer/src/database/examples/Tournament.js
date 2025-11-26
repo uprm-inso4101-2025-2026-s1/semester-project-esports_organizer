@@ -59,7 +59,7 @@ static allTournaments = new Map();
     */
 
     async firestoreSave(db){ // This saves our info into firestore so it generates an id
-        const docRef = await addDoc(collection(db, "tournaments"), {
+        const docRef = await addDoc(collection(db, "Tournaments"), {
             name: this.name,
             game: this.game,
             organizer: this.organizer,
@@ -80,7 +80,7 @@ static allTournaments = new Map();
             throw new Error('Can\'t be updated without ID')
         }
         // Update firestore
-        const tournamentRef = doc(this.db, "tournaments", this.id);
+        const tournamentRef = doc(this.db, "Tournaments", this.id);
         await updateDoc(tournamentRef, updatedData);
         // Update local instance
         Object.assign(this, updatedData);

@@ -2,17 +2,25 @@
 
 /**
  * @property {string} name
+ * @property {string} description
  * @property {string} admin id of the admin of the community
  * @property {string[]} members  Array of ids members in community
  * @property {Post[]} posts array of posts in a community
  * @property {string[]} tags array of tags in a community
  * @property {string} id identifier
+ * @property {object} dateCreated date the community was created
+ * @property {string} game game around which the community is based
+ * @property {string} location where the community is based or located
+ * @property {string} icon file location of the community icon image
+ * @property {string} banner file location of the community banner image
  */
 
 export default class Community{
 
  /** @type {string} */
  name;
+ /** @type {string} */
+ description;
  /** @type {string} userID of the creator of the team */
  admin;
  /** @type {string[]} Array of ids members in community */
@@ -23,6 +31,16 @@ export default class Community{
  tags;
  /** @type {string}  identifier */
 id;
+/** @type {object} date of community creation*/
+dateCreated;
+/** @type {string} */
+game;
+/** @type {string} */
+location;
+/** @type {string} */
+icon;
+/** @type {string} */
+banner;
 
     //Map that contains all  created communities created
     static allCommunities = new Map();
@@ -30,18 +48,25 @@ id;
     //Constructor
     constructor(init) {
         this.name = init.name;
+        this.description = init.description;
         this.admin=init.admin;
-       this.members=init.members ?? [];
+        this.members=init.members ?? [];
         this.posts=init.posts ?? [];
         this.tags=init.tags ?? [] ;
         this.id=init.id;
+        this.dateCreated=init.dateCreated;
+        this.game=init.game;
+        this.location=init.location;
+        this.icon=init.icon;
+        this.banner=init.banner;
     
-   
     Community.allCommunities.set(this.id, this);
 
     }
     //setters
     setName(name){this.name=name;}
+
+    setDescription(description){this.description=description;}
 
     setAdmin(admin){this.admin=admin;}
 
@@ -52,6 +77,17 @@ id;
     setTags(tags){this.tags=tags;}
 
     setId(id){this.id=id;}
+
+    /*setDateCreated()
+    Date created should not be modified*/
+
+    setGame(game){this.game=game;}
+
+    setLocation(location){this.location=location;}
+
+    setIcon(icon){this.icon=icon;}
+
+    setBanner(banner){this.banner=banner;}
 
 
     //Add post to array of posts
@@ -68,6 +104,8 @@ id;
     //getters
     getName(){return this.name;}
 
+    getDescription(){return this.description;}
+
     getAdmin(){return this.admin;}
 
     getMembers(){return this.members;}
@@ -78,7 +116,15 @@ id;
 
     getId(){return this.id;}
 
+    getDateCreated(){return this.dateCreated;}
 
+    getGame(){return this.game;}
+
+    getLocation(){return this.location;}
+
+    getIcon(){return this.icon;}
+
+    getBanner(){return this.banner;}
     
     //Get an individual member from member array
     findMember(memberID) {
@@ -147,18 +193,29 @@ id;
         this.tags.splice(index, 1);
     }
     
-    // Saves info into firestore to it generates an id
-    // async firestoreSave(db){ 
-    //     const docRef = await addDoc(collection(db, "communities"), {
-    //         name: this.name,
-    //         admin: this.admin,
-    //         members: this.members,
-    //         posts: this.posts,
-    //         tags: this.tags,            
-    //     });
-    //     this.id = docRef.id;
-    //     return this.id;
-    // }
+    //Converts community object to Firestore storable
+    toFirestore(){
+        return{
+            name: this.name,
+            description: this.description,
+            admin: this.admin,
+            members: this.members,
+            posts: this.posts,
+            tags: this.tags,
+            id: this.id,
+            dateCreated: this.dateCreated,
+            game: this.game,
+            location: this.location,
+            icon: this.icon,
+            banner: this.banner
+        };
+    }
+
+    /* Converts from a key value pair to an Event object. */
+    static fromFirestore(data) {
+        return new Community(data);
+    }
+    
 } 
 
 

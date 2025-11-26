@@ -15,7 +15,7 @@ const db = admin.firestore();
 
 async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
-  const ref = db.doc(`tournaments/${tid}/internal/recalc_lock`);
+  const ref = db.doc(`Tournaments/${tid}/internal/recalc_lock`);
   await ref.delete().catch(() => {});
   console.log(`Cleared recalc lock for tournament ${tid}`);
 }

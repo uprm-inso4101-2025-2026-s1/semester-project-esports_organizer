@@ -5,6 +5,8 @@ import TournamentCard from "../components/shared/TournamentCard";
 import { TOURNAMENT_DATA, EVENTS_DATA } from "../data/mockData";
 import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
+import { db } from "../database/firebaseClient";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 function TournamentsPage() {
   // State management
@@ -18,7 +20,24 @@ function TournamentsPage() {
   useEffect(() => {
     document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
     return () => { document.body.style.overflow = 'unset'; };
-  }, [showJoinModal]);
+  }, [showJoinModal]); 
+
+  //Notifications
+  const userId = 'demoUser123'; 
+
+  const sendJoinNotification = async (eventTitle) => {
+    try {
+      await addDoc(collection(db, 'users', userId, 'notifications'), {
+        message: `You joined the event "${eventTitle}" `,
+        createdAt: serverTimestamp(),
+        read: false,
+      });
+      console.log('Notification sent');
+    } catch (error) {
+      console.error('Error sending notification:', error);
+    }
+  };
+
 
   // Event handlers
 
@@ -30,6 +49,7 @@ function TournamentsPage() {
     setSelectedEvent(eventTitle);
     setShowJoinModal(true);
     setModalStep(1);
+
   };
 
   const closeModal = () => {
@@ -226,6 +246,7 @@ function TournamentsPage() {
   return (
     <div className="tournaments-page">
       <Navbar />
+      
       <PageHeader />
       <RecommendedSection />
       <EventsSection />

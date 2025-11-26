@@ -6,6 +6,7 @@ function Modal({
   children,
   buttons,
   buttonsDirection = "row",
+  expanded = false,
   showLogo = false,
 }) {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Modal({
           </div>
         </>
       )}
-      <div className="auth-modal-container">
+      <div className={`auth-modal-container ${expanded ? "expanded" : ""}`}>
         <h1>{title}</h1>
         <div className="auth-modal-content">{children}</div>
 

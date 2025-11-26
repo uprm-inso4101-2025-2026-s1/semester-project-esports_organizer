@@ -22,162 +22,119 @@
   padding-bottom: 8px;
 }
 
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .nav-header {
-    background: #1A0D0D !important;
-  }
-
-  .nav-link:hover {
-    background: #B28D8D !important;
-  }
-
-  .nav-link.active::after {
-    background: #B28D8D !important;
-  }
-
-  .mobile-nav-link:hover,
-  .mobile-nav-link.active {
-    color: #B28D8D !important;
-  }
-
-  .nav-indicator {
-    background: #B28D8D !important;
-  }
-
-  .back-button {
-    background: #D72638 !important;
-  }
-
-  .back-button:hover {
-    background: #B01E2E !important;
-  }
-
-  .form-input:focus,
-  .form-select:focus {
-    border-color: #B28D8D !important;
-    box-shadow: 0 0 0 3px rgba(178, 141, 141, 0.1) !important;
-  }
-
-
-  .create-button {
-    background: #D72638 !important;
-  }
-
-  .create-button:hover {
-    background: #B01E2E !important;
-    box-shadow: 0 4px 12px rgba(215, 38, 56, 0.3) !important;
-  }
-
-  .create-button:active {
-    background: #B01E2E !important;
-  }
-
-  .nav-actions .btn {
-    background: #1A0D0D !important;
-  }
-
-  .static-time-picker-container .MuiButton-root.MuiButton-textPrimary {
-    background: #D72638 !important;
-    color: white !important;
-  }
-
-  .static-time-picker-container .MuiButton-root.MuiButton-textPrimary:hover {
-    background: #B01E2E !important;
-  }
-
-  /* Time picker text colors - white text */
-  .static-time-picker-container .MuiPickersToolbar-content {
-    color: white !important;
-  }
-
-  .static-time-picker-container .MuiPickersClockNumber-root {
-    color: white !important;
-  }
-
-  .static-time-picker-container .MuiPickersClock-meridiemText {
-    color: white !important;
-  }
-
-  .static-time-picker-container .MuiButton-root {
-    color: white !important;
-  }
-
-  /* Clock elements - change all blue elements to D72638 with more specific selectors */
-  .static-time-picker-container .MuiPickersClock-pin,
-  .static-time-picker-container .MuiPickersClock-pin * {
-    background: #D72638 !important;
-    background-color: #D72638 !important;
-  }
-
-  .static-time-picker-container .MuiPickersClock-pointer,
-  .static-time-picker-container .MuiPickersClock-pointer * {
-    background: #D72638 !important;
-    background-color: #D72638 !important;
-  }
-
-  .static-time-picker-container .MuiPickersClock-thumb,
-  .static-time-picker-container .MuiPickersClock-thumb * {
-    background: #D72638 !important;
-    background-color: #D72638 !important;
-    border: 3px solid white !important;
-  }
-
-  .static-time-picker-container .MuiPickersClockNumber-root.Mui-selected,
-  .static-time-picker-container .MuiPickersClockNumber-root.Mui-selected *,
-  .static-time-picker-container .MuiPickersClockNumber-root.MuiPickersClockNumber-selected,
-  .static-time-picker-container .MuiPickersClockNumber-root.MuiPickersClockNumber-selected * {
-    background: #D72638 !important;
-    background-color: #D72638 !important;
-    color: white !important;
-  }
-
-  .static-time-picker-container .MuiPickersClock-tick.MuiPickersClock-tickLarge,
-  .static-time-picker-container .MuiPickersClock-tick.MuiPickersClock-tickLarge * {
-    background: #D72638 !important;
-    background-color: #D72638 !important;
-  }
-
-  /* Force override any remaining blue elements */
-  .static-time-picker-container *[style*="blue"],
-  .static-time-picker-container *[style*="#4a90e2"],
-  .static-time-picker-container *[style*="#1976d2"],
-  .static-time-picker-container *[style*="#2196f3"] {
-    background: #D72638 !important;
-    background-color: #D72638 !important;
-    color: white !important;
-  }
-
-  .static-time-picker-container .MuiPickersClockNumber-root:hover {
-    background: rgba(215, 38, 56, 0.1) !important;
-  }
-
-  .static-time-picker-container .MuiPickersClockNumber-root.Mui-selected:hover {
-    background: #D72638 !important;
-  }
-
-  /* Time picker custom buttons */
-  .time-picker-accept {
-    background: #D72638 !important;
-    color: white !important;
-    border: 2px solid #D72638 !important;
-  }
-
-  .time-picker-accept:hover {
-    background: #B01E2E !important;
-    border-color: #B01E2E !important;
-  }
-
-  .time-picker-cancel {
-    background: transparent !important;
-    color: #D72638 !important;
-    border: 2px solid #D72638 !important;
-  }
-
-  .time-picker-cancel:hover {
-    background: rgba(215, 38, 56, 0.1) !important;
-    color: #D72638 !important;
-  }
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .create-event-page {
+  background: #1a0d0d;
+  color: #fff;
+}
+.dark-mode .nav-header {
+  background: #1a0d0d !important;
+}
+.dark-mode .nav-link:hover {
+  background: #b28d8d !important;
+}
+.dark-mode .nav-link.active::after {
+  background: #b28d8d !important;
+}
+.dark-mode .mobile-nav-link:hover,
+.dark-mode .mobile-nav-link.active {
+  color: #b28d8d !important;
+}
+.dark-mode .nav-indicator {
+  background: #b28d8d !important;
+}
+.dark-mode .back-button {
+  background: #d72638 !important;
+}
+.dark-mode .back-button:hover {
+  background: #b01e2e !important;
+}
+.dark-mode .form-input:focus,
+.dark-mode .form-select:focus {
+  border-color: #b28d8d !important;
+  box-shadow: 0 0 0 3px rgba(178, 141, 141, 0.1) !important;
+}
+.dark-mode .create-button {
+  background: #d72638 !important;
+}
+.dark-mode .create-button:hover {
+  background: #b01e2e !important;
+  box-shadow: 0 4px 12px rgba(215, 38, 56, 0.3) !important;
+}
+.dark-mode .create-button:active {
+  background: #b01e2e !important;
+}
+.dark-mode .nav-actions .btn {
+  background: #1a0d0d !important;
+}
+.dark-mode .static-time-picker-container .MuiButton-root.MuiButton-textPrimary {
+  background: #d72638 !important;
+  color: white !important;
+}
+.dark-mode
+  .static-time-picker-container
+  .MuiButton-root.MuiButton-textPrimary:hover {
+  background: #b01e2e !important;
+}
+.dark-mode .static-time-picker-container .MuiPickersToolbar-content,
+.dark-mode .static-time-picker-container .MuiPickersClockNumber-root,
+.dark-mode .static-time-picker-container .MuiPickersClock-meridiemText,
+.dark-mode .static-time-picker-container .MuiButton-root {
+  color: white !important;
+}
+.dark-mode .static-time-picker-container .MuiPickersClock-pin,
+.dark-mode .static-time-picker-container .MuiPickersClock-pointer,
+.dark-mode .static-time-picker-container .MuiPickersClock-thumb {
+  background: #d72638 !important;
+  background-color: #d72638 !important;
+}
+.dark-mode .static-time-picker-container .MuiPickersClock-thumb {
+  border: 3px solid white !important;
+}
+.dark-mode
+  .static-time-picker-container
+  .MuiPickersClockNumber-root.Mui-selected {
+  background: #d72638 !important;
+  color: white !important;
+}
+.dark-mode
+  .static-time-picker-container
+  .MuiPickersClock-tick.MuiPickersClock-tickLarge {
+  background: #d72638 !important;
+}
+.dark-mode .static-time-picker-container *[style*="blue"],
+.dark-mode .static-time-picker-container *[style*="#4a90e2"],
+.dark-mode .static-time-picker-container *[style*="#1976d2"],
+.dark-mode .static-time-picker-container *[style*="#2196f3"] {
+  background: #d72638 !important;
+  background-color: #d72638 !important;
+  color: white !important;
+}
+.dark-mode .static-time-picker-container .MuiPickersClockNumber-root:hover {
+  background: rgba(215, 38, 56, 0.1) !important;
+}
+.dark-mode
+  .static-time-picker-container
+  .MuiPickersClockNumber-root.Mui-selected:hover {
+  background: #d72638 !important;
+}
+.dark-mode .time-picker-accept {
+  background: #d72638 !important;
+  color: white !important;
+  border: 2px solid #d72638 !important;
+}
+.dark-mode .time-picker-accept:hover {
+  background: #b01e2e !important;
+  border-color: #b01e2e !important;
+}
+.dark-mode .time-picker-cancel {
+  background: transparent !important;
+  color: #d72638 !important;
+  border: 2px solid #d72638 !important;
+}
+.dark-mode .time-picker-cancel:hover {
+  background: rgba(215, 38, 56, 0.1) !important;
+  color: #d72638 !important;
 }
 
 .nav-container {
@@ -252,7 +209,7 @@
 }
 
 .nav-link.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 50%;
@@ -725,11 +682,11 @@
   .nav-menu {
     display: none;
   }
-  
+
   .mobile-menu-toggle {
     display: block;
   }
-  
+
   .header-content {
     flex-direction: column;
     gap: 1rem;
