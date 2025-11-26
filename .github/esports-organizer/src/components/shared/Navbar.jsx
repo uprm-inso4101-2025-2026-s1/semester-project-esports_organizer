@@ -7,6 +7,7 @@ import { IoMdSettings } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import "./Navbar.css";
 import Notifications from '../../notifications/notificationsUI';
+import AdminMenu from "./AdminMenu";
 
 
 function Navbar() {
@@ -93,6 +94,7 @@ function Navbar() {
 
           <div className="nav-actions">
             <Notifications inline />
+            <AdminMenu inline />
             {/* TODO: Logic to load user preferences */}
             {userIsLoggedIn ? (
               <span ref={userButtonRef}>
@@ -142,7 +144,7 @@ function Navbar() {
               navigate("/profile")
             }}
           >
-            <IoPerson size={20} style={{ marginRight: "8px" }} />
+            <IoPerson size={20} />
             View Profile
           </button>
           <button
@@ -151,7 +153,7 @@ function Navbar() {
               navigate("/preferences");
             }}
           >
-            <IoMdSettings size={20} style={{ marginRight: "8px" }} />
+            <IoMdSettings size={20} />
             Preferences
           </button>
           <button
@@ -161,7 +163,7 @@ function Navbar() {
               navigate("/");
             }}
           >
-            <MdLogout size={20} style={{ marginRight: "8px" }} />
+            <MdLogout size={20} />
             Logout
           </button>
         </div>

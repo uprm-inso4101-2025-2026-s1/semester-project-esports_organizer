@@ -7,6 +7,9 @@ import "../teamProfilePages/TeamForms.css";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
+import { checkUserPermission } from "../../Roles/checkUserPermission.js";
+
+const uid = localStorage.getItem("uid");
 import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
 import { getProfileById} from "../../services/profile-service.js"; 
 

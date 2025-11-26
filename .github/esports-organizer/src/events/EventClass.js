@@ -4,7 +4,7 @@ import {
     updateDoc, deleteDoc, query, orderBy, where, limit as qLimit,
     Timestamp, serverTimestamp
 } from "firebase/firestore";
-import EventTeam from "./EventTeams.js";
+import Team from "../services/TeamClass.js";
 
 class UserProfile {
     constructor(username, email) {
@@ -224,10 +224,17 @@ export default class Event {
         return theId;
     }
 
-    addTeam({name, members}) {
-        if (this.teams.length < this.maxTeams) {
-            this.teams.push((new EventTeam({name: name, members: members, capacity: this.maxPlayersPerTeam})).toDocData());
+    addTeam({teamID = null, organizerID = null, name}) {
+        for (let t of this.teams) {
+            if (t.name === name || t.organizer === organizerID) return false;
         }
+
+        if (this.teams.length < this.maxTeams) {
+            this.teams.push(Team.createSubTeam({TeamID: teamID, name: name, organizer: organizerID, capacity: this.maxPlayersPerTeam}));
+            return true;
+        }
+
+        return false;
     }
 
     addToTeam(teamName, user) {
