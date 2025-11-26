@@ -1,4 +1,5 @@
-import Community from "./Community.js";
+import {Community} from "./Community.js";
+import Database from "../database/core/Database.js";
 import {
     doc,
     setDoc,
@@ -38,7 +39,7 @@ async function createCommunity(name, description, admin, tags, game, location, i
     //Generate a random UUID
     const id = crypto.randomUUID();
 
-    const community = new Community({name, description, admin, members, posts, tags, id, dateCreated, game, location, 
+    const community = new Community({name, description, admin, members, posts, tags, id, dateCreated, game, location,
     icon, banner});
 
     try{
@@ -52,7 +53,7 @@ async function createCommunity(name, description, admin, tags, game, location, i
 
         console.log("Error when creating community:" + error);
 
-        return false; 
+        return false;
     }
 
 }
@@ -95,7 +96,7 @@ async function createCommunity(name, description, admin, tags, game, location, i
         await setDoc(communityRef, updatedCommunity.toFirestore());
         console.log(`Community of ID ${commId} updated successfully.`);
     }
-    
+
 
     /* Deletes a Community given its ID. Proper cleanup should be in place in order to avoid users accessing null Community values. */
     async function deleteCommunity(commId) {

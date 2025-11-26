@@ -5,7 +5,7 @@ import Modal from "../../components/shared/Modal";
 import "./AuthPages.css";
 import Label from "../../components/shared/Label";
 import { useNavigate } from "react-router-dom";
-import { updatePlayerProfile } from "../../services/profile-service";
+import { updatePlayerProfile } from "../../services/profileService.js";
 import { assignUserRole } from "../../Roles/assignUserRole";
 
 

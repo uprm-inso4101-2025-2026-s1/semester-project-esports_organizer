@@ -254,7 +254,7 @@ export default class Post {
     /**
      * @returns {Array} - The comments of the post
      */
-    async getComments(){
+    async getComments(postID){
         const snap = await getDoc(doc(firestore,"Posts", postID));
         if(snap.exists()){
             return Post.fromFirestore(snap.data()).comments;

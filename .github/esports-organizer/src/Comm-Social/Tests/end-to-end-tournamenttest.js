@@ -1,6 +1,6 @@
-import Team from "../../database/examples/Teams.js";
-import Bracket from "../../database/examples/Brackets.js";
-import Tournament from "../../database/examples/Tournament.js";
+import Team from "../../database/core/Teams.js";
+import Bracket from "../../database/core/Brackets.js";
+import Tournament from "../../database/core/Tournament.js";
 import {getTournamentResults,progressMatch,initializeBracket} from "../MatchProgression.js";
 import { registerTeam, confirmAttendance, startEvent, ReOpenEvent } from "../TournamentRegistration.js";
 import { resultReport } from "../ResultReport.js";

@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../components/shared/Button";
 import "./HomePage.css";
@@ -9,6 +9,9 @@ import Event from "../events/EventClass";
 
 function HomePage() {
   const navigate = useNavigate();
+  const [savedCards] = useState(new Set());
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [events, setEvents] = useState([]);
 
@@ -44,7 +47,6 @@ function HomePage() {
   // Navigation handlers
   const handleNavigation = (path) => {
     navigate(path);
-    setIsMobileMenuOpen(false);
   };
 
   const handleJoinEvent = (event) => {
@@ -145,6 +147,18 @@ function HomePage() {
               variant="secondary"
             />
           </div>
+          
+            {/* Tournament Cards in Hero */}
+            <div className="hero-tournament-cards-container">
+              <div className="hero-tournament-cards">
+                {[1, 2, 3].map((index) => (
+                  <TournamentCard key={index} index={index} />
+                ))}
+              </div>
+              <div className="view-more-button">
+                <span>View more →</span>
+              </div>
+            </div>
         </div>
       </section>
 
@@ -170,6 +184,12 @@ function HomePage() {
                 ) : (
                   <p>Loading events...</p>
                 )}
+                {[1, 2, 3, 4, 5].map((index) => (
+                  <TournamentCard key={index} index={index} prefix="event" />
+                ))}
+              </div>
+              <div className="view-more-button">
+                <span>View more →</span>
               </div>
                 <button className="view-more-button" onClick={() => handleNavigation("/tournaments")}>View more →</button>
 
@@ -186,6 +206,9 @@ function HomePage() {
                 {[1, 2, 3].map((index) => (
                   <CommunityCard key={index} index={index} />
                 ))}
+              </div>
+              <div className="view-more-button">
+                <span>View more →</span>
               </div>
               <button className="view-more-button" onClick={() => handleNavigation("/community")}>View more →</button>
             </div>

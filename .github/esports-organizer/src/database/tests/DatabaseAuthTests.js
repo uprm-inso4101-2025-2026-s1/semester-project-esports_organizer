@@ -1,4 +1,4 @@
-import { Database } from './Database.js';
+import { Database } from '../core/Database.js';
 
 // Framework-free tests for logInUser and logOutUser using dependency injection and in-memory mocks
 

@@ -1,4 +1,3 @@
-import { doc, getDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
 import { collection, query, where, getDocs } from "firebase/firestore";
