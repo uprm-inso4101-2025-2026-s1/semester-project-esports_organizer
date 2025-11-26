@@ -1,0 +1,62 @@
+= Business Processes in Esports Tournament Workflows
+Sorimerlin Santos (Manager)
+INSO4101-080  
+
+== Introduction
+Business processes describe the real-world sequence of actions that stakeholders follow to complete a goal.
+In requirements engineering, they ensure that the system to be respects the natural order of domain activities instead of forcing artificial workflows. 
+For esports platforms, tournament operations depend on clear and time sensitive processes.
+
+== Definition
+A business process is a domain level description of the tasks, decisions, and interactions that occur to achieve a specific outcome. 
+These workflows exist before software design and help transform domain understanding into functional system requirements.
+
+== Application in the Project
+Our project relied on translating the real tournament lifecycle into actionable requirements. 
+The key workflow involved: registration, availability checks, seeding, bracket progression, and result reporting. 
+Since bracket research was incomplete in Milestone 1, business processes helped us restructure Milestone 2 around the correct domain logic.
+
+== My Contribution
+As the manager, I organized the core tournament workflow and demonstrated to developers why the bracket process had to be the system’s foundation.
+This ensured that our implementation reflected real esports operations and prevented teams from creating a out of order or domain inaccurate features.
+
+== Business Process Diagram (Tournament Lifecycle)
+----
+     ┌─────────────────────────────┐
+     │   Player Registers          │
+     └──────────────┬──────────────┘
+                    │
+                    ▼
+     ┌─────────────────────────────┐
+     │   Check Availability        │
+     └──────────────┬──────────────┘
+                    │
+                    ▼
+     ┌─────────────────────────────┐
+     │       Seeding Phase         │
+     └──────────────┬──────────────┘
+                    │
+                    ▼
+     ┌─────────────────────────────┐
+     │   Bracket Progression       │
+     └──────────────┬──────────────┘
+                    │
+                    ▼
+     ┌─────────────────────────────┐
+     │      Match Results          │
+     └──────────────┬──────────────┘
+                    │
+                    ▼
+     ┌─────────────────────────────┐
+     │   Update Player History     │
+     └─────────────────────────────┘
+----
+
+== Benefits
+- Ensures accurate domain-driven development  
+- Prevents incorrect implementation order  
+- Helps developers understand real workflows  
+- Produces more reliable and intuitive features  
+
+== Conclusion
+Business process modeling grounded the team’s decisions in real tournament operations, ensuring Milestone 2’s foundation matched how esports competitions actually function.
