@@ -46,11 +46,15 @@ export default function Step4Review({ data, onBack, onSubmit }) {
         description: description,
         dateValue: toDate(date, time),
         participants: [],        //empty for now
+        teams: [],
         game,
         location: location,
         createdBy:  await getProfileById(localStorage.getItem("currentUserUid")),
         community: false,
         tournament: null,
+
+        maxTeams: maxTeams,
+        maxPlayersPerTeam: maxPlayersPerTeam
       });
 
       const id = await evt.CreateEvent();

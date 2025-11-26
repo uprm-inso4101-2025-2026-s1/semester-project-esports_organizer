@@ -61,7 +61,6 @@ function SignupForm() {
       Password: form.password,
       Question: form.securityQuestion,
       Answer: form.sqAnswer,
-      role: "player",
     };
 
     try {
