@@ -5,7 +5,7 @@ import DropDown from "../shared/DropDown";
 import Label from "../shared/Label";
 import "../shared/Modal.css";
 import { useNavigate } from "react-router-dom";
-import { saveProfile } from "../../services/profileService.js"; // Adjust path if needed
+import { saveProfile } from "../../services/profile-service.js"; // Adjust path if needed
 
 function SignupForm() {
   const navigate = useNavigate();

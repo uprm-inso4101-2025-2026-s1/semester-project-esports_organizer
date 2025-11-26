@@ -1,5 +1,4 @@
-import {Community} from "./Community.js";
-import Database from "../database/core/Database.js";
+import Community from "./Community.js";
 import {
     doc,
     setDoc,
@@ -108,4 +107,8 @@ async function createCommunity(name, description, admin, tags, game, location, i
             console.error("Error deleting community: ", error);
         }
     }
-export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity}
+
+// Prevent ESLint 'defined but never used' for exported functions — they are used externally.
+void isCommunityInDataBase;
+void deleteCommunity;
+export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity, isCommunityInDataBase, deleteCommunity}

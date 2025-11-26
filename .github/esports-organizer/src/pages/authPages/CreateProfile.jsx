@@ -5,7 +5,7 @@ import Modal from "../../components/shared/Modal";
 import "./AuthPages.css";
 import Label from "../../components/shared/Label";
 import { useNavigate } from "react-router-dom";
-import { updatePlayerProfile } from "../../services/profileService.js";
+import { updatePlayerProfile } from "../../services/profile-service.js";
 import { assignUserRole } from "../../Roles/assignUserRole";
 
 
@@ -111,7 +111,7 @@ function CreateProfile() {
       } else {
         alert(result.error || "Error updating profile.");
       }
-    } catch (err) {
+    } catch {
       alert("Error updating profile.");
     }
   };
@@ -124,9 +124,7 @@ function CreateProfile() {
     navigate(-1);
   };
 
-  const _remainingBio = 300 - form.bio.length;
-
-  return (
+   return (
     <div className="auth-page centered">
       <div className="form-section">
         <Modal
