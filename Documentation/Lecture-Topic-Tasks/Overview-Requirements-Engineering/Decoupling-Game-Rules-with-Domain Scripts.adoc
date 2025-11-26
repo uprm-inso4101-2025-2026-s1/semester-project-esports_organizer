@@ -1,0 +1,80 @@
+= Lecture Topic Task - Decoupling Game Rules with Domain Scripts
+
+By: Isai Padin
+
+*Objective*
+
+The objective for this task is to design an architecture using domain scripts to keep tournament rules separate from the main code. This separation achieves better adaptability by allowing game rules to be updated without modifying the code.
+
+*Description and Logical Structure*
+
+This architecture relies on three components to manage tournament execution and their rules:
+
+1. *Domain Script Component:*
+    -This is the external configuration file that defines specific rules and workflows for a tournament. It is given to the interpreter as an input and it holds the dynamic step-by-step-instructions. This logic is expected to change frequently.
+2. *Script Interpreter Component:*
+    -This component reads the script and translates it into execution calls that the engine can execute. This code is rarely changed.
+3. *Tournament Engine Component:*
+    -This is the core code. It holds the fundamental and sable logic. It does not change depending on game rules.
+
+*Flow of Control:*
+
+1. Tournament engine initiates a required rule check
+2. The Interpreter is called, which loads and parses the appropriate section of the External Rule Script.
+3. The Interpreter executes the script line-by-line.
+4. For each instruction the Interpreter translates it into a function call on the Tournament Engine.
+5. The Tournament Engine executes the stable function and returns the result back to the Interpreter.
+6. The Interpreter uses this result to determine the next instruction in the script.
+
+*Sample Domain Script Snippet (Map Veto Order)*
+
+Domain Scripts define change-prone workflows for the tournament domain. This snippet defines a rule for a Best-of-5 map selection process between two teams (Team A and Team B).
+
+Define map_pool = ["The Island", "The Center", "Ragnarok", "Aberration", "Extinction", "Scorched Earth", "Genesis"]
+Define match_format = "Bo5"
+
+Function ExecuteMapVetoOrder(TeamA, TeamB, MapPool)
+
+`Team A bans one map` ->
+call MapPool.Veto(TeamA, 1)
+
+`Team B bans one map` ->
+call MapPool.Veto(TeamB, 1)
+
+`Team A picks the first map (Map 1)` ->
+call MapPool.Pick(TeamA, 1, "Map_1")
+
+`Team B picks the second map (Map 2)` ->
+call MapPool.Pick(TeamB, 1, "Map_2")
+
+`Team A bans another map` ->
+call MapPool.Veto(TeamA, 1)
+
+`The last remaining map is the decider (Map 3)` ->
+call MapPool.Decide("Map_3")
+.
+`Remaining maps are not used for this Bo5`
+
+*Analysis:*
+
+This three-tier architecture successfully achieves high adaptability by isolating volatile domain knowledge (the updating rules) from the stable application logic.
+
+*Isolation of Volatility*
+
+The Domain Script acts as the "volatile facet" of the system.
+
+*-Volatile Layer:* The Domain Script can be completely changed without compiling, testing, or redeploying the core "Tournament Engine" code.
+
+*-Stable layer:* The "Tournament Engine" only contains unchanging operations. These foundational methods will remain constant regardless of the specific game or rule changes. The engine simply executes only what is requested by the Interpreter.
+
+*-The Buffer Layer:* The "Interpreter Component" acts as the buffer between the volatile and the stable layer. It provides a stable API for the engine to call while its internal logic is sophisticated enough to parse the rule script. As long as the language used is known, the Interpreter itself remains stable.
+
+The decoupling directly contributes to the system's adaptability:
+
+1. *Faster Rule Updates:* Since rules reside externally, a rule update requires only changing the text file and refreshing the cache.
+2. *Support for New Games:* To support a new game with completely different mechanics, the developers only need to create new domain scripts. The engine can remain identical.
+3. *Rule Transparency:* The Domain Script uses language that is typically easy to read, which makes the rules more transparent to stakeholders, such as tournament organizers or referees. They can read and validate the workflow directly, improving communication and reducing ambiguity.
+
+In summary, the Domain Script architecture successfully externalizes the application's most frequently changing part, resulting in software that is robust, stable, and highly adaptable to future rule or game changes.
+
+
