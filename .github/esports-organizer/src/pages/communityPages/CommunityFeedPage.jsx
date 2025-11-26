@@ -1,4 +1,4 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import Button from "../../components/shared/Button.jsx";

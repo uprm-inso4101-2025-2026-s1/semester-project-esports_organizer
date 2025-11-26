@@ -1,6 +1,5 @@
 import {Community} from "./Community.js";
 import Database from "../database/core/Database.js";
-import Community from "./Community.js";
 import {
     doc,
     setDoc,
