@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { db } from '../lib/firebase';
 import { collection, addDoc, onSnapshot, serverTimestamp, orderBy, query } from 'firebase/firestore';
+import { isAdmin } from '../Roles/adminRolePermissions';
 
 export default function Notifications({ inline = false }) {
   const [notifications, setNotifications] = useState([]);
@@ -35,8 +36,20 @@ export default function Notifications({ inline = false }) {
   }, []);
 
 
-  //  notification will be added to FireBase
+  // Check if current user is admin before sending notification
   const addNotification = async () => {
+    // Get current user's UID from localStorage after login
+    const currentUid = localStorage.getItem("currentUserUid") || null;
+    console.log("Current UID:", currentUid);
+    if (!currentUid) {
+      console.error("No user UID found.");
+      return;
+    }
+    const result = await isAdmin(currentUid);
+    if (!result || !result.success) {
+      console.error("Permission denied.");
+      return;
+    }
     if (!newMessage.trim()) return;
     await addDoc(collection(db, 'notifications'), {
       title: newTitle,
