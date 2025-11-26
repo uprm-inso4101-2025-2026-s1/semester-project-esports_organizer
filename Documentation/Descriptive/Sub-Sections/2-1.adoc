@@ -134,3 +134,7 @@ Adjusts a team’s total score and updates leaderboard standings.#
 Verifies attendance before match start; returns timeout if grace period expires.#
 
 [.hl-green]#Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.#
+
+[figure]
+.Account creation (general)
+image::account_creation.png[Account creation flow,scaledwidth=60%]
