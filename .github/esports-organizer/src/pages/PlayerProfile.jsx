@@ -287,7 +287,14 @@ function PlayerProfile() {
 
             <div className="actions">
               {!isEditing && (
-                <button className="btn primary" type="button" onClick={startEdit}>
+                <button className="btn primary" type="button" onClick={async () => {
+                  if (await checkUserPermission(uid, "canEditUserProfile")==true) {
+                    // Allowed
+                    startEdit();
+                  } else {
+                    alert("You do not have permission to edit the profile.");
+                  }
+                }}>
                   Edit Profile
                 </button>
               )}

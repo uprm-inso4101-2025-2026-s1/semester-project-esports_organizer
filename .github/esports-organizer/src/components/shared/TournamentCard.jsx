@@ -59,7 +59,7 @@ function TournamentCard({
           <button 
             type="button"
             className="join-event-button"
-            onClick={() => onJoinEvent(tournament.title)}
+            onClick={() => onJoinEvent(tournament)}
           >
             Join Event
           </button>

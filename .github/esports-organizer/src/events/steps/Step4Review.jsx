@@ -8,7 +8,7 @@ import { Timestamp } from "firebase/firestore";
 
 export default function Step4Review({ data, onBack, onSubmit }) {
   const [isSaving, setIsSaving] = useState(false);
-  const { title, game, description, location, modality, date, time, maxTeams, maxPlayersPerTeam } = data;
+  const { title, game, description, location, modality, date, time, maxTeams, maxPlayersPerTeam, community } = data;
 
   // Combine date + time -> JS Date (assumes date like "2025-11-08" and time like "14:30")
   function toDate(dateStr, timeStr) {
@@ -50,7 +50,7 @@ export default function Step4Review({ data, onBack, onSubmit }) {
         game,
         location: location,
         createdBy:  await getProfileById(localStorage.getItem("currentUserUid")),
-        community: false,
+        community: community,
         tournament: null,
 
         maxTeams: maxTeams,
