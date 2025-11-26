@@ -1,0 +1,113 @@
+====================================================================
+
+📝 TITLE
+
+Applying Phenomena and Concepts to Role-Based Access and Profile Modeling
+
+====================================================================
+
+🎯 OBJECTIVE
+--------------------------------------------------------------------
+Use Slides 3–18 (Phenomena vs Concepts) to document the distinction
+between abstract role concepts and concrete user phenomena in the
+Esports Organizer authentication and authorization subsystems.
+
+====================================================================
+
+📄 DESCRIPTION
+--------------------------------------------------------------------
+
+LECTURE DEFINITIONS:
+  • Phenomena = observable instances  
+        (ex: “user#41 logs in at 12:04 PM”)
+  • Concepts = abstract kinds  
+        (ex: “Admin”, “Player”, “Organizer”)
+
+PROJECT APPLICATION:
+  Concept-Level (Abstract):
+      - Role definitions: Admin, Player, Organizer, President
+      - Permissions per role
+      - Profile structure
+
+  Phenomenon-Level (Concrete):
+      - Logged-in user instance
+      - Session activity
+      - Role changes in runtime
+
+DOMAIN ENTITIES:
+  - ROLE
+  - PROFILE
+  - PERMISSIONS
+
+FUNCTIONS:
+  - AssignRole
+  - AuthenticateUser
+  - ValidatePermission
+
+EVENTS:
+  - UserLogin
+  - RoleChange
+  - SessionTimeout
+
+BEHAVIORS:
+  - Admin moderation
+  - Player actions
+  - Role-based UI rendering
+
+====================================================================
+
+ASCII CONCEPT vs PHENOMENON DIAGRAM
+--------------------------------------------------------------------
+
+Concept Layer:
+--------------
+
+     +-----------------------+
+     |         ROLE          |
+     | Admin, Player, etc.   |
+     +-----------------------+
+                |
+     +-----------------------+
+     |     PERMISSIONS       |
+     +-----------------------+
+                |
+     +-----------------------+
+     |       PROFILE         |
+     +-----------------------+
+
+Phenomenon Layer:
+-----------------
+
+user#41 ---- logs in as ----> Admin  
+user#22 ---- logs in as ----> Player  
+user#78 ---- logs in as ----> Organizer  
+
+====================================================================
+
+ASCII EVENT FLOW
+--------------------------------------------------------------------
+
+[LOGIN] --> [FETCH ROLE] --> [APPLY PERMISSIONS] --> allowed?
+
+====================================================================
+
+ACCEPTANCE CRITERIA
+--------------------------------------------------------------------
+- Roles documented as concepts.
+- User instances documented as phenomena.
+- Distinction reflected in diagrams + functions.
+- Lecture-based justification included.
+
+====================================================================
+
+🚦 URGENCY & DIFFICULTY
+--------------------------------------------------------------------
+Urgency: 6  Important for defining secure and consistent access structure before implementation.
+
+Difficulty: 5  Moderate; requires both conceptual modeling and system integration understanding.
+
+====================================================================
+
+END OF TASK
+
+====================================================================

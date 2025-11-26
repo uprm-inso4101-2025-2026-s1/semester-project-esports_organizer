@@ -1,0 +1,69 @@
+= Heuristic Evaluation using Nielsen’s Principles for Esports Organizer
+Eliel Hernández González
+:sectnums:
+
+== Introduction
+Heuristic Evaluation is a usability inspection method introduced by Jakob Nielsen to identify interface design issues based on a set of 10 usability heuristics.
+
+These heuristics act as general principles for good user interface design, helping developers detect usability problems early without the need for user testing.
+
+The purpose of this evaluation is to analyze the *Esports Organizer* interface, focusing on the main pages such as *Login*, *Home*, and *Tournament*, and assessing their compliance with Nielsen’s principles.
+
+This process supports the *Verification and Validation* phase in the Software Engineering Lifecycle, ensuring that usability requirements and human-system interactions meet expected quality standards.
+
+== Methodology
+The evaluation followed Nielsen’s 10 Usability Heuristics:
+
+. Visibility of system status
+. Match between system and the real world
+. User control and freedom
+. Consistency and standards
+. Error prevention
+. Recognition rather than recall
+. Flexibility and efficiency of use
+. Aesthetic and minimalist design
+. Help users recognize, diagnose, and recover from errors
+. Help and documentation
+
+Each heuristic was analyzed based on the *Esports Organizer* user interface. Observations were made on whether the design fully complies, partially complies, or fails to meet the heuristic. For each issue identified, a recommendation for improvement was proposed.
+
+== Evaluation
+
+[cols="1,2,3,2,3", options="header"]
+|===
+| # | Heuristic | Observation | Evaluation | Recommendation
+
+| 1 | Visibility of system status | The login form provides loading feedback when submitting, but tournament creation lacks progress indication. | Partial | Add progress bars or status messages when creating or joining tournaments.
+
+| 2 | Match between system and real world | Icons for "Teams" and "Events" are intuitive but lack descriptive text for new users. | Partial | Include short labels or tooltips to clarify icon meanings.
+
+| 3 | User control and freedom | Once a tournament is created, there is no visible “Cancel” or “Undo” option. | Fail | Add cancel/edit functionality to reduce user frustration.
+
+| 4 | Consistency and standards | Button styles and colors are consistent across pages, maintaining a cohesive theme. | Pass | Maintain visual consistency as new pages are added.
+
+| 5 | Error prevention | Form validation prevents empty submissions but lacks inline messages for format errors (e.g., invalid email). | Partial | Provide real-time validation with hints.
+
+| 6 | Recognition rather than recall | The navigation bar uses clear labels that minimize memory load. | Pass | Continue using recognizable terms instead of abstract icons.
+
+| 7 | Flexibility and efficiency of use | Shortcuts or quick actions for frequent users (e.g., “Create new tournament” button on dashboard). | Pass | Continue adding quick access options when possible.
+
+| 8 | Aesthetic and minimalist design | The color palette and spacing create a clean visual hierarchy. | Pass | Avoid adding unnecessary elements that may clutter the UI.
+
+| 9 | Help users recover from errors | Login errors display “Invalid credentials”. | Pass | Continue displaying error messages in forms and other areas of the platform.
+
+| 10 | Help and documentation | Help Section present. | Partial | Add more FAQ and common tips for first-time users.
+
+|===
+*_Table 1: 10 Heuristic Evaluation using Nielsen’s Principles._*
+
+== Discussion
+The evaluation reveals that *Esports Organizer* already demonstrates good usability foundations in terms of visual consistency, layout clarity, and aesthetic design.
+
+However, areas such as error handling, feedback clarity, and flexibility still need refinement to fully meet Nielsen’s heuristics.
+
+Improving status visibility, adding contextual help, and providing more detailed feedback messages would significantly enhance the system’s usability, reduce user confusion, and align the interface with *Requirements Validation* goals.
+
+== Conclusion
+Through Nielsen’s Heuristic Evaluation, it becomes clear that small inconsistencies and lack of clear feedback can increase user effort and reduce satisfaction.
+
+Applying the recommended improvements will not only make *Esports Organizer* more user-friendly but will also ensure that the design aligns with established software engineering principles and provides a seamless user experience.

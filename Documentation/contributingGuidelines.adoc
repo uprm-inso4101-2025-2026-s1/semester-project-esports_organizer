@@ -1,0 +1,47 @@
+= Contribution Guidelines
+
+== Folder Structure
+- Introduction pages → /Documentation/Introduction
+- Informative documents → /Documentation/Informative
+- Descriptive documents → /Documentation/Descriptive
+- Analytic documents → /Documentation/Analytic
+- Application of Topics and logbook→ /Documentation/End
+
+== Naming Convention
+- Sub-sections: {part}-{number}.adoc (e.g., 1-1.adoc, 2-3.adoc)
+- Part documents: introductionDoc.adoc, informativeDoc.adoc, descriptiveDoc.adoc, analyticDoc.adoc, end.adoc
+- Main document: mainDoc.adoc
+
+== Logbook addition
+- To input your work you will follow this structure:
+- | Section Name | Member | Added or Modified | Description
+
+== How to Add a New Section
+1. Create a new `.adoc` file under the right folder/or open the one alredy created.
+2. Add your content.
+3. Include it in the parent `.adoc` file.
+
+=== Highlighting Syntax
+
+Use the following inline roles to visually mark text changes:
+
+[cols="1,2", options="header"]
+|===
+|Purpose |Syntax
+
+|New content
+|[.hl-green]#This is new text.#
+
+|Paraphrased content
+|[.hl-yellow]#This text was reworded.#
+
+|Removed content
+|[.hl-red]#This section was removed.#
+|===
+*Note: The highlighted text can only be seen in the automatically generated pdf (documentation.pdf).*
+
+*To view your edited text: First commit and push your work, after your push you will make a pull. This will pull the new edited pdf.*
+
+== How to preview a .adoc file
+- Install (asciidoctor.asciidoctor-vscode).
+- Click the top right Icon to preview.

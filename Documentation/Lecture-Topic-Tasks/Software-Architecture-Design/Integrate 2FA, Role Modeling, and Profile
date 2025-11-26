@@ -1,0 +1,182 @@
+====================================================================
+
+LECTURE TOPIC TASK
+Theme: 2FA, Roles, and Profiles
+
+====================================================================
+
+🎯 OBJECTIVE
+--------------------------------------------------------------------
+Connect Two-Factor Authentication (2FA), Role-Based Access Control
+(RBAC), and Profile Management with the lecture concepts:
+  • Phenomena vs Concepts (Slides 3–18)
+  • Domain Facets (Slides 20–29)
+  • System Modeling (Slides 30–42)
+
+====================================================================
+
+📄 DESCRIPTION
+--------------------------------------------------------------------
+Concepts:
+  • USER
+  • ROLE (Admin, Player, Organizer)
+  • PROFILE
+  • AUTH-FACTOR
+
+Phenomena:
+  • user logs in
+  • user receives a 2FA code
+  • user updates profile
+  • user changes role
+
+Events:
+  • UserLogin
+  • EnterPassword
+  • Validate2FA
+  • RoleChange
+
+Functions:
+  • AuthenticateUser
+  • AssignRole
+  • EnforcePermissions
+
+Behaviors:
+  • Session activation
+  • Role-based UI rendering
+  • Permission filtering
+
+====================================================================
+
+ASCII ENTITY DIAGRAM
+--------------------------------------------------------------------
+
+             +-----------------------------+
+             |            USER             |
+             +-----------------------------+
+                | email, uid, status
+                |
+                | 1           1
+                v
+     +-------------------+       +-------------------+
+     |       ROLE        |       |      PROFILE      |
+     +-------------------+       +-------------------+
+       Permissions Set          Name, Phone, Details
+
+
+     +-------------------------------+
+     |         AUTH-FACTOR          |
+     +-------------------------------+
+       Password, Email Code, TOTP
+
+====================================================================
+
+ASCII EVENT FLOW
+--------------------------------------------------------------------
+
+<pre>
+   [ENTER PASSWORD] ---> [VERIFY] ---> [SEND 2FA CODE]
+                                          |
+                                          v
+                                  [ENTER 2FA CODE]
+                                          |
+                                          v
+                                     [LOGGED IN]
+                                          |
+                                          v
+                                [APPLY ROLE RULES]
+                                          |
+                                          v
+                                 [LOAD USER PROFILE]
+</pre>
+
+====================================================================
+
+ASCII BEHAVIOR MODEL
+--------------------------------------------------------------------
+
+<pre>
+   (password_ok?) ----> [2FA Event] ----> (2fa_ok?)
+           |                                  |
+        false                              false
+           v                                  v
+      [DENY ACCESS]                      [DENY ACCESS]
+           |
+           |
+        true -----------------------------> true
+                         |
+                         v
+                   [SESSION ACTIVE]
+                         |
+                         v
+               [ROLE-DRIVEN EXPERIENCE]
+                         |
+                         v
+               [PROFILE-BASED PERSONALIZATION]
+</pre>
+
+
+
+
+====================================================================
+
+FUNCTION TABLE
+--------------------------------------------------------------------
+
+<pre>
++----------------------+--------------------------------------------+
+| Domain Function      | System Implementation                      |
++----------------------+--------------------------------------------+
+| Authenticate User    | Firebase Auth + Password + 2FA             |
+| Assign Role          | Firestore user.role                        |
+| Retrieve Profile     | Firestore get(profile)                     |
+| Enforce Permissions  | RBAC guards in frontend                    |
++----------------------+--------------------------------------------+
+</pre>
+
+
+====================================================================
+
+RULE DIAGRAM
+--------------------------------------------------------------------
+
+                    +--------------+
+                    |  2FA PASSED? |
+                    +--------------+
+                           |
+                   yes     |     no
+                           v
+                   +-------------+
+                   |  ROLE OK?   |
+                   +-------------+
+                           |
+                   yes     |     no
+                           v
+               +-----------------------+
+               | PROFILE PERMISSIONS OK|
+               +-----------------------+
+                           |
+                           v
+                     [ ACTION ALLOWED ]
+
+====================================================================
+
+ACCEPTANCE CRITERIA
+--------------------------------------------------------------------
+- ASCII diagrams included.
+- Role concept vs user phenomenon documented.
+- Authentication and role flow described.
+- Domain facets tied to implementation.
+
+====================================================================
+
+🚦 URGENCY & DIFFICULTY
+--------------------------------------------------------------------
+Urgency: 8 Required for the lecture tasks and core authentication documentation.
+
+Difficulty: 6 Requires modeling skills plus good understanding of lecture theory and Firebase implementation. 
+
+====================================================================
+
+END OF TASK
+
+====================================================================

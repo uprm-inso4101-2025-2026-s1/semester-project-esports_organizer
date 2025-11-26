@@ -1,0 +1,49 @@
+= Player Profile Data Entities
+Jayden A. Sánchez Valentín, November 25, 2025
+
+== Introduction
+The Player Profile is built using several connected data entities that describe who the player is, what games they play, what they have achieved, and whether they belong to a team. Separating this information into clear entities helps the system load player data consistently and keeps the profile easy to update as the platform grows.
+
+== Main Data Entities
+
+=== Player
+*Attributes:* username, joinDate, country +
+*Description:* Represents the main user of the platform and stores the essential information displayed on the Player Profile page.
+
+=== GamesPlayed
+*Attributes:* gameName, rank, lastPlayed +
+*Description:* Holds details about the games the player participates in and helps show their activity and preferences on the profile.
+
+=== Achievements
+*Attributes:* title, placement, eventName +
+*Description:* Represents competitive results earned by the player, such as tournament wins, placements, or notable event performances.
+
+=== Team
+*Attributes:* teamName, region, playerRole +
+*Description:* Contains information about the team the player belongs to and the player's role or involvement within that team.
+
+== Entity Relationship Table
+
+[cols="1,1,1", options="header"]
+|===
+| Entity | Related To | Relationship
+
+| Player
+| GamesPlayed, Achievements, Team
+| A Player can have many games or achievements and may belong to one Team.
+
+| GamesPlayed
+| Player
+| Many GamesPlayed entries relate to a single Player.
+
+| Achievements
+| Player
+| A Player can earn multiple tournament placements or wins.
+
+| Team
+| Player
+| Each Player may be associated with one Team.
+|===
+
+== Data Structure Overview
+These entities form the core of the Player Profile page.  The Player is the central entity, while GamesPlayed, Achievements, and Team provide supporting details about their activity, progress, and connections. Together, they create a structured model that helps the system present player information clearly and consistently.

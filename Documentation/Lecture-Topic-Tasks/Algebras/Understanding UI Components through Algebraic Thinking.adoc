@@ -1,0 +1,114 @@
+= Understanding UI Components through Algebraic Thinking
+Ronaldo Elier Flores Nazario, November 20, 2025
+
+== Introduction
+Algebraic thinking gives designers a systematic way to understand and structure UI components.  
+Concepts such as sets, operations, relationships, and closure allow designers to perceive interfaces not just as isolated visuals, but as structured systems where components belong to well-defined groups and behave predictably.
+
+Applying algebraic principles to UI components results in:
+* Modularity  
+* Predictability  
+* Scalability  
+
+== Core Algebraic Concepts
+
+=== Carrier Set
+This is the collection of all elements in the system.
+
+*In algebra:* allowed values (real numbers, integers).  
+*In UI design:* allowed components or component states.
+
+UI Example — Button carrier set:
+* Primary Button  
+* Secondary Button  
+* Icon Button  
+
+=== Operations
+Operations transform elements in the carrier set or combine them to produce new results.
+
+UI Examples:
+* `hover(button)`  
+* `combine(card, button)`  
+* `resize(component, sm)`  
+
+=== Closure
+Closure ensures operations always produce results that remain in the same component family.
+
+Example:
+* `addIcon(button)` → must still be a valid button variant.
+
+== Connecting Algebra to UI Design
+
+=== Carrier Sets → Component Libraries
+Design systems group components into structured sets:
+* Buttons
+* Inputs
+* Cards
+* Navigation items
+
+=== Operations → States & Modifiers
+Operations correspond to:
+* Hover  
+* Focus  
+* Disabled  
+* Add icon  
+* Combine components  
+
+=== Closure → Consistency
+Ensures:
+* Valid spacing  
+* Valid colors  
+* Valid structure  
+
+== Visual Representation
+
+=== Algebraic Thinking Applied to UI Components (Tabla)
+
+[cols="1,1,1", options="header"]
+|===
+| Algebra Concept | UI Equivalent | Example
+
+| Carrier Set
+| Component Family
+| All button types
+
+| Operations
+| Interactions, Compositions, Modifiers
+| `hover(button)`, `addIcon(button)`
+
+| Closure
+| System Validity Rules
+| Button + Icon → Valid Button Variant
+|===
+
+== Modular Design Through Algebraic Mindset
+Algebra encourages:
+* Systemic thinking  
+* Predictable component behavior  
+* Valid transformations  
+* Scalability  
+
+== Example from a Real Interface
+
+=== Card Component in a Dashboard
+
+Carrier Set:  
+`{ small-card, medium-card, large-card }`
+
+Operations:
+* `addHeader(card)`  
+* `attachButton(card)`  
+* `expand(card)`  
+* `hover(card)`  
+
+Closure:
+Resulting element must ALWAYS remain a valid Card.
+
+== Reflection
+Algebraic thinking strengthens design systems by:
+* Predictability  
+* Valid boundaries  
+* Modularity  
+* Easier maintenance  
+
+It reinforces that design systems are structured, mathematical models—not random UI elements.

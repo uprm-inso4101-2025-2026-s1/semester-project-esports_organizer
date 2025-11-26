@@ -1,0 +1,339 @@
+
+= Player Account Lifecycle Statechart
+Victor R. Santos Figueroa
+:doctype: article
+:toc: left
+:icons: font
+:source-highlighter: highlightjs
+
+== Overview of the Model
+
+The Player Account Lifecycle statechart models how a user progresses through different stages 
+of registration, verification, activation, and moderation within the Esports Organizer system. 
+It ensures that all account states are explicitly defined and that transitions follow a controlled, valid path. 
+Using a statechart makes the lifecycle easier to visualize, validate, and implement without missing edge cases.
+
+== Explanation of Major States
+
+=== 1. Unregistered
+Represents a new user who has not completed any part of the registration process.  
+No actions are associated yet except starting registration.
+
+=== 2. Registered
+The user has submitted the registration form.  
+The system has collected minimum required information and can now send a verification email.
+
+=== 3. Email_Pending
+The system is waiting for the user to confirm ownership of the email, preventing spoofing.  
+Possible outcomes:
+
+* Verification success → `Verified`
+* Verification failure → remains in `Email_Pending`
+
+=== 4. Verified (Hierarchical State)
+
+Once email ownership is confirmed, the user transitions to the `Verified` state.  
+This state contains several sub-states:
+
+==== Active
+The user’s profile is complete, valid, and approved.  
+User can use the platform normally.
+
+==== Restricted
+Temporary limitations applied due to:
+* Admin review
+* Minor violations
+* Missing updated profile information
+
+User retains partial access.
+
+==== Suspended
+More severe intervention.  
+User temporarily loses platform access due to inappropriate behavior or rule violations.
+
+=== 5. Profile_Incomplete
+Entered when the user's profile lacks required fields (gamer tag, region, etc.).  
+The user cannot reach `Active` until the profile is complete.
+
+=== 6. Banned
+Final state for severe or repeated violations.  
+The user is permanently removed and cannot return.
+
+== Explanation of Transitions
+
+* *Submit Registration* → Unregistered → Registered  
+Triggered when the user fills the initial form.
+
+* *Send Verification Email* → Automatic after registration.
+
+* *Verify Email* `[emailValid]` → Registered → Verified  
+Valid link required.
+
+* *Verification Failed* `[emailInvalid]` → user stays in Email_Pending.
+
+* *Missing Fields* `[profileMissingFields]` → Verified → Profile_Incomplete
+
+* *Profile Complete* `[profileComplete]` → Verified → Active
+
+* *Admin Restriction* / *Lift Restriction*  
+Moderators toggle user limitations.
+
+* *Admin Suspension* → User moved to Suspended.
+
+* *Admin Ban* → Irreversible terminal transition.
+
+* *Flagged* `[flaggedByModeration]` → Auto-suspension on violation detection.
+
+== Guard Conditions
+
+Guard conditions ensure valid transitions:
+
+* `[emailValid]` — blocks progression unless email confirmed  
+* `[emailInvalid]` — prevents invalid verification  
+* `[profileComplete]` — ensures full user data before activation  
+* `[profileMissingFields]` — prevents bypassing profile requirements  
+* `[flaggedByModeration]` — enforces safety via automated moderation
+
+== How the Model Prevents Errors
+
+* Users cannot reach `Active` without valid profile + verified email.  
+* Verification cannot be skipped.  
+* Admin actions override user actions.  
+* Verification failure never progresses the user.  
+* Guard conditions block incorrect logic branches.
+
+== Concurrency Analysis
+
+This section evaluates how simultaneous events are resolved safely.
+
+=== 1. Concurrent Events During Verification
+Scenario: user verifies email while updating the profile.
+
+* Profile updates allowed but do not change state.
+* `Active` requires `Verified`, so no premature activation is possible.
+
+Result: deterministic order — Verified must occur before Active.
+
+=== 2. Concurrent Verification and Moderation
+Scenario: verification + admin suspension occur at same time.
+
+* Admin actions override user transitions.
+* Result: user ends in `Suspended`.
+
+=== 3. Profile Completion + Admin Restriction
+Scenario: profile completion while admin applies restriction.
+
+* Profile completion → Active  
+* Admin Restriction → Restricted  
+* Outcome: Restricted (admin priority)
+
+=== 4. Verification Failure + Profile Completion
+Scenario: verification link expires while user completes profile.
+
+* Verification failure loops to Email_Pending.
+* Profile completion blocked because Verified is required.
+
+=== 5. Suspension + Ban at the Same Time
+Result: Ban always wins — terminal state.
+
+=== 6. Re-activation and Restriction Removal
+Both lead to Active.  
+No conflict.
+
+=== Concurrency Summary
+
+* Moderation > User actions > System auto-actions  
+* Guard conditions ensure safety  
+* Hierarchical states prevent illegal jumps  
+* Final states are deterministic
+
+== Connection to the Real System
+
+=== 1. Mapping States to System Components
+
+==== Unregistered → Registered
+Real System:
+* User opens the React registration page (`/signup`).
+* Form submission triggers a Firestore write:
+
+----
+{
+  "email": "...",
+  "username": null,
+  "verified": false,
+  "profileComplete": false,
+  "status": "registered"
+}
+----
+
+This corresponds exactly to the transition: Submit Registration → Registered.
+
+==== Email_Pending
+Real System:
+* Firebase Authentication sends the verification email automatically.
+* UI shows the “Check your email” screen.
+* Firestore updates to:
+
+----
+"status": "email_pending"
+----
+
+Matches: Send Verification Email → Email_Pending.
+
+==== Verified
+Real System:
+* When the user taps the verification link, Firebase sets `emailVerified = true`.
+* Then Firestore updates:
+
+----
+"verified": true,
+"status": "verified"
+----
+
+The statechart models Verified as a super-state with multiple possible next states.
+
+==== Profile_Incomplete
+Real System:
+Triggered when required fields are missing.  
+Examples: gamer tag, region, birthdate.
+
+Firestore example:
+
+----
+"profileComplete": false,
+"status": "profile_incomplete"
+----
+
+Matches transition: Missing Fields `[profileMissingFields]` → Profile_Incomplete.
+
+==== Active
+Real System:
+User is fully validated:
+
+* Verified email
+* Completed profile
+* Passed moderation checks
+
+Firestore:
+
+----
+"status": "active",
+"profileComplete": true
+----
+
+UI Behavior: user can join tournaments, create teams, and access full features.
+
+Matches: Profile Complete `[profileComplete]` → Active.
+
+==== Restricted
+Real System:
+Used when admins temporarily limit user actions.
+
+Firestore:
+
+----
+"status": "restricted",
+"restrictionReason": "insufficient_sportsmanship"
+----
+
+Admin dashboard action triggers this state.
+
+==== Suspended
+Real System:
+Triggered for serious issues:
+
+* Toxic behavior
+* Cheating suspicion
+* Tournament rule violations
+
+Firestore:
+
+----
+"status": "suspended",
+"suspensionReason": "...",
+"suspendedBy": "...",
+"suspendedAt": timestamp
+----
+
+Matches transitions: Admin Suspension OR Flagged `[flaggedByModeration]`.
+
+==== Banned
+Real System:
+Permanent removal.
+
+Firestore:
+
+----
+"status": "banned",
+"banReason": "...",
+"bannedBy": "...",
+"bannedAt": timestamp
+----
+
+Backend enforcement:
+* User cannot authenticate.
+* All platform references to user are disabled.
+
+Matches: Admin Ban.
+
+=== 2. Mapping Transitions to System Actions
+
+==== Submit Registration
+* React form submission  
+* Firebase Auth: `createUserWithEmailAndPassword()`  
+* Writes user skeleton to Firestore.
+
+==== Send Verification Email
+* Firebase: `sendEmailVerification()`
+
+==== Verify Email
+* Triggered when user clicks verification link.
+* Firebase sets `emailVerified = true`.
+* Firestore updates status to `verified`.
+
+==== Missing Fields
+* UI validation detects incomplete profile.
+* Firestore rules block incomplete accounts.
+
+==== Profile Complete
+* Firestore updates: `profileComplete: true`
+* Transition Verified → Active.
+
+==== Admin Restriction
+* Moderators toggle a restriction flag.
+* Firestore: `"status": "restricted"`
+
+==== Lift Restriction
+* Admin restores permissions.
+* Firestore: `"status": "active"`
+
+==== Admin Suspension
+* Triggered in admin dashboard.
+* Firestore: `"status": "suspended"`
+
+==== Admin Ban
+* Permanently disables login.
+* Firestore: `"status": "banned"`
+
+=== 3. How the Statechart Ensures Correct System Behavior
+
+✔ Prevents invalid access  
+* A user cannot join tournaments unless they reach `Active`.
+
+✔ Enforces mandatory gates  
+* Email verification  
+* Profile completeness  
+
+✔ Admin actions override user actions  
+* Restrictions and suspensions always win over user-initiated transitions.
+
+✔ Centralizes logic  
+Both frontend (React) and backend (Firestore + Firebase Auth) follow the same flow.
+
+✔ Supports async safety  
+Concurrency analysis shows simultaneous events always resolve correctly.
+
+✔ Simplifies debugging  
+If a user is stuck (e.g., Profile_Incomplete), moderators can trace exactly why based on the statechart.
+
+
