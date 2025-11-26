@@ -148,14 +148,6 @@ function HomePage() {
             />
           </div>
           
-            {/* Tournament Cards in Hero */}
-            <div className="hero-tournament-cards-container">
-              <div className="hero-tournament-cards">
-              </div>
-              <div className="view-more-button">
-                <span>View more →</span>
-              </div>
-            </div>
         </div>
       </section>
 
