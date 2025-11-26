@@ -144,7 +144,7 @@ function Navbar() {
               navigate("/profile")
             }}
           >
-            <IoPerson size={20} style={{ marginRight: "8px" }} />
+            <IoPerson size={20} />
             View Profile
           </button>
           <button
@@ -153,7 +153,7 @@ function Navbar() {
               navigate("/preferences");
             }}
           >
-            <IoMdSettings size={20} style={{ marginRight: "8px" }} />
+            <IoMdSettings size={20} />
             Preferences
           </button>
           <button
@@ -163,7 +163,7 @@ function Navbar() {
               navigate("/");
             }}
           >
-            <MdLogout size={20} style={{ marginRight: "8px" }} />
+            <MdLogout size={20} />
             Logout
           </button>
         </div>

@@ -7,8 +7,8 @@
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--gradient);
+  color: var(--text);
   font-family: var(--font-body);
   padding-top: 88px; /* Space for fixed navbar + indicator line */
   margin: 0;
@@ -136,7 +136,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: #1b2a41;
+  background: var(--primary);
   z-index: 1000;
   border-bottom: none;
   padding-bottom: 2px;
@@ -215,7 +215,7 @@
 
 .nav-link:hover {
   color: white;
-  background: #7d5ba6; /* Purple background on hover */
+  background: var(--hover); /* Purple background on hover */
   border-radius: 6px;
 }
 
@@ -233,7 +233,7 @@
   transform: translateX(-50%);
   width: 100%;
   height: 3px;
-  background: #7d5ba6;
+  background: var(--hover);
   border-radius: 2px;
 }
 
@@ -248,7 +248,7 @@
   width: auto;
   height: auto;
   padding: 0.5rem 1rem;
-  background: #1b2a41;
+  background: var(--primary);
   border: none;
   box-shadow: none;
   border-radius: 6px;
@@ -358,7 +358,7 @@
 .hero-placeholder {
   width: 100%;
   height: 100%;
-  background: var(--light-gradient);
+  background: var(--gradient);
   display: none; /* Hidden since we have the real image */
   align-items: center;
   justify-content: center;
@@ -464,7 +464,7 @@
   font-size: 4rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #1b2a41; /* Same color as navbar */
+  color: var(--primary); /* Same color as navbar */
   font-family: var(--font-heading);
   text-shadow: none;
 }
@@ -479,7 +479,7 @@
 
 .search-input {
   width: 100%;
-  max-width: 700px;
+  max-width: clamp(260px, 70vw, 700px);
   padding: 1.5rem 2rem;
   font-size: 1.3rem;
   background: white;
@@ -501,7 +501,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #7d5ba6;
+  border-color: var(--hover);
   box-shadow: 0 0 0 2px rgba(125, 91, 166, 0.2);
 }
 
@@ -553,7 +553,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--text);
   font-family: var(--font-heading);
 }
 
@@ -581,6 +581,7 @@
 }
 
 .community-cards {
+  
   display: flex;
   gap: 2rem;
   padding: 10px 2rem;
@@ -627,16 +628,16 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 380px;
   height: 100%;
+  /* keep a soft fade that blends with the current theme background */
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(245, 245, 245, 0.1) 20%,
-    rgba(245, 245, 245, 0.3) 40%,
-    rgba(245, 245, 245, 0.6) 60%,
-    rgba(245, 245, 245, 0.8) 80%,
-    rgba(245, 245, 245, 1) 100%
+    color-mix(in srgb, var(--container) 20%, transparent) 30%,
+    color-mix(in srgb, var(--container) 50%, transparent) 60%,
+    color-mix(in srgb, var(--container) 80%, transparent) 85%,
+    var(--container) 100%
   );
   pointer-events: none;
   z-index: 5;
@@ -648,18 +649,18 @@
   right: 20px;
   transform: translateY(-50%);
   background: transparent;
-  color: #1b2a41;
+  color: var(--link);
   padding: 1rem 1.5rem;
   border: none;
   cursor: pointer;
   z-index: 10;
-  font-weight: 700;
+  font-weight: bold !important;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .view-more-button:hover {
-  color: #7d5ba6;
+  color: var(--hover);
   transform: translateY(-50%) scale(1.05);
 }
 
@@ -668,14 +669,14 @@
 }
 
 .tournament-card {
-  background: #1b2a41;
+  background: var(--primary);
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 274px;
   height: 415px;
-  border: 2px solid #1b2a41;
+  border: 2px solid var(--primary);
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -684,7 +685,7 @@
 }
 
 .community-card {
-  background: #1b2a41;
+  background: var(--primary) !important;
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -693,7 +694,7 @@
   max-width: 400px !important;
   min-width: 400px !important;
   height: 332px;
-  border: 2px solid #1b2a41;
+  border: 2px solid var(--primary);
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -703,7 +704,7 @@
 }
 
 .event-card {
-  background: #1b2a41;
+  background: var(--primary);
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -712,7 +713,7 @@
   max-width: 274px !important;
   min-width: 274px !important;
   height: 415px !important;
-  border: 2px solid #1b2a41;
+  border: 2px solid var(--primary);
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -846,10 +847,10 @@
   width: 380px !important;
   height: 190px;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 12px 12px 0 0;
   margin: 0 auto;
   padding: 0;
-  background-color: #f0f0f0;
+  background: var(--primary);
 }
 
 .community-image-wrapper img {
@@ -899,7 +900,7 @@
 .tournament-type-overlay,
 .event-type-overlay,
 .community-type-overlay {
-  background: #7d5ba6;
+  background: var(--hover);
   color: white;
   padding: 0.3rem 0.7rem;
   font-size: 0.7rem;
@@ -912,10 +913,10 @@
 .event-info,
 .community-info {
   padding: 0.75rem;
-  background: #1b2a41;
+  background: var(--primary);
   border: none;
   margin: 0;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 12px 12px;
 }
 
 .tournament-name,
@@ -1014,7 +1015,7 @@
 }
 
 .join-button {
-  background: #4a90e2;
+  background: var(--link);
   color: white;
   font-family: var(--font-heading);
   padding: 0.4rem 1.1rem;
@@ -1024,13 +1025,13 @@
   cursor: pointer;
   transition: background 0.3s ease;
   flex: 0 0 auto;
-  width: 180px;
+  width: clamp(140px, 40vw, 180px);
   text-align: center;
 }
 
 .follow-button,
 .view-button {
-  background: #4a90e2;
+  background: var(--link);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -1046,14 +1047,14 @@
 .join-button:hover,
 .follow-button:hover,
 .view-button:hover {
-  background: #357abd;
-  border-color: #357abd;
+  background: var(--hover);
+  border-color: var(--hover);
 }
 
 .bookmark-button {
   background: white;
   border: none;
-  color: #1b2a41;
+  color: var(--primary);
   padding: 0.5rem;
   border-radius: 8px;
   cursor: pointer;
@@ -1086,22 +1087,22 @@
 
 .bookmark-button:active {
   background: #f0f0f0;
-  color: #7d5ba6;
+  color: var(--hover);
 }
 
 .bookmark-button.saved {
   background: #f0f0f0;
-  color: #7d5ba6;
+  color: var(--hover);
 }
 
 .bookmark-button.saved:hover {
   background: #e0e0e0;
-  color: #7d5ba6;
+  color: var(--hover);
 }
 
 .bookmark-button.saved:active {
   background: #d0d0d0;
-  color: #7d5ba6;
+  color: var(--hover);
 }
 
 .view-more {
@@ -1110,7 +1111,7 @@
   justify-content: center;
   height: 100%;
   min-height: 300px;
-  color: #4a90e2;
+  color: var(--link);
   font-weight: 600;
   font-family: var(--font-body);
 }
@@ -1134,7 +1135,7 @@
 .logo-placeholder {
   width: 40px;
   height: 40px;
-  background: var(--light-link);
+  background: var(--link);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1149,7 +1150,7 @@
 .event-type {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--light-link);
+  color: var(--link);
   background: rgba(0, 168, 232, 0.1);
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
@@ -1163,8 +1164,8 @@
   height: 150px;
   background: linear-gradient(
     135deg,
-    var(--light-primary) 0%,
-    var(--light-container) 100%
+    var(--primary) 0%,
+    var(--container) 100%
   );
   display: flex;
   align-items: center;
@@ -1256,7 +1257,8 @@
    ========================================================================== */
 
 .featured-events-section {
-  background: #f5f5f5;
+  background: var(--gradient);
+  background-attachment: fixed; /* keep gradient continuous across sections */
   padding: 10px 0;
 }
 
@@ -1266,7 +1268,8 @@
    ========================================================================== */
 
 .communities-section {
-  background: #f5f5f5;
+  background: var(--gradient);
+  background-attachment: fixed; /* keep gradient continuous across sections */
   padding: 10px 0;
 }
 
@@ -1636,7 +1639,7 @@
 }
 
 .modal-content {
-  background: #3e4c59;
+  background: var(--container);
   border-radius: 20px !important;
   width: min(600px, 90vw);
   max-height: min(90vh, 900px);
@@ -1797,7 +1800,7 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #7d5ba6;
+  border-color: var(--hover);
 }
 
 /* Disclaimer Section */
@@ -1830,7 +1833,7 @@
 /* Join Event Button */
 .join-event-button {
   width: 100%;
-  background: #4a90e2;
+  background: var(--link);
   color: white;
   border: none;
   border-radius: 8px;
@@ -1843,7 +1846,7 @@
 }
 
 .join-event-button:hover {
-  background: #357abd;
+  background: var(--hover);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
 }

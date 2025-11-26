@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 0 0 260px; /* don't grow, don't shrink, 260px basis */
-  width: 260px; /* for safety/older browsers */
+  flex: 0 0 clamp(220px, 30vw, 320px);
+  width: clamp(220px, 30vw, 320px);
   background: var(--container);
   color: #fff;
   border-radius: 14px;
@@ -20,10 +20,10 @@
 
 .ecard__badge {
   align-self: flex-start;
-  background: #7d5ba6;
+  background: var(--hover);
   color: #fff;
   font-family: var(--font-heading);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 8px;
@@ -36,7 +36,7 @@
 
 /* NEW: Media block for the image (between badge and title) */
 .ecard__media {
-  height: 140px; /* tweak as needed */
+  height: clamp(120px, 18vw, 180px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,7 +53,7 @@
 
 .ecard__title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2px;
@@ -86,7 +86,7 @@
 
 .ecard__meta-text {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -112,6 +112,7 @@
   padding: 12px 14px;
   border-radius: 10px;
   font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }

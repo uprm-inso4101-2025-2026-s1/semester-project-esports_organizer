@@ -10,7 +10,7 @@
   
   .history-title {
     text-align: center;
-    color: #333 ;
+  color: var(--text) ;
     margin-bottom: 20px;
     font-size: 1.5rem;
   }
@@ -37,19 +37,19 @@
   
   .notif-content strong {
     display: block;
-    color: #222 ;
+  color: var(--text) ;
     font-size: 1rem;
     margin-bottom: 3px;
   }
   
   .notif-content p {
     margin: 2px 0;
-    color: #555;
+  color: color-mix(in srgb, var(--text) 70%, transparent);
     font-size: 0.95rem;
   }
   
   .notif-content small {
-    color: #888;
+  color: color-mix(in srgb, var(--text) 50%, transparent);
     font-size: 0.8rem;
   }
   
@@ -57,7 +57,7 @@
     display: block;
     margin: 18px auto 0;
     padding: 10px 16px;
-    background-color: #007bff;
+  background-color: var(--link);
     color: white;
     border: none;
     border-radius: 8px;
@@ -67,10 +67,10 @@
   }
   
   .load-more:hover {
-    background-color: #0056b3;
+  background-color: var(--hover);
   }
   
   .loading-text, .empty-text {
     text-align: center;
-    color: #666;
+  color: color-mix(in srgb, var(--text) 60%, transparent);
   }
