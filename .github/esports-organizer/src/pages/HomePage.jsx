@@ -171,9 +171,8 @@ function HomePage() {
                   <p>Loading events...</p>
                 )}
               </div>
-              <div className="view-more-button">
-                <span>view more →</span>
-              </div>
+                <button className="view-more-button" onClick={() => handleNavigation("/tournaments")}>View more →</button>
+
             </div>
         </div>
       </section>
@@ -188,9 +187,7 @@ function HomePage() {
                   <CommunityCard key={index} index={index} />
                 ))}
               </div>
-              <div className="view-more-button">
-                <span>view more →</span>
-              </div>
+              <button className="view-more-button" onClick={() => handleNavigation("/community")}>View more →</button>
             </div>
         </div>
       </section>

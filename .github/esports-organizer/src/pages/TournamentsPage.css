@@ -4,8 +4,9 @@
 
 .tournaments-page {
   min-height: 100vh;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--gradient);
+  background-attachment: fixed; /* keep gradient continuous across sections */
+  color: var(--text);
   font-family: var(--font-body);
   padding-top: 88px; /* Space for fixed navbar + indicator line */
 }
@@ -19,7 +20,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: #1b2a41;
+  background: var(--primary);
   z-index: 1100;
   border-bottom: none;
   padding-bottom: 8px;
@@ -196,7 +197,7 @@
 
 .nav-link:hover {
   color: white;
-  background: #7d5ba6;
+  background: var(--hover);
   border-radius: 6px;
 }
 
@@ -214,7 +215,7 @@
   transform: translateX(-50%);
   width: 100%;
   height: 3px;
-  background: #7d5ba6;
+  background: var(--hover);
   border-radius: 2px;
 }
 
@@ -228,7 +229,7 @@
   width: auto;
   height: auto;
   padding: 0.5rem 1rem;
-  background: #1b2a41;
+  background: var(--primary);
   border: none;
   box-shadow: none;
   border-radius: 6px;
@@ -337,7 +338,7 @@
    ========================================================================== */
 
 .page-header {
-  background: #f5f5f5;
+  background: transparent;
   padding: 2rem 0 1rem 0;
 }
 
@@ -356,7 +357,7 @@
 .page-title {
   font-size: clamp(2.5rem, 6vw, 4.375rem);
   font-weight: 700;
-  color: #333;
+  color: var(--text);
   font-family: var(--font-heading);
   font-style: italic;
   margin: 0;
@@ -388,7 +389,7 @@
   border: 2px solid #e0e0e0;
   border-radius: 25px;
   background: white;
-  color: #333;
+  color: var(--text);
   font-size: 0.95rem;
   font-family: var(--font-body);
   width: clamp(220px, 30vw, 320px);
@@ -397,7 +398,7 @@
 }
 
 .search-input:focus {
-  border-color: #7d5ba6;
+  border-color: var(--hover);
   box-shadow: 0 0 0 2px rgba(125, 91, 166, 0.2);
 }
 
@@ -413,7 +414,7 @@
 }
 
 .create-event-button {
-  background: #4a90e2;
+  background: var(--link);
   color: white;
   border: none;
   border-radius: 8px;
@@ -430,13 +431,13 @@
 }
 
 .create-event-button:hover {
-  background: #357abd;
+  background: var(--hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
 }
 
 .create-event-button:active {
-  background: #7d5ba6;
+  background: var(--hover);
 }
 
 /* ==========================================================================
@@ -444,14 +445,18 @@
    ========================================================================== */
 
 .recommended-section {
-  background: #f5f5f5;
+  background: var(--gradient);
+  background-attachment: fixed; /* unify with page gradient */
   padding: 0.5rem 0 0 0;
+}
+.recommended-section .section-container {
+  background: transparent !important;
 }
 
 .section-subtitle {
   font-size: 40px;
   font-weight: 700;
-  color: #333;
+  color: var(--text);
   font-family: var(--font-heading);
   margin-bottom: 1.5rem;
   font-style: italic;
@@ -481,8 +486,15 @@
    ========================================================================== */
 
 .events-section {
-  background: #f5f5f5;
+  background:transparent !important;
+  border: none !important;
+  background-attachment: fixed ; /* unify with page gradient */
   padding: 1rem 0 2rem 0;
+}
+.events-section .section-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .events-header {
@@ -492,15 +504,18 @@
   margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .section-title {
   font-size: 36px !important;
-  font-weight: 700;
-  color: #333;
+  font-weight: bold !important;
+  color: var(--text);
   font-family: var(--font-heading);
   font-style: italic;
   margin: 0;
+  border: none !important;
 }
 
 .events-filters {
@@ -513,10 +528,10 @@
 
 .filter-select {
   padding: 0.5rem 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid color-mix(in srgb, var(--container) 35%, transparent);
   border-radius: 8px;
-  background: white;
-  color: #333;
+  background: color-mix(in srgb, var(--container) 15%, transparent);
+  color: var(--text);
   font-size: 0.95rem;
   font-family: var(--font-body);
   cursor: pointer;
@@ -526,12 +541,12 @@
 
 .filter-select:focus {
   outline: none;
-  border-color: #7d5ba6;
+  border-color: var(--hover);
   box-shadow: 0 0 0 2px rgba(125, 91, 166, 0.2);
 }
 
 .filter-select:hover {
-  border-color: #7d5ba6;
+  border-color: var(--hover);
 }
 
 .events-grid {
@@ -562,14 +577,14 @@
    ========================================================================== */
 
 .tournament-card {
-  background: #1b2a41;
+  background: var(--primary);
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 320px;
-  border: 2px solid #1B2A41;
+  border: 2px solid var(--primary);
   padding: 4px;
   display: flex;
   flex-direction: column;
@@ -619,7 +634,7 @@
 }
 
 .tournament-type-overlay {
-  background: #7d5ba6;
+  background: var(--hover);
   color: white;
   padding: 0.3rem 0.7rem;
   border-radius: 4px;
@@ -633,7 +648,7 @@
 
 .tournament-info {
   padding: 0.75rem;
-  background: #1b2a41;
+  background: var(--primary);
   border-radius: 0 0 8px 8px;
   flex: 1;
   display: flex;
@@ -693,15 +708,15 @@
 }
 
 .join-button {
-  background: #4a90e2;
+  background: var(--link);
   color: white;
-  border: 10px solid #4a90e2;
+  border: 10px solid var(--link);
   padding: 0.4rem 1.1rem;
   border-radius: 10px;
   font-weight: 900;
   font-size: 1.1rem;
   flex: 0 0 auto;
-  width: 180px;
+  width: clamp(140px, 40vw, 180px);
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -709,14 +724,14 @@
 }
 
 .join-button:hover {
-  border-color: #357abd;
-  background: #357abd;
+  border-color: var(--hover);
+  background: var(--hover);
 }
 
 .bookmark-button {
   background: white;
   border: none;
-  color: #1b2a41;
+  color: var(--primary);
   padding: 0.5rem;
   border-radius: 8px;
   display: flex;
@@ -744,23 +759,23 @@
 
 .bookmark-button:active {
   background: #f0f0f0;
-  color: #7d5ba6;
+  color: var(--hover);
   transform: scale(0.95);
 }
 
 .bookmark-button.saved {
   background: #f0f0f0;
-  color: #7d5ba6;
+  color: var(--hover);
 }
 
 .bookmark-button.saved:hover {
   background: #e0e0e0;
-  color: #7d5ba6;
+  color: var(--hover);
 }
 
 .bookmark-button.saved:active {
   background: #d0d0d0;
-  color: #7d5ba6;
+  color: var(--hover);
   transform: scale(0.95);
 }
 
@@ -933,7 +948,7 @@
 }
 
 .modal-content {
-  background: #3e4c59;
+  background: var(--container);
   border-radius: 20px !important;
   width: min(600px, 90vw);
   max-height: min(90vh, 900px);
@@ -1122,7 +1137,7 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #7d5ba6;
+  border-color: var(--hover);
 }
 
 /* Disclaimer Section */
@@ -1155,7 +1170,7 @@
 /* Join Event Button */
 .join-event-button {
   width: auto;
-  background: #4a90e2;
+  background: var(--link);
   color: white;
   border: none;
   border-radius: 8px;
@@ -1172,7 +1187,7 @@
 }
 
 .join-event-button:hover {
-  background: #357abd;
+  background: var(--hover);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
 }
@@ -1202,7 +1217,7 @@
 
 .back-button:hover {
   background: white;
-  color: #3e4c59;
+  color: var(--container);
 }
 
 .teams-title {
@@ -1255,7 +1270,7 @@
 }
 
 .join-team-button {
-  background: #4a90e2;
+  background: var(--link);
   color: white;
   border: none;
   border-radius: 6px;
@@ -1268,7 +1283,7 @@
 }
 
 .join-team-button:hover {
-  background: #357abd;
+  background: var(--hover);
 }
 
 .add-team-button {
@@ -1286,9 +1301,9 @@
 }
 
 .add-team-button:hover {
-  border-color: #7d5ba6;
-  color: #7d5ba6;
-  background: rgba(125, 91, 166, 0.1);
+  border-color: var(--hover);
+  color: var(--hover);
+  background: color-mix(in srgb, var(--hover) 12%, transparent);
 }
 
 /* Responsive Modal */

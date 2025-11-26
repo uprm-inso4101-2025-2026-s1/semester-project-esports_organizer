@@ -1,6 +1,7 @@
 import {createCommunity} from "./CommunityCreation.js";
 import {Community} from "./Community.js";
 import Database from "../database/examples/Database.js";
+import { db } from "../database/examples/firebase.js";
 
 export class CommunityFacade {
 
@@ -45,9 +46,7 @@ whether the update was successful or not
 
     try{
         
-      const database = await Database.createDatabase();
-
-      database.updateCommunity(community.getId(),community);
+      db.updateCommunity(community.getId(),community);
 
       return "Community successfully updated!";
     }
