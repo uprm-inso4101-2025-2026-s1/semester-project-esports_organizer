@@ -126,45 +126,48 @@ static removeFromSubteam(subTeam, uid) {
       id: data.id
     });
   }
-};
+  
 
-// Firestore collection name for teams
-const TEAMS_COLLECTION = "teams";
+  // Firestore collection name for teams
+  static TEAMS_COLLECTION = "teams";
 
-// --- Firestore helpers ---
-// Create and save a new team to Firestore. If ⁠ id ⁠ is not provided, generate one.
-Team.create = async function (teamInit) {
-  const id = teamInit.id || Team._generateId();
-  const team = new Team({ ...teamInit, id });
-  const ref = doc(db, TEAMS_COLLECTION, id);
-  await setDoc(ref, team.toFireStore());
-  return team;
-}
+  // --- Firestore helpers (static) ---
+  // Create and save a new team to Firestore. If `id` is not provided, generate one.
+  static async storeTeam(teamInit) {
+    const id = (teamInit && teamInit.id) || this._generateId();
+    const team = teamInit instanceof Team ? teamInit : new Team({ ...teamInit, id });
+    team.id = id;
+    const ref = doc(db, this.TEAMS_COLLECTION, id);
+    await setDoc(ref, team.toFireStore());
+    return team;
+  }
 
-// Update an existing team by id with the provided fields.
-Team.update = async function (id, updates) {
-  const ref = doc(db, TEAMS_COLLECTION, id);
-  await updateDoc(ref, updates);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return null;
-  return Team.fromFirestore(snap.data());
-}
+  // Update an existing team by id with the provided fields.
+  static async update(id, updates) {
+    const ref = doc(db, this.TEAMS_COLLECTION, id);
+    await updateDoc(ref, updates);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) return null;
+    return this.fromFirestore(snap.data());
+  }
 
-// Get all teams as Team instances
-Team.getAll = async function () {
-  const col = collection(db, TEAMS_COLLECTION);
-  const snaps = await getDocs(col);
-  const results = [];
-  snaps.forEach(docSnap => {
-    results.push(Team.fromFirestore(docSnap.data()));
-  });
-  return results;
-}
+  // Get all teams as Team instances
+  static async getAll() {
+    const col = collection(db, this.TEAMS_COLLECTION);
+    const snaps = await getDocs(col);
+    const results = [];
+    snaps.forEach(docSnap => {
+      results.push(this.fromFirestore(docSnap.data()));
+    });
+    return results;
+  }
 
-// Get a single team by id
-Team.getById = async function (id) {
-  const ref = doc(db, TEAMS_COLLECTION, id);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return null;
-  return Team.fromFirestore(snap.data());
+  // Get a single team by id
+  static async getById(id) {
+    const ref = doc(db, this.TEAMS_COLLECTION, id);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) return null;
+    return this.fromFirestore(snap.data());
+  }
+
 }
