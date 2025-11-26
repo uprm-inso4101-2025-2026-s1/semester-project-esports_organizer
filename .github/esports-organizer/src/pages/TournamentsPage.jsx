@@ -8,9 +8,9 @@ import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { checkUserPermission } from "../Roles/checkUserPermission";
-import {getProfileById} from "../services/profile-service.js";
 import Event from "../events/EventClass";
 import SubTeamCreationMenu from "./SubTeamCreationMenu.jsx";
+import { getProfileById, addEventToUserProfile } from "../services/profile-service.js";
 
 async function getEventById(eventID) {
   const data = await Event.ListEvents();
@@ -91,6 +91,7 @@ function TournamentsPage() {
 
   // Sub Team creation menu States
   const [menuOpen, setMenuOpen] = useState(false);
+  const [wantsNotifications, setWantsNotifications] = useState(true);
 
   async function loadEvents() {
       const data = await Event.ListEvents();
@@ -180,7 +181,16 @@ function TournamentsPage() {
     const currentEvent = await getEventById(event.id);
     const currentUser = await getProfileById(localStorage.getItem("currentUserUid"));
     currentEvent.addToTeam(team.name, currentUser);
+    currentEvent.participants[currentUser.uid] = { //para que se sepa a quien mandarle notifs
+      ...(currentEvent.participants[currentUser.uid] || {}),
+      wantsNotifications: wantsNotifications
+    };
     await currentEvent.UpdateEvent(currentEvent.id);
+    
+    // Add event to user's participated events
+    const uid = localStorage.getItem("currentUserUid");
+    await addEventToUserProfile(uid, event.id, event.title);
+    
     await loadEvents();
     const updatedEvent = await getEventById(currentEvent.id);
 
@@ -337,8 +347,30 @@ function TournamentsPage() {
                 </label>
               </div>
               
-              <button className="join-event-button" onClick={handleNext}>
-                Next
+              {/* Toggle de notificaciones */}
+              <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
+                  <input
+                    type="checkbox"
+                    checked={wantsNotifications}
+                    onChange={(e) => setWantsNotifications(e.target.checked)}
+                    style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
+                  />
+                  Send me reminders and updates for this event
+                </label>
+              </div>
+
+              <button className="join-event-button" 
+              className="join-event-button" 
+              onClick={() => {
+                // se guarda en el evento seleccionado para que handleJoin la vea luego
+                if (selectedEvent) {
+                  setSelectedEvent({ ...selectedEvent, wantsNotifications });
+                }
+                handleNext();
+              }}
+            >
+              Next
               </button>
             </div>
           )}

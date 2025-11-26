@@ -24,3 +24,10 @@ exports.onSeedingWrite = seeding.onSeedingWrite;
 // Settings
 exports.onTournamentUpdated = settings.onTournamentUpdated;
 exports.onSettingsDocWrite = settings.onSettingsDocWrite;
+
+// Email verification
+const { onUserCreated } = require('./emailVerification');
+const { verifyEmail } = require('./emailVerification');
+
+exports.onUserCreated = onUserCreated;
+exports.verifyEmail = verifyEmail;

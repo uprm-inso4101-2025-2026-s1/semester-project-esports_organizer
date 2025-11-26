@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Event from "../EventClass.js"; // <-- adjust path
 import "../../pages/CreateEventWizard.css";
-import {getProfileById} from "../../services/profile-service.js";
+import {getProfileById, addEventToUserProfile} from "../../services/profile-service.js";
 import { db } from "../../database/firebaseClient";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
@@ -59,6 +59,10 @@ export default function Step4Review({ data, onBack, onSubmit }) {
 
       const id = await evt.CreateEvent();
       console.log("Created event id:", id);
+
+      // Add the created event to the creator's participated events
+      const uid = localStorage.getItem("currentUserUid");
+      await addEventToUserProfile(uid, id, title);
 
       // Let parent close/reset or navigate
       onSubmit?.(id);

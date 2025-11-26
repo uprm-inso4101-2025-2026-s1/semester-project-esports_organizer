@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./PlayerProfile.css";
 import Navbar from "../components/shared/Navbar";
 import { checkUserPermission } from "../Roles/checkUserPermission";
+import { getUserParticipatedEvents } from "../services/profile-service.js";
 
 // Constants
 const FLAG_EMOJI = { US: "🇺🇸", PR: "🇵🇷", ES: "🇪🇸" };
 const BADGE_PATH = "/assets/images/LOGO1.png";
-const uid = localStorage.getItem("uid");
+const uid = localStorage.getItem("currentUserUid");
 
 function PlayerProfile() {
   // Primary player state
@@ -19,6 +20,8 @@ function PlayerProfile() {
     currentTeam: "No current team",
     avatarUrl: "",
   });
+
+  const [participatedEvents, setParticipatedEvents] = useState([]);
 
   // Static data (cards)
   const [games] = useState([
@@ -78,6 +81,20 @@ function PlayerProfile() {
 
   const remainingBio = 300 - form.bio.length;
   const totalAch = achievements.length;
+
+  // Load participated events on mount
+  useEffect(() => {
+    const loadParticipatedEvents = async () => {
+      const currentUid = localStorage.getItem("currentUserUid");
+      if (currentUid) {
+        const result = await getUserParticipatedEvents(currentUid);
+        if (result.success) {
+          setParticipatedEvents(result.data);
+        }
+      }
+    };
+    loadParticipatedEvents();
+  }, []);
 
   // Edit mode handlers
   const startEdit = () => {
@@ -305,6 +322,24 @@ function PlayerProfile() {
                 ›
               </button>
               {achievementItems}
+            </div>
+          </section>
+
+          {/* Participated Events */}
+          <section className="participated-events">
+            <h2 className="events-title-center">PARTICIPATED EVENTS</h2>
+            <div className="events-list">
+              {participatedEvents.length > 0 ? (
+                <ul className="events-ul">
+                  {participatedEvents.map((event) => (
+                    <li key={event.id} className="event-item">
+                      <span className="event-name">{event.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="no-events">No events participated yet.</p>
+              )}
             </div>
           </section>
         </div>
