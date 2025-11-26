@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaHammer } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { isAdmin, banUser } from "../../Roles/adminRolePermissions";
+import { isUserBanned } from "../../services/checkBans";
 
 /*  Admin-only quick actions for the navbar. */
 export default function AdminMenu({ inline = false }) {
@@ -33,20 +35,49 @@ export default function AdminMenu({ inline = false }) {
 
   const handleBanSubmit = async (event) => {
     event.preventDefault();
+    setStatus(null);
     if (!identifier.trim()) {
       setStatus({ type: "error", message: "Username or email is required." });
       return;
     }
-
-    // Placeholder: backend wiring not active yet
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setStatus({
-        type: "info",
-        message: "Ban action not active yet. ",
-      });
-    }, 450);
+    try {
+      // Get current admin UID (replace with your auth logic)
+      const adminUid = localStorage.getItem("currentUserUid");
+      if (!adminUid) {
+        setStatus({ type: "error", message: "No admin UID found. Please log in." });
+        setIsSubmitting(false);
+        setIdentifier("");
+        setReason("");
+        return;
+      }
+      const adminCheck = await isAdmin(adminUid);
+      if (!adminCheck.success) {
+        setStatus({ type: "error", message: "You do not have admin permissions." });
+        setIsSubmitting(false);
+        setIdentifier("");
+        setReason("");
+        return;
+      }
+      // Check if user is already banned
+      const banned = await isUserBanned(identifier);
+      if (banned) {
+        setStatus({ type: "error", message: "User is already banned." });
+        setIsSubmitting(false);
+        return;
+      }
+      const result = await banUser(identifier, adminUid, reason);
+      if (result.success) {
+        setStatus({ type: "success", message: "User banned successfully." });
+        setIdentifier("");
+        setReason("");
+      } else {
+        setStatus({ type: "error", message: result.error || "Ban failed." });
+      }
+    } catch (err) {
+      setStatus({ type: "error", message: "An error occurred." });
+    }
+    setIsSubmitting(false);
   };
 
   return (

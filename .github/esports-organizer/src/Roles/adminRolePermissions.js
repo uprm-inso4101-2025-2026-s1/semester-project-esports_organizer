@@ -17,7 +17,7 @@ async function isAdmin(adminUid) {
 }
 
 // Admin Role Permissions
-async function banUser(inputIdentifier, adminUid) {
+async function banUser(inputIdentifier, adminUid, reason) {
     // Check if the user performing the ban is an admin
     const adminRef = doc(db, "User", adminUid);
     const adminSnap = await getDoc(adminRef);
@@ -55,7 +55,7 @@ async function banUser(inputIdentifier, adminUid) {
         Email: docSnap.data().Email,
         Username: docSnap.data().Username,
         bannedAt: new Date().toISOString(),
-        reason: "Banned by admin",
+        reason: reason || "No reason provided",
     });
 
     return { success: true };
