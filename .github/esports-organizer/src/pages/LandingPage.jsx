@@ -1,7 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-import EventCard from "../components/EventCard.jsx";
+import TournamentCard from "../components/shared/TournamentCard.jsx";
 import CommunityCard from "../components/CommunityCard.jsx";
 import {
   TagIcon,
@@ -21,6 +22,12 @@ import fifa25 from "../assets/images/Fifa25.png";
 import minecraft from "../assets/images/Minecraft.png";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+  const slugify = (s) =>
+    String(s || "")
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-]/g, "");
   const tournaments = [
     {
       id: 1,
@@ -100,7 +107,7 @@ export default function LandingPage() {
           <a href="/login" className="lp__auth-link">
             Login
           </a>
-          <span aria-hidden="true">/</span>
+          <span aria-hidden="true"> / </span>
           <a href="/signup" className="lp__auth-link">
             Sign Up
           </a>
@@ -167,21 +174,26 @@ export default function LandingPage() {
         </div>
 
         <div className="lp__cards">
-          {tournaments.map((t) => (
-            <EventCard
-              key={t.id}
-              title={t.title}
-              imageUrl={t.imageUrl}
-              priceLabel={t.priceLabel}
-              date={t.date}
-              location={t.location}
-              gameName={t.gameName}
-              badge={t.badge}
-              onJoin={() => (window.location.href = "/signup")}
-              onSave={() => (window.location.href = "/signup")}
-              isSaved={false}
-            />
-          ))}
+          {tournaments.map((t, index) => {
+            const tournament = {
+              title: t.title,
+              game: t.gameName,
+              price: t.priceLabel,
+              date: t.date,
+              location: t.location,
+            };
+            return (
+              <TournamentCard
+                key={t.id}
+                tournament={tournament}
+                index={index}
+                prefix="lp"
+                isSaved={false}
+                onToggleSaved={() => {}}
+                onJoinEvent={() => alert(`Joining ${t.title}…`)}
+              />
+            );
+          })}
         </div>
       </section>
 
@@ -190,15 +202,62 @@ export default function LandingPage() {
           <h2>Popular Communities</h2>
         </div>
         <div className="lp__cards">
-          {communities.map((t) => (
-            <CommunityCard
-              imageUrl={t.imageUrl}
-              title={t.title}
-              currentEvents={t.currentEvents}
-              followers={t.followers}
-              onJoin={() => (window.location.href = "/signup")}
-            />
-          ))}
+          {communities.map((c, index) => {
+            const communityId = slugify(c.title || "community");
+            return (
+              <div key={index} className="community-card">
+                <div className="community-image-wrapper">
+                  <img
+                    src={c.imageUrl}
+                    alt={`${c.title} cover`}
+                    className="tournament-image"
+                  />
+                  <div className="community-overlay" />
+                </div>
+                <div className="community-info">
+                  <h3 className="community-title">{c.title?.toUpperCase()}</h3>
+                  <div className="community-details">
+                    <div className="community-details-left">
+                      <div className="detail-item">
+                        <span className="detail-text">
+                          {new Intl.NumberFormat().format(c.followers)} followers
+                        </span>
+                      </div>
+                      <div className="detail-item">
+                        <span className="detail-text">United States</span>
+                      </div>
+                    </div>
+                    <div className="community-details-right">
+                      <div className="detail-item">
+                        <span className="detail-text">
+                          {c.currentEvents} upcoming events
+                        </span>
+                      </div>
+                      <div className="detail-item">
+                        <span className="detail-text">128 posts</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="community-actions">
+                    <button
+                      type="button"
+                      className="follow-button"
+                      onClick={() => navigate(`/community/${communityId}`)}
+                    >
+                      Follow Community
+                    </button>
+                    <button
+                      type="button"
+                      className="view-button"
+                      onClick={() => navigate(`/community/${communityId}`)}
+                    >
+                      View Community
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 

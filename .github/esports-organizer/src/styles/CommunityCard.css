@@ -6,7 +6,7 @@
   background: white;
   flex: 0 0 260px;
   width: 260px;
-  color: var(--primary);
+  color: white !important;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
   overflow: hidden;
@@ -46,11 +46,11 @@
 
 .ccard__title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2px;
-  color: var(--primary);
+  color: white !important;
 }
 
 .ccard__stats {
@@ -63,12 +63,15 @@
 }
 .ccard__label {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
+  color: white !important;
 }
 .ccard__value {
   margin-left: 6px;
   font-family: var(--font-body);
   font-weight: 600;
+  font-size: 15px;
+  color: white !important;
 }
 
 /* Footer with join button (same style language as EventCard) */
@@ -87,6 +90,7 @@
   padding: 12px 14px;
   border-radius: 12px;
   font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.2s ease;
