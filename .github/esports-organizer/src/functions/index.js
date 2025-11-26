@@ -31,3 +31,9 @@ const { verifyEmail } = require('./emailVerification');
 
 exports.onUserCreated = onUserCreated;
 exports.verifyEmail = verifyEmail;
+
+// Feedback notifications
+const { onFeedbackSubmitted } = require('./feedbackNotification');
+
+exports.onFeedbackSubmitted = onFeedbackSubmitted;
+
