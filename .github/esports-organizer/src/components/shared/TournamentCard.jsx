@@ -9,11 +9,6 @@ function TournamentCard({
 }) {
   const navigate = useNavigate();
 
-  // Guard against missing or invalid tournament prop to avoid runtime errors
-  if (!tournament) {
-    return null;
-  }
-
   const handleNavigation = (path) => {
     navigate(path);
   };

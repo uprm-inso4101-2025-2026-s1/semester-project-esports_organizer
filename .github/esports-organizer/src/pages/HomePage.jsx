@@ -151,9 +151,6 @@ function HomePage() {
             {/* Tournament Cards in Hero */}
             <div className="hero-tournament-cards-container">
               <div className="hero-tournament-cards">
-                {[1, 2, 3].map((index) => (
-                  <TournamentCard key={index} index={index} />
-                ))}
               </div>
               <div className="view-more-button">
                 <span>View more →</span>
@@ -184,9 +181,7 @@ function HomePage() {
                 ) : (
                   <p>Loading events...</p>
                 )}
-                {[1, 2, 3, 4, 5].map((index) => (
-                  <TournamentCard key={index} index={index} prefix="event" />
-                ))}
+
               </div>
               <div className="view-more-button">
                 <span>View more →</span>
