@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../components/shared/Button";
 import "./HomePage.css";
@@ -7,8 +7,7 @@ import Navbar from "../components/shared/Navbar";
 
 function HomePage() {
   const navigate = useNavigate();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [savedCards, setSavedCards] = useState(new Set());
+  const [savedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -28,7 +27,6 @@ function HomePage() {
   // Navigation handlers
   const handleNavigation = (path) => {
     navigate(path);
-    setIsMobileMenuOpen(false);
   };
 
 
@@ -227,7 +225,7 @@ function HomePage() {
                 ))}
               </div>
               <div className="view-more-button">
-                <span>ver más →</span>
+                <span>View more →</span>
               </div>
             </div>
         </div>
@@ -245,7 +243,7 @@ function HomePage() {
                 ))}
               </div>
               <div className="view-more-button">
-                <span>ver más →</span>
+                <span>View more →</span>
               </div>
             </div>
         </div>
@@ -262,7 +260,7 @@ function HomePage() {
                 ))}
               </div>
               <div className="view-more-button">
-                <span>ver más →</span>
+                <span>View more →</span>
               </div>
             </div>
         </div>

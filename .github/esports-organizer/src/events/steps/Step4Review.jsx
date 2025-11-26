@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Event from "../EventClass.js"; // <-- adjust path
 import "../../pages/CreateEventWizard.css";
-import {getProfileById} from "../../services/profile-service.js";
+import {getProfileById} from "../../services/profileService.js";
 import { db } from "../../database/firebaseClient";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";

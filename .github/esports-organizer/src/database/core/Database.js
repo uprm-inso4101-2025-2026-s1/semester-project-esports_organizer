@@ -121,7 +121,7 @@ export class Database {
     }
 
     /* Adds a given member to the a given team if it is contained in the database. */
-    async addMembertToTeam(team, member) {
+    async addMemberToTeam(team, member) {
         const existing = await this.getTeamFromFirestore(team.name);
         if (existing) {
             existing.addMember(member);

@@ -34,11 +34,11 @@ class Team {
     this.isConfirmed = true;
   }
 
-  unconfirmTeam() {
+  unccxonfirmTeam() {
     this.isConfirmed = false;
   }
 
-  // ---- Score management ----
+  // ---- Score manabgement ----
   setScore(newScore) {
     this.score = newScore;
   }
