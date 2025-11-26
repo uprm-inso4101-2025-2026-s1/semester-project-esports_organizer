@@ -8,7 +8,7 @@ import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import Event from "../events/EventClass";
-import {getProfileById} from "../services/profile-service.js";
+import { getProfileById, addEventToUserProfile } from "../services/profile-service.js";
 
 async function getEventById(eventID) {
   const data = await Event.ListEvents();
@@ -154,6 +154,11 @@ function TournamentsPage() {
       wantsNotifications: wantsNotifications
     };
     await currentEvent.UpdateEvent(currentEvent.id);
+    
+    // Add event to user's participated events
+    const uid = localStorage.getItem("currentUserUid");
+    await addEventToUserProfile(uid, event.id, event.title);
+    
     await loadEvents();
     const updatedEvent = await getEventById(currentEvent.id);
 
