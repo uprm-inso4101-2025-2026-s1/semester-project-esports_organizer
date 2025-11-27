@@ -1,0 +1,73 @@
+= Dynamic Match Progression TLA+ Analysis
+
+== Overview
+TLA+ specification for analyzing tournament bracket progression logic based on the implementations from `MatchProgression.js`, `ResultReport.js`, and `BracketsTournamentPage.jsx`.
+
+== Objectives
+* Model single-elimination tournament bracket progression
+* Verify correct winner selection and elimination tracking  
+* Detect potential flaws in round advancement logic
+* Ensure valid tournament termination properties
+
+== TLA+ Specification
+
+.The complete specification
+[source,tla+]
+----
+include::DynamicMatchProgression.tla[]
+----
+
+== Model Configuration
+
+.Configuration for 8-team tournament
+[source,tla+]
+----
+include::DynamicMatchProgression.cfg[]
+----
+
+== Key Properties Verified
+
+=== Safety Properties
+* *TypeInvariant*: All tournament state values maintain correct types and ranges
+* *NoDuplicateEliminations*: No team appears more than once in the elimination order
+* *EveryTeamEliminatedOrChampion*: When a tournament completes, exactly N-1 teams are eliminated and 1 is champion
+
+=== Liveness Properties  
+* *TournamentTerminates*: Tournament eventually completes with a champion
+* *NoDeadlock*: System never gets stuck in non-terminal state
+
+== Analysis Results
+
+.Possible Flaws Detected
+|===
+| Property | Status | Description
+
+| Match double-counting | Safe | Model confirms matches cannot be double-counted
+| Incomplete round progression | Safe | Rounds only advance when all matches complete
+| Elimination order consistency | Safe | Elimination order correctly tracks losers
+| Tournament termination | Safe | Tournament always completes with a single champion
+|===
+
+== Mapping to the JavaScript Implementation
+
+.The following JavaScript behaviors are modeled:
+* `initializeBracket()` → `InitializeFirstRound()`
+* `progressMatch()` → `ProgressMatch()`
+* Round advancement logic → `AdvanceRound()`
+* Elimination order tracking → `updatedEliminationOrder`
+* Tournament completion → `DeclareChampion`
+
+== Usage
+
+.To run model checking:
+[source,bash]
+----
+java -cp tla2tools.jar tlc2.TLC -config DynamicMatchProgression.cfg DynamicMatchProgression.tla
+----
+
+== Files
+* `DynamicMatchProgression.tla` - Main TLA+ specification
+* `DynamicMatchProgression.cfg` - Model configuration
+* `MatchProgression.js` - Original JavaScript implementation
+* `ResultReport.js` - Results processing logic
+* `BracketsTournamentPage.jsx` - React component for tournament UI

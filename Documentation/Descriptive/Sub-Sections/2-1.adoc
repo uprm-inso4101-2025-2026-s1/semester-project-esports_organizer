@@ -38,7 +38,11 @@
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 
 Figure 2.1.1 – Tournament and Community Interaction Flow.
-This diagram illustrates the relationship between players, organizers, and communities. It shows how tournaments are advertised, how teams are formed and registered, and how interactions move from creation to competition within the ecosystem.
+[.hl-yellow]#This diagram illustrates the relationship between players, organizers, and communities. In this diagram:
+- **Blue rectangles** represent entities (players, teams, organizers, communities).
+- **Red diamonds** represent actions (register, create, update, check-in, etc.).
+- **Arrows** indicate the flow of interactions or dependencies between entities and actions.
+If you want to focus on entities, a class diagram could be used, with relations labeled by the actions they enable. Since this is not a standard UML diagram, the graphical elements are explained above for clarity.#
 
 === 2.1.2 Terminology
 
@@ -87,7 +91,6 @@ This diagram illustrates the relationship between players, organizers, and commu
 
 [.hl-yellow]#This abstraction process ensures consistency and closure across the documentation: every informal phenomenon described in the Rough Sketch maps cleanly to a concept in the Terminology section, which will later align with requirements, design models, and function signatures.#  
 
-=== 2.1.4 Narrative
 
 === 2.1.4 Narrative
 

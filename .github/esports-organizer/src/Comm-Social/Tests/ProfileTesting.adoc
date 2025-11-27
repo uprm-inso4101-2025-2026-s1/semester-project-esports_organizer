@@ -1,0 +1,33 @@
+=== Test on Profiles
+
+Test was done with a newly created account that has not been modified in any way. The purpose of this test is making sure everything is working as expected. 
+
+== When creating a Profile
+
+✅ Allows user to insert an image, his username , the region he is from, their playstyle and their bio.
+
+== After creating a Profile
+
+|===
+| Issue | Status
+
+| Initial profile picture not available
+| ❌
+
+| Does not update or show correct information (Bio, username, playstyle, region)
+| ❌
+
+| Contains random achievements that were not assigned
+| ❌
+
+| Shows every game as games played
+| ❌
+
+| After changing profile picture and information, the profile reverts to its initial dummy state
+| ❌
+|===
+
+== Summary
+
+Profiles are still on development, only creating a profile works at the moment.
+

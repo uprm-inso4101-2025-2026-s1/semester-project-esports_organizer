@@ -1,0 +1,79 @@
+= Requirements Facet Extraction for Tournament Registration
+Yasser Alonso Ruiz, November 26, 2025
+
+== Introduction
+Tournament Registration is a core subsystem of the Esports Organizer. Its purpose is to allow players and teams to join tournaments under specific rules, constraints, and eligibility conditions.
+Extracting requirement facets clarifies how the system should behave, what data it needs, how it interacts with Firestore, and how it must handle errors or authorization.  
+This structured breakdown ensures consistency across backend logic, improves developer understanding, and reduces ambiguity during implementation.
+
+== Diagram: Requirements Facet Map
+The following diagram visually represents all requirement facets extracted for the Tournament Registration subsystem.  
+It maps the root concept *Tournament Registration* to seven major requirement dimensions:
+
+- Functional  
+- Behavioral  
+- Data  
+- Interaction  
+- Authorization  
+- Error  
+- Constraint  
+
+Each facet contains example responsibilities or rules, forming a clear hierarchical map of the subsystem.
+
+image::Requirements-Facet-Extraction-for-Tournament-Registration.png[width=850,align=center]
+
+== Selected Functional Area
+- Tournament Registration (solo & team modes)
+- Registration/Unregistration flow
+- Firestore interaction for registration state
+
+== Requirement Facets and Verification Methods
+
+=== 1. Functional Facet
+- Defines what actions the registration system must support, including registering, unregistering, checking eligibility, preventing duplicates, and updating tournament metadata.
+
+*Verification:*  
+Check Firestore writes (`registeredPlayers`, `registeredTeams`, `registeredCount`) and ensure allowed/blocked actions match expected rules.
+
+=== 2. Behavioral Facet
+- Specifies how the system reacts to events such as registration attempts, cancelations, or invalid actions. This includes triggering notifications, rejecting duplicate entries, and auto-updating counts.
+
+*Verification:*  
+Execute onboarding scenarios (first-time registration, repeat attempts, capacity-full cases) and confirm the system reacts according to expected behavior models.
+
+=== 3. Data Facet
+- Identifies required data to process registration: Player ID, Team ID, Tournament ID, mode (solo/team), capacity, eligibility rules, and registration deadlines.
+
+*Verification:*  
+Inspect Firestore documents and confirm all required fields exist and are consumed correctly in registration logic.
+
+=== 4. Interaction Facet
+- Describes how the registration feature communicates with backend modules such as Firestore, authentication, and notifications.
+This includes reads/writes, consistency checks, and condition-based queries.
+
+*Verification:*  
+Review Firestore logs and network calls to confirm correct collection usage and proper update sequencing.
+
+=== 5. Authorization Facet
+- Specifies who is allowed to perform registration actions.
+Players can self-register; team captains may register entire teams; admins can override eligibility or deadlines when necessary.
+
+*Verification:*  
+Attempt registrations with different roles (regular player, captain, admin) and confirm permissions match the system rules.
+
+=== 6. Error Facet
+- Covers how the system handles invalid scenarios such as full capacity, network failures, duplicate registrations, or missed deadlines.
+
+*Verification:*  
+Trigger error states intentionally and verify correct feedback, Firestore rollback, and accurate prevention of inconsistent data.
+
+=== 7. Constraint Facet
+- Defines restrictions such as registration deadlines, maximum capacity, eligibility requirements, and one-tournament-per-player limits (if enabled).
+
+*Verification:*  
+Adjust parameters and confirm the system enforces constraints consistently.
+
+== Summary
+These requirement facets establish a clear structure for understanding and implementing Tournament Registration in the Esports Organizer system.
+They define what the feature must do, how it behaves, what data it needs, and what rules shape its execution.
+Following these facets ensures consistent backend behavior, reduces logical ambiguity, prevents registration errors, and improves reliability across the app.

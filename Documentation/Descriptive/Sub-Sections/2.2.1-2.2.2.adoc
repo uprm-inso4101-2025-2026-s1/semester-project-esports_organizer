@@ -35,6 +35,7 @@
 - [.hl-red]#Team creation and management tools.#
 - [.hl-red]#Bracket generation for competitions.#
 - [.hl-red]#Organizer tools for posting and updating events.#
+
 - [.hl-red]#Option to create new communities for games without an existing competitive scene.#
 - [.hl-green]#Tournament Discovery: The system must provide search filters by game, skill tier, and proximity to help users find events.#
 - [.hl-green]#Tournament Management: The system must allow organizers to configure tournament details, such as rules, registration limits, and brackets as well as publishing updates.#
@@ -47,35 +48,47 @@
 === 2.2.2 Personas
 
 ==== Persona 1: Alex the Competitive Player
-* [.hl-yellow]#**Age:** 21#
-* [.hl-yellow]#**Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.#
-* [.hl-yellow]#**Goals:**#
-- [.hl-yellow]#Find tournaments to test and improve skills.#
-- [.hl-yellow]#Track rankings and stats across games.#
-* [.hl-yellow]#**Frustrations:**#
-- [.hl-yellow]#Difficult to keep up with scattered tournament announcements.#
-- [.hl-yellow]#Lacks a centralized platform to measure performance.#
-[.hl-green]#Alex is a computer science major who spends his free time practicing games like CSGO and League of Legends. Outside gaming, He balances university coursework with a part-time job tutoring. He is data driven and competitive, ofter analyzing his match performance and stats. His ideal platform is one that automatically records tournament results, visualizes ranking and helps him identify skill gaps. He also values social feature that help him connect with other players for practice sessions.#
+
+* [.hl-red]#**Age:** 21#
+* [.hl-red]#**Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.#
+* [.hl-red]#**Goals:**#
+- [.hl-red]#Find tournaments to test and improve skills.#
+- [.hl-red]#Track rankings and stats across games.#
+* [.hl-red]#**Frustrations:**#
+- [.hl-red]#Difficult to keep up with scattered tournament announcements.#
+- [.hl-red]#Lacks a centralized platform to measure performance.#
+
+[.hl-yellow]#Alex is a computer science major who spends his free time practicing games like CSGO and League of Legends. Outside gaming, He balances university coursework with a part-time job tutoring. He is data driven and competitive, often analyzing his match performance and stats. His ideal platform is one that automatically records tournament results, visualizes ranking and helps him identify skill gaps. He also values social feature that help him connect with other players for practice sessions.#
+
+[.hl-green]#Alex, 21, is a computer science major who spends his free time practicing games like CSGO and League of Legends. He likes grinding ranked modes in these games, he uses gaming as a way to climb and improve himself, seeking the feeling of progress. Outside of gaming, he balances university coursework with a part-time job as a tutor. He is  competitive and driven by data, often analyzing his match performance and stats. He values structure and transparency, hating vague tournament posts and unclear rules. When joining events, he searches for clear formats and start times due to already having to juggle college assignments, exams, and a part-time job. He enjoys joining tournaments with the purpose of competing with friends, but coordinating schedules is difficult. Most Discord servers he ends up joining are cluttered with several announcements and outdated events. He wants to quickly see competitive events and register quickly. A typical day in Alex's life usually starts with classes and study sessions. In between lectures, he checks several Discord servers and tournament pages, but many of them are either too late at night or have complicated and confusing sign-up processes. After finishing his homework, he likes to immediately jump into a ranked game in order to make use of the free time he has.## 
 
 ==== Persona 2: Maria the Organizer
-* [.hl-yellow]#**Age:** 34#
-* [.hl-yellow]#**Background:** Works in event management, organizes local gaming tournaments on weekends.#
-* [.hl-yellow]#**Goals:**#
-- [.hl-yellow]#Announce tournaments easily to the right audience.#
-- [.hl-yellow]#Manage brackets and notify participants quickly.#
-* [.hl-yellow]#**Frustrations:**#
-- [.hl-yellow]#Promotion spread thin across many platforms.#
-- [.hl-yellow]#Hard to build consistent communities for recurring events.#
-[.hl-green]#Maria works full time for a community recreation center and runs gaming events as a passion project. She is detail oriented, managing the logistics of the events as well as promotion across multiple social media platforms. Her biggest challenge is keeping registration data organized and communicating efficiently with participants. She needs a platform that makes event promotion and bracket management easier as well as updating results that help her build a loyal player base.#
+
+* [.hl-red]#**Age:** 34#
+* [.hl-red]#**Background:** Works in event management, organizes local gaming tournaments on weekends.#
+* [.hl-red]#**Goals:**#
+- [.hl-red]#Announce tournaments easily to the right audience.#
+- [.hl-red]#Manage brackets and notify participants quickly.#
+* [.hl-red]#**Frustrations:**#
+- [.hl-red]#Promotion spread thin across many platforms.#
+- [.hl-red]#Hard to build consistent communities for recurring events.#
+
+[.hl-yellow]#Maria works full time for a community recreation center and runs gaming events as a passion project. She got into gaming recently thanks to a couple of friends is detail oriented, managing the logistics of the events as well as promotion across multiple social media platforms. Her biggest challenge is keeping registration data organized and communicating efficiently with participants. She needs a platform that makes event promotion and bracket management easier as well as updating results that help her build a loyal player base.#
+
+[.hl-green]#Maria, 34, works full time for a community center, she also organizes and runs gaming events as a passion project. She recently got into gaming events thanks to a couple of friends as she usually was the one to organize their matches and friend group events. She is detail oriented, managing the logistics of events as well as promotion across multiple social media platforms, the scheduling of tournaments and the registration of them while also keeping track of the results. Organization and efficiency are one of her values, her biggest challenge is keeping track of the registration and keeping the data structured while communicating in an effective way with all the participants. She is usually spread thin with promotion across multiple platforms, making it difficult and challenging to build a consistent community. A typical day for Maria starts with her regular work at the community center. After work she sets up brackets, posts announcements and searches for participants while making sure the once she has are aware of when, and where the events are going to be. With the lack of a streamlined system, most of her time is suspended by moving data from forms, spreadsheets and special media.# 
 
 ==== Persona 3: Liam the Casual Gamer
-* [.hl-yellow]#**Age:** 26#
-* [.hl-yellow]#**Background:** Plays games for fun after work, sometimes interested in casual competitions.#
-* [.hl-yellow]#**Goals:**#
-- [.hl-yellow]#Discover local communities for his favorite games.#
-- [.hl-yellow]#Join teams to participate in friendly competitions.#
-* [.hl-yellow]#**Frustrations:**#
-- [.hl-yellow]#Overwhelmed by too many platforms and event sources.#
-- [.hl-yellow]#Wants simple notifications without constantly monitoring social media.#
-[.hl-green]#Liam works as a graphic designer and enjoys unwinding with friends in games like Rocket League and R.E.P.O. He values simplicity and convenience, he does not want to browse ten discord servers just to end up finding a small weekend tournament. He is motivated by social interactions rather than simply winning, and wants a system that shows casual events nearby, has easy sing ups and minimal notifications.#
+
+* [.hl-red]#**Age:** 26#
+* [.hl-red]#**Background:** Plays games for fun after work, sometimes interested in casual competitions.#
+* [.hl-red]#**Goals:**#
+- [.hl-red]#Discover local communities for his favorite games.#
+- [.hl-red]#Join teams to participate in friendly competitions.#
+* [.hl-red]#**Frustrations:**#
+- [.hl-red]#Overwhelmed by too many platforms and event sources.#
+- [.hl-red]#Wants simple notifications without constantly monitoring social media.#
+
+[.hl-yellow]#Liam works as a graphic designer and enjoys unwinding with friends in games like Rocket League and R.E.P.O. He values simplicity and convenience, he does not want to browse ten discord servers just to end up finding a small weekend tournament. He is motivated by social interactions rather than simply winning, and wants a system that shows casual events nearby, has easy sing ups and minimal notifications.#
+
+[.hl-green]#Liam, 27, works as a graphic designer and enjoys unwinding and decompressing with friends by playing co-op games like Rocket League and R.E.P.O.—games that let him relax and laugh with his friends. Gaming for him is a social activity, not a competition. He values simplicity and convenience. His work inbox is constantly cluttered with notifications, deadlines, client comments, and requests—something he does not want to replicate when gaming. This is why he prefers to use only one Discord server with his close friend group instead of joining multiple servers he would need to read through, and why he mutes most apps on his phone. He does not want to browse through ten Discord servers just to find a small weekend tournament that might not even interest him and then forces him to fill out an overly complicated registration form. He is motivated by social interactions rather than winning; he wants to have fun with his friends without worrying about long sign-ups or having to go out of his way to find casual events. Liam plays games to decompress, not to deal with more stress. He may join a tournament, but only if the sign-up process is quick and does not involve overly long or tedious forms. A typical day for Liam follows a familiar pattern. He wakes up early, prepares for work, and checks an email inbox already packed with notifications, which adds to his stress. After work, he is mentally exhausted and wants to unwind by playing co-op games with friends. However, sometimes they cannot find any events to join and end up spending their available playtime just searching through several Discord servers and other sites—many of which require lengthy registration processes that feel more like work than fun.#
 
