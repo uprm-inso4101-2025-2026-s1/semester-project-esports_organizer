@@ -44,7 +44,7 @@ Petri nets modeled competing processes in tournament registration, particularly 
 
 [.hl-green]#Petri Nets help visualize how different backend functions interact dynamically within the tournament system.#
 
-[.hl-green]#In our project, Petri Nets work as graphical representations of workflows inside the backend system,for tournament creation, registration, and progression. Each place represents a specific system state, while each transition models a backend function or event triggered by user or system actions.#
+[.hl-green]#In our project, Petri Nets work as graphical representations of workflows inside the backend system, for tournament creation, registration, and progression. Each place represents a specific system state, while each transition models a backend function or event triggered by user or system actions.#
 
 === Real-Time System Design
 

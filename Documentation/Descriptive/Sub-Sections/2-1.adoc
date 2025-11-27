@@ -56,11 +56,11 @@ Figure 2.1.1 - Tournament and community interaction flow
 
 [.hl-yellow]#This diagram illustrates the relationship between players, organizers, and communities. In this diagram:#
 
-- [.hl-yellow]#*Blue rectangles* represent entities (players, teams, organizers, communities).#
+- [.hl-yellow]#**Blue rectangles** represent entities (players, teams, organizers, communities).#
 
-- [.hl-yellow]#*Red diamonds* represent actions (register, create, update, check-in, etc.).#
+- [.hl-yellow]#**Red diamonds** represent actions (register, create, update, check-in, etc.).#
 
-- [.hl-yellow]#*Arrows* indicate the flow of interactions or dependencies between entities and actions.#
+- [.hl-yellow]#**Arrows** indicate the flow of interactions or dependencies between entities and actions.#
 
 [.hl-yellow]#If you want to focus on entities, a class diagram could be used, with relations labeled by the actions they enable. Since this is not a standard UML diagram, the graphical elements are explained above for clarity.#
 
@@ -176,4 +176,4 @@ Figure 2.1.4 - Example check in flow
 
 Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
 
-Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.#
+Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.

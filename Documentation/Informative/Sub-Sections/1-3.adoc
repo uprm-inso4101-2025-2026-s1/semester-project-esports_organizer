@@ -7,7 +7,7 @@ This project belongs to the broad domain of entertainment, gaming and event orga
 
 
 ==== Span
-While the domain of the project is the global esports community, the specific focus (span) of this [.hl-yellow]#web-based hub# is on small to medium scale tournaments organized by local communities, including student groups and other independent gaming organizations.  The [.hl-yellow]#web# is designed to help these organizers manage registration, brackets, communication and visibility in a way that is easy to use. Unlike large-scale esport platforms, this project emphasizes inclusivity, adaptability, and simplicity making it suitable for semi-formal competitions.#
+While the domain of the project is the global esports community, the specific focus (span) of this [.hl-yellow]#web-based hub# is on small to medium scale tournaments organized by local communities, including student groups and other independent gaming organizations.  The [.hl-yellow]#web# is designed to help these organizers manage registration, brackets, communication and visibility in a way that is easy to use. Unlike large-scale esport platforms, this project emphasizes inclusivity, adaptability, and simplicity making it suitable for semi-formal competitions.
 
 ==== Synopsis
 This project aims to design and develop a web-based platform that facilitates the organization and participation of esports tournaments. The [.hl-yellow]#web page# will centralize key processes such as event discovery, player registration, tournament scheduling, and results publishing. It will also provide real-time notifications, and public results for spectators.
@@ -16,7 +16,7 @@ The project will be conducted through standard software engineering phases:
 
 * Domain description to understand the current practices of student esport events.
 * Requirements analysis to capture user and stakeholder needs.
-* Software architecture and design to define the system’s structure and components.
+* Software architecture and design to define the system's structure and components.
 * Implementation of core features in line with the defined requirements.
 * Testing and validation to ensure functionality, usability, and reliability.
 
