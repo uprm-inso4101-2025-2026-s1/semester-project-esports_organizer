@@ -10,30 +10,45 @@
 
 
 === 2.1.1 Rough Sketch
+•⁠  ⁠[.hl-red]#Players register in a community and can either create new teams or join existing ones advertised within the platform.#
 
-[.hl-yellow]#The following statements illustrate real conversations and experiences shared within esports communities. They present informal, everyday observations that reveal how players and organizers naturally talk about tournaments, rosters, formats, eligibility, and scheduling. These conversations serve as raw material from which more structured domain concepts are derived.# 
+•⁠  ⁠[.hl-red]#Each team designates a captain, who manages invitations, roster changes, and tournament registrations.#
 
-[.hl-green]#"Bro, joining the Smash community at UPRM was honestly one of the best things I've done. I used to struggle finding people to play with, but after that tournament last month I've already made a bunch of friends."#
+•⁠  ⁠[.hl-red]#Organizers publish tournament announcements with eligibility rules such as age limits, roster size, or regional restrictions.#
 
-[.hl-yellow]#"Hey Fabián, I've been grinding Smash every night but barely have anyone to play against. I'm thinking of organizing a small event so people can find opponents and have a good time. Would you want to help me set it up?"#
+•⁠  ⁠[.hl-red]#Teams submit their rosters before the registration deadline, depending on the ruleset, limited roster chances may be permitted later.#
 
-[.hl-yellow]#"What are we going to do, guys? We're still missing one player to meet the roster requirements for the UPRM Marvel Rivals tournament in May. And we also need to make sure the team is registered at least two weeks before the deadline."#
+•⁠  ⁠[.hl-red]#Tournament seeding is determined by prior rankings, past results, or qualifiers.#
 
-[.hl-green]#"If we're serious about forming this team, we need to choose a captain. Someone who can keep track of invitations, update the roster, and handle registrations. Honestly, Tomás would be great—he’s organized and knows the scene well."#
+•⁠  ⁠[.hl-red]#Supported formats include single-elimination, double-elimination, Swiss, or round-robin.#
 
-[.hl-yellow]#"Maria, did you check the rules for the Mario Kart tournament in February? You need to be older than 13, have a four-player team, and be from the west side of the island. Want to team up with me?"#
+•⁠  ⁠[.hl-red]#Teams must check in before each match; missing a grace period may cause a forfeit.#
 
-[.hl-green]#"Hey, are you one of the organizers? I noticed you didn’t just place teams randomly—you actually used previous results and qualifiers to seed the bracket. It felt a lot more balanced that way."#
+•⁠  ⁠[.hl-red]#Results are recorded; tiebreakers decide standings in round-robins or Swiss.#
 
-[.hl-green]#"I've been traveling to events all month. Some are single elimination, others double elimination, round robin, and even Swiss. It's tiring but honestly really fun experiencing all the different formats."#
+•⁠  ⁠[.hl-red]#Spectators and media follow brackets, standings, and schedules.#
 
-[.hl-yellow]#"Reminder, team: our match on Saturday is at 3 PM. Make sure to check in at least 15 minutes before or we automatically forfeit. Don’t be late."#
+[.hl-green]#The following are statements people would say in their day to day life.#
 
-[.hl-yellow]#"Bro, last night’s match was wild. After every match, the scores updated instantly and you could see the standings shift. Two teams tied in that round robin, so they had to use point differential and head-to-head as tiebreakers."#
+•⁠  ⁠[.hl-yellow]#"Hey Carlos, I just wanted to say that im very glad I met you at the last tournament. I had a really difficutl time making friends and always wanted to be part of a community that enjoyed the same games as I do. Ever since joining the Smash Bros community here, Ive made a lot of good friends like you and have had a great time participating in events with them."#
 
-[.hl-green]#"It’s crazy how big esports has gotten. Even people who don’t play still follow brackets, schedules, and standings. Some post updates on Instagram or stream the matches. My grandma told me some kid won five thousand dollars in a Fortnite event the other day."#
+•⁠  ⁠[.hl-yellow]#"Hey Fabian, Ive been playing Super Smash Bros day and night but dont have anyone to play against. I was thinking of organizing an event in a neat manner where I can find suitable opponents and make a fun competition for everyone. Would you be interested in helping me set it up?"#
 
-[.hl-yellow]#The following diagram shows how players, communities, and tournament processes commonly interact in competitive environments.# 
+•⁠  ⁠[.hl-yellow]#"What are we gonna do guys? We need one more member to complete the roster qualifications if we want to compete in the UPRM Marvel Rivals tournament in May. We need to make sure our team is registered two weeks before the tournament too. Any ideas on who we can invite to join us?"#
+
+•⁠  ⁠[.hl-yellow]#"Alright people if we're seriours about forming our esports team we need to decide on a captain. This person will be in charge of inviting people, updating the roster and signing us up to tournaments. I think Tomas would be a great choice since he's organized and knows a lot about the games we play. What do you guys think?"#
+
+•⁠  ⁠[.hl-yellow]#"Hi Maria, have you seen the requirements posted on the site for the Mario Kart Tournament in February? The organizers stated that you have to be older than 13. They also mentioned that teams need to have 4 members and only people from the west side of the island can enter this specific tournament. Would you be interested in participating with me? Im looking for people from campus that live around here like me in order to be able to form my team."#
+
+•⁠  ⁠[.hl-yellow]#"Hi are you one of the organizers for the tournament? I just wanted to say that I noticed how you didnt just put teams randomly in a bracket; instead it seems that teams where seeded based on how well they did in previous tournaments or online qualifiers. I think that was a great idea since I could see and experience first-hand how it made the competition more balanced and fair for everyone."#
+
+•⁠  ⁠[.hl-yellow]#"Oh hi Gabriela! Sorry I havent been able to go out with you much this month. Ive been really busy competing on events around the island. Its been fun to play in events with different formats. Some are single elimination so you lose once you're out. Others are double elimination, round robin or that Swiss system where you keep playing people with similar records. Although I've been busy with the torunaments and school work I've had a grat time and have met a lot of people passionate about the same games as me."#
+
+•⁠  ⁠[.hl-yellow]#"Hey team, just a reminder that we have a match coming up this Saturday at 3 PM. Make sure to check in on the website at least 15 minutes before the match starts. If we dont check in within the grace period, our team will automatically forfeit the match. Let's make sure we're all on time and ready to play!"#
+
+•⁠  ⁠[.hl-yellow]#"Bro, last night's match was insane! Since after every match  score were reported you could see how close each team was to winning. I remember in a round robin tournament two teams ended with the same number of wins, so they had to use things like head-to-head results or point differences to decide who placed higher. It made every point count, and it was so exciting to watch!"#
+
+•⁠  ⁠[.hl-yellow]#"The popularity the esports community is gaining is surprising. Even people who aren’t playing still follow everything. I heard on reddit that some people keep checking the brackets, match schedules, and standings to see who is winning and who got knocked out. Some even stream or share updates on Instagram and Facebook. Yesterday I even heard my grandma talk about how some kid won a five thousand dollar price on Fortnite tournament in Alabama. It's amazing to see how much interest there is in esports nowadays!"#
 
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 
@@ -89,96 +104,67 @@ If you want to focus on entities, a class diagram could be used, with relations 
 
 [.hl-green]#Even casual comments about spectators “checking brackets,” “following standings,” or “watching streams” reflect the presence of Spectator Engagement, which the terminology formalizes as a domain concept capturing non-player participation.#  
 
-[.hl-yellow]#This abstraction process ensures consistency and closure across the documentation: every informal phenomenon described in the Rough Sketch maps cleanly to a concept in the Terminology section, which will later align with requirements, design models, and function signatures.#  
+[.hl-yellow]#This abstraction process ensures consistency and closure across the documentation: every informal phenomenon described in the Rough Sketch maps cleanly to a concept in the Terminology section, which will later align with requirements, design models, and function signatures.#
 
 
-=== 2.1.4 Narrative
+=== 2.1.4 Expanded Narrative
 
-[.hl-yellow]#Esports tournaments typically begin when an organizer announces an event and shares details such as the game title, ruleset, eligible regions, roster requirements, and the registration window. Communities spread the word, and players decide whether to form new teams or join existing ones in order to participate.#  
+[.hl-yellow]#The esports tournament domain is structured around several key concepts: tournaments, teams, matches, organizers, communities, and stages. A **stage** is a phase in the tournament lifecycle (e.g., registration, bracket generation, match play, results update, closure). Each stage has its own rules, actions, and transitions.#
 
-[.hl-yellow]#During the registration period, teams finalize their rosters and designate a captain who handles communication and administrative decisions. Organizers verify eligibility constraints—such as age, region, or roster size—and may place additional teams on a waitlist when registration exceeds capacity.#  
+* [.hl-red]#For single-elimination tournaments, the bracket is structured as a balanced binary tree, ensuring fair seeding based on rank or random assignment.#
 
-[.hl-green]#Once registration closes, the competition moves into what participants commonly describe as the “setup phase” of the event. This phase includes applying seeding criteria—often based on prior results, rankings, or qualifier performance—and preparing the bracket structure according to the chosen tournament format (single elimination, double elimination, round robin, or Swiss). Some teams may receive byes when the number of participants does not fill the bracket evenly.#  
+[.hl-green]#The process begins with an organizer announcing a tournament, specifying its format, rules, and registration window. Players form teams, designate captains, and register for the event. During the registration stage, eligibility is checked (account status, ranking, roster size). If too many teams register, a waitlist is created. When registration closes, the bracket is generated—often as a binary tree for single-elimination, or other structures for Swiss/round-robin formats. Teams may receive byes if the participant count is not a power of two.#
 
-[.hl-yellow]#As the tournament progresses, matches are played round-by-round according to the structure of the bracket or format. After each match, results are confirmed and used to determine standings, bracket advancement, or tiebreaker resolution when teams hold identical records.#  
+* [.hl-red]#Teams may receive byes if the total participant count is not a power of two.#
+[.hl-green]#As the tournament progresses through its stages, matches are played round by round. Winners advance to the next stage, losers are eliminated. After each match, results are updated, scores are recorded, and tiebreakers may be applied. The final stage is closure, where results are published and rankings updated. Throughout, communities and spectators follow progress, and organizers manage logistics and communications.#
 
-[.hl-green]#Throughout the competition, players and spectators follow schedules, upcoming matchups, and bracket changes, especially during high-stakes rounds where advancement depends on a single match outcome. Policies such as check-in windows and forfeits also shape how teams prepare before each match.#  
-
-[.hl-yellow]#The event concludes once the final match is played and a winner is determined. Final results contribute to future seeding, community reputation, and discussions among players. This narrative reflects the full lifecycle of an esports competition as observed in real communities—from early preparation, through competitive play, to final closure.#  
+[.hl-yellow]#The narrative covers the full lifecycle, emphasizing how each stage (registration, bracket generation, match play, results, closure) plays a distinct role in the domain. The concept of "stage" is central: it structures the flow, determines available actions, and governs transitions between phases.#
 
 
-=== 2.1.5 Concepts Involving Events, Actions, Behaviors
+=== 2.1.5 Unified Domain Concepts and Operations
 
-[.hl-yellow]#Events, actions, and behaviors represent dynamic phenomena in the esports tournament domain. They describe what happens, what people deliberately do, and how multi-step processes unfold over time. These concepts arise naturally from the real-life situations described in the Rough Sketch and form the operational backbone of competitive events.#  
+[.hl-yellow]#Entities, actions, events, and behaviors are all phenomena in the esports domain. They are not separated into distinct sections, but are described together to show how they interact and support domain observations.
 
-[.hl-yellow]#An event is an instantaneous change in state. An action is a deliberate act performed by a participant (e.g., player, captain, organizer). A behavior is a multi-step flow composed of multiple actions and events.#  
+- **Entities**: Team, Tournament, Match, Player, Organizer, Community, Stage
+- **Actions/Operations**: Create tournament, register team, generate bracket, assign captain, update match result, record forfeit, send notification, perform map veto, check-in team
+- **Events**: Registration window closes, match completed, bracket generated, player disconnect, roster update deadline reached
+- **Behaviors**: Run tournament flow, handle registration, update bracket progression, manage real-time updates
 
-== Events (Instantaneous State Changes)
+Each action/operation is paired with its function signature, showing how it expresses domain observations. For example:
 
-- [.hl-yellow]#*Registration Window Closes* — At the deadline, no further teams may join the event.#  
-- [.hl-yellow]#*Roster Deadline Reached* — After this moment, teams may no longer make substitutions unless rules permit limited changes.#  
-- [.hl-green]#*Team Check-In Timeout* — A team fails to check in within the grace period and is marked as forfeited.#  
-- [.hl-green]#*Tournament Seeding Finalized* — Rankings, past results, or qualifier outcomes are locked into the initial bracket.#  
-- [.hl-yellow]#*Match Result Recorded (e.g., 2–1)* — The outcome triggers bracket advancement or round-robin standings updates.#  
-- [.hl-green]#*Tiebreaker Triggered* — Round-robin or Swiss ties activate criteria such as point differential or head-to-head results.#  
+* **registerTeam(team, tournament)**: Used when a team registers for a tournament. The function requires a team and a tournament; teams are created by players, tournaments by organizers. If you need a team, use a function like `createTeam(player, name, ...)` (not shown here, but implied by the domain).
+* **updateTeamScore(teamID, points)**: Updates a team's score. Points may be produced by match results, so the function should clarify where points come from (e.g., `recordMatchResult` returns points). If you have only a teamID, you may need to resolve it to a team object via the tournament or a lookup function. Alternatively, `updateTeamScore` could take a team object directly, or the Match object could be responsible for updating scores for all teams involved.
 
-== Actions (Deliberate Domain Acts)
+These decisions require discussion and negotiation among the project team. For example, should `updateTeamScore` take a teamID or a team object? Should the Match object update scores for all teams? Each approach has tradeoffs and may require changes to the implementation. The function signatures are grouped with their actions/operations to clarify how they support domain scenarios.
 
-- [.hl-yellow]#*Create Tournament* — An organizer defines the ruleset, eligibility constraints, and schedule.#  
-- [.hl-yellow]#*Register Team* — The captain submits required roster and region details to enter the competition.#  
-- [.hl-green]#*Submit Roster* — Teams provide a finalized lineup before the deadline.#  
-- [.hl-green]#*Assign Captain* — Players designate a leader responsible for invitations and roster management.#  
-- [.hl-yellow]#*Generate Seeding / Bracket* — Organizers determine placements using rankings, qualifiers, or randomization.#  
-- [.hl-yellow]#*Record Match Result* — Officials or captains report scores that update standings or bracket progression.#  
-- [.hl-green]#*Perform Map Veto / Match Preparation* — In certain games, teams remove or select maps before starting a match.#  
-- [.hl-yellow]#*Send Notifications or Announcements* — Organizers communicate schedule updates or match calls.#  
+=== 2.1.6 Function Signatures (Grouped with Actions)
 
-== Behaviors (Multi-Step, Structured Processes)
+Function signatures define how operations are represented programmatically, describing inputs, outputs, and failure conditions. They are grouped with their corresponding actions/operations to clarify how they support domain scenarios and observations.
 
-- [.hl-yellow]#*Tournament Lifecycle:* Announcement → Registration → Seeding → Match Play → Result Updates → Closure.#  
-- [.hl-green]#*Registration Flow:* Check eligibility → Validate roster size → Confirm or waitlist team → Lock roster at deadline.#  
-- [.hl-yellow]#*Bracket Progression:* Identify match → Update score → Determine winner → Advance to next round or apply elimination.#  
-- [.hl-green]#*Check-In Procedure:* Notify teams → Await attendance → Apply grace period → Trigger timeout or forfeit event.#  
-- [.hl-yellow]#*Tiebreaker Evaluation:* Compare tied teams → Apply head-to-head → Apply point differential → Determine final placement.#  
 
-[.hl-green]#Together, these events, actions, and behaviors provide a structured representation of how esports tournaments unfold in practice. They connect informal observations from the Rough Sketch with operational concepts that later requirements, design artifacts, and function signatures depend on.#  
+image::account_creation.png[Account creation flow,scaledwidth=60%]
+Figure 2.1.2-Account Creation Flow
 
-=== 2.1.6 Function Signatures
+* **createTournament(organizer, name, format, maxSlots, rules) → Tournament | Failure**
+- Creates a new tournament entry with defined parameters.
+* **registerTeam(team, tournament) → Confirmation | Waitlist | Denied**
+- Registers a team if it meets eligibility requirements and if slots are available.
 
-[.hl-yellow]#Function signatures represent abstract operations over domain concepts. Each signature corresponds directly to an action identified in Section 2.1.5 and describes how entities transform or relate as a result of that action.#  
+image::Visual diagram of state transitions.png[align=center]
+Figure 2.1.3 - Example registration flow
 
-[.hl-yellow]#These signatures do not describe a technical API; rather, they formalize domain-level transitions such as registering a team, generating a bracket, or recording a match result.#  
+* **generateBrackets(tournament) → BracketStructure | Failure**
+- Creates a bracket layout based on participant count and format (single/double elimination).
+* **recordMatchResult(matchID, winnerID, score) → UpdatedBracket | Failure**
+- Updates match data and propagates the winning team to the next round.
+* **updateTeamScore(teamID, points) → UpdatedTeam | Failure**
+- Adjusts a team’s total score and updates leaderboard standings. Points are produced by match results.
+* **checkInTeam(teamID, tournamentID) → StatusUpdated | Timeout**
+- Verifies attendance before match start; returns timeout if grace period expires.
 
-== Actions and Their Abstract Function Signatures
+image::image1.png[align=center]
+Figure 2.1.4 -Example check in flow
 
-=== Create Tournament
-- [.hl-yellow]#*createTournament(organizer, name, format, maxSlots, rules)* → Tournament \| Failure#  
-[.hl-green]#Creates a tournament entity using the parameters defined by the organizer. Failure may occur if constraints are violated (e.g., invalid ruleset).#
+Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
 
-=== Register Team
-- [.hl-yellow]#*registerTeam(team, tournament)* → Confirmation \| Waitlist \| Denied#  
-[.hl-yellow]#Evaluates eligibility constraints, roster size rules, and available slots. Produces a confirmation outcome or waitlist placement.#
-
-=== Submit Roster
-- [.hl-green]#*submitRoster(teamID, playerList, tournamentID)* → RosterSubmitted \| Failure#  
-[.hl-green]#Formalizes the act of submitting a complete roster before the roster deadline.#
-
-=== Generate Seeding / Create Bracket
-- [.hl-yellow]#*generateBrackets(tournament)* → BracketStructure \| Failure#  
-[.hl-yellow]#Establishes match pairings using seeding criteria such as prior rankings, qualifiers, or randomized placement.#
-
-=== Record Match Result
-- [.hl-yellow]#*recordMatchResult(matchID, winnerID, score)* → UpdatedBracket \| Failure#  
-[.hl-yellow]#Applies the result of a match, advancing the winner and updating standings or bracket progression accordingly.#  
-
-=== Update Team Score / Ranking
-- [.hl-yellow]#*updateTeamScore(teamID, points)* → UpdatedTeam \| Failure#  
-[.hl-green]#Represents ranking or point adjustments after events such as match wins, stage placement, or tiebreaker outcomes.#  
-
-=== Check-In Procedure
-- [.hl-yellow]#*checkInTeam(teamID, tournamentID)* → StatusUpdated \| Timeout#  
-[.hl-yellow]#Determines attendance before a match and triggers a timeout event if the team exceeds the grace period.#  
-
-== Closure and Domain Alignment
-
-[.hl-green]#The outputs of these functions (e.g., BracketStructure, UpdatedBracket, StatusUpdated) are themselves domain concepts that serve as inputs for later operations. This ensures closure: every abstract transition remains within the boundaries of the domain and preserves conceptual consistency across requirements and design.#
+Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.#

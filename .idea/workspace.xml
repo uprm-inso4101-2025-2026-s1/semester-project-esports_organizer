@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Error fixes in intro and end">
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Classification_patterns_in_post.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Modularisation-Objects/Classification_patterns_in_post.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks/Classification_patterns_in_post.png" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Modularisation-Objects/Classification_patterns_in_post.png" afterDir="false" />
-    </list>
+    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Error fixes in intro and end" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,43 +21,43 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "WilsonMorales8"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;WilsonMorales8&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer.git",
-    "accountId": "a846e650-7cdc-42ff-9659-4793beb8cb19"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/uprm-inso4101-2025-2026-s1/semester-project-esports_organizer.git&quot;,
+    &quot;accountId&quot;: &quot;a846e650-7cdc-42ff-9659-4793beb8cb19&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="35uHXOYgpzRDFSFmP8xpEj4KaJP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "documentation-branch",
-    "last_opened_file_path": "/Users/wilsonmorales/AndroidStudioProjects/semester-project-esports_organizer/.github/Documents/Documentation/Lecture-Topic-Tasks",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;documentation-branch&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wilsonmorales/AndroidStudioProjects/semester-project-esports_organizer/.github/Documents/Documentation/Lecture-Topic-Tasks&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks" />
