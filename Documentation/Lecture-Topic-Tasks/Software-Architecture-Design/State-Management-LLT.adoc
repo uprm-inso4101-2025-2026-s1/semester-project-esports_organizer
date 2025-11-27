@@ -1,0 +1,64 @@
+= Lecture Topic Task - State Management Flow
+By: Sebastian A Santiago Perez
+Course: INSO 4101 Software Engineering
+Date: November 26, 2025
+
+== Introduction
+This lecture topic task focuses on the concept of State Management Flow and its significance for maintaining consistent and predictable behavior within the Esports Organizer platform. State management defines how information is stored, updated, and propagated throughout the system. Because the application relies on dynamic user interactions—such as logging in, viewing tournaments, or updating profiles—understanding how state changes occur is vital to ensuring smooth user experiences and minimizing system errors.
+
+Modern web applications rely heavily on state, and poorly structured state flow can lead to UI inconsistencies, outdated information, unnecessary re-renders, and bugs that are difficult to trace. For this reason, documenting the state flow process allows developers to uphold reliability and clarity across components.
+
+== Relation to Class Topics
+This topic connects directly to Software Design, Human–Computer Interaction (HCI), and System Architecture lectures. In the Triptych Model, state management appears in both the design and implementation phases designing what state exists and implementing how it changes.
+
+The concept supports core engineering principles such as:
+- *Modularity*, by separating state-handling logic from UI representation.
+- *Low coupling*, by ensuring components depend on stable state structures rather than each other.
+- *Scalability*, by enabling new features to plug into the existing data lifecycle without breaking the system.
+- *Separation of concerns*, where each layer UI, state handlers, backend communication—performs its role independently.
+
+== Objective
+The objective of this task is to document and visualize how the Esports Organizer manages state between its UI components, user actions, and backend responses. The goal is to clearly represent how state transitions occur, how re-renders are triggered, and how components depend on synchronized data. The resulting diagram helps the development team understand the overarching data lifecycle and its influence on correctness, performance, and user experience.
+
+== Process and Design Decisions
+To understand the application's state requirements, the team mapped out the components and features most dependent on state: authentication, events, schedules, match details, user preferences, and profile information.
+
+The process followed these steps:
+1. **Identify where user input triggers state changes.**
+2. **Determine whether the state is local (component-specific) or global (shared across the app).**
+3. **Document how backend responses refresh the global state.**
+4. **Assess how UI components subscribe to and react to updated state.**
+5. **Ensure re-renders happen only when necessary to optimize performance.**
+
+State changes can occur through:
+- Local hooks (e.g., form fields, toggles)
+- Central state stores (e.g., authentication, user data)
+- Remote data updates (e.g., Firebase responses)
+
+By organizing the flow, the system avoids race conditions, outdated values, and inconsistent UI behaviors. Each component only relies on the specific state it needs, ensuring maintainability and predictability.
+
+
+
+
+== Example Scenario
+When a user updates their profile information:
+1. The user edits the form (temporary local state).
+2. The user submits the update (dispatches an action).
+3. The backend validates and stores the new data.
+4. The updated data is returned to the frontend.
+5. The global state is refreshed with the new profile details.
+6. Components that rely on user information automatically render.
+
+The user sees updated information immediately without refreshing the page, ensuring a seamless experience.
+
+== Connection with Software Engineering Principles
+- *Modularity:* State logic, UI components, and backend interactions remain separate and reusable.
+- *Maintainability:* Centralized updates reduce debugging time and prevent inconsistent data.
+- *Scalability:* New screens or features can connect to the state system without extensive rewrites.
+- *Predictability:* A clear state lifecycle ensures UI changes occur in a controlled manner, reducing unexpected behavior.
+
+== Reflections and Findings
+State management acts as the backbone of the Esports Organizer platform. A well-designed state flow reduces bugs, supports responsive interfaces, and helps maintain long term system stability. Understanding how state moves through the application revealed opportunities to improve performance and reduce coupling between components.
+
+== Conclusion
+The State Management Flow Diagram provides a comprehensive view of how the application updates and synchronizes data. Documenting this process strengthens architectural decisions and provides a shared understanding across the team. A strong state management foundation ensures a reliable, maintainable, and user friendly application.
