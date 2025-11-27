@@ -6,14 +6,15 @@ import { addToGoogleCalendar } from "../utils/helpers";
 import Navbar from "../components/shared/Navbar";
 import TournamentCard from "../components/shared/TournamentCard";
 import Event from "../events/EventClass";
+import { getAllCommunitiesFromDatabase } from "../Comm-Social/CommunityCreation.js";
+import CommunityCard from "../components/CommunityCard";
 
 function HomePage() {
   const navigate = useNavigate();
-  const [savedCards] = useState(new Set());
-  const [showJoinModal, setShowJoinModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [events, setEvents] = useState([]);
+  const [communities, setCommunities] = useState([]);
+  const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
 
   async function loadEvents() {
     const data = await Event.ListEvents();
@@ -32,6 +33,32 @@ function HomePage() {
     }));
     setEvents(displayEvents);
   }
+
+  // Fetch communities (same behavior as CommunityPage)
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        setIsLoadingCommunities(true);
+        const fetched = await getAllCommunitiesFromDatabase();
+        const transformed = fetched.map((c) => ({
+          id: c.id,
+          title: c.name,
+          imageUrl: c.icon || null,
+          currentEvents: 0,
+          followers: c.members ? c.members.length : 0,
+          location: c.location || "Global",
+          game: c.game,
+        }));
+        setCommunities(transformed);
+      } catch (err) {
+        console.error("Error fetching communities:", err);
+        setCommunities([]);
+      } finally {
+        setIsLoadingCommunities(false);
+      }
+    };
+    fetchCommunities();
+  }, []);
 
   // Effects
   useEffect(() => {
@@ -54,55 +81,6 @@ function HomePage() {
       navigate("/tournaments", { state: { openEventId: event.id } });
       setIsMobileMenuOpen(false);
     }
-  };
-
-  // Community card component
-  const CommunityCard = ({ communityId = "fortnite" }) => {
-    const handleFollowCommunity = () => {
-      handleNavigation(`/community/${communityId}`);
-    };
-    const handleViewCommunity = () => {
-      handleNavigation(`/community/${communityId}`);
-    };
-
-    return (
-      <div className="community-card">
-        <div className="community-image-wrapper">
-          <img 
-            src="/assets/images/fortnite.png" 
-            alt="Community" 
-            className="tournament-image"
-          />
-          <div className="community-overlay">
-          </div>
-        </div>
-        <div className="community-info">
-          <h3 className="community-title">FORTNITE</h3>
-          <div className="community-details">
-            <div className="community-details-left">
-              <div className="detail-item">
-                <span className="detail-text">1.2k followers</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-text">United States</span>
-              </div>
-            </div>
-            <div className="community-details-right">
-              <div className="detail-item">
-                <span className="detail-text">3 upcoming events</span>
-              </div>
-              <div className="detail-item">
-                <span className="detail-text">128 posts</span>
-              </div>
-            </div>
-          </div>
-          <div className="community-actions">
-            <button type="button" className="follow-button" onClick={handleFollowCommunity}>Follow Community</button>
-            <button type="button" className="view-button" onClick={handleViewCommunity}>View Community</button>
-          </div>
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -171,9 +149,8 @@ function HomePage() {
                     />
                   ))
                 ) : (
-                  <p>Loading events...</p>
+                  <p>No events found.</p>
                 )}
-
               </div>
               <div className="view-more-button">
                 <span>View more →</span>
@@ -188,17 +165,36 @@ function HomePage() {
       <section className="communities-section">
         <div className="section-container">
           <h2 className="section-title">COMMUNITIES</h2>
-            <div className="tournament-cards-container">
+          <div className="tournament-cards-container">
+            {isLoadingCommunities ? (
+              <p>Loading communities...</p>
+            ) : communities.length === 0 ? (
+              <p>No communities found.</p>
+            ) : (
               <div className="community-cards">
-                {[1, 2, 3].map((index) => (
-                  <CommunityCard key={index} index={index} />
+                {communities.map((c) => (
+                  <div
+                    key={c.id}
+                    className="community-card-wrapper"
+                    onClick={() => handleNavigation(`/community/${c.id}`)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <CommunityCard
+                      imageUrl={c.imageUrl}
+                      title={c.title}
+                      currentEvents={c.currentEvents}
+                      followers={c.followers}
+                      location={c.location}
+                      onJoin={() => handleNavigation(`/community/${c.id}`)}
+                    />
+                  </div>
                 ))}
               </div>
-              <div className="view-more-button">
-                <span>View more →</span>
-              </div>
+            )}
+            <div className="view-more-button">
               <button className="view-more-button" onClick={() => handleNavigation("/community")}>View more →</button>
             </div>
+          </div>
         </div>
       </section>
     </div>
