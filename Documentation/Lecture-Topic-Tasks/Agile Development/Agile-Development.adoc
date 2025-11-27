@@ -1,0 +1,43 @@
+= Agile Foundations in Milestone 2 Development
+Sorimerlin Santos (Manager) 
+INSO4101-080
+
+== Introduction
+
+I created the goals and structure for Milestone 2 with the explicit purpose of turning our early research into a working, testable foundation. The aim was clear: by the end of the milestone, the tournament flow from authentication to bracket progression and result tracking had to function end-to-end with real users. Every deliverable was framed using Agile principles: tight iteration loops, early feedback, and testable value delivery. We didn’t aim for feature completeness we aimed for usable functionality that could evolve with feedback.
+
+== Agile in Practice
+
+Rather than dictating features from a distance, I translated functional goals into backlog items directly tied to real world use cases:
+
+* **Authentication and Role-Based Access** – Treated as essential scaffolding, owned jointly by the database and profile teams, with validation tied to permissions and profile visibility.
+* **Real-Time Participation and Bracket Updates** – Implemented by Social Features with schema support from Database and tested through full-cycle tournament simulations.
+* **Cross Team UI Consistency** – Managed by UX, ensuring all workflows (login, registration, bracket view, event view) were accessible and responsive across devices.
+* **Event System Integration** – Defined a separate user-centered flow that paralleled the tournament system but with emphasis on discoverability and reminders.
+
+== Incremental Delivery & Cross Team Collaboration
+
+Every team operated within an Agile framework:
+* Feature implementations were verified in isolation, then tested together.
+* User facing goals were broken into weekly deliverables, such as mockups, flow charts, and schema diagrams.
+* I facilitated coordination between teams by embedding the database team across all feature teams and aligning deliverables around user flows, not code modules.
+
+== Feedback and Adaptation
+
+* We conducted structured user testing with 4–6 participants covering registration, participation, match resolution, and event reminders.
+* Real time feedback influenced interface tweaks and event notifications.
+* Performance was validated under real conditions, ensuring bracket updates within 2 seconds and compatibility across platforms.
+
+== Agile Success Criteria Achieved
+
+These were not abstract goals, they were clearly defined critical factors:
+
+* Tournament and event flows worked end-to-end.
+* Notifications triggered as expected across use cases.
+* User profiles reflected history and role-accurate data.
+* Database schema remained stable across evolving feature sets.
+* Structured feedback confirmed the system was usable and intuitive.
+
+== Conclusion
+
+This milestone wasn’t just about shipping features—it was about proving that Agile can structure a system that is both technically sound and user ready. The goals I defined translated lecture theory into working practice. I didn’t just manage tasks—I orchestrated the flow of progress across five teams, ensuring every iteration brought us closer to a real, functioning esports platform. This was Agile not as a buzzword, but as a discipline of planning, delivery, and adaptation.
