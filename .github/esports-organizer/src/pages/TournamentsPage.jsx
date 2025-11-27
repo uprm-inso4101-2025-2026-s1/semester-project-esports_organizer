@@ -257,16 +257,19 @@ function TournamentsPage() {
       <div className="section-container">
         <h2 className="section-subtitle">RECOMMENDED EVENTS</h2>
         <div className="recommended-cards">
-          {recommendedEvents.map((tournament, index) => (
-            <TournamentCard 
-              key={tournament.id} 
-              tournament={tournament} 
-              index={index}
-              isSaved={savedCards.has(index)}
-              onToggleSaved={toggleSaved}
-              onJoinEvent={handleJoinEvent}
-            />
-          ))}
+          {recommendedEvents.length > 0 ? (
+            recommendedEvents.map((tournament, index) => (
+              <TournamentCard 
+                key={tournament.id} 
+                tournament={tournament} 
+                index={index}
+                isSaved={savedCards.has(index)}
+                onToggleSaved={toggleSaved}
+                onJoinEvent={() => handleJoinEvent(tournament)}
+              />
+              ))) : (
+                <p>No events found.</p>
+            )}
         </div>
       </div>
     </section>
@@ -279,16 +282,19 @@ function TournamentsPage() {
           <h2 className="section-title">EVENTS</h2>
         </div>
         <div className="events-grid">
-          {filteredEvents.map((tournament, index) => (
-            <TournamentCard 
-              key={tournament.id} 
-              tournament={tournament} 
-              index={index}
-              isSaved={savedCards.has(index)}
-              onToggleSaved={toggleSaved}
-              onJoinEvent={() => handleJoinEvent(tournament)}
-            />
-          ))}
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((tournament, index) => (
+              <TournamentCard 
+                key={tournament.id} 
+                tournament={tournament} 
+                index={index}
+                isSaved={savedCards.has(index)}
+                onToggleSaved={toggleSaved}
+                onJoinEvent={() => handleJoinEvent(tournament)}
+              />
+              ))) : (
+                <p>No events found.</p>
+            )}
         </div>
       </div>
     </section>
