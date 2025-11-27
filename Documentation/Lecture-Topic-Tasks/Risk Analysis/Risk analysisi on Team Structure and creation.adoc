@@ -1,0 +1,139 @@
+== Risk Tree and Analysis for Team Creation
+
+=== Introduction
+This section presents a risk analysis for the *Team Creation* subsystem within the Esports Organizer Manager platform.  
+Team creation is essential for organizing group-based tournaments, assigning captains, managing rosters, and ensuring the integrity of competitive structures.  
+Failures in this subsystem can lead to inconsistent teams, broken tournament logic, or players being assigned to invalid or duplicated team states.
+
+This risk analysis decomposes potential failures into structured branches and identifies where inconsistencies, validation errors, backend–frontend mismatches, or documentation gaps might corrupt the team creation process.
+
+=== Purpose of the Analysis
+The purpose of this analysis is to:
+
+* Identify the **top event** leading to team creation failure.
+* Break it down into clear risk branches using a fault-tree model.
+* Connect the failure modes to inconsistencies across documentation, API behavior, UX, and data models.
+* Provide mitigation strategies and non-functional considerations.
+* Support future formal verification or consistency-checking tasks.
+
+This analysis focuses on *how a valid team fails to be created or becomes inconsistent*, not the general management of teams.
+
+=== Top Event: Team Creation Failure
+
+❌ *Team Creation Failure*  
+A failure occurs when the system creates an invalid team, fails to create a team, or produces inconsistent data that breaks tournament logic.
+
+Examples include:
+* Team created without a captain  
+* Duplicate team names  
+* A user assigned to multiple teams simultaneously  
+* Team created with missing or corrupted fields  
+* UI indicates successful team creation but backend fails  
+* Conflicting team size limits across modules
+
+=== Risk Tree Diagram
+
+[%center]
+image::RiskAnalysisTeams.png[width=90%,opts=center]
+
+
+=== Risk Tree Structure and Branches
+
+The following sections detail the major risk branches contributing to Team Creation Failure.
+
+=== 1. Validation & Constraint Risks (T1–T3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| T1 | Team created without required fields| Incomplete or unusable team records
+| T2 | Team size validation missing or incorrect | Teams with too many or too few members
+| T3 | Duplicate team names not prevented | Conflicting team identities in tournaments
+|===
+
+Mitigation strategies:
+* Enforce server-side validation of all required fields.
+* Apply unique constraints on team names.
+* Add UI-level validation to prevent incomplete form submissions.
+
+=== 2. Frontend–Backend Inconsistency Risks (F1–F3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| F1 | Mismatched field names or missing request data | Backend receives incomplete team data
+| F2 | UI indicates success but backend rejects creation | Users believe team exists when it does not
+| F3 | Team creation logic differs between frontend and API docs | Conflicting expectations when creating teams
+|===
+
+Mitigation strategies:
+* Synchronize API schemas through OpenAPI.
+* Require documentation updates for all team-related changes.
+* Add design-time and runtime request/response validation.
+
+=== 3. Member Management Risks (V1–V3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| V1 | User added to multiple teams simultaneously | Invalid tournament participation
+| V2 | Captain role not properly updated or validated | Teams created without leadership structure
+| V3 | Member removal/addition race conditions | Corrupted or duplicated roster entries
+|===
+
+Mitigation strategies:
+* Enforce membership exclusivity rules.
+* Validate captain assignment at both UI and backend layers.
+* Use database transactions when updating rosters.
+
+=== 4. Communication & Documentation Risks (C1–C3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| C1 | Unclear definitions of “team,” “captain,” or “member” | Incorrect assumptions by developers
+| C2 | Team size or eligibility rules not documented | Inconsistent enforcement across modules
+| C3 | Incomplete documentation on team update workflows | Incorrect implementation of roster operations
+|===
+
+Mitigation strategies:
+* Maintain a glossary for all team-related terminology.
+* Document constraints (size, eligibility, roles) in the wiki.
+* Track inconsistencies in the `#inconsistencies_channel`.
+
+=== 5. Data Integrity & Storage Risks (D1–D3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| D1 | Partial team data saved due to interrupted request | Broken team records
+| D2 | No unique constraints on team IDs or captain IDs | Duplicate or corrupted relationships
+| D3 | Outdated or cached team data overwritten | Loss of valid roster info
+|===
+
+Mitigation strategies:
+* Ensure atomic DB operations for team creation and updates.
+* Add unique and foreign-key constraints on team and user tables.
+* Use versioned updates or optimistic locking.
+
+=== Link to Lecture Topic Task: Identifying Inconsistencies
+
+Many risks originate from inconsistencies such as:
+
+* Terminological clashes: C1  
+* Structural mismatches: F1, D1  
+* Behavioral inconsistencies: F2, V1  
+* Process/documentation issues: C2, C3  
+
+This risk analysis supports the Identifying Inconsistencies task by showing exactly how mismatches propagate into invalid team states.
+
+=== Conclusion
+
+This risk analysis shows how *Team Creation Failure* can arise from validation errors, inconsistent cross-component communication, incorrect member management, or weak data integrity rules.  
+By identifying these risks and applying mitigation strategies, the Esports Organizer Manager improves the reliability of its team management and ensures consistent tournament operations.
+
