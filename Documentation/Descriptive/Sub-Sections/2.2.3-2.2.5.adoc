@@ -20,7 +20,7 @@
 - [.hl-yellow]#The system-to-be must provide the means to be able to search for user created events, teams, and communities, filtering these by keywords that might be contained in the item's name.#
 - [.hl-green]#The system-to-be must provide a way for users to join teams and communities they are not a part of and leave teams and communities they are a part of.#
 - [.hl-red]#The system-to-be must provide a means for users to join teams and communities of interest.#
-- [.hl-green]#The system-to-be must provide a way for the user to sign in/log into the website using and email and password.#
+- [.hl-green]#The system-to-be must provide a way for the user to sign in/log into the website using an email and password.#
 - [.hl-yellow]#If a community or team does not exist for a certain game or subject, the system-to-be must provide a way for the user to create one with the desired subject.#
 - [.hl-green]#The system-to-be must save and display the user's public information, such as the username, bio, and profile picture, in the user profile and provide a way to edit these as the user desires.#
 - [.hl-green]#The system-to-be must track a user's participated events and favourite games and accurately display these in the user's profile.#
