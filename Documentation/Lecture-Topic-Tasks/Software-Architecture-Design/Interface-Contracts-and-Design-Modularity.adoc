@@ -1,0 +1,46 @@
+= Interface Contracts and Design Modularity in Multi-Team Development 
+Sorimerlin Santos (Manager) 
+INSO4101-080
+
+== Introduction
+
+In software design, modularity allows complex systems to be broken into well-defined components that can evolve independently. The lecture emphasized that each module should expose only its essential interface and hide internal details to maintain system stability and reduce coordination overhead. During the Esports Organizer project, this concept was essential as five parallel teams (Database, Events, User Profiles, Communities and Social Features, and UI/UX) worked on interdependent functionalities that needed to integrate without conflicts.
+
+== Concept Overview
+
+Modularity refers to organizing a system into smaller, independent components that interact through well-defined interfaces. These interfaces are often governed by *interface contracts*—clear agreements about what each component provides and expects. The lecture explained that interface contracts reduce coupling between teams, allow parallel development, and support future refactoring.
+
+This design principle was key in preventing system fragmentation. The database team served as the backbone of all other modules and maintained strict interface expectations. Rather than accessing internal structures directly, teams relied on stable, documented endpoints and update formats.
+
+== Application in the Project
+
+We followed modular principles by splitting functionality across dedicated teams. Each team was responsible for their logic, interface, and internal updates. The database team, for example, collaborated with all others but ensured that interactions followed schema definitions and query patterns rather than internal data assumptions.
+
+UI/UX teams never altered backend behavior directly. Instead, they consumed APIs through well-defined data contracts. The same pattern applied to User Profiles and Events modules, which were allowed to change their internal processes as long as they respected the shared data interface.
+
+During integration, this modularity allowed us to detect mismatches early. Instead of debugging full systems, we could isolate issues to a specific interface violation. For example, the Events module could evolve its scheduling logic independently as long as the notification triggers followed the original timestamp format and access method.
+
+== My Contribution
+
+As project manager, I enforced this modular mindset:
+
+* Ensured each team documented their interface contracts and communicated planned updates ahead of time.
+* Coordinated regular integration checkpoints where each team demonstrated that their component still satisfied the system contract.
+* Required teams to inform others of changes to public interfaces before implementation began.
+* Mediated cross-team clarifications when ambiguity appeared in data formats or access behavior.
+* Encouraged teams to test their modules independently using dummy data that matched expected interface conditions.
+* Ensured the database team provided stable schemas and exposed only necessary tables and fields to collaborators.
+
+These practices reduced the risk of last-minute integration failures and supported flexible iteration across milestones.
+
+== Benefits
+
+* Allowed teams to work in parallel with minimal conflicts.  
+* Reduced rework caused by unexpected internal changes.  
+* Made system integration smoother and faster.  
+* Improved team accountability for interface quality.  
+* Promoted clear thinking around input/output expectations for every module.
+
+== Conclusion
+
+The lecture’s emphasis on modularity and interface contracts directly shaped how we structured and coordinated work in the Esports Organizer project. By treating each component as an independent module with strict public boundaries, we allowed teams to build, iterate, and evolve their parts confidently. These design strategies ensured system integrity and supported a scalable development process exactly as the software design principles intended.
