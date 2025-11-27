@@ -55,6 +55,8 @@ export default function TeamsPage() {
 
     if (!newTeamData.teamName.trim())
       newErrors.teamName = "Please input a team name";
+    if (newTeamData.teamName.trim().length > 15)
+      newErrors.teamName = "Too long!";
     if (!newTeamData.mainGame.trim())
       newErrors.mainGame = "Please pick a main game (or just pick your favorite!)";
 
@@ -64,19 +66,19 @@ export default function TeamsPage() {
 
   const userId = localStorage.getItem("uid");
 
-  useEffect(() => {
-    async function loadTeams() {
-      const query = search.trim().toLowerCase();
-      const allTeams = await Team.getAll();
-      if (!query) {
-        setTeams(allTeams);
-        return;
-      }
-      setTeams(allTeams.filter((team) => {
-        const haystack = `${team.name} ${team.game}`.toLowerCase();
-        return haystack.includes(query);
-      }));
+  async function loadTeams() {
+    const query = search.trim().toLowerCase();
+    const allTeams = await Team.getAll();
+    if (!query) {
+      setTeams(allTeams);
+      return;
     }
+    setTeams(allTeams.filter((team) => {
+      const haystack = `${team.name} ${team.game}`.toLowerCase();
+      return haystack.includes(query);
+    }));
+  }
+  useEffect(() => {
     loadTeams();
   }, [search]);
 
@@ -110,6 +112,8 @@ export default function TeamsPage() {
 
     // aaaand close the modal
     closeCreateModal();
+
+    setTimeout(() => loadTeams(), 1000);
   };
 
   useEffect(() => {
