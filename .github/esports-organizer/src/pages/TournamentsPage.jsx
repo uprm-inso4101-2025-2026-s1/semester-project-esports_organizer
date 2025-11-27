@@ -180,15 +180,37 @@ function TournamentsPage() {
   const handleJoin = async (event, team) => {
     const currentEvent = await getEventById(event.id);
     const currentUser = await getProfileById(localStorage.getItem("currentUserUid"));
+    const uid = currentUser.uid;
     currentEvent.addToTeam(team.name, currentUser);
     currentEvent.participants[currentUser.uid] = { //para que se sepa a quien mandarle notifs
       ...(currentEvent.participants[currentUser.uid] || {}),
       wantsNotifications: wantsNotifications
     };
     await currentEvent.UpdateEvent(currentEvent.id);
+
+    // Notificación inmediata debajo de la campanita
+    await addDoc(
+      collection(db, "User", uid, "notifications"),
+      {
+        title: "Event Joined",
+        message: `You joined "${currentEvent.title}"`,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+        read: false
+      }
+    );
+    console.log("Join notification saved to /User/<uid>/notifications");
+
+    // 🔔 POPUP VISUAL
+    window.dispatchEvent(
+      new CustomEvent("show-notification-popup", {
+        detail: `You joined "${currentEvent.title}"`
+      })
+    );
     
     // Add event to user's participated events
-    const uid = localStorage.getItem("currentUserUid");
+    //const uid = localStorage.getItem("currentUserUid");
     await addEventToUserProfile(uid, event.id, event.title);
     
     await loadEvents();
@@ -360,17 +382,43 @@ function TournamentsPage() {
                 </label>
               </div>
 
-              <button className="join-event-button" 
-              onClick={() => {
-                // se guarda en el evento seleccionado para que handleJoin la vea luego
+              <button 
+              className="join-event-button"
+              onClick={async () => {
+
+                const uid = localStorage.getItem("currentUserUid");
+
+                // 👉 1. Guardar notificación debajo de la campanita
+                await addDoc(
+                  collection(db, "User", uid, "notifications"),
+                  {
+                    title: "Event Update",
+                    message: `You are joining "${selectedEvent.title}"`,
+                    eventId: selectedEvent.id,
+                    eventTitle: selectedEvent.title,
+                    createdAt: serverTimestamp(),
+                    read: false
+                  }
+                );
+                console.log("Next-step notification saved in User/<uid>/notifications");
+
+                // 👉 2. Mostrar POPUP VISUAL
+                window.dispatchEvent(
+                  new CustomEvent("show-notification-popup", {
+                    detail: `You are joining "${selectedEvent.title}"`
+                  })
+                );
+
+                // 👉 3. Continuar al paso 2 del modal
                 if (selectedEvent) {
                   setSelectedEvent({ ...selectedEvent, wantsNotifications });
                 }
+
                 handleNext();
               }}
             >
               Next
-              </button>
+            </button>
             </div>
           )}
 
@@ -391,9 +439,12 @@ function TournamentsPage() {
                         <span className="team-name">{team.name}</span>
                         <span className="team-members">{team.members.length}/{team.capacity}</span>
                       </div>
-                      <button className="join-team-button"
-                        onClick={() => {handleJoin(selectedEvent, team)}}
-                      >Join Team</button>
+                      <button
+                        className="join-team-button"
+                        onClick={() => handleJoin(selectedEvent, team)}
+                      >
+                        Join Team
+                      </button>
                     </div>
                   ))}
                 </div>
