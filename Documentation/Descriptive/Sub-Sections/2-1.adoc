@@ -47,7 +47,11 @@ This section describes the essential components and interactions within an the e
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 
 Figure 2.1.1 – Tournament and Community Interaction Flow.
-This diagram illustrates the relationship between players, organizers, and communities. It shows how tournaments are advertised, how teams are formed and registered, and how interactions move from creation to competition within the ecosystem. Actions are the red diamonds and entities are the blue rectangles. 
+This diagram illustrates the relationship between players, organizers, and communities. In this diagram:
+- **Blue rectangles** represent entities (players, teams, organizers, communities).
+- **Red diamonds** represent actions (register, create, update, check-in, etc.).
+- **Arrows** indicate the flow of interactions or dependencies between entities and actions.
+If you want to focus on entities, a class diagram could be used, with relations labeled by the actions they enable. Since this is not a standard UML diagram, the graphical elements are explained above for clarity.
 
 === 2.1.2 Terminology
 - *Player*: An individual who registers on the platform to participate in esports tournaments.
@@ -70,71 +74,63 @@ This diagram illustrates the relationship between players, organizers, and commu
 
 [.hl-green]#This abstraction process establishes consistency across the documentation, allowing the same concept (e.g., “check-in”) to be used precisely throughout requirements, design, and implementation. It also enables closure, where each defined concept connects seamlessly to a corresponding function or entity in the system model (e.g., a Team object includes isConfirmed to represent check-in status).#
 
-=== 2.1.4 Narrative
 
-The esports tournament process begins with the organizer, who creates and publishes the tournament on the platform. The organizer defines important parameters such as the tournament name, format, ruleset, and registration window. Once registration opens, teams—created by players within communities—can submit their rosters. Each team must designate a captain, who serves as the primary contact for communications, match coordination, and administrative updates.
+=== 2.1.4 Expanded Narrative
 
-* [.hl-green]#During the registration phase, eligibility is verified (account status, ranking limits, and roster size). If the number of registered teams exceeds capacity, the extra teams are placed on a waitlist queue. When registration closes, the tournament bracket generation algorithm initializes:#
+The esports tournament domain is structured around several key concepts: tournaments, teams, matches, organizers, communities, and stages. A **stage** is a phase in the tournament lifecycle (e.g., registration, bracket generation, match play, results update, closure). Each stage has its own rules, actions, and transitions.
 
-* [.hl-green]#For single-elimination tournaments, the bracket is structured as a balanced binary tree, ensuring fair seeding based on rank or random assignment.#
+The process begins with an organizer announcing a tournament, specifying its format, rules, and registration window. Players form teams, designate captains, and register for the event. During the registration stage, eligibility is checked (account status, ranking, roster size). If too many teams register, a waitlist is created. When registration closes, the bracket is generated—often as a binary tree for single-elimination, or other structures for Swiss/round-robin formats. Teams may receive byes if the participant count is not a power of two.
 
-* Teams may receive byes if the total participant count is not a power of two.#
+As the tournament progresses through its stages, matches are played round by round. Winners advance to the next stage, losers are eliminated. After each match, results are updated, scores are recorded, and tiebreakers may be applied. The final stage is closure, where results are published and rankings updated. Throughout, communities and spectators follow progress, and organizers manage logistics and communications.
 
-[.hl-green]#As the event progresses, matches are conducted round by round. Winners advance automatically to the next stage, while losers are eliminated. After every match, results are updated in real time through the system’s front end, using listeners or state updates that propagate score and bracket changes across the platform. Once the final match concludes, the tournament state transitions to “closed,” and the results are recorded for ranking and statistical purposes.#
+The narrative covers the full lifecycle, emphasizing how each stage (registration, bracket generation, match play, results, closure) plays a distinct role in the domain. The concept of "stage" is central: it structures the flow, determines available actions, and governs transitions between phases.
 
-[.hl-green]#This process represents the complete lifecycle of an esports competition, integrating the behaviors of players, teams, and organizers into a unified flow that the platform supports and tracks programmatically.#
 
-=== 2.1.5 Concepts Involving Events, Actions, Behaviors
-[.hl-green]#Events, actions, and behaviors are all concepts within the system, just like entities (e.g., team, tournament, match). They are types of dynamic phenomena/concepts that occur in the esports tournament platform and often trigger or influence one another.#
+=== 2.1.5 Unified Domain Concepts and Operations
 
-* [.hl-yellow]#Event (instantaneous state change, often triggering action)#
-** [.hl-yellow]#"Team registration window closes: At the exact deadline, the platform marks registration as closed and prevents new teams from joining."#
-** [.hl-yellow]#"Match #3 has been completed with a score of 2–1: This event triggers bracket updates and ranking point calculations."#
-** [.hl-yellow]#"Tournament bracket successfully generated: Once all eligible teams are confirmed, the system produces the initial bracket. This event makes match schedules visible to teams and spectators."#
-** [.hl-yellow]#"Player connection lost during match: The system detects a disconnection and logs it. Depending on tournament rules, it may trigger a pause request or automatic forfeit."#
-** [.hl-yellow]#"Roster update deadline reached: After this timestamp, no further roster substitutions".#
+Entities, actions, events, and behaviors are all phenomena in the esports domain. They are not separated into distinct sections, but are described together to show how they interact and support domain observations.
 
-* Action (an act carried out once)
-** [.hl-green]#Create a tournament: An organizer sets the name, game title, ruleset, schedule and registration deadline.#
-** [.hl-yellow]#Register a team: a captain submits the team's name, roster, region, and other required data to participate in a specific tournament.#
-** [.hl-green]#Generate tournament bracket: The system arranges matchups based on seeding rules or random assignments and stores them in the tournament data.#
-** [.hl-green]#Assign a team captain: A team member is designated as captain; this action updates permissions and allows roster management.#
+- **Entities**: Team, Tournament, Match, Player, Organizer, Community, Stage
+- **Actions/Operations**: Create tournament, register team, generate bracket, assign captain, update match result, record forfeit, send notification, perform map veto, check-in team
+- **Events**: Registration window closes, match completed, bracket generated, player disconnect, roster update deadline reached
+- **Behaviors**: Run tournament flow, handle registration, update bracket progression, manage real-time updates
 
-[.hl-green]#Update match results.#
+Each action/operation is paired with its function signature, showing how it expresses domain observations. For example:
 
-** Record a forfeit.
+* **registerTeam(team, tournament)**: Used when a team registers for a tournament. The function requires a team and a tournament; teams are created by players, tournaments by organizers. If you need a team, use a function like `createTeam(player, name, ...)` (not shown here, but implied by the domain).
+* **updateTeamScore(teamID, points)**: Updates a team's score. Points may be produced by match results, so the function should clarify where points come from (e.g., `recordMatchResult` returns points). If you have only a teamID, you may need to resolve it to a team object via the tournament or a lookup function. Alternatively, `updateTeamScore` could take a team object directly, or the Match object could be responsible for updating scores for all teams involved.
 
-** [.hl-green]#Send notification to players.#
+These decisions require discussion and negotiation among the project team. For example, should `updateTeamScore` take a teamID or a team object? Should the Match object update scores for all teams? Each approach has tradeoffs and may require changes to the implementation. The function signatures are grouped with their actions/operations to clarify how they support domain scenarios.
 
-** Perform map veto.
 
-* Behavior (multi-step process composed of actions/events)
+=== 2.1.6 Function Signatures (Grouped with Actions)
 
-** [.hl-green]#Run Tournament Flow: Create → Register → Generate Bracket → Conduct Matches → Update Results → Close Tournament.#
-** [.hl-green]#Handle Registration: Check eligibility → Validate team → Add to confirmed or waitlist → Confirm participation.#
-** [.hl-green]#Update Bracket Progression: Identify match → Update scores → Propagate winners to the next match → Refresh tournament state.#
-** [.hl-green]#Manage Real-Time Updates: Listen for database changes → Trigger UI updates → Re-render bracket with new data.#
+Function signatures define how operations are represented programmatically, describing inputs, outputs, and failure conditions. They are grouped with their corresponding actions/operations to clarify how they support domain scenarios and observations.
 
-[.hl-green]#These behavioral groupings form the operational backbone of the esports system. Each process is modeled to support agile and event-driven design principles, ensuring the platform reacts to real-time changes (e.g., new registrations, match completions, or team updates) without manual intervention.#
 
-=== 2.1.6 Function Signatures
-[.hl-green]#Function signatures define how the system’s operations are represented programmatically, describing inputs, outputs, and failure conditions. Derived from the registration, bracket generation, and update logic described in the reference file, the following function abstractions represent key behaviors in the tournament system:#
-
-* [.hl-green]#createTournament(organizer, name, format, maxSlots, rules) → Tournament | Failure
-Creates a new tournament entry with defined parameters.#
-* [.hl-green]#registerTeam(team, tournament) → Confirmation | Waitlist | Denied
-Registers a team if it meets eligibility requirements and if slots are available.#
-* [.hl-green]#generateBrackets(tournament) → BracketStructure | Failure
-Creates a bracket layout based on participant count and format (single/double elimination).#
-* [.hl-green]#recordMatchResult(matchID, winnerID, score) → UpdatedBracket | Failure
-Updates match data and propagates the winning team to the next round.#
-* [.hl-green]#updateTeamScore(teamID, points) → UpdatedTeam | Failure
-Adjusts a team’s total score and updates leaderboard standings.#
-* [.hl-green]#checkInTeam(teamID, tournamentID) → StatusUpdated | Timeout
-Verifies attendance before match start; returns timeout if grace period expires.#
-
-[.hl-green]#Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.#
-
-[figure]
-.Account creation (general)
 image::account_creation.png[Account creation flow,scaledwidth=60%]
+Figure 2.1.2-Account Creation Flow 
+
+* **createTournament(organizer, name, format, maxSlots, rules) → Tournament | Failure**
+	- Creates a new tournament entry with defined parameters.
+* **registerTeam(team, tournament) → Confirmation | Waitlist | Denied**
+	- Registers a team if it meets eligibility requirements and if slots are available.
+
+image::Visual diagram of state transitions.png[align=center]
+Figure 2.1.3 - Example registration flow
+
+* **generateBrackets(tournament) → BracketStructure | Failure**
+	- Creates a bracket layout based on participant count and format (single/double elimination).
+* **recordMatchResult(matchID, winnerID, score) → UpdatedBracket | Failure**
+	- Updates match data and propagates the winning team to the next round.
+* **updateTeamScore(teamID, points) → UpdatedTeam | Failure**
+	- Adjusts a team’s total score and updates leaderboard standings. Points are produced by match results.
+* **checkInTeam(teamID, tournamentID) → StatusUpdated | Timeout**
+	- Verifies attendance before match start; returns timeout if grace period expires.
+    
+image::image1.png[align=center]
+Figure 2.1.4 -Example check in flow
+
+Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
+
+Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.
