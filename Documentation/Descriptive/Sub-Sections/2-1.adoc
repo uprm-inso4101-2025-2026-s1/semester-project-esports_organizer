@@ -47,11 +47,11 @@ This section describes the essential components and interactions within an the e
 image::Simple_Example_Flowchart_Communities.JPG[align=center]
 
 Figure 2.1.1 – Tournament and Community Interaction Flow.
-This diagram illustrates the relationship between players, organizers, and communities. In this diagram:
+[.hl-yellow]#This diagram illustrates the relationship between players, organizers, and communities. In this diagram:
 - **Blue rectangles** represent entities (players, teams, organizers, communities).
 - **Red diamonds** represent actions (register, create, update, check-in, etc.).
 - **Arrows** indicate the flow of interactions or dependencies between entities and actions.
-If you want to focus on entities, a class diagram could be used, with relations labeled by the actions they enable. Since this is not a standard UML diagram, the graphical elements are explained above for clarity.
+If you want to focus on entities, a class diagram could be used, with relations labeled by the actions they enable. Since this is not a standard UML diagram, the graphical elements are explained above for clarity.#
 
 === 2.1.2 Terminology
 - *Player*: An individual who registers on the platform to participate in esports tournaments.
@@ -77,18 +77,21 @@ If you want to focus on entities, a class diagram could be used, with relations 
 
 === 2.1.4 Expanded Narrative
 
-The esports tournament domain is structured around several key concepts: tournaments, teams, matches, organizers, communities, and stages. A **stage** is a phase in the tournament lifecycle (e.g., registration, bracket generation, match play, results update, closure). Each stage has its own rules, actions, and transitions.
+[.hl-yellow]#The esports tournament domain is structured around several key concepts: tournaments, teams, matches, organizers, communities, and stages. A **stage** is a phase in the tournament lifecycle (e.g., registration, bracket generation, match play, results update, closure). Each stage has its own rules, actions, and transitions.#
 
-The process begins with an organizer announcing a tournament, specifying its format, rules, and registration window. Players form teams, designate captains, and register for the event. During the registration stage, eligibility is checked (account status, ranking, roster size). If too many teams register, a waitlist is created. When registration closes, the bracket is generated—often as a binary tree for single-elimination, or other structures for Swiss/round-robin formats. Teams may receive byes if the participant count is not a power of two.
+* [.hl-red]#For single-elimination tournaments, the bracket is structured as a balanced binary tree, ensuring fair seeding based on rank or random assignment.#
 
-As the tournament progresses through its stages, matches are played round by round. Winners advance to the next stage, losers are eliminated. After each match, results are updated, scores are recorded, and tiebreakers may be applied. The final stage is closure, where results are published and rankings updated. Throughout, communities and spectators follow progress, and organizers manage logistics and communications.
+[.hl-green]#The process begins with an organizer announcing a tournament, specifying its format, rules, and registration window. Players form teams, designate captains, and register for the event. During the registration stage, eligibility is checked (account status, ranking, roster size). If too many teams register, a waitlist is created. When registration closes, the bracket is generated—often as a binary tree for single-elimination, or other structures for Swiss/round-robin formats. Teams may receive byes if the participant count is not a power of two.#
 
-The narrative covers the full lifecycle, emphasizing how each stage (registration, bracket generation, match play, results, closure) plays a distinct role in the domain. The concept of "stage" is central: it structures the flow, determines available actions, and governs transitions between phases.
+* [.hl-red]#Teams may receive byes if the total participant count is not a power of two.#
+[.hl-green]#As the tournament progresses through its stages, matches are played round by round. Winners advance to the next stage, losers are eliminated. After each match, results are updated, scores are recorded, and tiebreakers may be applied. The final stage is closure, where results are published and rankings updated. Throughout, communities and spectators follow progress, and organizers manage logistics and communications.#
+
+[.hl-yellow]#The narrative covers the full lifecycle, emphasizing how each stage (registration, bracket generation, match play, results, closure) plays a distinct role in the domain. The concept of "stage" is central: it structures the flow, determines available actions, and governs transitions between phases.#
 
 
 === 2.1.5 Unified Domain Concepts and Operations
 
-Entities, actions, events, and behaviors are all phenomena in the esports domain. They are not separated into distinct sections, but are described together to show how they interact and support domain observations.
+[.hl-yellow]#Entities, actions, events, and behaviors are all phenomena in the esports domain. They are not separated into distinct sections, but are described together to show how they interact and support domain observations.
 
 - **Entities**: Team, Tournament, Match, Player, Organizer, Community, Stage
 - **Actions/Operations**: Create tournament, register team, generate bracket, assign captain, update match result, record forfeit, send notification, perform map veto, check-in team
@@ -133,4 +136,4 @@ Figure 2.1.4 -Example check in flow
 
 Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
 
-Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.
+Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.#
