@@ -86,15 +86,50 @@ function PlayerProfile() {
   // Load participated events on mount
   useEffect(() => {
     const loadParticipatedEvents = async () => {
-      const currentUid = localStorage.getItem("currentUserUid");
+      const currentUid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      console.log("PlayerProfile - Loading participated events for uid:", currentUid);
       if (currentUid) {
         const result = await getUserParticipatedEvents(currentUid);
-        if (result.success) {
+        console.log("PlayerProfile - getUserParticipatedEvents result:", result);
+        if (result && result.success && result.data) {
+          console.log("PlayerProfile - Setting participatedEvents to:", result.data);
           setParticipatedEvents(result.data);
+        } else if (result && result.data && Array.isArray(result.data)) {
+          console.log("PlayerProfile - Setting participatedEvents (non-standard format) to:", result.data);
+          setParticipatedEvents(result.data);
+        } else {
+          console.warn("PlayerProfile - No events found or error:", result);
+          setParticipatedEvents([]);
         }
+      } else {
+        console.warn("PlayerProfile - No uid found in localStorage");
       }
     };
     loadParticipatedEvents();
+  }, []);
+
+  // Listen for global updates when participated events change elsewhere in the app
+  useEffect(() => {
+    const handler = async (e) => {
+      console.log("PlayerProfile - participatedEventsUpdated event received");
+      try {
+        const currentUid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+        if (!currentUid) {
+          console.warn("PlayerProfile - No uid found for refresh");
+          return;
+        }
+        const result = await getUserParticipatedEvents(currentUid);
+        console.log("PlayerProfile - refresh after participatedEventsUpdated:", result);
+        if (result && result.success && result.data) {
+          setParticipatedEvents(result.data);
+        }
+      } catch (err) {
+        console.error("PlayerProfile - Error refreshing participated events:", err);
+      }
+    };
+
+    window.addEventListener('participatedEventsUpdated', handler);
+    return () => window.removeEventListener('participatedEventsUpdated', handler);
   }, []);
 
   // Edit mode handlers

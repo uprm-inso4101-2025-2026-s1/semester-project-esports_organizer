@@ -190,46 +190,50 @@ export async function deleteProfile(uid, currentUserRole = 'player') {
 */
 export async function addEventToUserProfile(uid, eventId, eventTitle) {
  if (!uid || !eventId || !eventTitle) {
+   console.error("addEventToUserProfile - Missing required params. uid:", uid, "eventId:", eventId, "eventTitle:", eventTitle);
    return { success: false, error: 'uid, eventId, and eventTitle are required.' };
  }
 
-
  try {
+   console.log("addEventToUserProfile - Starting. uid:", uid, "eventId:", eventId, "eventTitle:", eventTitle);
    const ref = doc(db, 'User', uid);
    const snap = await getDoc(ref);
 
-
    if (!snap.exists()) {
+     console.error("addEventToUserProfile - Profile not found for uid:", uid);
      return { success: false, error: 'Profile not found.' };
    }
 
-
    const currentData = snap.data();
+   console.log("addEventToUserProfile - Current user data:", currentData);
+   
    const participatedEvents = currentData.participatedEvents || [];
-
+   console.log("addEventToUserProfile - Current participatedEvents:", participatedEvents);
 
    // Check if user already joined this event
    if (participatedEvents.some(event => event.id === eventId)) {
+     console.warn("addEventToUserProfile - User already joined this event. eventId:", eventId);
      return { success: false, message: 'User already joined this event.' };
    }
 
-
    // Add new event to the list
-   participatedEvents.push({
+   const newEvent = {
      id: eventId,
-     title: eventTitle,
-     joinedAt: serverTimestamp()
-   });
-
+     title: eventTitle
+   };
+   participatedEvents.push(newEvent);
+   console.log("addEventToUserProfile - New event object:", newEvent);
+   console.log("addEventToUserProfile - Updated participatedEvents array:", participatedEvents);
 
    await updateDoc(ref, {
      participatedEvents,
      updatedAt: serverTimestamp()
    });
-
-
+   
+   console.log("addEventToUserProfile - Successfully updated Firestore. uid:", uid, "eventId:", eventId);
    return { success: true, message: 'Event added to user profile.' };
  } catch (error) {
+   console.error("addEventToUserProfile - Error:", error);
    return { success: false, error: error.message };
  }
 }
@@ -242,23 +246,29 @@ export async function addEventToUserProfile(uid, eventId, eventTitle) {
 */
 export async function getUserParticipatedEvents(uid) {
  if (!uid) {
+   console.error("getUserParticipatedEvents - uid is required");
    return { success: false, error: 'uid is required.' };
  }
 
-
  try {
+   console.log("getUserParticipatedEvents - Fetching for uid:", uid);
    const ref = doc(db, 'User', uid);
    const snap = await getDoc(ref);
 
-
    if (!snap.exists()) {
+     console.warn("getUserParticipatedEvents - Profile not found for uid:", uid);
      return { success: false, error: 'Profile not found.' };
    }
 
-
-   const participatedEvents = snap.data().participatedEvents || [];
+   const userData = snap.data();
+   console.log("getUserParticipatedEvents - User data from Firestore:", userData);
+   
+   const participatedEvents = userData.participatedEvents || [];
+   console.log("getUserParticipatedEvents - Returning events:", participatedEvents);
+   
    return { success: true, data: participatedEvents };
  } catch (error) {
+   console.error("getUserParticipatedEvents - Error:", error);
    return { success: false, error: error.message };
  }
 }
