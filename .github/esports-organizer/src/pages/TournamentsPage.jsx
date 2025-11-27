@@ -203,13 +203,14 @@ function TournamentsPage() {
           `⏰ Time: ${timeStr}\n` +
           `🎮 Game: ${currentEvent.game}\n` +
           `📍 Location: ${currentEvent.location}`,
+        type: "info",    
+        userId: uid,
         eventId: currentEvent.id,
         eventTitle: currentEvent.title,
         createdAt: serverTimestamp(),
-        read: false
       }
     );
-    console.log("Join notification saved to /User/<uid>/notifications");
+    console.log("Saved to /notifications for Notification History Page");
 
     // 🔔 POPUP VISUAL
     window.dispatchEvent(
@@ -395,27 +396,46 @@ function TournamentsPage() {
               className="join-event-button"
               onClick={async () => {
 
-                const uid = localStorage.getItem("currentUserUid");
+              const uid = localStorage.getItem("currentUserUid");
 
-                await addDoc(
-                  collection(db, "User", uid, "notifications"),
-                  {
-                    title: "Joining event...",
-                    message:
-                      `Preparing to join "${selectedEvent.title}"\n` +
-                      `📅 Date: ${selectedEvent.date}\n` +
-                      `🎮 Game: ${selectedEvent.game}\n` +
-                      `📍 Location: ${selectedEvent.location}`,
-                    eventId: selectedEvent.id,
-                    eventTitle: selectedEvent.title,
-                    createdAt: serverTimestamp(),
-                    read: false
-                  }
-                );
+              await addDoc(
+                collection(db, "User", uid, "notifications"),
+                {
+                  title: "Joining event...",
+                  message:
+                    `Preparing to join "${selectedEvent.title}"\n` +
+                    `📅 Date: ${selectedEvent.date}\n` +
+                    `🎮 Game: ${selectedEvent.game}\n` +
+                    `📍 Location: ${selectedEvent.location}`,
+                  type: "info",
+                  userID: uid,
+                  eventId: selectedEvent.id,
+                  eventTitle: selectedEvent.title,
+                  createdAt: serverTimestamp(),
+                }
+              );
+              
+              console.log("Next-step notification saved in /User/<uid>/notifications");
+
                 
-                console.log("Next-step notification saved");
-                console.log("Next-step notification saved in User/<uid>/notifications");
+              await addDoc(
+                collection(db, "notifications"),
+                {
+                  title: "Joining event...",
+                  message:
+                    `Preparing to join "${selectedEvent.title}"\n` +
+                    `📅 Date: ${selectedEvent.date}\n` +
+                    `🎮 Game: ${selectedEvent.game}\n` +
+                    `📍 Location: ${selectedEvent.location}`,
+                  type: "info",
+                  userID: uid,
+                  eventId: selectedEvent.id,
+                  eventTitle: selectedEvent.title,
+                  createdAt: serverTimestamp(),
+                }
+              );
 
+              console.log("Next-step notification saved in GLOBAL /notifications");
                 
                 window.dispatchEvent(
                   new CustomEvent("show-notification-popup", {
