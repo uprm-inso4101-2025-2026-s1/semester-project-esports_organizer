@@ -37,9 +37,9 @@ inclusivity and adaptability.
 [.hl-green]#**Architecture Diagram:**#
 [.hl-green]#The following UML/Architecture diagram illustrates how the Profiles module connects the frontend React client with the backend API, Firebase Authentication, Firestore, and related modules.#
 
-.Image: Profiles Module Architecture (Milestone 2)
-
-image::profiles_architecture.svg[align=center]
+image::Descriptive/Sub-Sections/profiles_architecture.svg[align=center]
+[.text-center]
+Figure 2.3 - Profiles Module Architecture (Milestone 2)
 
 Diagrams and screen mockups complement the text:
 

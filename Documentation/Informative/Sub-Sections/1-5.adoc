@@ -6,7 +6,9 @@ In addition to its main goals of centralizing event discovery, simplifying regis
 * Encourage partnerships among various gaming communities [.hl-green]#to help them connect and work together beyond a single tournament or event.#
 * Support the learning process and skill development for players and teams [.hl-green]#by giving structure and feedback that help them improve over time.#
 * Raise consciousness about esports culture and its values [.hl-green]#as a positive social and educational influence beyond event hosting.#
+* [.hl-green]#Promote healthy digital behavior by reinforcing respectful communication and balanced competitive practices across communities.#
+* [.hl-green]#Expand opportunities for new organizers by giving emerging leaders simple tools to host events and participate in community growth.#
 
-[.hl-green]#These derived goals differ from the main objectives: while the primary goals focus on making the platform functional and accessible, the derived ones lead to broader cultural, educational, and social benefits for the esports community.#
+[.hl-green]#These derived goals differ from the main objectives: while the primary goals focus on making the platform functional and accessible,# [.hl-yellow]#the derived goals lead to independent cultural, educational, and social outcomes that are valuable for the esports community.#
 
 [.hl-red]#These derived goals add value beyond the platform's main purpose, helping to strengthen communities, improve collaboration, and build long-term engagement in esports.#

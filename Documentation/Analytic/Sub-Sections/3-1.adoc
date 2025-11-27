@@ -32,7 +32,9 @@ The "3rd place" and "ranking across events" statements show that *Competition Re
 
 [.hl-green]#Derived from: "people who play Tekken" versus "organize tournaments" and "track results from multiple events" distinguish recreational players from competitive participants who engage in structured competition.#
 
-image::database_wrapper_diagram.png[align=center]
+image::Analytic/Sub-Sections/database_wrapper_diagram.png[align=center]
+[.text-center]
+Figure 3.1 - Data architecture
 
 [.hl-green]#The diagram above illustrates our system's data architecture, which directly implements the domain concepts identified in our analysis. The architecture consists of four primary components:#
 
