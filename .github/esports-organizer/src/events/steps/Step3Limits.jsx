@@ -19,7 +19,7 @@ export default function Step3Limits({ data, onNext, onBack }) {
 
   function handleNext() {
     if (!maxTeams || !maxPlayersPerTeam) return alert("Both fields required");
-    onNext({ maxTeams, maxPlayersPerTeam, community: community.toFirestore() });
+    onNext({ maxTeams, maxPlayersPerTeam, community: community ? community.toFirestore() : null });
   }
 
   return (
