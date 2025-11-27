@@ -35,9 +35,9 @@ export async function saveProfile(profileData) {
    Question: profileData.Question,
    Answer: profileData.Answer,
    teamId: null,
-   createdAt: serverTimestamp()
+   createdAt: serverTimestamp(),
+   participatedEvents: [],
  });
-
 
  localStorage.setItem("currentUserUid", uniqueId);
  return { success: true, uid: uniqueId };

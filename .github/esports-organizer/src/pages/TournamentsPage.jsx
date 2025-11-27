@@ -138,7 +138,7 @@ function TournamentsPage() {
   }, [showJoinModal]); 
 
   //Notifications
-  const userId = 'demoUser123';
+  const userId = localStorage.getItem('currentUserUid');
 
   const sendJoinNotification = async (eventTitle) => {
     try {
@@ -146,6 +146,10 @@ function TournamentsPage() {
         message: `You joined the event "${eventTitle}" `,
         createdAt: serverTimestamp(),
         read: false,
+      });
+      await addDoc(collection(db, 'User', userId, 'participatedEvents'), {
+        event: eventTitle,
+        createxAt: serverTimestamp(),
       });
       console.log('Notification sent');
     } catch (error) {
