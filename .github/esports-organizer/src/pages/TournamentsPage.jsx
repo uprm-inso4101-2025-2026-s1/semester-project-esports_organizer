@@ -9,8 +9,8 @@ import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { checkUserPermission } from "../Roles/checkUserPermission";
 import Event from "../events/EventClass";
-import SubTeamCreationMenu from "./SubTeamCreationMenu.jsx";
 import { getProfileById, addEventToUserProfile } from "../services/profile-service.js";
+import Team from "../services/TeamClass.js";
 
 async function getEventById(eventID) {
   const data = await Event.ListEvents();
@@ -38,7 +38,7 @@ async function getEventById(eventID) {
 function PageHeader({search, setSearch, handleCreateEvent}) {
   return (
     // <section className="page-header">
-    <section className={"page-header" + (console.log("rendered page header"), "")}>
+    <section className={"page-header"}>
       <div className="page-header-content">
         <h1 className="page-title">EVENTS</h1>
         <div className="search-and-create-container">
@@ -85,13 +85,26 @@ function TournamentsPage() {
   const location = useLocation();
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
+  const [showNoTeamModal, setShowNoTeamModal] = useState(false);
+  const [alertModal, setAlertModal] = useState({ open: false, title: '', message: '', actions: [] });
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [search, setSearch] = useState("");
   const[events, setEvents] = useState([]);
 
-  // Sub Team creation menu States
-  const [menuOpen, setMenuOpen] = useState(false);
   const [wantsNotifications, setWantsNotifications] = useState(true);
+  const [userTeam, setUserTeam] = useState(null);
+
+  const [userTeamId, setUserTeamId] = useState(null);
+  useEffect(() => {
+    async function fetchUserProfile() {
+      const uid = localStorage.getItem("currentUserUid");
+      if (uid) {
+        const profile = await getProfileById(uid);
+        setUserTeamId(profile?.teamId || null);
+      }
+    }
+    fetchUserProfile();
+  });
 
   async function loadEvents() {
       const data = await Event.ListEvents();
@@ -174,116 +187,174 @@ function TournamentsPage() {
     setSavedCards(prev => toggleSetItem(prev, cardId));
   };
 
-  const handleJoinEvent = (event) => {
-    setSelectedEvent(event);
-    setShowJoinModal(true);
+  // Load user profile and team information
+  useEffect(() => {
+    async function loadUserTeam() {
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      if (uid) {
+        try {
+          const profile = await getProfileById(uid);
+          // setUserProfile(profile);
+          
+          if (profile && profile.teamId) {
+            const team = await Team.getById(profile.teamId);
+            setUserTeam(team);
+          }
+        } catch (error) {
+          console.error("Error loading user team:", error);
+        }
+      }
+    }
+    
+    loadUserTeam();
+  }, []);
+
+  const handleJoinEvent = async (event) => {
+    const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+    if (!uid) {
+      setAlertModal({
+        open: true,
+        title: "Login Required",
+        message: "Please log in to join events.",
+        actions: [
+          { text: "OK", variant: "primary", onClick: () => setAlertModal({ ...alertModal, open: false }) }
+        ]
+      });
+      return;
+    }
+
+    try {
+      const profile = await getProfileById(uid);
+      if (!profile) {
+        setAlertModal({
+          open: true,
+          title: "Profile Not Found",
+          message: "User profile not found. Please log in again.",
+          actions: [
+            { text: "OK", variant: "primary", onClick: () => setAlertModal({ ...alertModal, open: false }) }
+          ]
+        });
+        return;
+      }
+
+      if (!profile.teamId) {
+        setShowNoTeamModal(true);
+        return;
+      }
+
+      const team = await Team.getById(profile.teamId);
+      if (!team) {
+        setShowNoTeamModal(true);
+        return;
+      }
+
+      // Check if the team is already in the event
+      const currentEvent = await getEventById(event.id);
+      const teamAlreadyInEvent = currentEvent.teams.some(eventTeam => 
+        eventTeam.name === team.teamName && 
+        eventTeam.members.some(member => member.uid === uid)
+      );
+
+      if (teamAlreadyInEvent) {
+        setAlertModal({
+          open: true,
+          title: "Already Participating",
+          message: `Your team "${team.teamName}" is already participating in this event.`,
+          actions: [
+            { text: "OK", variant: "primary", onClick: () => setAlertModal({ ...alertModal, open: false }) }
+          ]
+        });
+        return;
+      }
+
+      setUserTeam(team);
+      setSelectedEvent(event);
+      setShowJoinModal(true);
+    } catch (error) {
+      console.error("Error checking user team:", error);
+      setAlertModal({
+        open: true,
+        title: "Error",
+        message: "Error checking your team information. Please try again.",
+        actions: [
+          { text: "OK", variant: "primary", onClick: () => setAlertModal({ ...alertModal, open: false }) }
+        ]
+      });
+    }
   };
 
   const handleJoin = async (event, team) => {
     try {
-      console.log("=== handleJoin START ===");
-      console.log("Event:", event);
-      console.log("Team:", team);
-      
       const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
-      console.log("Current uid from localStorage:", uid);
       
       const currentEvent = await getEventById(event.id);
-      console.log("Retrieved current event:", currentEvent);
       
       const currentUser = await getProfileById(uid);
-      console.log("Retrieved current user profile:", currentUser);
-      
+
       if (!currentUser) {
-        console.error("ERROR: User profile not found for uid:", uid);
-        alert("Error: Your profile was not found. Please log in again.");
+        setAlertModal({
+          open: true,
+          title: "Profile Not Found",
+          message: "Error: Your profile was not found. Please log in again.",
+          actions: [
+            { text: "OK", variant: "primary", onClick: () => setAlertModal({ ...alertModal, open: false }) }
+          ]
+        });
         return;
       }
-      
+
       if (!currentUser.uid) {
         currentUser.uid = uid;
       }
-      console.log("User to add to team:", currentUser);
-      
+
       currentEvent.addToTeam(team.name, currentUser);
-      console.log("Team members after adding user:", currentEvent.teams);
-      
+      currentEvent.teams.push(userTeamId);
+      currentEvent.UpdateEvent();
       currentEvent.participants[currentUser.uid] = {
         ...(currentEvent.participants[currentUser.uid] || {}),
         wantsNotifications: wantsNotifications
       };
-      
+
       await currentEvent.UpdateEvent(currentEvent.id);
-      console.log("Event updated in Firestore");
-      
-      // Add event to user's participated events
-      console.log("Adding event to user profile. uid:", uid, "eventId:", event.id, "eventTitle:", event.title);
+
       const addResult = await addEventToUserProfile(uid, event.id, event.title);
-      console.log("addEventToUserProfile result:", addResult);
-      
+
       if (!addResult || !addResult.success) {
-        console.error("ERROR: Failed to add event to user profile:", addResult);
-        alert("Event added to team but failed to update your profile. Please refresh.");
+        console.log(addResult);
+        setAlertModal({
+          open: true,
+          title: "Profile Update Failed",
+          message: "Event added to team but failed to update your profile. Please refresh.",
+          actions: [
+            { text: "OK", variant: "primary", onClick: () => { setAlertModal({ ...alertModal, open: false }); window.location.reload(); } }
+          ]
+        });
         return;
       }
-      
-      console.log("Dispatching participatedEventsUpdated event");
-      window.dispatchEvent(new Event('participatedEventsUpdated'));
-      
+      window.dispatchEvent(new globalThis.Event('participatedEventsUpdated'));
+      await sendJoinNotification(event.title);
       await loadEvents();
-      const updatedEvent = await getEventById(currentEvent.id);
-
-      const selected = {
-        id: updatedEvent.id,
-        title: updatedEvent.title,
-        game: updatedEvent.game,
-        price: "Free",
-        date: updatedEvent.dateValue.toDateString(),
-        location: updatedEvent.location,
-        dateValue: updatedEvent.dateValue,
-        participants: updatedEvent.participants,
-        teams: updatedEvent.teams,
-        maxTeams: updatedEvent.maxTeams,
-        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
-      }
-
-      setSelectedEvent(selected);
-      console.log("=== handleJoin COMPLETE ===");
+      closeModal();
+      console.log(`Successfully joined "${event.title}" with team "${team.name}!"`);
     } catch (error) {
-      console.error("=== handleJoin ERROR ===", error);
-      alert("Error joining event: " + error.message);
+      setAlertModal({
+        open: true,
+        title: "Error Joining Event",
+        message: "Error joining event: " + error.message,
+        actions: [
+          { text: "OK", variant: "primary", onClick: () => setAlertModal({ ...alertModal, open: false }) }
+        ]
+      });
     }
   }
 
-  const handleCreateTeam = async (event, teamName) => {
-    const currentEvent = await getEventById(event.id);
-    currentEvent.addTeam({name: teamName});
-    await currentEvent.UpdateEvent(currentEvent.id);
-    await loadEvents();
-
-    const updatedEvent = await getEventById(currentEvent.id);
-
-    const selected = {
-        id: updatedEvent.id,
-        title: updatedEvent.title,
-        game: updatedEvent.game,
-        price: "Free",
-        date: updatedEvent.dateValue.toDateString(),
-        location: updatedEvent.location,
-
-        dateValue: updatedEvent.dateValue,
-        participants: updatedEvent.participants,
-        teams: updatedEvent.teams,
-        maxTeams: updatedEvent.maxTeams,
-        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
-      }
-
-    setSelectedEvent(selected);
-  }
 
   const closeModal = () => {
     setShowJoinModal(false);
     setSelectedEvent(null);
+  };
+  const closeNoTeamModal = () => {
+    setShowNoTeamModal(false);
   };
 
   const handleCreateEvent = () => {
@@ -297,16 +368,17 @@ function TournamentsPage() {
       <div className="section-container">
         <h2 className="section-subtitle">RECOMMENDED EVENTS</h2>
         <div className="recommended-cards">
-          {recommendedEvents.map((tournament, index) => (
-            <TournamentCard 
+          {recommendedEvents.map((tournament, index) => {
+            return <TournamentCard 
               key={tournament.id} 
               tournament={tournament} 
               index={index}
               isSaved={savedCards.has(index)}
               onToggleSaved={toggleSaved}
               onJoinEvent={handleJoinEvent}
-            />
-          ))}
+              userTeam={userTeam}
+            />;
+          })}
         </div>
       </div>
     </section>
@@ -327,6 +399,7 @@ function TournamentsPage() {
               isSaved={savedCards.has(index)}
               onToggleSaved={toggleSaved}
               onJoinEvent={() => handleJoinEvent(tournament)}
+              userTeam={userTeam}
             />
           ))}
         </div>
@@ -371,24 +444,57 @@ function TournamentsPage() {
           <div className="modal-form-section">
             <h3 className="form-title">JOIN EVENT</h3>
 
-            <div className="teams-container">
-              <div className="teams-list">
-                {selectedEvent.teams.map((team, index) => (
-                  <div key={index} className="team-item">
-                    <div className="team-info">
-                      <span className="team-name">{team.name}</span>
-                      <span className="team-members">{team.members.length}/{team.capacity}</span>
-                    </div>
-                    <button className="join-team-button"
-                      onClick={() => {handleJoin(selectedEvent, team)}}
-                    >Join Team</button>
+            {userTeam && (
+              <div className="user-team-info" style={{ 
+                background: "rgba(255,255,255,0.05)", 
+                padding: "16px", 
+                borderRadius: "8px", 
+                marginBottom: "20px",
+                border: "1px solid rgba(255,255,255,0.1)"
+              }}>
+                <h4 style={{ margin: "0 0 8px 0", fontSize: "16px", color: "#00d4ff" }}>Your Current Team</h4>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div>
+                    <div style={{ fontWeight: "bold", fontSize: "18px" }}>{userTeam.teamName}</div>
+                    <div style={{ fontSize: "14px", color: "#ccc" }}>{userTeam.mainGame}</div>
                   </div>
-                ))}
+                  <div style={{ fontSize: "14px", color: "#aaa" }}>
+                    {userTeam.members?.length || 0} members
+                  </div>
+                </div>
               </div>
-              
-              <button className="add-team-button"
-                onClick={() => setMenuOpen(true)}>
-                + Add New Team
+            )}
+
+            <div className="join-action-section" style={{ textAlign: "center", marginBottom: "20px" }}>
+              <button 
+                className="join-event-button" 
+                style={{ 
+                  width: "100%", 
+                  padding: "16px", 
+                  fontSize: "18px", 
+                  fontWeight: "bold",
+                  background: "linear-gradient(135deg, #00d4ff, #0099cc)",
+                  border: "none",
+                  borderRadius: "8px",
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease"
+                }}
+                onClick={() => {
+                  if (userTeam) {
+                    handleJoin(selectedEvent, { name: userTeam.teamName });
+                  }
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = "linear-gradient(135deg, #0099cc, #0077aa)";
+                  e.target.style.transform = "translateY(-2px)";
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = "linear-gradient(135deg, #00d4ff, #0099cc)";
+                  e.target.style.transform = "translateY(0)";
+                }}
+              >
+                Join Event with {userTeam ? userTeam.teamName : "Your Team"}
               </button>
             </div>
             
@@ -414,19 +520,68 @@ function TournamentsPage() {
               </label>
             </div>
 
-            <button className="join-event-button" 
-              onClick={() => {
-                // se guarda en el evento seleccionado para que handleJoin la vea luego
-                if (selectedEvent) {
-                  sendJoinNotification(selectedEvent.title);
-                  setSelectedEvent({ ...selectedEvent, wantsNotifications });
-                  closeModal();
-                }
-              }}
-            >
-            Next
-            </button>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Modal for no team
+  const NoTeamModal = () => showNoTeamModal && (
+    <div className="team-modal-overlay" onClick={closeNoTeamModal}>
+      <div className="team-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
+        <div className="team-modal__header">
+          <h2>Join a Team First</h2>
+          <button type="button" className="team-modal__close" onClick={closeNoTeamModal} aria-label="Close">×</button>
+        </div>
+        <div className="team-modal__body">
+          <p style={{ fontSize: "18px", marginBottom: "16px" }}>
+            You need to join a team before you can participate in events.<br />
+            Please visit the Teams page to join or create a team.
+          </p>
+        </div>
+        <div className="team-modal__actions">
+          <button
+            type="button"
+            className="team-modal__btn team-modal__btn--primary"
+            style={{ minWidth: "120px" }}
+            onClick={() => {
+              closeNoTeamModal();
+              navigate("/teams");
+            }}
+          >Go to Teams</button>
+          <button
+            type="button"
+            className="team-modal__btn team-modal__btn--ghost"
+            style={{ minWidth: "120px" }}
+            onClick={closeNoTeamModal}
+          >Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Generic alert modal
+  const AlertModal = () => alertModal.open && (
+    <div className="team-modal-overlay" onClick={() => setAlertModal({ ...alertModal, open: false })}>
+      <div className="team-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
+        <div className="team-modal__header">
+          <h2>{alertModal.title}</h2>
+          <button type="button" className="team-modal__close" onClick={() => setAlertModal({ ...alertModal, open: false })} aria-label="Close">×</button>
+        </div>
+        <div className="team-modal__body">
+          <p style={{ fontSize: "18px", marginBottom: "16px" }}>{alertModal.message}</p>
+        </div>
+        <div className="team-modal__actions">
+          {alertModal.actions.map((action, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={`team-modal__btn team-modal__btn--${action.variant}`}
+              style={{ minWidth: "120px" }}
+              onClick={action.onClick}
+            >{action.text}</button>
+          ))}
         </div>
       </div>
     </div>
@@ -435,17 +590,12 @@ function TournamentsPage() {
   return (
     <div className="tournaments-page">
       <Navbar />
-      
       <PageHeader search={search} setSearch={setSearch} handleCreateEvent={handleCreateEvent}/>
       <EventsSection />
-      <SubTeamCreationMenu 
-        menuOpen={menuOpen} 
-        setMenuOpen={setMenuOpen} 
-        handleCreateTeam={handleCreateTeam}
-        selectedEvent={selectedEvent}
-      />
       <RecommendedSection />
       <JoinEventModal />
+      <NoTeamModal />
+      <AlertModal />
     </div>
   );
 }
