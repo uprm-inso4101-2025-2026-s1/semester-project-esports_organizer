@@ -188,12 +188,21 @@ function TournamentsPage() {
     };
     await currentEvent.UpdateEvent(currentEvent.id);
 
-    // Notificación inmediata debajo de la campanita
+    //formatting
+    const eventDate = currentEvent.dateValue.toDate();
+    const dateStr = eventDate.toLocaleDateString();
+    const timeStr = eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     await addDoc(
       collection(db, "User", uid, "notifications"),
       {
         title: "Event Joined",
-        message: `You joined "${currentEvent.title}"`,
+        message: 
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
         eventId: currentEvent.id,
         eventTitle: currentEvent.title,
         createdAt: serverTimestamp(),
@@ -388,28 +397,33 @@ function TournamentsPage() {
 
                 const uid = localStorage.getItem("currentUserUid");
 
-                // 👉 1. Guardar notificación debajo de la campanita
                 await addDoc(
                   collection(db, "User", uid, "notifications"),
                   {
-                    title: "Event Update",
-                    message: `You are joining "${selectedEvent.title}"`,
+                    title: "Joining event...",
+                    message:
+                      `Preparing to join "${selectedEvent.title}"\n` +
+                      `📅 Date: ${selectedEvent.date}\n` +
+                      `🎮 Game: ${selectedEvent.game}\n` +
+                      `📍 Location: ${selectedEvent.location}`,
                     eventId: selectedEvent.id,
                     eventTitle: selectedEvent.title,
                     createdAt: serverTimestamp(),
                     read: false
                   }
                 );
+                
+                console.log("Next-step notification saved");
                 console.log("Next-step notification saved in User/<uid>/notifications");
 
-                // 👉 2. Mostrar POPUP VISUAL
+                
                 window.dispatchEvent(
                   new CustomEvent("show-notification-popup", {
                     detail: `You are joining "${selectedEvent.title}"`
                   })
                 );
 
-                // 👉 3. Continuar al paso 2 del modal
+                
                 if (selectedEvent) {
                   setSelectedEvent({ ...selectedEvent, wantsNotifications });
                 }
