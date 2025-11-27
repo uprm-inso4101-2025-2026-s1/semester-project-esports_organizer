@@ -12,9 +12,10 @@
 | Analytical Part Section 3-1 - 3-2| Ricardo Burgos | Modified | Enhanced concept analysis with quote derivations; added database architecture diagram explanation; expanded verification strategy with five test types and coverage metrics.
 | Requirements Section 2.2.3 - 2.2.5 | Andrés Cruz Zapata | Modified | Rephrased all requirements to improve clarity and provide more detailed descriptions for each requirement established.
 | Informative Section 1.2 - 1.4 | Yamilet Gómez | Modified | Integrated “situation, needs, and ideas” with clearer examples of domain and requirements engineering. Rephrased “platform” to “hub” to avoid confusion with “system”, and added focus on small-scale tournaments.
-| Informative Section 1.2 - 1.4 | Yamilet Gómez | Modified | Integrate section 1.4 with 1.2 and 1.3, in order to completely delete section 1.4
+| Informative Section 1.2 - 1.4 | Yamilet Gómez | Modified | Integrate section 1.4 with 1.2 and 1.3, in order to completely delete section 1.4.
 | Desciptive Sections 2.2.1-2.2.2| Pedro Bonilla | Modified | Rephrased to improve clarity and provide more detail as per feedback.
 | Derived Goals | Jayden Sánchez | Modified | Revised the Derived Goals section to clarify their independence from the main objectives and strengthen the section's purpose.
 | Application of Topics | Abby Gotay Almonte | Added | Wrote Application of Topics section, taking into account multiple LTTs.
 | Descriptive Section 2.1.1 - 2.1.6 | Héctor Rivera | Modified | Refactored the entire Domain Description subsection to align with professor feedback. Integrated life-like Rough Sketch statements, corrected domain terminology, restructured Events/Actions/Behaviors, and reorganized function signatures under corresponding actions. Ensured all content reflects real-world domain phenomena without referencing system behavior.
+| Derived Goals | Jayden Sánchez | Modified | Finalizes subsection with refined content, clear goal independence, and required updates to improve clarity and structure.
 |===
