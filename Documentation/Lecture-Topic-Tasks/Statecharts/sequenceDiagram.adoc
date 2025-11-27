@@ -1,0 +1,67 @@
+= Sequence Diagram for Posting and Displaying Community Feed Updates
+Esports Organizer
+
+== Summary
+This document provides a brief description of the sequence of interactions that occur when a user creates a new post and the system updates the Community Feed; the diagram illustrates the communication between the user interface, backend/database, and feed display components.
+
+The purpose of this sequence diagram is to show how user actions trigger system processes and how the system responds by validating, storing, and rendering new community posts.
+
+== Sequence Diagram (mermaid)
+
+[mermaid]
+----
+sequenceDiagram
+    autonumber
+    actor User
+    participant UI as CommunityFeedUI
+    participant PostForm as PostCreationForm
+    participant Backend as BackendService
+    participant DB as Database
+    participant Feed as FeedDisplay
+
+    User->>UI: Open Community Feed
+    UI->>Backend: Request latest posts
+    Backend->>DB: Query posts
+    DB-->>Backend: Return posts
+    Backend-->>UI: Send feed data
+    UI->>Feed: Render existing posts
+
+    User->>PostForm: Type new post
+    User->>PostForm: Click "Submit"
+    PostForm->>Backend: Send new post data
+    Backend->>Backend: Validate post content
+    alt Valid Post
+        Backend->>DB: Insert new post
+        DB-->>Backend: Success
+        Backend-->>PostForm: Confirmation message
+        PostForm-->>User: Show "Post published"
+        Backend->>UI: Send updated feed data
+        UI->>Feed: Append new post to feed
+    else Invalid Post
+        Backend-->>PostForm: Error message
+        PostForm-->>User: Show error notification
+    end
+----
+
+== 3. Component Descriptions 
+
+=== User
+Initiates the action by opening the feed and submitting a new post.
+
+=== CommunityFeedUI
+Requests feed data, receives backend updates, and triggers visual rendering.
+
+=== PostCreationForm
+Captures user input, sends post data to the backend, and displays confirmation or error feedback.
+
+=== BackendService
+Validates incoming data, interacts with the database, and returns success or failure responses.
+
+=== Database
+Stores and retrieves community posts.
+
+=== FeedDisplay
+Shows existing posts and updates in real time after successful post submission.
+
+== 4. Purpose
+This diagram highlights the sequential flow of interactions required to publish and display community posts, ensuring clarity in the UI-to-system communication workflow and supporting maintainability of the feature.
