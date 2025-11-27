@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Event from "../EventClass.js"; // <-- adjust path
 import "../../pages/CreateEventWizard.css";
 import {getProfileById, addEventToUserProfile} from "../../services/profile-service.js";
@@ -7,6 +8,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 
 export default function Step4Review({ data, onBack, onSubmit }) {
+  const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
   const { title, game, description, location, modality, date, time, maxTeams, maxPlayersPerTeam, community } = data;
 
@@ -66,7 +68,8 @@ export default function Step4Review({ data, onBack, onSubmit }) {
 
       // Let parent close/reset or navigate
       onSubmit?.(id);
-      alert("Event created!");
+
+      navigate("/tournaments");
     } catch (e) {
       console.error(e);
       alert("Failed to create event.");
