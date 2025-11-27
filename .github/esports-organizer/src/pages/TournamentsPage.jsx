@@ -37,7 +37,8 @@ async function getEventById(eventID) {
 
 function PageHeader({search, setSearch, handleCreateEvent}) {
   return (
-    <section className="page-header">
+    // <section className="page-header">
+    <section className={"page-header" + (console.log("rendered page header"), "")}>
       <div className="page-header-content">
         <h1 className="page-title">EVENTS</h1>
         <div className="search-and-create-container">
@@ -85,7 +86,6 @@ function TournamentsPage() {
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [modalStep, setModalStep] = useState(1);
   const [search, setSearch] = useState("");
   const[events, setEvents] = useState([]);
 
@@ -127,7 +127,7 @@ function TournamentsPage() {
         setShowJoinModal(true);
         try {
           window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
-        } catch (err) {}
+        } catch { 0; }
       }
     }
   }, [events, location]);
@@ -173,8 +173,6 @@ function TournamentsPage() {
   const handleJoinEvent = (event) => {
     setSelectedEvent(event);
     setShowJoinModal(true);
-    setModalStep(1);
-
   };
 
   const handleJoin = async (event, team) => {
@@ -241,11 +239,8 @@ function TournamentsPage() {
   const closeModal = () => {
     setShowJoinModal(false);
     setSelectedEvent(null);
-    setModalStep(1);
   };
 
-  const handleNext = () => setModalStep(2);
-  const handleBack = () => setModalStep(1);
   const handleCreateEvent = () => {
     navigate("/create-event");
   };
@@ -328,83 +323,65 @@ function TournamentsPage() {
             <div className="event-detail">Location: {selectedEvent.location}</div>
           </div>
           
-          {modalStep === 1 && (
-            <div className="modal-form-section">
-              <h3 className="form-title">JOIN EVENT</h3>
-              
-              <div className="form-inputs">
-                <input type="text" placeholder="Enter Name" className="form-input" />
-                <input type="text" placeholder="Enter Last Name" className="form-input" />
-                <input type="text" placeholder="Enter Username" className="form-input" />
-              </div>
-              
-              <div className="disclaimer-section">
-                <label className="disclaimer-checkbox">
-                  <input type="checkbox" className="checkbox-input" />
-                  <span className="disclaimer-text">
-                    BY CHECKING THIS BOX, I AM AWARE THAT ABSENCE FROM THIS EVENT WILL RESULT IN IMMEDIATE DISQUALIFICATION.
-                  </span>
-                </label>
-              </div>
-              
-              {/* Toggle de notificaciones */}
-              <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
-                  <input
-                    type="checkbox"
-                    checked={wantsNotifications}
-                    onChange={(e) => setWantsNotifications(e.target.checked)}
-                    style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
-                  />
-                  Send me reminders and updates for this event
-                </label>
-              </div>
+          <div className="modal-form-section">
+            <h3 className="form-title">JOIN EVENT</h3>
 
-              <button className="join-event-button" 
+            <div className="teams-container">
+              <div className="teams-list">
+                {selectedEvent.teams.map((team, index) => (
+                  <div key={index} className="team-item">
+                    <div className="team-info">
+                      <span className="team-name">{team.name}</span>
+                      <span className="team-members">{team.members.length}/{team.capacity}</span>
+                    </div>
+                    <button className="join-team-button"
+                      onClick={() => {handleJoin(selectedEvent, team)}}
+                    >Join Team</button>
+                  </div>
+                ))}
+              </div>
+              
+              <button className="add-team-button"
+                onClick={() => setMenuOpen(true)}>
+                + Add New Team
+              </button>
+            </div>
+            
+            <div className="disclaimer-section">
+              <label className="disclaimer-checkbox">
+                <input type="checkbox" className="checkbox-input" />
+                <span className="disclaimer-text">
+                  BY CHECKING THIS BOX, I AM AWARE THAT ABSENCE FROM THIS EVENT WILL RESULT IN IMMEDIATE DISQUALIFICATION.
+                </span>
+              </label>
+            </div>
+
+            {/* Toggle de notificaciones */}
+            <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={wantsNotifications}
+                  onChange={(e) => setWantsNotifications(e.target.checked)}
+                  style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
+                />
+                Send me reminders and updates for this event
+              </label>
+            </div>
+
+            <button className="join-event-button" 
               onClick={() => {
                 // se guarda en el evento seleccionado para que handleJoin la vea luego
                 if (selectedEvent) {
+                  sendJoinNotification(selectedEvent.title);
                   setSelectedEvent({ ...selectedEvent, wantsNotifications });
+                  closeModal();
                 }
-                handleNext();
               }}
             >
-              Next
-              </button>
-            </div>
-          )}
-
-          {modalStep === 2 && (
-            <div className="modal-teams-section">
-              <div className="teams-header">
-                <button className="back-button" onClick={handleBack}>
-                  ← Back
-                </button>
-                <h3 className="teams-title">TEAMS</h3>
-              </div>
-              
-              <div className="teams-container">
-                <div className="teams-list">
-                  {selectedEvent.teams.map((team, index) => (
-                    <div key={index} className="team-item">
-                      <div className="team-info">
-                        <span className="team-name">{team.name}</span>
-                        <span className="team-members">{team.members.length}/{team.capacity}</span>
-                      </div>
-                      <button className="join-team-button"
-                        onClick={() => {handleJoin(selectedEvent, team)}}
-                      >Join Team</button>
-                    </div>
-                  ))}
-                </div>
-                
-                <button className="add-team-button"
-                  onClick={() => setMenuOpen(true)}>
-                  + Add New Team
-                </button>
-              </div>
-            </div>
-          )}
+            Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
