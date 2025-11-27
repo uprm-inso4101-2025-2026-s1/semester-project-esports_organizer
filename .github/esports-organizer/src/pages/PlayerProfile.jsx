@@ -11,7 +11,6 @@ const uid = localStorage.getItem("currentUserUid");
 
 function PlayerProfile() {
   // Primary player state
-  // TODO: replace with real data
   const [player, setPlayer] = useState({
     username: "username",
     flag: "PR",
