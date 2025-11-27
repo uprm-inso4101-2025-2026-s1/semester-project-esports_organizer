@@ -5,7 +5,7 @@ import DropDown from "../shared/DropDown";
 import Label from "../shared/Label";
 import "../shared/Modal.css";
 import { useNavigate } from "react-router-dom";
-import { saveProfile } from "../../services/profile-service"; // Adjust path if needed
+import { saveProfile } from "../../services/profile-service.js"; // Adjust path if needed
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -82,9 +82,9 @@ function SignupForm() {
       buttonsDirection="column"
       showLogo={true}
       buttons={[
-        <Button key="signup" text={"Sign Up"} onClick={handleSubmit}></Button>,
+        <Button key="signup-primary" text={"Sign Up"} onClick={handleSubmit}></Button>,
         <Button
-          key="signup"
+          key="signup-secondary"
           text="Already have an account? Log in"
           variant="secondary"
           onClick={() => navigate("/login")}

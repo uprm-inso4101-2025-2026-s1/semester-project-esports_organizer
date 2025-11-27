@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import Button from "../../components/shared/Button.jsx";
 import CommunityCard from "../../components/CommunityCard.jsx";
 import "./CommunityPage.css";
-import { getAllCommunitiesFromDatabase } from "../../Comm-Social/CommunityCreation.js";
+import "../teamProfilePages/TeamForms.css";
+import { getAllCommunitiesFromDatabase, createCommunity } from "../../Comm-Social/CommunityCreation.js";
+import { getProfileById } from "../../services/profile-service.js";
 
 // Fixed Mini community card component - proper props destructuring
 function MiniCommunityCard({ imageUrl, title, onView }) {
@@ -27,12 +29,82 @@ function MiniCommunityCard({ imageUrl, title, onView }) {
   );
 }
 
+// Modal function component
+function CommunityModal({title, children, onClose, footer}) {
+  return (
+    <div className="team-modal-overlay" onClick={onClose}>
+      <div
+        className="team-modal"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <div className="team-modal__header">
+          <h2 id="modal-title">{title}</h2>
+          <button
+            type="button"
+            className="team-modal__close"
+            onClick={onClose}
+            aria-label="Close"
+          >x
+          </button>
+        </div>
+        <div className="team-modal__body">{children}</div>
+        {footer && <div className="team-modal__actions">{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
 export default function CommunityPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [search, setSearch] = useState("");
   const [communities, setCommunities] = useState([]);
   const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
+  
+  // State for create community modal
+  const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [game, setGame] = useState("");
+  const [communityLocation, setCommunityLocation] = useState("");
+  const [iconUrl, setIconUrl] = useState("");
+  const [bannerUrl, setBannerUrl] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Current user state
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUserUid, setCurrentUserUid] = useState(null);
+
+  // Fetch the current user on component mount
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const uid = localStorage.getItem("currentUserUid");
+        
+        if (!uid) {
+          console.warn("No user UID found in localStorage");
+          return;
+        }
+        
+        setCurrentUserUid(uid);
+        const userProfile = await getProfileById(uid);
+        
+        if (userProfile) {
+          setCurrentUser(userProfile);
+          console.log("Current user loaded:", userProfile);
+        } else {
+          console.error("User profile not found");
+        }
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
 
   // Fetch communities from Firestore on component mount
   useEffect(() => {
@@ -67,6 +139,73 @@ export default function CommunityPage() {
 
   const handleNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleCreateCommunity = () => {
+    setName("");
+    setDescription("");
+    setGame("");
+    setCommunityLocation("");
+    setIconUrl("");
+    setBannerUrl("");
+    setIsSubmitting(false);
+    setIsCreateCommunityModalOpen(true);
+  };
+  
+  const handleSubmitCommunity = async (e) => {
+    e.preventDefault();
+    if (!name || !game) {
+      alert("Community Name and Game are required.");
+      return;
+    }
+    setIsSubmitting(true);
+    
+    try {
+      const communityData = {
+        name, 
+        description, 
+        game, 
+        location: communityLocation, 
+        iconUrl, 
+        bannerUrl
+      };
+      
+      await createCommunity(
+        communityData.name, 
+        communityData.description, 
+        currentUserUid || "currentUserId",
+        [], 
+        communityData.game, 
+        communityData.location, 
+        communityData.iconUrl, 
+        communityData.bannerUrl
+      );
+      
+      // Re-fetch communities to include the newly created one
+      const updatedCommunities = await getAllCommunitiesFromDatabase();
+      const transformedCommunities = updatedCommunities.map(community => ({
+        id: community.id,
+        title: community.name,
+        imageUrl: community.icon || null,
+        currentEvents: 0,
+        followers: community.members ? community.members.length : 0,
+        location: community.location || "Global",
+        game: community.game,
+      }));
+      setCommunities(transformedCommunities);
+      
+      setIsSubmitting(false);
+      setIsCreateCommunityModalOpen(false);
+      alert(`Community "${name}" created successfully!`);
+    } catch (error) {
+      console.error("Error creating community:", error);
+      alert("Failed to create community. Please try again.");
+      setIsSubmitting(false);
+    }
+  };
+  
+  const closeCreateModal = () => {
+    setIsCreateCommunityModalOpen(false);
   };
 
   // Filter communities based on search
@@ -107,6 +246,17 @@ export default function CommunityPage() {
               imageUrl="/assets/images/fortnite.png"
               onView={() => handleNavigation("/community/fortnite")}
             />
+          </div>
+          
+          {/* Create Community Button */}
+          <div className="sidebar-create-button" style={{ marginTop: '2rem' }}>
+            <Button
+              variant="primary"
+              onClick={handleCreateCommunity}
+              style={{ width: '100%' }}
+              text="Create Communities"
+            >
+            </Button>
           </div>
         </aside>
 
@@ -161,6 +311,94 @@ export default function CommunityPage() {
           </section>
         </main>
       </div>
+      
+      {/* Modal rendering */}
+      {isCreateCommunityModalOpen && (
+        <CommunityModal
+          title="Create a Community"
+          onClose={closeCreateModal}
+          footer={
+            <>
+              <button
+                type="button"
+                className="team-modal__btn team-modal__btn--ghost"
+                onClick={closeCreateModal}
+                disabled={isSubmitting}
+              >Cancel</button>
+              <button
+                type="submit"
+                form="create-community-form"
+                className="team-modal__btn team-modal__btn--primary"
+                disabled={isSubmitting || !name || !game}
+              >{isSubmitting ? "Creating..." : "Create"}</button>
+            </>
+          }
+        >
+          <form
+            id="create-community-form"
+            className="team-form"
+            onSubmit={handleSubmitCommunity}
+          >
+            <label className="team-form__label" htmlFor="communityName">Community Name</label>
+            <input
+              id="communityName"
+              type="text"
+              className="team-form__input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g., Marvel Rivals Champions"
+              required
+            />
+            <label className="team-form__label" htmlFor="communityGame">Primary Game</label>
+            <input
+              id="communityGame"
+              type="text"
+              className="team-form__input"
+              value={game}
+              onChange={(e) => setGame(e.target.value)}
+              placeholder="e.g., Marvel Rivals"
+              required
+            />
+            <label className="team-form__label" htmlFor="communityLocation">Location</label>
+            <input
+              id="communityLocation"
+              type="text"
+              className="team-form__input"
+              value={communityLocation}
+              onChange={(e) => setCommunityLocation(e.target.value)}
+              placeholder="e.g., North America"
+            />
+            <label className="team-form__label" htmlFor="communityDescription">Description</label>
+            <textarea
+              id="communityDescription"
+              className="team-form__textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Tell the community what your place is about..."
+              rows={3}
+            />
+            <div className="team-form__group">
+              <span className="team-form__label">Assets (Optional)</span>
+              <input
+                id="communityIcon"
+                type="text"
+                className="team-form__input"
+                value={iconUrl}
+                onChange={(e) => setIconUrl(e.target.value)}
+                placeholder="Icon URL: https://.../my_icon.png"
+              />
+              <input
+                id="communityBanner"
+                type="text"
+                className="team-form__input"
+                value={bannerUrl}
+                onChange={(e) => setBannerUrl(e.target.value)}
+                placeholder="Banner URL: https://.../my_banner.jpg"
+              />
+            </div>
+          </form>
+        </CommunityModal>
+      )}
     </div>
   );
 }

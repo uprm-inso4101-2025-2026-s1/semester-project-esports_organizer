@@ -809,3 +809,98 @@
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
+
+/* ==========================================================================
+   PARTICIPATED EVENTS
+   ========================================================================== */
+
+.participated-events {
+  position: relative;
+  margin-top: 25px;
+  background: var(--light-container);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 15px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.events-title-center {
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  color: var(--text, rgba(255, 255, 255, 0.87));
+  margin-bottom: 1rem;
+}
+
+.events-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.events-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-item {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.event-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.event-name {
+  display: block;
+  font-size: 1rem;
+  color: var(--text, rgba(255, 255, 255, 0.87));
+  word-break: break-word;
+}
+
+.no-events {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Dark mode for participated events */
+.dark-mode .participated-events {
+  background: var(--dark-container) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-mode .events-title-center {
+  color: #fff !important;
+}
+
+.dark-mode .event-item {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark-mode .event-item:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark-mode .event-name {
+  color: #f5f5f5 !important;
+}
+
+.dark-mode .no-events {
+  color: rgba(255, 255, 255, 0.6) !important;
+}

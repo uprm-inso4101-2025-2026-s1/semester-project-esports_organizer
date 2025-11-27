@@ -122,21 +122,21 @@ static allTournaments = new Map();
         this.ties.push({round, matchId, participants});
     }
 
-    resolveTie(matchId, winnerId) { // Resolvemos el tie eligiendo "manualmente"
+    resolveTie(matchId, winnerId) { // Resolve the tie by selecting a winner manually
         const tieIndex = this.ties.findIndex(t => t.matchId === matchId);
         if (tieIndex === -1) {
-            throw new Error('No se encontró empate para el partido dado.');
+            throw new Error('No tie was found for the given match.');
         }
         const tie = this.ties[tieIndex];
         if (!tie.participants.includes(winnerId)) {
-            throw new Error('El ID del ganador no está en la lista de participantes empatados.');
+            throw new Error('The winner ID is not in the list of tied participants.');
         }
-        // Remover el registro de empate
+        // Remove the tie record
         this.ties.splice(tieIndex, 1);
-        // Aquí podrías avanzar al ganador en la lógica de bracket o torneos
+        // Here you can advance the winner in the bracket or tournament logic
         return winnerId;
-  }
-    
+    }
+
     //##########################################
     //  TOURNAMENT TEAMS MANAGEMENT
     //##########################################

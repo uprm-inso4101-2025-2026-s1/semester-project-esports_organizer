@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Navbar from "../components/shared/Navbar";
 import "./PlayerProfile.css";
-import { updatePlayerProfile, getProfileById } from "../services/profile-service";
+import { updatePlayerProfile, getProfileById, getUserParticipatedEvents } from "../services/profile-service";
+import { checkUserPermission } from "../Roles/checkUserPermission";
 
 // Flag emoji mapping
 const FLAG_EMOJI = {
@@ -41,6 +42,7 @@ function PlayerProfile() {
   });
   
   const [loading, setLoading] = useState(true);
+  const [participatedEvents, setParticipatedEvents] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -140,6 +142,20 @@ function PlayerProfile() {
     };
     
     loadProfile();
+  }, []);
+
+  // Load participated events on mount
+  useEffect(() => {
+    const loadParticipatedEvents = async () => {
+      const currentUid = localStorage.getItem("currentUserUid");
+      if (currentUid) {
+        const result = await getUserParticipatedEvents(currentUid);
+        if (result.success) {
+          setParticipatedEvents(result.data);
+        }
+      }
+    };
+    loadParticipatedEvents();
   }, []);
 
   // Edit mode handlers
@@ -468,7 +484,15 @@ function PlayerProfile() {
 
               <div className="actions">
                 {!isEditing && (
-                  <button className="btn primary" type="button" onClick={startEdit}>
+                  <button className="btn primary" type="button" onClick={async () => {
+                    const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+                    if (await checkUserPermission(uid, "canEditUserProfile")==true) {
+                      // Allowed
+                      startEdit();
+                    } else {
+                      alert("You do not have permission to edit the profile.");
+                    }
+                  }}>
                     Edit Profile
                   </button>
                 )}
@@ -534,6 +558,24 @@ function PlayerProfile() {
               </button>
             </div>
           </aside>
+
+          {/* Participated Events */}
+          <section className="participated-events">
+            <h2 className="events-title-center">PARTICIPATED EVENTS</h2>
+            <div className="events-list">
+              {participatedEvents.length > 0 ? (
+                <ul className="events-ul">
+                  {participatedEvents.map((event) => (
+                    <li key={event.id} className="event-item">
+                      <span className="event-name">{event.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="no-events">No events participated yet.</p>
+              )}
+            </div>
+          </section>
         </div>
 
         {/* Game Selection Modal */}

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Event from "../EventClass.js"; // <-- adjust path
 import "../../pages/CreateEventWizard.css";
-import {getProfileById} from "../../services/profile-service.js";
+import {getProfileById, addEventToUserProfile} from "../../services/profile-service.js";
 import { db } from "../../database/firebaseClient";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 
 export default function Step4Review({ data, onBack, onSubmit }) {
   const [isSaving, setIsSaving] = useState(false);
-  const { title, game, description, location, modality, date, time, maxTeams, maxPlayersPerTeam } = data;
+  const { title, game, description, location, modality, date, time, maxTeams, maxPlayersPerTeam, community } = data;
 
   // Combine date + time -> JS Date (assumes date like "2025-11-08" and time like "14:30")
   function toDate(dateStr, timeStr) {
@@ -50,7 +50,7 @@ export default function Step4Review({ data, onBack, onSubmit }) {
         game,
         location: location,
         createdBy:  await getProfileById(localStorage.getItem("currentUserUid")),
-        community: false,
+        community: community,
         tournament: null,
 
         maxTeams: maxTeams,
@@ -59,6 +59,10 @@ export default function Step4Review({ data, onBack, onSubmit }) {
 
       const id = await evt.CreateEvent();
       console.log("Created event id:", id);
+
+      // Add the created event to the creator's participated events
+      const uid = localStorage.getItem("currentUserUid");
+      await addEventToUserProfile(uid, id, title);
 
       // Let parent close/reset or navigate
       onSubmit?.(id);
