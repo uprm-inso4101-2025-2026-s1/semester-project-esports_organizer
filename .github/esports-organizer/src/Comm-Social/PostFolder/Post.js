@@ -1,3 +1,13 @@
+import {
+    doc,
+    setDoc,
+    getDoc,
+    collection,
+    getDocs,
+    deleteDoc
+} from "firebase/firestore";
+
+import {db} from "../../database/firebaseClient.js"
 /**
  * Class Post - Represents a post of a author in a community
  * 
@@ -6,6 +16,8 @@
  * p.setTitle("New Title");
  * p.addLike();
  */
+
+const firestore = db;
 export default class Post {
 
     /**
@@ -52,173 +64,264 @@ export default class Post {
             state: this.state
         };
     }
- 
-    /**
-     * Setters for post
-     */
 
-    /** 
-     * @param {string} content - Sets the content of the post
-     */
-    setContent(content){
-        this.content = content
+    static fromFirestore(data) {
+        return new Post(data);
     }
+
+    async addPostToCommunity(post){
+        try{
+            await setDoc(doc(firestore, "Posts", post.id), post.toFireStore());
+        }
+        catch(error){
+            console.log("Failed to send post do DataBase. " + error);
+        }
+    }
+
+
+    async setLikes(postID, likes){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            let oldPost = Post.fromFirestore(snap.data());
+
+            let newPost = {
+                content:oldPost.content,
+                author:oldPost.author, 
+                authorUsername: oldPost.authorUsername,
+                date: oldPost.date,
+                community: oldPost.community,
+                likes: likes,
+                comments: oldPost.comments,
+                id: oldPost.id,
+                state: oldPost.state
+            }
+
+            await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFirestore());
+        }
+        else{
+            console.log("Post Does not exist");
+        }
+    }
+   
+    /** 
+     * @param {string} content - New content of the post
+     * @param {string} postID - ID of the post
+     */
+    async setContent(postID, content){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            let oldPost = Post.fromFirestore(snap.data());
+
+            let newPost = {
+                content:content,
+                author:oldPost.author, 
+                authorUsername: oldPost.authorUsername,
+                date: oldPost.date,
+                community: oldPost.community,
+                likes: oldPost.likes,
+                comments: oldPost.comments,
+                id: oldPost.id,
+                state: oldPost.state
+            }
+
+            await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFirestore());
+        }
+        else{
+            console.log("Post Does not exist");
+        }
+    }
+ 
     /**
      * @param {string} author - Sets the author of the post
      */
-    setAuthor(author){
-        this.author = author;
-    }
-    /**
-     * @param {string} community - Sets the community of the post
-     */
-    setCommunity(community){
-        this.community = community;
-    }
-    /**
-     * @param {int} likes - Sets the number of likes of the post
-     */
-    setLikes(likes){
-        this.likes = likes;
-    }
-    /**
-     * @param {string} id - Sets the ID of the post
-     */ 
-    setId(id){
-        this.id = id;
+    async setAuthor(postID,author){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            let oldPost = Post.fromFirestore(snap.data());
+
+            let newPost = {
+                content:oldPost.content,
+                author:author, 
+                authorUsername: oldPost.authorUsername,
+                date: oldPost.date,
+                community: oldPost.community,
+                likes: oldPost.likes,
+                comments: oldPost.comments,
+                id: oldPost.id,
+                state: oldPost.state
+            }
+
+            await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFirestore());
+        }
+        else{
+            console.log("Post Does not exist");
+        }
     }
     /**
      *  @param {string} state - Sets the state of the post (Draft or Public)
      */
-     setPublicState(){
-        this.state = "Public";
+    async setState(postID,State){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+            if(snap.exists()){
+                let oldPost = Post.fromFirestore(snap.data());
+
+                let newPost = {
+                    content:oldPost.content,
+                    author:author, 
+                    authorUsername: oldPost.authorUsername,
+                    date: oldPost.date,
+                    community: oldPost.community,
+                    likes: oldPost.likes,
+                    comments: oldPost.comments,
+                    id: oldPost.id,
+                    state: State
+                }
+
+                await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFirestore());
+            }
+            else{
+                console.log("Post Does not exist");
+            }
     }
-    setDraftState(){
-        this.state = "Draft";
-    }
-    /**
-     * @param {Date} date - Sets the date of the post
-     */
-    setDate(date){
-        this.date = date;
-    }
-    /**
-     * Sets the current date to the post
-     */
-    setCurrentDate(){
-        this.date = new Date();
-    }
+   
     /**
      * 
      * @param {string} username - Sets the author's username of the post.
      */
-    setAuthorUsername(username){
-        this.authorUsername = username;
+    async setAuthorUsername(postID,username){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            let oldPost = Post.fromFirestore(snap.data());
+
+            let newPost = {
+                content:oldPost.content,
+                author:author, 
+                authorUsername: username,
+                date: oldPost.date,
+                community: oldPost.community,
+                likes: oldPost.likes,
+                comments: oldPost.comments,
+                id: oldPost.id,
+                state: oldPost.state
+            }
+
+            await setDoc(doc(firestore, "Posts", newPost.id), newPost.toFireStore());
+        }
+        else{
+            console.log("Post Does not exist");
+        }
     }
     /** 
      * Getters for the post
-    */
-
-    /**
-     * @returns {string} - The content of the post
-     */
-    getContent(){
-        return this.content;
-    }
+    */ 
+ 
     /**
      * @returns {string} - The author of the post
      */
-    getAuthor(){
-        return this.author;
+    async getAuthor(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).author;
+        }
     }
     /**
      * @returns {Date} - The date of the post
      */
-    getDate(){
-        return this.date;
+    async getDate(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).date;
+        }
     }
     /**
      * @returns {string} - The community of the post
      */
-    getCommunity(){
-        return this.community;
+    async getCommunity(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).community;
+        };
     }
     /**
      * @returns {int} - The number of likes of the post
      */
-    getLikes(){
-        return this.likes;
+    async getLikes(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).likes;
+        }
     }
     /**
      * @returns {Array} - The comments of the post
      */
-    getComments(){
-        return this.comments;
+    async getComments(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).comments;
+        }
     }
+    async getPost(postID){
+        const snap = await getDoc(doc(firestore, "Posts", postID));
+            if(snap.exists()){
+                return Post.fromFirestore(snap.data());
+            }
+            return null;
+    }
+    /**
+     * @param {string} postID - ID of the post 
+     * @returns {string} - The content of the post
+     */
+
+    async getContent(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).content;
+        }
+    }
+
+    async getAllPosts(postID){
+        const postCollection = collection(firestore, "Posts");
+        const postSnapshot = await getDocs(postCollection);
+        return postSnapshot.docs.map(doc => Post.fromFirestore(doc.data()));
+    }
+
     /**
      * @returns {string} - The ID of the post
      */
-    getId(){
-        return this.id;
+    async getId(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).id;
+        }
     }
     /**
      * @returns {string} - The state of the post (Draft or Public)
      */
-    getState(){
-        return this.state;
+    async getState(postID){
+       const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).state;
+        }
     }
-    /**
-     * @returns {number} - The number of comments on the post
-     */
-    getNumberOfComments(){
-        return this.comments.length;
-    }
+    
     /**
      * @returns {string} - The author's username of the post
      */
-    getAuthorUsername(){
-        return this.authorUsername;
+    async getAuthorUsername(postID){
+        const snap = await getDoc(doc(firestore,"Posts", postID));
+        if(snap.exists()){
+            return Post.fromFirestore(snap.data()).authorUsername;
+        }
     }
-    /** 
-     * Other methods
-     */
-
-    /**
-     * Adds a comment to the post
-     * @param {string} comment - The comment to add
-     */
-    addComment(comment){
-        this.comments.push(comment);
-    }
-    /**
-     * Removes a comment from the post
-     * @param {string} comment - The comment to remove
-     */
-    removeComment(comment){
-        this.comments = this.comments.filter(c => c !== comment);
-    }
-    /**
-     * Increases the number of likes of the post by 1
-     */
-    addLike(){
-        this.likes += 1;
-    }
-    /**
-     * Decreases the number of likes of the post by 1
-     */
-    removeLike(){
-        
-        if (this.likes > 0){
-            this.likes -= 1;
-        } 
-    }
+    
+    
     /**
      * Generates a random ID for the post
      * @returns {string} - The generated ID
      * Use encapsulation to prevent external access and use only in the class.
      */
     static #generateId(){
-        return '_' + Math.random().toString(36).slice(2, 9);
+        return crypto.randomUUID();
     }
    
 

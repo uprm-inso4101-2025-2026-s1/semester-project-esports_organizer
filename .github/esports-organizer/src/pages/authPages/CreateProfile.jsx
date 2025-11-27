@@ -5,7 +5,7 @@ import Modal from "../../components/shared/Modal";
 import "./AuthPages.css";
 import Label from "../../components/shared/Label";
 import { useNavigate } from "react-router-dom";
-import { updatePlayerProfile } from "../../services/profile-service";
+import { updatePlayerProfile } from "../../services/profile-service.js";
 import { assignUserRole } from "../../Roles/assignUserRole";
 
 
@@ -23,22 +23,26 @@ function CreateProfile() {
   const fileInputRef = useRef(null);
 
   const countries = [
-    { value: "Puerto Rico", label: "Puerto Rico" },
-    { value: "United States", label: "United States" },
-    { value: "Spain", label: "Spain" },
+    { value: "puerto-rico", label: "Puerto Rico" },
+    { value: "united-states", label: "United States" },
+    { value: "spain", label: "Spain" },
   ];
 
   const roles = [
-    { value: "Tank", label: "Tank" },
-    { value: "Assault", label: "Assault" },
-    { value: "Support", label: "Support" },
+    { value: "tank", label: "Tank" },
+    { value: "assault", label: "Assault" },
+    { value: "support", label: "Support" },
   ];
 
   // Handle File upload
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -84,10 +88,14 @@ function CreateProfile() {
 
     const updateData = {
       Username: form.username,
-      country: form.country,
-      role: form.role, // <-- use role here
+      country: form.country === "puerto-rico" ? "Puerto Rico" : 
+               form.country === "united-states" ? "United States" : 
+               form.country === "spain" ? "Spain" : form.country,
+      gameRole: form.role === "tank" ? "Tank" :
+                form.role === "assault" ? "Assault" :
+                form.role === "support" ? "Support" : form.role,
       bio: form.bio,
-      // Optionally add photoUrl if you handle image upload
+      avatarUrl: preview || '',
     };
 
     try {
@@ -111,7 +119,7 @@ function CreateProfile() {
       } else {
         alert(result.error || "Error updating profile.");
       }
-    } catch (err) {
+    } catch {
       alert("Error updating profile.");
     }
   };
@@ -124,9 +132,7 @@ function CreateProfile() {
     navigate(-1);
   };
 
-  const _remainingBio = 300 - form.bio.length;
-
-  return (
+   return (
     <div className="auth-page centered">
       <div className="form-section">
         <Modal
@@ -134,13 +140,13 @@ function CreateProfile() {
           buttons={[
             <Button
               text={"Cancel"}
-              key={"cancel"}
+              key={"cancel-btn"}
               variant="secondary"
               onClick={handleCancel}
             />,
             <Button
               text={"Done"}
-              key={"done"}
+              key={"done-btn"}
               variant="primary"
               onClick={handleSubmit}
             />,

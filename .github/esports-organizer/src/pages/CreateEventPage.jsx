@@ -18,7 +18,8 @@ const INITIAL_FORM_DATA = {
   modality: 'Teams',
   game: '',
   maxTeams: '',
-  maxPlayersPerTeam: ''
+  maxPlayersPerTeam: '',
+  community: null,
 };
 
 function CreateEventPage() {

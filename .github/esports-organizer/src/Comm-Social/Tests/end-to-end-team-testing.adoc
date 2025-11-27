@@ -1,0 +1,91 @@
+= End to End Team Class Testing
+
+Tests for both back-end and front end of the Team Class where conducted on November,22, 2025.
+
+== Test Results for the Back-End
+
+All core Team class functionality is working correctly.  
+No failures occurred during this test run.
+
+.Passed Tests
+|===
+| # | Test Case |
+
+| 1  | Team instance created successfully | 
+| 2  | Organizer auto-added as member | 
+| 3  | RankScore defaults to 0 | 
+| 4  | MaxRankScore defaults to 100 | 
+| 5  | Team name set correctly | 
+| 6  | Organizer set correctly | 
+| 7  | Max members set correctly | 
+| 8  | Members passed in constructor are preserved | 
+| 9  | Members array exists | 
+| 10 | Organizer included in members | 
+| 11 | addMember() exists | 
+| 12 | addMember() increases member count | 
+| 13 | removeMember() exists | 
+| 14 | removeMember() reduces member count | 
+| 15 | increaseRank() adds score | 
+| 16 | Rank unchanged below threshold | 
+| 17 | Rank rises when exceeding maxRankScore | 
+| 18 | RankScore resets after level up | 
+| 19 | Name property accessible | 
+| 20 | Organizer property accessible | 
+| 21 | TeamRank property accessible | 
+| 22 | MaxMembers property accessible | 
+| 23 | Members property accessible | 
+| 24 | RankScore property accessible | 
+| 25 | MaxRankScore property accessible | 
+| 26 | Minimal team creation works | 
+| 27 | Zero score increase handled | 
+|===
+
+
+
+== Key Features Validated
+
+=== Core Initialization
+* Successful creation of Team instances with required properties
+* Organizer automatically added to members array
+* Default values applied (rankScore: 0, maxRankScore: 100)
+* Constructor respects custom member arrays
+* All initialization fields validated (name, organizer, teamRank, maxMembers)
+
+=== Property Access
+* All class properties are readable and hold correct values
+* Members array is initialized and accessible
+* Rank properties behave correctly
+* Configuration values (e.g., maxMembers) are preserved
+
+=== Ranking System
+* Rank score increases correctly
+* Rank does not change until threshold is exceeded
+* Rank increments appropriately when passing maxRankScore
+* RankScore resets after rank-up
+* Zero-score increments have no side effects
+
+=== Edge Case Handling
+* Minimal constructor parameters work
+* Zero-rank-increase operations behave as expected
+* Default values remain stable under edge cases
+
+
+
+== Front-End Testing Results:
+
+=== Tests Passed:
+* Teams Page Exists
+* Teams Page Search Bar is functional
+* Back to teams button functions properly.
+
+=== TESTS FAILED:
+* Edit Team Profile not save updates.
+* Log Result Button unresponsive when pressed
+* Manage Roster does not save updates.
+* Edit Team Member does not save updates.
+* Create new team does not save updates.
+
+
+=== Conclusion:
+In the back-end, all tests passed successfully with a 100% success rate. 
+In the front-end, there are issues still in the need of fixing.

@@ -59,7 +59,7 @@
 .auth-modal-content::-webkit-scrollbar-thumb {
   background: var(--link);
   border-radius: 8px;
-  border: 2px solid #3e4c59;
+  border: 2px solid var(--container);
 }
 
 .auth-modal-content::-webkit-scrollbar-thumb:hover {

@@ -10,8 +10,8 @@
     "test:load": "node -e \"require('./index.js')\" && echo 'Functions entrypoint loaded'"
   },
   "dependencies": {
+    "esports-organizer-root": "file:../../../..",
     "firebase-admin": "^12.6.0",
     "firebase-functions": "^4.8.0"
   }
 }
-

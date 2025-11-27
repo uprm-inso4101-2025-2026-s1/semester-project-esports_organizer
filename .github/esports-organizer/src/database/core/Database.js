@@ -1,9 +1,9 @@
 /* Class Imports */
 import Team from "./Teams.js";
 import Event from "./Events.js";
-import User from "./UsersColection.js";
+import User from "./UsersCollection.js";
 import Community from "../../Comm-Social/Community.js";
-import { app, db } from "./firebase.js";
+import { app, db } from "./Firebase.js";
 
 /* For storage management */
 import {
@@ -121,7 +121,7 @@ export class Database {
     }
 
     /* Adds a given member to the a given team if it is contained in the database. */
-    async addMembertToTeam(team, member) {
+    async addMemberToTeam(team, member) {
         const existing = await this.getTeamFromFirestore(team.name);
         if (existing) {
             existing.addMember(member);
@@ -429,56 +429,5 @@ export class Database {
                 console.log("User signed out");
             }
         });
-    }
-
-    /* Checks if a given Community is in the database. */
-    isCommunityInDataBase(community) {
-        // Checks Firestore for existence of a community by ID
-        return this.getCommunityFromFirestore(community.id).then(result => !!result);
-    }
-
-    /* Given a Community object, adds a key value pair array to the database. Community IDs must be unique. */
-    async addCommunityToDatabase(community) {
-        const existing = await this.getCommunityFromFirestore(community.id);
-        if (!existing) {
-            await setDoc(doc(this.firestore, "Communities", community.id), community.toFirestore());
-        } else {
-            console.log(`Community of ID ${community.id} already exists.`);
-        }
-    }
-
-    /* Given a Community ID, searches for the community and returns it if it was found and returns null if not. */
-    async getCommunityFromFirestore(commId) {
-        const snap = await getDoc(doc(this.firestore, "Communities", commId));
-        if(snap.exists()){
-            return Community.fromFirestore(snap.data());
-        }
-        return null;
-    }
-
-    /* Retrieves communities from Firestore. */
-    async getAllCommunitiesFromDatabase() {
-        const communityCollection = collection(this.firestore, "Communities");
-        const communitySnapshot = await getDocs(communityCollection);
-        return communitySnapshot.docs.map(doc => Community.fromFirestore(doc.data()));
-    }
-
-    /* Updates community in the database */
-    async updateCommunity(commId, updatedCommunity) {
-        const communityRef = doc(this.firestore, "Communities", commId);
-        await setDoc(communityRef, updatedCommunity.toFirestore());
-        console.log(`Community of ID ${commId} updated successfully.`);
-    }
-    
-
-    /* Deletes a Community given its ID. Proper cleanup should be in place in order to avoid users accessing null Community values. */
-    async deleteCommunity(commId) {
-        try {
-            const communityRef = doc(this.firestore, "Communities", commId);
-            await deleteDoc(communityRef);
-            console.log(`Community of ID ${commId} deleted successfully.`);
-        } catch (error) {
-            console.error("Error deleting community: ", error);
-        }
     }
 }

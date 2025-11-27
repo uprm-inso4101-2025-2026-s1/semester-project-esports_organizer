@@ -1,5 +1,5 @@
-import Bracket from "../database/examples/Brackets.js";
-import Team from "../database/examples/Teams.js";
+import Bracket from "../database/core/Brackets.js";
+import Team from "../database/core/Teams.js";
 
 /**
  * 

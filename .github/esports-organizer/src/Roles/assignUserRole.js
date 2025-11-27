@@ -34,9 +34,7 @@ export async function assignUserRole(uid, roleType, permissions = {}) {
       },
       
     });
-    console.log("Updated role to "+roleType)
-    console.log(permissions)
-    
+    console.log("Updated role to: "+roleType)
   }
   console.log("Finished"); //Used for debugging purposes
 }

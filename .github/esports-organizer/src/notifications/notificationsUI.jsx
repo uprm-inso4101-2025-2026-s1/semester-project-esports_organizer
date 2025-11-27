@@ -2,11 +2,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { db } from '../lib/firebase';
-import {collection,onSnapshot,orderBy,query,addDoc,serverTimestamp,getDocs,collection as coll} from 'firebase/firestore';
+import {collection,onSnapshot,orderBy,query,addDoc,serverTimestamp,getDocs,collection as coll,doc,getDoc} from 'firebase/firestore';
 import NotificationService from '../services/notificationsService';
 import { checkUserPermission } from '../Roles/checkUserPermission';
 import Event from "../events/EventClass.js";
-import { deleteDoc,updateDoc, doc } from "firebase/firestore";
+import { deleteDoc,updateDoc, doc as docRef } from "firebase/firestore";
+import { isAdmin } from '../Roles/adminRolePermissions';
 
 export default function Notifications({ inline = false }) {
   const [notifications, setNotifications] = useState([]);
@@ -90,9 +91,37 @@ export default function Notifications({ inline = false }) {
     async function checkPerm() {
       if (!currentUserUid) { setCanSend(false); return; }
       try {
-        const ok = await checkUserPermission(currentUserUid, 'sendNotifications');
-        const okManager = await checkUserPermission(currentUserUid, 'canSendNotifications');
-        setCanSend(Boolean(ok || okManager));
+        // Check admin status
+        const adminResult = await isAdmin(currentUserUid);
+        const isAdminUser = adminResult && adminResult.success;
+        
+        // Check if user is Manager by checking their role type directly
+        let isManagerUser = false;
+        try {
+          const userDocRef = doc(db, 'User', currentUserUid);
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const userRole = userData.role;
+            console.log("User role data:", userRole);
+            
+            // Check if role type is Manager
+            if (userRole && userRole.type === 'Manager') {
+              isManagerUser = true;
+            }
+          }
+        } catch (roleErr) {
+          console.error("Error checking user role:", roleErr);
+        }
+        
+        console.log("Permission check results:", {
+          isAdmin: isAdminUser,
+          isManager: isManagerUser,
+          canSend: isAdminUser || isManagerUser
+        });
+        
+        // Allow if user is Admin OR Manager
+        setCanSend(Boolean(isAdminUser || isManagerUser));
       } catch (err) {
         console.error("Error checking permissions:", err);
         setCanSend(false);
@@ -149,6 +178,30 @@ export default function Notifications({ inline = false }) {
       console.error("Error sending notification:", err);
       alert("An error occurred while sending the notification.");
     }
+  };
+
+  // Check if current user is admin before sending notification (fallback method)
+  const addNotification = async () => {
+    // Get current user's UID from localStorage after login
+    const currentUid = localStorage.getItem("currentUserUid") || null;
+    console.log("Current UID:", currentUid);
+    if (!currentUid) {
+      console.error("No user UID found.");
+      return;
+    }
+    const result = await isAdmin(currentUid);
+    if (!result || !result.success) {
+      console.error("Permission denied.");
+      return;
+    }
+    if (!newMessage.trim()) return;
+    await addDoc(collection(db, 'notifications'), {
+      title: newTitle,
+      message: newMessage,
+      createdAt: serverTimestamp(),
+    });
+    setNewMessage('');
+    setNewTitle('');
   };
 
   // ========================

@@ -6,6 +6,8 @@ import "./TeamsPage.css";
 import "./TeamForms.css";
 import { assignUserRole } from "../../Roles/assignUserRole";
 
+const uid = localStorage.getItem("uid");
+
 function TeamModal({ title, children, onClose, footer }) {
   return (
     <div className="team-modal-overlay" onClick={onClose}>
@@ -158,7 +160,13 @@ export default function TeamsPage() {
                   addPlayerToRoster:true,
                   removePlayerFromRoster:true,
                   canSendNotifications: true,
-                });}} 
+                  canEditUserProfile:true,
+                  requestToJoinTeam:true,
+                  editUserEvent:true,
+                  createUserEvent:true,
+                  removeUserEvent:true,
+                  });
+                  closeCreateModal()}}
               >
                 Create team
               </button>

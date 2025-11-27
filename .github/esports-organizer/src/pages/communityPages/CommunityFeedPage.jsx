@@ -1,4 +1,4 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import Button from "../../components/shared/Button.jsx";
@@ -7,6 +7,11 @@ import "../teamProfilePages/TeamForms.css";
 import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
+import { checkUserPermission } from "../../Roles/checkUserPermission.js";
+
+const uid = localStorage.getItem("uid");
+import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
+import { getProfileById} from "../../services/profile-service.js"; 
 
 // Mock data as placeholders
 const mockCommunity = {
@@ -16,38 +21,6 @@ const mockCommunity = {
     onlineCount: 342,
 };
 
-const mockPosts = [
-    {
-        id: 1,
-        user: {name: "John", username: "@john67", avatar: null},
-        timestamp: "1hr ago",
-        content: "wassssssssssuuuuuuup guys",
-        likes: 256,
-        comments: 5,
-        shares: 1,
-        community: "MARVEL RIVALS",
-    },
-    {
-        id: 2,
-        user: {name: "Johnie", username: "@john420", avatar: null},
-        timestamp: "56hr ago",
-        content: "wasdwasdwasdwasdwasdw",
-        likes: 986,
-        comments: 10,
-        shares: 698,
-        community: "MARVEL RIVALS",
-    },
-    {
-        id: 3,
-        user: {name: "Johnster", username: "@john21", avatar: null},
-        timestamp: "83hr ago",
-        content: "Yelllowww wa",
-        likes: 24,
-        comments: 3,
-        shares: 2,
-        community: "MARVEL RIVALS",
-    },
-];
 
 const mockEvents = [
     {
@@ -78,11 +51,6 @@ const mockSidebarCommunities = {
             imageUrl: "/assets/images/valorant.png",
         },
     ],
-    top: [
-        {id: 5, title: "Valorant", imageUrl: "/assets/images/valorant.png"},
-        {id: 6, title: "Fortnite", imageUrl: "/assets/images/fortnite.png"},
-        {id: 7, title: "Apex Legends", imageUrl: "/assets/images/valorant.png"},
-    ],
 };
 
 // Mini Community Card Component - Same as in CommunityPage.jsx
@@ -106,7 +74,7 @@ function MiniCommunityCard({imageUrl, title, onView}) {
     );
 }
 
-function CreatePostForm({onSubmit}) {
+function CreatePostForm({onSubmit, communityName, currentUser}) {
     const [postContent, setPostContent] = useState("");
 
     const handleSubmit = (e) => {
@@ -114,20 +82,16 @@ function CreatePostForm({onSubmit}) {
         const content = postContent;
         if (!content) return;
 
-        // Creates a new Post instance
+        // Creates a new Post instance with current user's info
         const postCreation = new Post({
             content: content,
-            author: "Current User",
-            authorUsername: "@currentuser",
-            community: mockCommunity.name.toUpperCase(),
+            author: currentUser?.Username || "Unknown User",
+            authorUsername: currentUser?.Username ? `@${currentUser.Username}` : "@unknown",
+            community: communityName.toUpperCase(),
         });
-        postCreation.setPublicState();
-        const postObj = postCreation.toObject
-            ? postCreation.toObject()
-            : postCreation;
-
-        // pasar el objeto al padre
-        onSubmit(postObj);
+        
+        // Pass the Post instance to parent
+        onSubmit(postCreation);
 
         setPostContent("");
     };
@@ -271,20 +235,28 @@ function EventCard({event, onJoin}) {
 }
 
 // Add this component after EventCard
-function ActivityFeed({posts, onLoadMore}) {
+function ActivityFeed({posts, onLoadMore, isLoading}) {
     return (
         <div className="activity-feed">
             <h2>Recent Activity</h2>
-            <div className="posts-container">
-                {posts.map((post) => (
-                    <PostCard key={post.id} post={post}/>
-                ))}
-            </div>
-            <div className="load-more-section">
-                <button className="load-more-btn" onClick={onLoadMore}>
-                    See more...
-                </button>
-            </div>
+            {isLoading ? (
+                <div className="loading-message">Loading posts...</div>
+            ) : posts.length === 0 ? (
+                <div className="empty-message">No posts yet. Be the first to post!</div>
+            ) : (
+                <>
+                    <div className="posts-container">
+                        {posts.map((post) => (
+                            <PostCard key={post.id} post={post}/>
+                        ))}
+                    </div>
+                    <div className="load-more-section">
+                        <button className="load-more-btn" onClick={onLoadMore}>
+                            See more...
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
@@ -301,20 +273,26 @@ function ActionCard({title, onClick}) {
 }
 
 // Community Section Component using MiniCommunityCard
-function CommunitySection({title, communities, onCommunityClick}) {
+function CommunitySection({title, communities, onCommunityClick, isLoading}) {
     return (
         <div className="community-section">
             <h3>{title}</h3>
-            <div className="community-section-list">
-                {communities.map((community) => (
-                    <MiniCommunityCard
-                        key={community.id}
-                        title={community.title}
-                        imageUrl={community.imageUrl}
-                        onView={() => onCommunityClick(community.id)}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className="loading-message">Loading communities...</div>
+            ) : communities.length === 0 ? (
+                <div className="empty-message">No communities found</div>
+            ) : (
+                <div className="community-section-list">
+                    {communities.map((community) => (
+                        <MiniCommunityCard
+                            key={community.id}
+                            title={community.title}
+                            imageUrl={community.imageUrl}
+                            onView={() => onCommunityClick(community.id)}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
@@ -352,8 +330,10 @@ export default function CommunityFeedPage() {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isLoggedIn] = useState(true); // For testing only, change later
-    const [posts, setPosts] = useState(mockPosts);
+    const [posts, setPosts] = useState([]);
     const {communityId} = useParams();
+    const [currentCommunity, setCurrentCommunity] = useState(null);
+    const [isLoadingCommunity, setIsLoadingCommunity] = useState(true);
     const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -362,14 +342,189 @@ export default function CommunityFeedPage() {
     const [iconUrl, setIconUrl] = useState("");
     const [bannerUrl, setBannerUrl] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    // New state for fetched communities
+    const [topCommunities, setTopCommunities] = useState([]);
+    const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
+
+    // New State for fetched Posts
+    const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+    
+    // New State for current user
+    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUserUid, setCurrentUserUid] = useState(null);
+
+    // Fetch the current user on component mount
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            try {
+                // Get the UID from localStorage
+                const uid = localStorage.getItem("currentUserUid");
+                
+                if (!uid) {
+                    console.warn("No user UID found in localStorage");
+                    return;
+                }
+                
+                setCurrentUserUid(uid);
+                
+                // Fetch user profile from Firestore
+                const userProfile = await getProfileById(uid);
+                
+                if (userProfile) {
+                    setCurrentUser(userProfile);
+                    console.log("Current user loaded:", userProfile);
+                } else {
+                    console.error("User profile not found");
+                }
+            } catch (error) {
+                console.error("Error fetching current user:", error);
+            }
+        };
+
+        fetchCurrentUser();
+    }, []);
+
+    // Fetch the current community by ID
+    useEffect(() => {
+        const fetchCurrentCommunity = async () => {
+            if (!communityId) {
+                setIsLoadingCommunity(false);
+                return;
+            }
+
+            try {
+                setIsLoadingCommunity(true);
+                const community = await getCommunityFromFirestore(communityId);
+                
+                if (community) {
+                    setCurrentCommunity(community);
+                    console.log("Current community loaded:", community);
+                } else {
+                    console.error("Community not found:", communityId);
+                    setCurrentCommunity(mockCommunity); // Fallback to mock
+                }
+            } catch (error) {
+                console.error("Error fetching community:", error);
+                setCurrentCommunity(mockCommunity); // Fallback to mock
+            } finally {
+                setIsLoadingCommunity(false);
+            }
+        };
+
+        fetchCurrentCommunity();
+    }, [communityId]);
+
+    // Fetch communities from Firestore on component mount
+    useEffect(() => {
+        const fetchCommunities = async () => {
+            try {
+                setIsLoadingCommunities(true);
+                const communities = await getAllCommunitiesFromDatabase();
+                
+                // Transform Firestore data to match the expected format
+                const transformedCommunities = communities.map(community => ({
+                    id: community.id,
+                    title: community.name,
+                    imageUrl: community.icon || null,
+                    game: community.game,
+                    location: community.location
+                }));
+                
+                setTopCommunities(transformedCommunities);
+                console.log("Fetched communities:", transformedCommunities);
+            } catch (error) {
+                console.error("Error fetching communities:", error);
+                setTopCommunities([]);
+            } finally {
+                setIsLoadingCommunities(false);
+            }
+        };
+
+        fetchCommunities();
+    }, []);
+
+    // Fetch Posts from the community - now depends on currentCommunity
+    useEffect(() => {
+        const fetchCommunityPosts = async () => {
+            // Don't fetch if community isn't loaded yet
+            if (!currentCommunity) {
+                setIsLoadingPosts(false);
+                return;
+            }
+            
+            try {
+                setIsLoadingPosts(true);
+                
+                // Get post IDs from the community
+                const postIds = currentCommunity.posts || [];
+                
+                // If no posts, set empty array
+                if (postIds.length === 0) {
+                    setPosts([]);
+                    console.log("No posts in this community");
+                    return;
+                }
+                
+                // Fetch each post from Firestore using the Post class
+                const postInstance = new Post({});
+                const fetchedPosts = await Promise.all(
+                    postIds.map(async (postId) => {
+                        try {
+                            // Handle both string IDs and object references
+                            const id = typeof postId === 'string' ? postId : postId.id;
+                            const post = await postInstance.getPost(id);
+                            return post;
+                        } catch (err) {
+                            console.error("Error fetching post:", postId, err);
+                            return null;
+                        }
+                    })
+                );
+                
+                // Filter out null posts and transform for UI
+                const transformedPosts = fetchedPosts
+                    .filter(post => post !== null)
+                    .map(post => ({
+                        id: post.id,
+                        user: {
+                            name: post.author || "Unknown",
+                            username: post.authorUsername || "@unknown",
+                            avatar: null
+                        },
+                        timestamp: post.date instanceof Date 
+                            ? post.date.toLocaleString() 
+                            : new Date(post.date?.seconds * 1000 || post.date).toLocaleString(),
+                        content: post.content,
+                        likes: post.likes || 0,
+                        comments: Array.isArray(post.comments) ? post.comments.length : 0,
+                        shares: 0,
+                        community: currentCommunity.name.toUpperCase(),
+                    }));
+
+                setPosts(transformedPosts);
+                console.log("Fetched posts:", transformedPosts);
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+                setPosts([]);
+            } finally {
+                setIsLoadingPosts(false);
+            }
+        };
+
+        fetchCommunityPosts();
+    }, [currentCommunity]); 
 
     const handleNavigation = (path) => {
         navigate(path);
         setIsMobileMenuOpen(false);
     };
+    
     const handleCommunityClick = (communityId) => {
         console.log(`Navigating to community ${communityId}`);
+        navigate(`/community/${communityId}`);
     };
+    
     const handleCreateCommunity = () => {
         setName("")
         setDescription("")
@@ -380,18 +535,60 @@ export default function CommunityFeedPage() {
         setIsSubmitting(false)
         setIsCreateCommunityModalOpen(true);
     };
-    const handleSubmitCommunity = (e) => {
+    
+    const handleSubmitCommunity = async (e) => {
         e.preventDefault();
         if (!name || !game) {
-            alert("Community Name and Game are required."); // test plz
+            alert("Community Name and Game are required.");
             return;
         }
         setIsSubmitting(true);
-        const communityData={name, description, game, location, iconUrl, bannerUrl,};
-        //   TODO add new community to backend here\
-
+        
+        try {
+            const communityData = {
+                name, 
+                description, 
+                game, 
+                location, 
+                iconUrl, 
+                bannerUrl
+            };
+            
+            await createCommunity(
+                communityData.name, 
+                communityData.description, 
+                currentUserUid || "currentUserId", // Use actual user UID if available
+                [], 
+                communityData.game, 
+                communityData.location, 
+                communityData.iconUrl, 
+                communityData.bannerUrl
+            );
+            
+            // Re-fetch communities to include the newly created one
+            const updatedCommunities = await getAllCommunitiesFromDatabase();
+            const transformedCommunities = updatedCommunities.map(community => ({
+                id: community.id,
+                title: community.name,
+                imageUrl: community.icon || null,
+                game: community.game,
+                location: community.location
+            }));
+            setTopCommunities(transformedCommunities);
+            
+            setIsSubmitting(false);
+            setIsCreateCommunityModalOpen(false);
+            alert(`Community "${name}" created successfully!`);
+        } catch (error) {
+            console.error("Error creating community:", error);
+            alert("Failed to create community. Please try again.");
+            setIsSubmitting(false);
+        }
     };
-    const closeCreateModal = ()=>{  setIsCreateCommunityModalOpen(false);    }
+    
+    const closeCreateModal = () => {
+        setIsCreateCommunityModalOpen(false);
+    }
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -405,46 +602,76 @@ export default function CommunityFeedPage() {
     ];
 
     // Handling button clicks
-
     const handleToggleSaved = (tournamentId, isSaved) => {
-        // TODO proper functionality added in the future
         console.log(`${isSaved ? "Unsaving" : "Saving"} tournament:`, tournamentId);
     };
-    const handleJoinEvent = (tournamentTitle) => {
-        // TODO proper functionality added later
-        console.log(`${isSaved ? "Unsaving" : "Saving"} tournament:`, tournamentId);
+    
+    const handleJoinEvent = (eventId, isJoining) => {
+        console.log(`${isJoining ? "Joining" : "Leaving"} event:`, eventId);
     };
 
-    const handleCreatePost = (postObj) => {
-        const timestamp =
-            postObj.date instanceof Date
-                ? postObj.date.toLocaleString()
-                : new Date(postObj.date).toLocaleString();
+    const handleCreatePost = async (postInstance) => {
+        try {
+            if (!currentCommunity) {
+                alert("Community not loaded. Please try again.");
+                return;
+            }
 
-        const obj = {
-            id: postObj.id,
-            user: {
-                name: postObj.author || "Current User",
-                username: postObj.authorUsername || "@currentuser",
-                avatar: null,
-            },
-            timestamp,
-            content: postObj.content,
-            likes: postObj.likes,
-            comments: Array.isArray(postObj.comments) ? postObj.comments.length : 0,
-            shares: 0,
-            community: postObj.community || mockCommunity.name,
-        };
-        setPosts((prev) => [obj, ...prev]);
+            console.log("Creating post for community:", currentCommunity.id);
+            console.log("Post instance:", postInstance);
 
-        alert(`Post created: "${obj.content}"`);
+            // Add post to Firestore Posts collection
+            await postInstance.addPostToCommunity(postInstance);
+            console.log("Post added to Firestore Posts collection");
+
+            // Add post ID to the community's posts array using addPost method
+            currentCommunity.addPost(postInstance.id);
+            
+            // Update the community in Firestore with the modified Community object
+            await updateCommunity(currentCommunity.id, currentCommunity);
+            console.log("Community posts array updated");
+
+            // Update local community state
+            setCurrentCommunity({...currentCommunity});
+
+            // Create display object for UI
+            const timestamp = postInstance.date instanceof Date
+                ? postInstance.date.toLocaleString()
+                : new Date(postInstance.date).toLocaleString();
+
+            const displayPost = {
+                id: postInstance.id,
+                user: {
+                    name: postInstance.author || "Current User",
+                    username: postInstance.authorUsername || "@currentuser",
+                    avatar: null,
+                },
+                timestamp,
+                content: postInstance.content,
+                likes: postInstance.likes,
+                comments: Array.isArray(postInstance.comments) ? postInstance.comments.length : 0,
+                shares: 0,
+                community: postInstance.community || currentCommunity.name.toUpperCase(),
+            };
+
+            // Add to UI
+            setPosts((prev) => [displayPost, ...prev]);
+
+            alert(`Post created successfully in ${currentCommunity.name}!`);
+            console.log("Post added to community:", currentCommunity.id, "Post ID:", postInstance.id);
+        } catch (error) {
+            console.error("Error creating post:", error);
+            console.error("Error details:", error.message);
+            alert("Failed to create post. Please try again.");
+        }
     };
 
     const handleLoadMore = () => {
-        // functionality to be later added
         console.log("Loading more posts...");
         alert("Loading more posts...");
     };
+
+    const displayCommunity = currentCommunity || mockCommunity;
 
     return (
         <div className="community-feed-page">
@@ -475,19 +702,31 @@ export default function CommunityFeedPage() {
                 {/* MIDDLE COLUMN - MAIN CONTENT */}
                 <main className="feed-main-content">
                     <section className="community-header">
-                        <h1>Activity in {mockCommunity.name} Community</h1>
+                        {isLoadingCommunity ? (
+                            <h1>Loading community...</h1>
+                        ) : (
+                            <h1>Activity in {displayCommunity.name} Community</h1>
+                        )}
                     </section>
 
                     {/* Create Post Form */}
-                    {isLoggedIn && (
+                    {isLoggedIn && !isLoadingCommunity && currentUser && (
                         <section className="create-post-section">
-                            <CreatePostForm onSubmit={handleCreatePost}/>
+                            <CreatePostForm 
+                                onSubmit={handleCreatePost}
+                                communityName={displayCommunity.name}
+                                currentUser={currentUser}
+                            />
                         </section>
                     )}
 
                     {/* Activity Feed */}
                     <section className="activity-feed">
-                        <ActivityFeed posts={posts} onLoadMore={handleLoadMore}/>
+                        <ActivityFeed 
+                            posts={posts} 
+                            onLoadMore={handleLoadMore}
+                            isLoading={isLoadingPosts}
+                        />
                     </section>
                 </main>
 
@@ -505,21 +744,24 @@ export default function CommunityFeedPage() {
                         />
                     </div>
 
-                    {/* Other Communities You Follow */}
+                    {/* Other Communities You Follow (mock data) */}
                     <CommunitySection
                         title="Other Communities You Follow"
                         communities={mockSidebarCommunities.followed}
                         onCommunityClick={handleCommunityClick}
+                        isLoading={false}
                     />
 
-                    {/* Top Communities */}
+                    {/* Top Communities from Firestore */}
                     <CommunitySection
                         title="Top Communities"
-                        communities={mockSidebarCommunities.top}
+                        communities={topCommunities}
                         onCommunityClick={handleCommunityClick}
+                        isLoading={isLoadingCommunities}
                     />
                 </aside>
             </div>
+            
             {/*  Modal rendering*/}
             {isCreateCommunityModalOpen && (
                 <CommunityModal
@@ -539,14 +781,14 @@ export default function CommunityFeedPage() {
                                 className="team-modal__btn team-modal__btn--primary"
                                 disabled={isSubmitting || !name || !game}
                             >{isSubmitting ? "Creating..." : "Create"}</button>
-                    </>
+                        </>
                     }
                 >
                     <form
                         id="create-community-form"
                         className="team-form"
                         onSubmit={handleSubmitCommunity}
-                        >
+                    >
                         <label className="team-form__label" htmlFor="communityName">Community Name</label>
                         <input
                             id="communityName"
@@ -556,7 +798,7 @@ export default function CommunityFeedPage() {
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g., Marvel Rivals Champions"
                             required
-                            />
+                        />
                         <label className="team-form__label" htmlFor="communityGame">Primary Game</label>
                         <input
                             id="communityGame"
@@ -566,7 +808,7 @@ export default function CommunityFeedPage() {
                             onChange={(e) => setGame(e.target.value)}
                             placeholder="e.g., Marvel Rivals"
                             required
-                            />
+                        />
                         <label className="team-form__label" htmlFor="communityLocation">Location</label>
                         <input
                             id="communityLocation"
@@ -575,7 +817,7 @@ export default function CommunityFeedPage() {
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder="e.g., North America"
-                            />
+                        />
                         <label className="team-form__label" htmlFor="communityDescription">Description</label>
                         <textarea
                             id="communityDescription"
@@ -584,7 +826,7 @@ export default function CommunityFeedPage() {
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="Tell the community what your place is about..."
                             rows={3}
-                            />
+                        />
                         <div className="team-form__group">
                             <span className="team-form__label">Assets (Optional)</span>
                             <input
@@ -594,7 +836,7 @@ export default function CommunityFeedPage() {
                                 value={iconUrl}
                                 onChange={(e) => setIconUrl(e.target.value)}
                                 placeholder="Icon URL: https://.../my_icon.png"
-                                />
+                            />
                             <input
                                 id="communityBanner"
                                 type="text"
@@ -602,7 +844,7 @@ export default function CommunityFeedPage() {
                                 value={bannerUrl}
                                 onChange={(e) => setBannerUrl(e.target.value)}
                                 placeholder="Banner URL: https://.../my_banner.jpg"
-                                />
+                            />
                         </div>
                     </form>
                 </CommunityModal>
