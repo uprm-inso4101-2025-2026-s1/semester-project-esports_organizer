@@ -8,7 +8,7 @@ const MAPPING = {
   "Fortnite" : "Fortnite.png",
   "Call of Duty" : "Call_of_Duty.png",
   "Dota 2" : "Dota_2.png",
-  "Counter-Srike 2" : "CS_GO.png",
+  "Counter-Strike 2" : "CS_GO.png",
   "Overwatch 2" : "Overwatch.png",
   "Rocket League" : "Rocket_League.png",
   "FIFA" : "Fifa25.png"
