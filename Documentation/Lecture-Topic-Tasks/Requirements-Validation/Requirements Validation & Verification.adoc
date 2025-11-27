@@ -1,0 +1,101 @@
+= Requirements Validation & Verification in Cross-Team Software Integration
+Sorimerlin Santos (Manager) 
+INSO4101-080
+
+== Introduction
+In complex systems composed of multiple independently developed components, it becomes easy for requirements to fragment or drift as development progresses.
+The lectures emphasized that Requirements Validation and Requirements Verification are essential mechanisms that keep evolving implementations consistent with both domain rules and documented specifications.
+In the Esports Organizer project, five functional teams worked in parallel, making these practices critical for maintaining a unified system vision and preventing contradictions across milestones.
+
+== Concept Overview
+The lecture distinguished two complementary processes.
+
+*Requirements Validation* ensures that requirements accurately reflect the domain.
+It answers the question, “Do these requirements represent what actually needs to happen in the real world?”
+This reflects the lecture’s principle that the domain shapes the requirements, not the other way around.
+
+*Requirements Verification* ensures that the implementation satisfies those requirements.
+It answers the question, “Does the system we built behave according to our own specification?”
+This aligns with the lecture’s definition that verification evaluates internal correctness, consistency, and compliance with system constraints.
+
+Together, Validation and Verification form a continuous cycle that anchors the system in real domain behavior while ensuring technical correctness.
+
+== Application in the Project
+Our project represented a textbook example of situations the lecture warned about: multiple teams building different views of the system, each with its own assumptions.
+Without Validation and Verification practices, requirement drift would have been unavoidable.
+
+Validation ensured that requirements remained tied to the esports tournament domain.
+This involved confirming role based participation, bracket progression, event scheduling, and the natural sequence of actions a real user follows when entering and navigating the platform.
+The lecture stressed that domain properties, for example “a player participates in exactly one match per round,” must be preserved as system requirements.
+
+Verification ensured that implemented features matched the documented Milestone requirements.
+This included confirming bracket logic, validating participation flows, and checking event lifecycle updates.
+Verification also applied to the entire user cycle, including login, profile setup, tournament discovery, registration, and participation.
+The lecture connected this to the idea that verification evaluates the machine view, which refers to the actual observable behavior of the system.
+
+== My Contribution
+My role as manager required applying the lecture’s principles directly.
+
+*Validation Activities:*  
+* Conducted milestone end reviews where each team confirmed whether their work matched domain expectations.  
+* Prevented requirement drift by realigning features, especially bracket logic, with the domain when inconsistencies appeared.  
+* Ensured that the user cycle, from login to profile pages and from tournament pages to participation, reflected realistic actions for esports participants.  
+* Compared evolving requirements across teams to ensure coherence with domain level properties.  
+* Applied the lecture’s multi view perspective, including domain view, interface view, and shared data view.
+
+*Verification Activities:*  
+* Coordinated cross team testing that compared integrated behavior with formal requirements.  
+* Verified that the entire user cycle behaved as documented, including transitions between pages and actions.  
+* Prioritized bug corrections based on requirement violations using the lecture’s criteria for correctness and completeness.  
+* Ensured that implementation behavior matched constraints related to update timing, responsiveness, and event logic.  
+* Used ideas from formal specification, such as Alloy or TLA, conceptually when checking for illegal or contradictory states, for example duplicate participation or invalid bracket states.
+
+These practices bridged the gap between the domain and the system, reflecting the core purpose of Requirements Engineering as taught in class.
+
+== Validation and Verification Workflow Diagram
+
+----
+          ┌──────────────────────────┐
+          │     Domain Analysis      │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │ Requirements Definition  │
+          └─────────────┬────────────┘
+                Validation │
+                        ▼
+          ┌──────────────────────────┐
+          │ Compare With Domain Rules│
+          │ (Right requirements?)    │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │     Implementation       │
+          └─────────────┬────────────┘
+               Verification │
+                        ▼
+          ┌──────────────────────────┐
+          │ Compare With Specification│
+          │ (Built correctly?)        │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │ Testing and Corrections  │
+          └──────────────────────────┘
+----
+
+== Benefits
+* Prevents requirement drift across milestones  
+* Ensures consistency between domain, requirements, and implementation  
+* Makes cross team integration smoother and more predictable  
+* Identifies contradictions early before they become costly or unsolvable  
+* Strengthens communication across teams by using a common validation language  
+* Guarantees that the final system respects both domain constraints and specification constraints  
+
+== Conclusion
+The lecture’s emphasis on Requirements Validation and Requirements Verification directly shaped how we coordinated the Esports Organizer project.
+These practices ensured that the system evolved without losing its domain grounding, that each team’s work remained compatible with the others, and that the final integrated application behaved consistently with both stakeholder needs and the formal requirements.
+By applying these principles throughout the semester, we delivered a system that was aligned with the domain expectations.
