@@ -1,0 +1,42 @@
+= Qualitative vs Quantitative Risk Assessment – Player & Team Profiles
+Jael Rodriguez – Esports Organizer Project  
+Team: Player & Profiles  
+INSO4101-080
+
+== 1. Understanding Risk in Player & Team Profiles
+Risks in the profile system involve uncertainties that may compromise profile integrity, team
+membership, role accuracy, competitive fairness, or data synchronization. These include incorrect
+role assignments, desynchronized ranks, or players appearing in multiple rosters.
+
+== 2. Qualitative Risk Assessment for Profiles
+This evaluation uses descriptive labels to classify likelihood and severity. Examples include:
+- Likely: Profile updates not syncing before tournament check-in.
+- Possible: Non-captain players modifying sensitive profile attributes.
+- Unlikely: Duplicate player records created during simultaneous registration.
+Severity examples include High (eligibility impact), Moderate (visual inconsistency), and Low
+(non-critical info).
+
+== 3. Quantitative Risk Assessment for Profiles
+This method assigns numeric values:
+Likelihood: 0.1–1.0
+Severity: 1–10
+Exposure = Likelihood × Severity
+Example:
+Risk: Player rank fails to update before a tournament.
+Likelihood: 0.3
+Severity: 9
+Exposure: 0.3 × 9 = 2.7
+
+== 4. Comparison in the Context of Profiles
+Qualitative assessment is ideal for early detection of profile-related vulnerabilities such as
+permission conflicts.
+Quantitative assessment is better for prioritizing technical fixes when data accuracy or eligibility
+is at stake.
+Using both approaches ensures robust protection of competitive integrity and player data
+consistency.
+== 5. Applied Example – Esports Organizer
+Risk: A player appears on two team rosters due to synchronization delays.
+Qualitative: Possible, Severe
+Quantitative: Likelihood 0.2, Severity 10 → Exposure = 2.0
+Mitigation: Enforce atomic database transactions and lock roster updates until completion to
+prevent duplication.
