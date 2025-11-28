@@ -2,8 +2,8 @@
 
 [cols="<,>", frame=none, grid=none, width=100%]
 |===
-|image:images/upr-escudo.png[width=115]
-|image:images/uprm-escudo.png[width=115]
+|image:Introduction/Sections/upr-escudo.png[width=115]
+|image:Introduction/Sections/uprm-escudo.png[width=115]
 |===
 
 [.spacer%hardbreaks]
@@ -23,7 +23,7 @@
 
 [.text-center]
 [.lead]*Esports Organizer* +
-*Second Milestone* +
+*Third Milestone* +
 Prof. Marko Schütz
 
 [.spacer%hardbreaks]
@@ -46,6 +46,6 @@ Prof. Marko Schütz
 Introduction to Software Engineering (INSO4101) +
 Section 080 +
 Professor Marko Schütz +
-Friday, October 24, 2024
+Friday, November 28, 2025
 
 <<<

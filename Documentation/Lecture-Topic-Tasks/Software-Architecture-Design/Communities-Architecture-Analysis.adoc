@@ -1,0 +1,62 @@
+= Lecture Topic Task - Layered Architecture Analysis for Community Features
+
+By: Isai Padin
+
+*Introduction:*
+
+This lecture topic task explores the application of Layered Architecture within the communities of the esports organizer platform. layered Architecture organizes the system into the presentation, business logic and data access layers, where each layer has responsibilities and only communicates with the layer directly below it. This structure applied to communities will ensure that social interactions, moderation rules, and data storage remain maintainable. This task directly relates to the Software Design and System Architecture lectures, specifically in architectural patterns and separation of concerns.
+
+*Objective:*
+
+The primary objective is to define and visualize the 3 tier architecture for the community system:
+
+1. The presentation layer (UI) handles only user interaction and display logic
+2. The business logic layer enforces rules
+3. The data access layer handles database operations.
+
+*Process:*
+
+The process for this task involved mapping the project's folder structure to an architecture, ensuring separation of concerns. These are the categories identified:
+
+*Presentation Layer:* Layer containing React components and UI pages. It handles user interactions.
+
+*Business Logic and Service Layer:* This layer contains core logic and API calls.
+
+*Data Access Layer:* This layer manages the connection to the data source. It handles the initialization and configuration for the database.
+
+*Diagram:*
+
+       --------------------------------------------------------
+      |                  Presentation Layer                    |
+      |    (e.g. ../pages/Home.jsx, .../CommunityFeed.jsx)     |
+      |             Renders UI, captures User Input            |
+       --------------------------------------------------------
+                                   |
+                                   v
+       --------------------------------------------------------
+      |                  Business Logic Layer                  |
+      |         (e.g. ../services/communityService.js)         |
+      |       Validates inputs, Checks User Permissions        |
+       --------------------------------------------------------
+                                   |
+                                   v
+       --------------------------------------------------------
+      |                     Data Access Layer                  |
+      |                    (e.g. src/database)                 |
+      |             Executes reads/writes to Database          |
+       --------------------------------------------------------
+
+*Example Scenario:* A user creates a new post in a community.
+
+1. Presentation: The user types a message and click post. The component calls a function from the business logic layer.
+2. Business Logic: The function call receives the post data. It validates the content, then sends the data to the backend.
+3. Data Access: The service pushes the new document to store it.
+4. Response: The UI receives confirmation and the new post is displayed.
+
+*Reflections and findings:*
+
+Applying Layered Architecture to the communities features highlights the importance of defining clear boundaries. Initially, there was a tendency to put validation logic directly into the UI components. Allowing a dedicated logic layer reduced code duplication and made the components lighter and easier to read. It is clear that layers significantly reduce technical problems and mishaps in the future of any project development.
+
+*Conclusion:*
+
+The layered architecture approach provides a solid foundation for the platform's features. By separating the concerns of display, logic, and storage, the team ensures that the community system is adaptable and adjustable to future changes in requirements.

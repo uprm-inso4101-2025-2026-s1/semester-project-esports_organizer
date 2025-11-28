@@ -1,0 +1,133 @@
+= Risk Analysis and Management for the Notification System
+
+Yamilet Gomez – Esports Organizer Project  
+Team: Events & Notifications  
+INSO4101-080
+
+== 1. Objective
+This document analyzes potential risks in the **Notification System** of the Esports Web Platform. The goal is to identify, assess, and mitigate risks affecting notification delivery, data integrity, usability, and security.
+
+== 2. System Overview
+The Notification System has two user views:
+
+* **Players:**
+
+  * Can view notifications.
+  * Can access notification history.
+  * Can mark all notifications as read (this deletes them).
+  * Can save tournament events to Google Calendar using a reminder option.
+
+* **Admins & Managers:**
+
+  * Can view and delete notifications like players.
+  * Can send notifications.
+  * Must choose a **Team**, a **Title**, and a **Message** before sending.
+  * All team members receive the notification.
+
+== 3. Risk Analysis Concepts
+
+* **Risk Identification:** Detecting what could go wrong.
+* **Risk Assessment:** Estimating the likelihood and impact.
+* **Risk Control:** Defining mitigation & contingency strategies.
+
+== 4. Risk Matrix (Notification System)
+[cols="1,1,1,2,2", options="header"]
+|===
+| Risk | Likelihood | Impact | Description | Mitigation
+
+| Incorrect team targeted
+| Medium
+| High
+| Admin/manager selects the wrong team and sends a notification to unintended users.
+| Add confirmation modal; show team member preview before sending.
+
+| Notification not delivered
+| Medium
+| High
+| Firebase write failure or bad network causes missing notifications.
+| Implement retries, success validation, and error logs.
+
+| Duplicate notifications
+| Low
+| Medium
+| Admins may accidentally send the same message twice.
+| Add cooldown timer or detection of near-identical duplicates.
+
+| Unauthorized notification sending
+| Low
+| High
+| A regular user bypasses UI restrictions.
+| Server-side role validation; Firebase security rules.
+
+
+
+| Incorrect Google Calendar event time
+| Low
+| Medium
+| Wrong timezone or reminder selection.
+| Validate timezones; preview event before saving.
+
+| Data inconsistency in notification history
+| Medium
+| Medium
+| Desync between real-time notifications and history.
+| Add sync check and fallback fetch.
+
+| Overloading users with too many notifications
+| Medium
+| Low
+| Team receives excessive notifications from managers.
+| Add rate limits; send grouped notifications.
+
+|===
+
+== 5. Summary
+Proactive risk management helps ensure the Notification System remains:
+
+* Reliable for delivering tournament updates.
+* Secure by restricting permissions.
+* Usable for both players and managers.
+* Integrated safely with Google Calendar.
+
+By managing these risks early, the platform improves stability, user trust, and operational consistency.
+
+
+                           ┌───────────────────────────────┐
+                           │         Admin / Manager        │
+                           │  (Send Notifications, Manage)  │
+                           └──────────────┬────────────────┘
+                                          │
+                                          │ Create Notification
+                                          ▼
+                         ┌────────────────────────────────────────┐
+                         │      Notification Service Layer        │
+                         │  • Validate sender permissions         │
+                         │  • Select Team / Players               │
+                         │  • Create notification object          │
+                         └──────────────┬─────────────────────────┘
+                                        │ Save to Database
+                                        ▼
+                         ┌────────────────────────────────────────┐
+                         │             Firebase DB                │
+                         │  • Stores notification objects         │
+                         │  • Stores read/unread state            │
+                         └──────────────┬─────────────────────────┘
+                                        │
+                                        │ Real-time Updates
+                                        ▼
+            ┌────────────────────────────────────────────────────────────────┐
+            │                             Players                             │
+            │  • View notification feed                                       │
+            │  • Notification history                                         │
+            │  • "Mark all as read" (deletes notifications)                   │
+            │  • "Save event to Google Calendar" → user chooses reminder      │
+            └───────────────────┬────────────────────────────────────────────┘
+                                │
+                                │ Click “Save to Google Calendar”
+                                ▼
+                ┌────────────────────────────────────────────────┐
+                │            Google Calendar API                 │
+                │ • Event creation                               │
+                │ • Reminder scheduling                          │
+                └────────────────────────────────────────────────┘
+

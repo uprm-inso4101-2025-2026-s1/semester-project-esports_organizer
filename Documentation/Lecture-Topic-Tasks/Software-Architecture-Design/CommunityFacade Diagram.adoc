@@ -1,0 +1,18 @@
+//To view the diagram in preview, asciidoc.extensions.enableKroki must be enabled
+
+//Can also view at https://mermaid.live/ (paste lines 9-17)
+
+//Rendered PNG is also present in the files
+
+[mermaid]
+----
+graph LR
+    UI["Client (UI Layer)"]
+    FACADE["CommunityFacade"]
+    COMMUNITY["Community Class"]
+    DB["Firestore Database"]
+
+    UI --> FACADE
+    FACADE --> COMMUNITY
+    FACADE --> DB
+----

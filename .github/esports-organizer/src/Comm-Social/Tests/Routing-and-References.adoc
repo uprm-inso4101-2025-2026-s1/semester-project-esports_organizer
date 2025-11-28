@@ -1,0 +1,28 @@
+=== Routing and References Testing
+
+Test was done by checking every button and like that was available on the platform to see if it routed to the correct page or section.
+
+|===
+
+| Issue | Status
+
+| All Comminities buttons that work send to the correct page/section.
+| ❌ (Some communities buttons send you to a blank page)
+
+| All Tournaments buttons that work send to the correct page/section.
+| ✅
+
+| All profiles buttons that work send to the correct page/section.
+| ✅
+
+| All Notifications buttons that work send to the correct page/section.
+| ✅
+
+|All Buttons of the Team Section send to the correct page/section.
+| ✅
+
+|===
+
+== Summary
+
+All routing and references available are working as expected. There are some buttons that are not connected yet but that is due to the feature not being available yet.

@@ -1,0 +1,47 @@
+= Inconsistency Management in Requirements Engineering – Player & Team Profiles
+Jael Rodriguez – Esports Organizer Project  
+Team: Player & Profiles  
+INSO4101-080
+
+== 1. Understanding Inconsistency in Player & Team Profiles
+In the Player & Team Profiles module, inconsistencies arise when profile attributes, permissions,
+or team-related data contradict each other across requirements. Because players, captains, and
+administrators interact with the profile subsystem in different ways, inconsistencies are common
+and must be identified early to prevent corrupt data states, roster contradictions, or permission
+misuse.
+
+== 2. Types of Inconsistencies in the Profiles Module
+• Terminology Clash: Terms like 'Role', 'Position', and 'Team Role' may be used inconsistently
+between teams.
+• Designation Clash: The term 'Captain' might refer to the team founder in one requirement but to
+a squad manager in another.
+• Structure Clash: Modeling ranks as a single numeric score versus a tiered structure leads to
+design issues.
+• Strong Conflict: 'Players may join only one team' vs. 'Players may belong to multiple practice
+squads.'
+• Weak Conflict: Players can edit their profiles anytime, but certain edits (competitive ranks)
+should be restricted during tournaments.
+
+== 3. Root Causes in Profile Requirements
+Conflicts emerge from:
+- Diverse stakeholder interpretations (admins vs. captains).
+- Ambiguous boundaries between editable and non-editable attributes.
+- Overlapping permissions for managing player roles.
+- Evolving definitions of what counts as competitive-impacting data.
+These conflicts reflect natural domain evolution within the competitive esports environment.
+
+== 4. Structured Conflict Management for Profiles
+A systematic approach includes:
+=== 1. Identifying overlapping attributes (rank, roles, eligibility).
+=== 2. Analyzing permission flows between players, captains, and admins.
+=== 3. Documenting inconsistencies using diagrams or traceability tables.
+=== 4. Proposing resolutions (conditional updates, captain approval flows).
+=== 5. Selecting solutions based on fairness, data integrity, and tournament rules.
+This ensures a consistent, reliable profile system.
+
+== 5. Applied Example – Esports Organizer
+Requirement A: Players may freely update their profile information.
+Requirement B: Captains must approve changes to attributes that impact competitive eligibility.
+Resolution: Allow unrestricted edits to non-competitive attributes while routing sensitive
+changes (rank, role, team status) through a captain approval system to avoid conflicts during
+tournaments.
