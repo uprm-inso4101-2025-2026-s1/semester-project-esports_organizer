@@ -1,0 +1,17 @@
+Class Diagram for Communities
+
+Classes:
+community: An entity that represents a group of users with similar interests. The user can join to become a member and view posts, and filter using tags.
+admin: User that created and/or manages the community. They can remove members, tags, and posts in the community. 
+member: User that is part of the community. They can see, like, create and comment posts. 
+posts: Image and text published by a member. Posts have an author (the member who created it), likes, content that is being published, title, comments, and an id.
+tags: Labels that represent the category of a post to allow for easy filtering.
+
+
+
+image::class-diagram-communities.png[]
+
+Figure 1: Class diagram for Communities
+
+
+The class diagram created shows and demonstrates the behavioral relationships among the entities, actors, and classes in the community class. It helps developers easily understand how communities work and function to easily develop and implement related features.   

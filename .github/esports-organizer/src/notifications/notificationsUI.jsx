@@ -49,20 +49,20 @@ export default function Notifications({ inline = false }) {
 }, [currentUserUid]);
 
 
-  useEffect(() => {
-    if (!currentUserUid) return;
-    try {
-      const userNotifsRef = collection(db, 'User', currentUserUid, 'notifications');
-      const q = query(userNotifsRef, orderBy('createdAt', 'desc'));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const docs = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setNotifications(docs);
-      });
-      return () => unsubscribe();
-    } catch (err) {
-      console.error("Error fetching notifications:", err);
-    }
-  }, [currentUserUid]);
+  // useEffect(() => {
+  //   if (!currentUserUid) return;
+  //   try {
+  //     const userNotifsRef = collection(db, 'User', currentUserUid, 'notifications');
+  //     const q = query(userNotifsRef, orderBy('createdAt', 'desc'));
+  //     const unsubscribe = onSnapshot(q, (snapshot) => {
+  //       const docs = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+  //       setNotifications(docs);
+  //     });
+  //     return () => unsubscribe();
+  //   } catch (err) {
+  //     console.error("Error fetching notifications:", err);
+  //   }
+  // }, [currentUserUid]);
 
   // ========================
   // Load events safely
