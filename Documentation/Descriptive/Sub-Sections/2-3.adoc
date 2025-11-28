@@ -18,10 +18,11 @@ The **software architecture** reflects how domain-level concepts transform into 
 
 [.hl-green]#*Rectangles:* Functional modules that carry out domain operations (Profiles, Badge Module, Privacy Control).#  
 [.hl-green]#*External-service rectangles:* Components outside our system (Firebase Auth, Firestore) that support authentication or persistence.#  
-[.hl-green]#*Solid arrows:* Flows that represent domain actions being executed—such as storing updated profile data, reading badges, or toggling visibility.#  
+[.hl-green]#*Solid arrows:* Flows that represent domain actions being executed—such as storing updated profile data, reading badges, or toggling visibility.#
 
-.Image: Profiles Module Architecture (Milestone 2)
-image::profiles_architecture.svg[align=center]
+image::Descriptive/Sub-Sections/profiles_architecture.svg[align=center]
+[.text-center]
+Figure 2.3 - Profiles Module Architecture (Milestone 2)
 
 [.hl-green]#Thinking again in “cafetería terms”: When Alex wants to check his past tournaments, the system behaves like a small conversation happening behind the scenes. React asks Express, Express checks Firestore, Firestore returns the data, and Express replies. This small chain of interactions corresponds directly to the domain’s requirement to make event results available even after tournaments conclude.#  
 
@@ -30,11 +31,7 @@ image::profiles_architecture.svg[align=center]
 The **software design** explains how each phenomenon in the domain becomes a concrete operation:
 
 * **Authentication**  
-  [.hl-yellow]#Reflects the domain restriction that only registered users can create or modify events or profiles.#  
-
-image::Descriptive/Sub-Sections/profiles_architecture.svg[align=center]
-[.text-center]
-Figure 2.3 - Profiles Module Architecture (Milestone 2)
+  [.hl-yellow]#Reflects the domain restriction that only registered users can create or modify events or profiles.#
 
 * **Profile Management**  
   [.hl-green]#Represents the player entity described in the domain. Updating or viewing a profile is not merely a UI action—it reflects the domain behavior of identifying players, referencing them in events, and ensuring data consistency.#  
@@ -43,9 +40,9 @@ Figure 2.3 - Profiles Module Architecture (Milestone 2)
   [.hl-green]#Supports the requirement that results and participation remain visible and traceable, enabling rankings, statistics, and post-event visibility.#  
 
 * **Badge & Visibility Controls**  
-  [.hl-green]#Express aspects of player behavior such as reputation, privacy, or recognition available in real gaming communities, which surfaced during persona and field exploration.#  
+  [.hl-green]#Express aspects of player behavior such as reputation, privacy, or recognition available in real gaming communities, which surfaced during persona and field exploration.#
 
----
+'''
 
 == 2.3.1 Selected Fragments of the Implementation
 
