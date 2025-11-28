@@ -193,7 +193,9 @@ function PlayerProfile() {
     return () => window.removeEventListener('participatedEventsUpdated', handler);
   }, []);
 
-  // Edit mode handlers
+
+
+    // Edit mode handlers
   const startEdit = () => {
     setForm({
       username: String(player.Username || ""),
