@@ -6,6 +6,9 @@ import "./TeamProfilePage.css";
 import "./TeamForms.css";
 import Team from "../../services/TeamClass";
 
+import { joinTeam, leaveTeam } from "../../services/profile-service";
+import { getProfileById } from "../../services/profile-service";
+
 function TeamModal({ title, children, onClose, footer }) {
   return (
     <div className="team-modal-overlay" onClick={onClose}>
@@ -37,6 +40,25 @@ export default function TeamProfilePage() {
   const { teamId } = useParams();
   const navigate = useNavigate();
   const [team, setTeam] = useState({});
+
+  const [joinStatus, setJoinStatus] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmMsg, setConfirmMsg] = useState("");
+
+  const [userTeamId, setUserTeamId] = useState(null);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchUserProfile() {
+      const uid = localStorage.getItem("currentUserUid");
+      if (uid) {
+        const profile = await getProfileById(uid);
+        setUserTeamId(profile?.teamId || null);
+      }
+      setProfileLoaded(true);
+    }
+    fetchUserProfile();
+  }, [teamId, joinStatus, showConfirm]);
 
   // const team = useMemo(
   //   () => Team.getAll().find((entry) => entry.id === teamId) ?? null,
@@ -111,6 +133,37 @@ export default function TeamProfilePage() {
           ← Back to teams
         </button>
 
+
+        {/* Modal for confirmation */}
+        {showConfirm && (
+          <TeamModal
+            title="Confirm Team Change"
+            onClose={() => setShowConfirm(false)}
+            footer={null}
+          >
+            <p>{confirmMsg}</p>
+            <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
+              <Button
+                text="Confirm Join"
+                variant="danger"
+                style={{ width: "auto", minWidth: "120px" }}
+                onClick={async () => {
+                  // Overwrite teamId
+                  const result = await joinTeam(teamId, true);
+                  setJoinStatus(result.message || result.error);
+                  setShowConfirm(false);
+                }}
+              />
+              <Button
+                text="Cancel"
+                variant="ghost"
+                style={{ width: "auto", minWidth: "120px" }}
+                onClick={() => setShowConfirm(false)}
+              />
+            </div>
+          </TeamModal>
+        )}
+
         <section className="team-hero">
           <div
             className="team-hero__background"
@@ -140,6 +193,40 @@ export default function TeamProfilePage() {
                   <span className="team-hero__record-label">Wins · Losses</span>
                 </div>
                 <p className="team-hero__description">{team?.description}</p>
+                {/* Join/Leave Team Buttons inside hero, hidden when modal is open */}
+                {profileLoaded && (
+                  <div style={{ display: "flex", gap: "8px", margin: "12px 0" }}>
+                    {userTeamId !== teamId && (
+                      <Button
+                        text="Join Team"
+                        variant="primary"
+                        style={{ width: "auto", minWidth: "120px" }}
+                        onClick={async () => {
+                          const result = await joinTeam(teamId);
+                          if (result.confirm) {
+                            setShowConfirm(true);
+                            setConfirmMsg(result.message);
+                          } else {
+                            setJoinStatus(result.message || result.error);
+                            setShowConfirm(false);
+                          }
+                        }}
+                      />
+                    )}
+                    {userTeamId === teamId && (
+                      <Button
+                        text="Leave Team"
+                        variant="secondary"
+                        style={{ width: "auto", minWidth: "120px" }}
+                        onClick={async () => {
+                          const result = await leaveTeam();
+                          setJoinStatus(result.message || result.error);
+                          setShowConfirm(false);
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
                 {userHasEditPermissions && (
                   <button
                     type="button"

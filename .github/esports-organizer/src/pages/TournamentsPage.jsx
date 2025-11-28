@@ -180,7 +180,6 @@ function TournamentsPage() {
   };
 
   const handleJoin = async (event, team) => {
-
     try {
       console.log("=== handleJoin START ===");
       console.log("Event:", event);
@@ -204,8 +203,10 @@ function TournamentsPage() {
       if (!currentUser.uid) {
         currentUser.uid = uid;
       }
+      console.log("User to add to team:", currentUser);
       
       currentEvent.addToTeam(team.name, currentUser);
+      console.log("Team members after adding user:", currentEvent.teams);
       
       currentEvent.participants[currentUser.uid] = {
         ...(currentEvent.participants[currentUser.uid] || {}),
@@ -258,36 +259,21 @@ function TournamentsPage() {
       );
       
       // Add event to user's participated events
+      console.log("Adding event to user profile. uid:", uid, "eventId:", event.id, "eventTitle:", event.title);
       const addResult = await addEventToUserProfile(uid, event.id, event.title);
+      console.log("addEventToUserProfile result:", addResult);
       
       if (!addResult || !addResult.success) {
+        console.error("ERROR: Failed to add event to user profile:", addResult);
         alert("Event added to team but failed to update your profile. Please refresh.");
         return;
       }
       
-      window.dispatchEvent(new Event("participatedEventsUpdated"));
-
+      console.log("Dispatching participatedEventsUpdated event");
+      window.dispatchEvent(new Event('participatedEventsUpdated'));
+      
       await loadEvents();
       const updatedEvent = await getEventById(currentEvent.id);
-
-      setSelectedEvent({
-        id: updatedEvent.id,
-        title: updatedEvent.title,
-        game: updatedEvent.game,
-        price: "Free",
-        date: updatedEvent.dateValue.toDateString(),
-        location: updatedEvent.location,
-        dateValue: updatedEvent.dateValue,
-        participants: updatedEvent.participants,
-        teams: updatedEvent.teams,
-        maxTeams: updatedEvent.maxTeams,
-        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam,
-      });
-
-    } catch (error) {
-      console.error("=== handleJoin ERROR ===", error);
-      alert("Error joining event: " + error.message);
-    }
 
       const selected = {
         id: updatedEvent.id,

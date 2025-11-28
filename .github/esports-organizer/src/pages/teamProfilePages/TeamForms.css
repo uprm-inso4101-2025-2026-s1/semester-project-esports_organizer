@@ -86,7 +86,7 @@
 }
 
 .team-modal__body {
-  padding: 24px 32px 0;
+  padding: 24px 32px;
   overflow-y: auto;
   color: rgba(255, 255, 255, 0.92);
 }
