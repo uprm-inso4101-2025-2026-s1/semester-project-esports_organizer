@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Image dupe">
-      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements-Engineering-Process-Model/Mapping Tournament Requirements to the Process Phases.adoc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Risk Analysis/Organizational Risks in Tournament Management.adoc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Time Mangement, Planning, Scheduling, Tracking/Evaluation of Milestone Time Management.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Algebras/Algebraic Structures for Profile Management" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Algebras/Algebraic Structures for Profile Management.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Phenomena-and-Concepts/Applying Phenomena and Concepts to Role-Based Access and Profile Modeling" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Phenomena-and-Concepts/Applying Phenomena and Concepts to Role-Based Access and Profile Modeling.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design/Integrate 2FA, Role Modeling, and Profile" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design/Integrate 2FA, Role Modeling, and Profile.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
