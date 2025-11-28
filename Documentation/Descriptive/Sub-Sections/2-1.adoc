@@ -78,7 +78,19 @@ Figure 2.1.1 - Tournament and community interaction flow
 
 - [.hl-yellow]#Organizer: A person or group that plans, schedules, and manages esports tournaments, defines eligibility rules, determines formats, and oversees match progression.#  
 
-- [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).#  
+- [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).# 
+
+image::Result_Report_Flowchart.JPG[align=center]
+
+[.hl-green]#Figure Result Report Interaction Flow.
+This diagram illustrates the flow of the result report creation process.#  
+
+- [.hl-green]#**Blue rectangles** represent actions (Create array, trow error, etc).
+- **Purple diamonds** represent questions (Is the data empty?, Are there more teams to import.).
+- **Arrows** indicate the flow of interactions.#
+
+- [.hl-green]#*Tournament Data*: Data on the tournamnets, final standing, KDA etc. used to create the final ranking list.
+- *Ranking array*: Final ranking list. every team is placed on the order of where they finished on the ladder.#
 
 - [.hl-yellow]#Match: A competitive encounter between two teams within a tournament, whose outcome contributes to bracket progress, standings, or ranking calculations.#  
 
@@ -148,7 +160,7 @@ These decisions require discussion and negotiation among the project team. For e
 Function signatures define how operations are represented programmatically, describing inputs, outputs, and failure conditions. They are grouped with their corresponding actions/operations to clarify how they support domain scenarios and observations.
 
 
-image::Descriptive/Sub-Sections/account_creation.png[align=center,scaledwidth=65%]
+image::account_creation.png[align=center,scaledwidth=65%]
 [.text-center]
 Figure 2.1.2 - Account creation flow
 
@@ -157,7 +169,7 @@ Figure 2.1.2 - Account creation flow
 * **registerTeam(team, tournament) → Confirmation | Waitlist | Denied**
 - Registers a team if it meets eligibility requirements and if slots are available.
 
-image::Descriptive/Sub-Sections/Visual diagram of state transitions.png[align=center]
+image::Visual diagram of state transitions.png[align=center]
 [.text-center]
 Figure 2.1.3 - Example registration flow
 
@@ -170,9 +182,33 @@ Figure 2.1.3 - Example registration flow
 * **checkInTeam(teamID, tournamentID) → StatusUpdated | Timeout**
 - Verifies attendance before match start; returns timeout if grace period expires.
 
-image::Descriptive/Sub-Sections/image1.png[align=center,scaledwidth=55%]
+image::image1.png[align=center,scaledwidth=55%]
 [.text-center]
 Figure 2.1.4 - Example check in flow
+
+== Model Explanation
+
+[.hl-green]#This Petri net model represents the complete player check-in flow within the Esports Organizer system. 
+The goal is to clearly illustrate how a player progresses through the system before a match begins, 
+how delays or no-shows are handled, and how different transitions alter a player's state. 
+Using a token-based representation makes the flow intuitive and highlights how the system behaves under different scenarios.
+
+The model begins with the player in the *Waiting for Check-In* state. 
+A token is placed in this initial place to represent one player who has not yet interacted with the check-in system. 
+When the player arrives and performs the check-in action, the transition *Player Arrives* fires, 
+moving the token into the *Checked-In* state. This represents the user pressing the "Check-In" button in the interface.
+
+Once the player is in *Checked-In*, they must confirm readiness before the match can begin. 
+When the confirmation occurs, the *Confirm Ready* transition fires, moving the token to the *Ready for Match* state. 
+This indicates that the player has completed pre-match requirements. In the real system, this corresponds to backend logic updating the player's ready status.
+
+If the player does not check in within the allowed time, the *Timeout Occurs* transition fires, 
+sending the token from *Waiting for Check-In* to *No-Show*. 
+This is triggered by a countdown or scheduled function. 
+Admins may also manually flag a player absent using the *Mark as No-Show* transition, moving the token from *Checked-In* to *No-Show*.
+
+These transitions illustrate how the system handles normal and exceptional flow paths. 
+The model ensures that all possible outcomes are explicitly defined—arriving on time, confirming readiness, failing to check in, or being manually marked absent.#
 
 Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
 
