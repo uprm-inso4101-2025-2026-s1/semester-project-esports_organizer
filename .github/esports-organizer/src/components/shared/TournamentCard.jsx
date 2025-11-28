@@ -1,5 +1,19 @@
 import { addToGoogleCalendar } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
+
+const MAPPING = {
+  "Apex Legends" : "Apex.png",
+  "Valorant" : "Valorant.png",
+  "League of Legends" : "League_of_Legends.png",
+  "Fortnite" : "Fortnite.png",
+  "Call of Duty" : "Call_of_Duty.png",
+  "Dota 2" : "Dota_2.png",
+  "Counter-Strike 2" : "CS_GO.png",
+  "Overwatch 2" : "Overwatch.png",
+  "Rocket League" : "Rocket_League.png",
+  "FIFA" : "Fifa25.png"
+}
+
 function TournamentCard({
   tournament, 
   index, 
@@ -12,7 +26,6 @@ function TournamentCard({
   const handleNavigation = (path) => {
     navigate(path);
   };
-
   return (
     <div className="tournament-card">
       <div
@@ -25,12 +38,12 @@ function TournamentCard({
         }}
       >
         <img
-          src="/assets/images/fortnite.png"
+          src={"src/assets/images/" + MAPPING[tournament.game]}
           alt="Tournament"
           className="tournament-image"
         />
         <div className="tournament-overlay">
-          <div className="tournament-type-overlay">CLASIFICATORIO</div>
+          <div className="tournament-type-overlay">TOURNAMENT</div>
         </div>
       </div>
       <div className="tournament-info">

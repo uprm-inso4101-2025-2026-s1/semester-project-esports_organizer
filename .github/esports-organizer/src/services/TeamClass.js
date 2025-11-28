@@ -14,18 +14,31 @@ import {
   getDoc,
   getDocs,
   updateDoc,
-  query,
-  where
 } from "firebase/firestore";
 
 export default class Team {
 
-  constructor ({name, organizer, members = [], maxMembers = 30, id}) {
-    this.name = name;
+  constructor ({
+    teamName,
+    mainGame,
+    description = "",
+    twitchUrl = "",
+    instagramUrl = "",
+    twitterUrl = "",
+    organizer,
+    members = [],
+    maxMembers = 30,
+  }) {
+    this.teamName = teamName;
+    this.mainGame = mainGame;
+    this.description = description;
+    this.twitchUrl = twitchUrl;
+    this.instagramUrl = instagramUrl;
+    this.twitterUrl = twitterUrl;
     this.organizer = organizer;
-    this.members = Array.isArray(members) && members.length > 0 ? members : [organizer];
+    this.members = (Array.isArray(members) && members.length > 0) ? members : [organizer];
     this.maxMembers = maxMembers;
-    this.id = id;
+    this.id = btoa(teamName);
   }
 
   //---------------------------
@@ -108,28 +121,36 @@ static removeFromSubteam(subTeam, uid) {
   /* Converts the team into a key value pair to be able to store in Firebase. */
   toFireStore() {
     return {
-      "name": this.name,
-      "organizer": this.organizer,
-      "members": this.members,
-      "maxMembers": this.maxMembers,
-      "id": this.id
+      teamName: this.teamName,
+      mainGame: this.mainGame,
+      description: this.description,
+      twitchUrl: this.twitchUrl,
+      instagramUrl: this.instagramUrl,
+      twitterUrl: this.twitterUrl,
+      organizer: this.organizer,
+      members: this.members,
+      maxMembers: this.maxMembers,
     };
   }
 
   /* Converts from a key value pair to a Team object. */
   static fromFirestore(data) {
     return new Team({
-      name: data.name,
+      teamName: data.teamName,
+      mainGame: data.mainGame,
+      description: data.description,
+      twitchUrl: data.twitchUrl,
+      instagramUrl: data.instagramUrl,
+      twitterUrl: data.twitterUrl,
       organizer: data.organizer,
       members: data.members,
       maxMembers: data.maxMembers,
-      id: data.id
     });
   }
   
 
   // Firestore collection name for teams
-  static TEAMS_COLLECTION = "teams";
+  static TEAMS_COLLECTION = "Teams";
 
   // --- Firestore helpers (static) ---
   // Create and save a new team to Firestore. If `id` is not provided, generate one.
@@ -164,10 +185,17 @@ static removeFromSubteam(subTeam, uid) {
 
   // Get a single team by id
   static async getById(id) {
-    const ref = doc(db, this.TEAMS_COLLECTION, id);
-    const snap = await getDoc(ref);
-    if (!snap.exists()) return null;
-    return this.fromFirestore(snap.data());
+    // Find the team whose `btoa(teamName)` matches the given ID
+    const col = collection(db, this.TEAMS_COLLECTION);
+    const snaps = await getDocs(col);
+    let found = null;
+    snaps.forEach(docSnap => {
+      const data = docSnap.data();
+      if (btoa(data.teamName) === id) {
+        found = this.fromFirestore(data);
+      }
+    });
+    return found;
   }
 
 }

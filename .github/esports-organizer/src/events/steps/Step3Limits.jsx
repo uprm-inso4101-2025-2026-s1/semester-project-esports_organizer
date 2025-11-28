@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../pages/CreateEventWizard.css";
-import Community from "../../Comm-Social/Community"
+import { getAllCommunitiesFromDatabase } from "../../Comm-Social/CommunityCreation.js";
 
 export default function Step3Limits({ data, onNext, onBack }) {
   const [maxTeams, setMaxTeams] = useState(data.maxTeams);
   const [maxPlayersPerTeam, setMaxPlayersPerTeam] = useState(data.maxPlayersPerTeam);
   const [community, setCommunity] = useState(data.community);
+  const [allCommunities, setAllCommunities] = useState([]);
 
-  const allCommunities = Array.isArray(Community.allCommunities) ? Community.allCommunities : [];
+  async function loadCommunities() {
+      const data = await getAllCommunitiesFromDatabase();
+      setAllCommunities(data);
+  }
+
+  useEffect(() => {
+    loadCommunities();
+  }, []);
 
   function handleNext() {
     if (!maxTeams || !maxPlayersPerTeam) return alert("Both fields required");
-    onNext({ maxTeams, maxPlayersPerTeam });
+    onNext({ maxTeams, maxPlayersPerTeam, community: community ? community.toFirestore() : null });
   }
 
   return (

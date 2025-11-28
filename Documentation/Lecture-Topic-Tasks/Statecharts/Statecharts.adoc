@@ -1,0 +1,38 @@
+= Lecture Topic Task: Statecharts in Frontend-Backend-Database Integration
+
+== Introduction
+Statecharts model the dynamic behavior of complex systems by illustrating states, transitions, events, and actions. They extend traditional finite state machines with hierarchy, concurrency, and history, useful for software with reactive components.
+
+== Definition
+A Statechart visualizes how a system or component moves through different states depending on events, enabling clear specification of behaviors and state-dependent logic in software systems.
+
+== Application in Frontend-Backend-Database Integration
+Statecharts effectively model states in your database-driven applications, such as user session states, database request lifecycle, or order processing. They help understanding how frontend events trigger state transitions managed by backend logic and database updates.
+
+=== Illustrative-only Example Flow: User Session States
+- Initial State: Unauthenticated  
+- Transition: User logs in  
+- State: Authenticated  
+- Transition: Session timeout or user logs out  
+- State: Unauthenticated  
+
+This illustrates how statecharts depict lifecycle and transitions in integrated systems.
+
+== Benefits
+- Provides clear, hierarchical visualization of system behaviors.  
+- Helps identify valid or invalid state transitions.  
+- Facilitates debugging and system validation.  
+- Improves communication of complex state logic within teams.
+
+== Conclusion
+Statecharts are powerful for designing and documenting dynamic behaviors in software, especially for teams handling integrated frontend, backend, and database interactions.
+
+== Example Diagram
+
+[source,plaintext]
+----
+[ + ] --> Unauthenticated
+Unauthenticated --> Authenticated : login
+Authenticated --> Unauthenticated : logout / timeout
+----
+

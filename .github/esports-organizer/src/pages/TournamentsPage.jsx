@@ -37,7 +37,8 @@ async function getEventById(eventID) {
 
 function PageHeader({search, setSearch, handleCreateEvent}) {
   return (
-    <section className="page-header">
+    // <section className="page-header">
+    <section className={"page-header" + (console.log("rendered page header"), "")}>
       <div className="page-header-content">
         <h1 className="page-title">EVENTS</h1>
         <div className="search-and-create-container">
@@ -85,7 +86,6 @@ function TournamentsPage() {
   const [savedCards, setSavedCards] = useState(new Set());
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [modalStep, setModalStep] = useState(1);
   const [search, setSearch] = useState("");
   const[events, setEvents] = useState([]);
 
@@ -127,7 +127,7 @@ function TournamentsPage() {
         setShowJoinModal(true);
         try {
           window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
-        } catch (err) {}
+        } catch { 0; }
       }
     }
   }, [events, location]);
@@ -138,7 +138,7 @@ function TournamentsPage() {
   }, [showJoinModal]); 
 
   //Notifications
-  const userId = 'demoUser123';
+  const userId = localStorage.getItem('currentUserUid');
 
   const sendJoinNotification = async (eventTitle) => {
     try {
@@ -146,6 +146,10 @@ function TournamentsPage() {
         message: `You joined the event "${eventTitle}" `,
         createdAt: serverTimestamp(),
         read: false,
+      });
+      await addDoc(collection(db, 'User', userId, 'participatedEvents'), {
+        event: eventTitle,
+        createxAt: serverTimestamp(),
       });
       console.log('Notification sent');
     } catch (error) {
@@ -173,67 +177,125 @@ function TournamentsPage() {
   const handleJoinEvent = (event) => {
     setSelectedEvent(event);
     setShowJoinModal(true);
-    setModalStep(1);
-
   };
 
   const handleJoin = async (event, team) => {
-    const currentEvent = await getEventById(event.id);
-    const currentUser = await getProfileById(localStorage.getItem("currentUserUid"));
-    const uid = currentUser.uid;
-    currentEvent.addToTeam(team.name, currentUser);
-    currentEvent.participants[currentUser.uid] = { //para que se sepa a quien mandarle notifs
-      ...(currentEvent.participants[currentUser.uid] || {}),
-      wantsNotifications: wantsNotifications
-    };
-    await currentEvent.UpdateEvent(currentEvent.id);
 
-    //formatting
-    const eventDate = currentEvent.dateValue.toDate();
-    const dateStr = eventDate.toLocaleDateString();
-    const timeStr = eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    try {
+      console.log("=== handleJoin START ===");
+      console.log("Event:", event);
+      console.log("Team:", team);
+      
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      console.log("Current uid from localStorage:", uid);
+      
+      const currentEvent = await getEventById(event.id);
+      console.log("Retrieved current event:", currentEvent);
+      
+      const currentUser = await getProfileById(uid);
+      console.log("Retrieved current user profile:", currentUser);
+      
+      if (!currentUser) {
+        console.error("ERROR: User profile not found for uid:", uid);
+        alert("Error: Your profile was not found. Please log in again.");
+        return;
+      }
+      
+      if (!currentUser.uid) {
+        currentUser.uid = uid;
+      }
+      
+      currentEvent.addToTeam(team.name, currentUser);
+      
+      currentEvent.participants[currentUser.uid] = {
+        ...(currentEvent.participants[currentUser.uid] || {}),
+        wantsNotifications: wantsNotifications
+      };
+      
+      await currentEvent.UpdateEvent(currentEvent.id);
 
-    await addDoc(
-      collection(db, "User", uid, "notifications"),
-      {
+      const eventDate = currentEvent.dateValue.toDate();
+      const dateStr = eventDate.toLocaleDateString();
+      const timeStr = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      
+      // save under user
+      await addDoc(collection(db, "User", uid, "notifications"), {
         title: "Event Joined",
-        message: 
+        message:
           `You joined "${currentEvent.title}"\n` +
           `📅 Date: ${dateStr}\n` +
           `⏰ Time: ${timeStr}\n` +
           `🎮 Game: ${currentEvent.game}\n` +
           `📍 Location: ${currentEvent.location}`,
-        type: "info",    
+        type: "info",
         userId: uid,
         eventId: currentEvent.id,
         eventTitle: currentEvent.title,
         createdAt: serverTimestamp(),
+      });
+
+      // save to global notifications
+      await addDoc(collection(db, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // popup
+      window.dispatchEvent(
+        new CustomEvent("show-notification-popup", {
+          detail: `You joined "${currentEvent.title}"`
+        })
+      );
+      
+      // Add event to user's participated events
+      const addResult = await addEventToUserProfile(uid, event.id, event.title);
+      
+      if (!addResult || !addResult.success) {
+        alert("Event added to team but failed to update your profile. Please refresh.");
+        return;
       }
-    );
-    console.log("Saved to /notifications for Notification History Page");
+      
+      window.dispatchEvent(new Event("participatedEventsUpdated"));
 
-    // 🔔 POPUP VISUAL
-    window.dispatchEvent(
-      new CustomEvent("show-notification-popup", {
-        detail: `You joined "${currentEvent.title}"`
-      })
-    );
-    
-    // Add event to user's participated events
-    //const uid = localStorage.getItem("currentUserUid");
-    await addEventToUserProfile(uid, event.id, event.title);
-    
-    await loadEvents();
-    const updatedEvent = await getEventById(currentEvent.id);
+      await loadEvents();
+      const updatedEvent = await getEventById(currentEvent.id);
 
-    const selected = {
+      setSelectedEvent({
         id: updatedEvent.id,
         title: updatedEvent.title,
         game: updatedEvent.game,
         price: "Free",
         date: updatedEvent.dateValue.toDateString(),
         location: updatedEvent.location,
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam,
+      });
 
+    } catch (error) {
+      console.error("=== handleJoin ERROR ===", error);
+      alert("Error joining event: " + error.message);
+    }
+
+      const selected = {
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
         dateValue: updatedEvent.dateValue,
         participants: updatedEvent.participants,
         teams: updatedEvent.teams,
@@ -241,7 +303,12 @@ function TournamentsPage() {
         maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
       }
 
-    setSelectedEvent(selected);
+      setSelectedEvent(selected);
+      console.log("=== handleJoin COMPLETE ===");
+    } catch (error) {
+      console.error("=== handleJoin ERROR ===", error);
+      alert("Error joining event: " + error.message);
+    }
   }
 
   const handleCreateTeam = async (event, teamName) => {
@@ -273,11 +340,8 @@ function TournamentsPage() {
   const closeModal = () => {
     setShowJoinModal(false);
     setSelectedEvent(null);
-    setModalStep(1);
   };
 
-  const handleNext = () => setModalStep(2);
-  const handleBack = () => setModalStep(1);
   const handleCreateEvent = () => {
     navigate("/create-event");
   };
@@ -289,16 +353,19 @@ function TournamentsPage() {
       <div className="section-container">
         <h2 className="section-subtitle">RECOMMENDED EVENTS</h2>
         <div className="recommended-cards">
-          {recommendedEvents.map((tournament, index) => (
-            <TournamentCard 
-              key={tournament.id} 
-              tournament={tournament} 
-              index={index}
-              isSaved={savedCards.has(index)}
-              onToggleSaved={toggleSaved}
-              onJoinEvent={handleJoinEvent}
-            />
-          ))}
+          {recommendedEvents.length > 0 ? (
+            recommendedEvents.map((tournament, index) => (
+              <TournamentCard 
+                key={tournament.id} 
+                tournament={tournament} 
+                index={index}
+                isSaved={savedCards.has(index)}
+                onToggleSaved={toggleSaved}
+                onJoinEvent={() => handleJoinEvent(tournament)}
+              />
+              ))) : (
+                <p>No events found.</p>
+            )}
         </div>
       </div>
     </section>
@@ -311,16 +378,19 @@ function TournamentsPage() {
           <h2 className="section-title">EVENTS</h2>
         </div>
         <div className="events-grid">
-          {filteredEvents.map((tournament, index) => (
-            <TournamentCard 
-              key={tournament.id} 
-              tournament={tournament} 
-              index={index}
-              isSaved={savedCards.has(index)}
-              onToggleSaved={toggleSaved}
-              onJoinEvent={() => handleJoinEvent(tournament)}
-            />
-          ))}
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((tournament, index) => (
+              <TournamentCard 
+                key={tournament.id} 
+                tournament={tournament} 
+                index={index}
+                isSaved={savedCards.has(index)}
+                onToggleSaved={toggleSaved}
+                onJoinEvent={() => handleJoinEvent(tournament)}
+              />
+              ))) : (
+                <p>No events found.</p>
+            )}
         </div>
       </div>
     </section>
@@ -360,37 +430,51 @@ function TournamentsPage() {
             <div className="event-detail">Location: {selectedEvent.location}</div>
           </div>
           
-          {modalStep === 1 && (
-            <div className="modal-form-section">
-              <h3 className="form-title">JOIN EVENT</h3>
-              
-              <div className="form-inputs">
-                <input type="text" placeholder="Enter Name" className="form-input" />
-                <input type="text" placeholder="Enter Last Name" className="form-input" />
-                <input type="text" placeholder="Enter Username" className="form-input" />
+          <div className="modal-form-section">
+            <h3 className="form-title">JOIN EVENT</h3>
+
+            <div className="teams-container">
+              <div className="teams-list">
+                {selectedEvent.teams.map((team, index) => (
+                  <div key={index} className="team-item">
+                    <div className="team-info">
+                      <span className="team-name">{team.name}</span>
+                      <span className="team-members">{team.members.length}/{team.capacity}</span>
+                    </div>
+                    <button className="join-team-button"
+                      onClick={() => {handleJoin(selectedEvent, team)}}
+                    >Join Team</button>
+                  </div>
+                ))}
               </div>
               
-              <div className="disclaimer-section">
-                <label className="disclaimer-checkbox">
-                  <input type="checkbox" className="checkbox-input" />
-                  <span className="disclaimer-text">
-                    BY CHECKING THIS BOX, I AM AWARE THAT ABSENCE FROM THIS EVENT WILL RESULT IN IMMEDIATE DISQUALIFICATION.
-                  </span>
-                </label>
-              </div>
-              
-              {/* Toggle de notificaciones */}
-              <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
-                  <input
-                    type="checkbox"
-                    checked={wantsNotifications}
-                    onChange={(e) => setWantsNotifications(e.target.checked)}
-                    style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
-                  />
-                  Send me reminders and updates for this event
-                </label>
-              </div>
+              <button className="add-team-button"
+                onClick={() => setMenuOpen(true)}>
+                + Add New Team
+              </button>
+            </div>
+            
+            <div className="disclaimer-section">
+              <label className="disclaimer-checkbox">
+                <input type="checkbox" className="checkbox-input" />
+                <span className="disclaimer-text">
+                  BY CHECKING THIS BOX, I AM AWARE THAT ABSENCE FROM THIS EVENT WILL RESULT IN IMMEDIATE DISQUALIFICATION.
+                </span>
+              </label>
+            </div>
+
+            {/* Toggle de notificaciones */}
+            <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={wantsNotifications}
+                  onChange={(e) => setWantsNotifications(e.target.checked)}
+                  style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
+                />
+                Send me reminders and updates for this event
+              </label>
+            </div>
 
               <button 
               className="join-event-button"
@@ -444,8 +528,11 @@ function TournamentsPage() {
                 );
 
                 
+
                 if (selectedEvent) {
+                  sendJoinNotification(selectedEvent.title);
                   setSelectedEvent({ ...selectedEvent, wantsNotifications });
+                  closeModal();
                 }
 
                 handleNext();
@@ -490,6 +577,7 @@ function TournamentsPage() {
               </div>
             </div>
           )}
+
         </div>
       </div>
     </div>

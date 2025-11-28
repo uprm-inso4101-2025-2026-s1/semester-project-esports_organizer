@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/shared/Navbar";
-import { TEAMS } from "../../data/teams";
+// import { TEAMS } from "../../data/teams";
+import Team from "../../services/TeamClass";
+import { makeTeam } from "../../services/makeTeam";
 import "./TeamsPage.css";
 import "./TeamForms.css";
 import { assignUserRole } from "../../Roles/assignUserRole";
-
-const uid = localStorage.getItem("uid");
 
 function TeamModal({ title, children, onClose, footer }) {
   return (
@@ -39,20 +39,78 @@ export default function TeamsPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [newTeamData, setForm] = useState({
+    teamName: "",
+    mainGame: "",
+  });
+  const [teams, setTeams] = useState([]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const uid = localStorage.getItem("uid");
+  const validate = () => {
+    const newErrors = {};
 
-  const filteredTeams = useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return TEAMS;
+    if (!newTeamData.teamName.trim())
+      newErrors.teamName = "Please input a team name";
+    if (!newTeamData.mainGame.trim())
+      newErrors.mainGame = "Please pick a main game (or just pick your favorite!)";
 
-    return TEAMS.filter((team) => {
-      const haystack = `${team.name} ${team.game}`.toLowerCase();
-      return haystack.includes(query);
-    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const userId = localStorage.getItem("uid");
+
+  useEffect(() => {
+    async function loadTeams() {
+      const query = search.trim().toLowerCase();
+      const allTeams = await Team.getAll();
+      if (!query) {
+        setTeams(allTeams);
+        return;
+      }
+      setTeams(allTeams.filter((team) => {
+        const haystack = `${team.name} ${team.game}`.toLowerCase();
+        return haystack.includes(query);
+      }));
+    }
+    loadTeams();
   }, [search]);
 
   const closeCreateModal = () => setIsCreateModalOpen(false);
+  const createTeam = async () => {
+    if (!validate()) return;
+
+    // make the user a team manager,,
+    assignUserRole(userId, "Team Manager", {
+      viewTournaments: true,
+      createCommunities: true,
+      canCreatePrivateTournaments: true,
+      canCreatePublicTournaments: true,
+      joinTournament: true,
+      joinCommunities: true,
+      joinTournamentwithTeam: true,
+      editTeamProfile: true,
+      editTeamRoster: true,
+      invitePlayerstoTeam: true,
+      assignTeamClasses: true,
+      addPlayerToRoster: true,
+      removePlayerFromRoster: true,
+      canEditUserProfile: true,
+      requestToJoinTeam: true,
+      editUserEvent: true,
+      createUserEvent: true,
+      removeUserEvent: true,
+    });
+
+    makeTeam(newTeamData);
+
+    // aaaand close the modal
+    closeCreateModal();
+  };
 
   useEffect(() => {
     document.body.style.overflow = isCreateModalOpen ? "hidden" : "unset";
@@ -97,13 +155,13 @@ export default function TeamsPage() {
           </div>
 
           <div className="teams-table__body">
-            {filteredTeams.length === 0 ? (
+            {teams.length === 0 ? (
               <p className="teams-table__empty">
                 No teams match that search yet. Try another keyword or launch
                 your own roster.
               </p>
             ) : (
-              filteredTeams.map((team) => (
+              teams.map((team) => (
                 <button
                   key={team.id}
                   className="teams-table__row"
@@ -112,16 +170,19 @@ export default function TeamsPage() {
                 >
                   <span className="teams-table__team">
                     <span className="teams-table__team-logo">
-                      <img src={team.logo} alt={`${team.name} logo`} />
+                      <img src={team.logo ?? '../../src/assets/team-profile-pics/team1.png'} alt={`${team.teamName} logo`} />
                     </span>
                     <span className="teams-table__team-name">
-                      <strong>{team.name}</strong>
-                      <span>{team.game}</span>
+                      <strong>{team.teamName}</strong>
+                      <span>{team.mainGame}</span>
                     </span>
                   </span>
-                  <span>{team.stats.tournamentsPlayed}</span>
-                  <span>{team.stats.matchesPlayed}</span>
-                  <span>{team.stats.tournamentsWon}</span>
+                  {/* team.stats.tournamentsPlayed */}
+                  <span>{ 0 }</span>
+                  {/* team.stats.matchesPlayed */}
+                  <span>{ 0 }</span>
+                  {/* team.stats.tournamentsWon */}
+                  <span>{ 0 }</span>
                 </button>
               ))
             )}
@@ -145,28 +206,7 @@ export default function TeamsPage() {
               <button
                 type="button"
                 className="team-modal__btn team-modal__btn--primary"
-                onClick={async () => {closeCreateModal(); assignUserRole(uid,"Team Manager",{
-                  viewTournaments:true,
-                  createCommunities: true,
-                  canCreatePrivateTournaments: true,
-                  canCreatePublicTournaments:true,
-                  joinTournament:true,
-                  joinCommunities:true,
-                  joinTournamentwithTeam:true,
-                  editTeamProfile:true,
-                  editTeamRoster:true,
-                  invitePlayerstoTeam:true,
-                  assignTeamClasses:true,
-                  addPlayerToRoster:true,
-                  removePlayerFromRoster:true,
-                  canSendNotifications: true,
-                  canEditUserProfile:true,
-                  requestToJoinTeam:true,
-                  editUserEvent:true,
-                  createUserEvent:true,
-                  removeUserEvent:true,
-                  });
-                  closeCreateModal()}}
+                onClick={createTeam}
               >
                 Create team
               </button>
@@ -182,7 +222,12 @@ export default function TeamsPage() {
               type="text"
               className="team-form__input"
               placeholder="e.g. Lunar Vanguard"
+              name="teamName"
+              onInput={handleChange}
             />
+            {errors.teamName && (
+              <p className="error">{errors.teamName}</p>
+            )}
 
             <label className="team-form__label" htmlFor="create-team-game">
               Primary game
@@ -192,7 +237,12 @@ export default function TeamsPage() {
               type="text"
               className="team-form__input"
               placeholder="Select the title you compete in"
+              name="mainGame"
+              onInput={handleChange}
             />
+            {errors.mainGame && (
+              <p className="error">{errors.mainGame}</p>
+            )}
 
             <label className="team-form__label" htmlFor="create-team-description">
               Team description
@@ -202,6 +252,8 @@ export default function TeamsPage() {
               className="team-form__textarea"
               rows={3}
               placeholder="Tell the community what makes your team stand out."
+              name="description"
+              onInput={handleChange}
             />
 
             <div className="team-form__group">
@@ -210,16 +262,22 @@ export default function TeamsPage() {
                 type="url"
                 className="team-form__input"
                 placeholder="Twitch link"
+                name="twitchUrl"
+                onInput={handleChange}
               />
               <input
                 type="url"
                 className="team-form__input"
                 placeholder="Instagram link"
+                name="instagramUrl"
+                onInput={handleChange}
               />
               <input
                 type="url"
                 className="team-form__input"
                 placeholder="X / Twitter link"
+                name="twitterUrl"
+                onInput={handleChange}
               />
             </div>
           </form>

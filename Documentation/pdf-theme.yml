@@ -1,0 +1,12 @@
+extends: default
+
+role:
+  hl-green:
+    background-color: #d4f8d4
+    font-style: normal
+  hl-yellow:
+    background-color: #fff9c4
+    font-style: normal
+  hl-red:
+    background-color: #ffcdd2
+    font-style: normal
