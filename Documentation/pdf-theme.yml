@@ -8,5 +8,9 @@ role:
     background-color: #fff9c4
     font-style: normal
   hl-red:
+    text-decoration: line-through
+    background-color: #ffcdd2
+    font-style: normal
+  hl-red-legend:
     background-color: #ffcdd2
     font-style: normal

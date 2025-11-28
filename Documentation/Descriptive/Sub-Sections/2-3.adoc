@@ -49,7 +49,7 @@ creation.
 * [.hl-green]#A UML or architecture diagram now illustrates how the Profiles module interacts with the Badges and PrivacyControls components (see `profiles_architecture.svg`).#
 * Figma mockups illustrate how the interface supports usage scenarios.
 
-=== 2.3.1 Selected Fragments of the Implementation
+=== 2.3.1 Selected Fragments of Implementation
 
 [.hl-yellow]#Selected fragments are only included when they clarify explanations and complement the documentation.#
 

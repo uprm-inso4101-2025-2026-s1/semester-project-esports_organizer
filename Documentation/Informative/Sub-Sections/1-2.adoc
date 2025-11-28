@@ -1,6 +1,6 @@
-=== 1.2 Current situations, needs, ideas
+=== 1.2 Current Situation, Needs, Ideas
 
-==== Current situation
+==== Current Situation
 Video games are a widely popular form of entertainment where people can either enjoy casual fun with friends or compete in more structured, competitive settings. However, the competitive gaming scene is broad and diverse, which makes it harder for players to navigate. Most of the information about esports events is scattered across multiple platforms and communities, and because genre preferences vary widely, a lot of events go unnoticed. This lack of variety prevents player from discovering tournaments, joining them, or finding a community they like, reducing opportunities for players to connect with others who share similar interests.
 
 [.hl-yellow]#To better understand this situation, the team conducted domain engineering research, analyzing how grassroots and student esports tournaments are currently organized. Platforms such as Start.gg, Battlefy, and Tournament were studied to identify both strengths and gaps in existing systems.#
