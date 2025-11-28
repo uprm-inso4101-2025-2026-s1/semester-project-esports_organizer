@@ -1,12 +1,12 @@
-
+[#sec-3-2,role="hl-green"]
 == 3.2 Risk Analysis
 
 == 3.2.1  Narrative Assessment of Organizational Risks in Tournament Management
 === Introduction
 
-[.hl-green]#Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.
+[.hl-green]#Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.#
 
-Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.#
+Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.
 
 === Risk Identification and Classification
 
