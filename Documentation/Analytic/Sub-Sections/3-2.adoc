@@ -4,9 +4,9 @@
 == 3.2.1  Narrative Assessment of Organizational Risks in Tournament Management
 === Introduction
 
-Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.
+[.hl-green]#Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.
 
-Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.
+Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.#
 
 === Risk Identification and Classification
 
@@ -28,7 +28,7 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 '''
 
 ==== Risk 2 - Scheduling Ambiguity and Overlaps
-*Category:* Organizational / Operational
+[.hl-green]#*Category:* Organizational / Operational
 
 *Description:* Two matches may be assigned to the same team simultaneously, or teams may not receive schedule updates in time.
 
@@ -41,12 +41,12 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 - Manager-level verification before approving schedule adjustments.
 - Built-in buffer time between rounds.
 
-*Residual Risk:* Delays may still occur if matches exceed expected duration.
+*Residual Risk:* Delays may still occur if matches exceed expected duration.#
 
 '''
 
 ==== Risk 3 - Miscommunication Between Organizers and Participants
-*Category:* Organizational / User-Behavior
+[.hl-green]#*Category:* Organizational / User-Behavior
 
 *Description:* Rules, bracket formats, or procedures may be misunderstood due to inconsistent or unclear communication.
 
@@ -59,12 +59,12 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 - Rules overview and FAQ sections visible during registration.
 - Consistent announcements enforced by managers.
 
-*Residual Risk:* Some users may still ignore updates or fail to read instructions.
+*Residual Risk:* Some users may still ignore updates or fail to read instructions.#
 
 '''
 
 ==== Risk 4 - Administrative Overload and Decision Bottlenecks
-*Category:* Organizational
+[.hl-green]#*Category:* Organizational
 
 *Description:* Organizers may face simultaneous inquiries, appeals, and administrative tasks during peak periods.
 
@@ -101,7 +101,7 @@ The Risk Analysis lecture emphasizes *early identification, classification, and 
 - designing escalation policies to maintain fairness,
 - planning buffers and fallback procedures for inevitable disruptions.
 
-This document directly applies the lecture topic by converting theoretical principles into practical risks and controls specific to the Esports Organizer project.
+This document directly applies the lecture topic by converting theoretical principles into practical risks and controls specific to the Esports Organizer project.#
 
 === Residual Risk Discussion
 
