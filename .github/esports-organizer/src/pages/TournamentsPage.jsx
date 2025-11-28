@@ -180,30 +180,66 @@ function TournamentsPage() {
   };
 
   const handleJoin = async (event, team) => {
-    const currentEvent = await getEventById(event.id);
-    const currentUser = await getProfileById(localStorage.getItem("currentUserUid"));
-    currentEvent.addToTeam(team.name, currentUser);
-    currentEvent.participants[currentUser.uid] = { //para que se sepa a quien mandarle notifs
-      ...(currentEvent.participants[currentUser.uid] || {}),
-      wantsNotifications: wantsNotifications
-    };
-    await currentEvent.UpdateEvent(currentEvent.id);
-    
-    // Add event to user's participated events
-    const uid = localStorage.getItem("currentUserUid");
-    await addEventToUserProfile(uid, event.id, event.title);
-    
-    await loadEvents();
-    const updatedEvent = await getEventById(currentEvent.id);
+    try {
+      console.log("=== handleJoin START ===");
+      console.log("Event:", event);
+      console.log("Team:", team);
+      
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      console.log("Current uid from localStorage:", uid);
+      
+      const currentEvent = await getEventById(event.id);
+      console.log("Retrieved current event:", currentEvent);
+      
+      const currentUser = await getProfileById(uid);
+      console.log("Retrieved current user profile:", currentUser);
+      
+      if (!currentUser) {
+        console.error("ERROR: User profile not found for uid:", uid);
+        alert("Error: Your profile was not found. Please log in again.");
+        return;
+      }
+      
+      if (!currentUser.uid) {
+        currentUser.uid = uid;
+      }
+      console.log("User to add to team:", currentUser);
+      
+      currentEvent.addToTeam(team.name, currentUser);
+      console.log("Team members after adding user:", currentEvent.teams);
+      
+      currentEvent.participants[currentUser.uid] = {
+        ...(currentEvent.participants[currentUser.uid] || {}),
+        wantsNotifications: wantsNotifications
+      };
+      
+      await currentEvent.UpdateEvent(currentEvent.id);
+      console.log("Event updated in Firestore");
+      
+      // Add event to user's participated events
+      console.log("Adding event to user profile. uid:", uid, "eventId:", event.id, "eventTitle:", event.title);
+      const addResult = await addEventToUserProfile(uid, event.id, event.title);
+      console.log("addEventToUserProfile result:", addResult);
+      
+      if (!addResult || !addResult.success) {
+        console.error("ERROR: Failed to add event to user profile:", addResult);
+        alert("Event added to team but failed to update your profile. Please refresh.");
+        return;
+      }
+      
+      console.log("Dispatching participatedEventsUpdated event");
+      window.dispatchEvent(new Event('participatedEventsUpdated'));
+      
+      await loadEvents();
+      const updatedEvent = await getEventById(currentEvent.id);
 
-    const selected = {
+      const selected = {
         id: updatedEvent.id,
         title: updatedEvent.title,
         game: updatedEvent.game,
         price: "Free",
         date: updatedEvent.dateValue.toDateString(),
         location: updatedEvent.location,
-
         dateValue: updatedEvent.dateValue,
         participants: updatedEvent.participants,
         teams: updatedEvent.teams,
@@ -211,7 +247,12 @@ function TournamentsPage() {
         maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
       }
 
-    setSelectedEvent(selected);
+      setSelectedEvent(selected);
+      console.log("=== handleJoin COMPLETE ===");
+    } catch (error) {
+      console.error("=== handleJoin ERROR ===", error);
+      alert("Error joining event: " + error.message);
+    }
   }
 
   const handleCreateTeam = async (event, teamName) => {
