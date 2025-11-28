@@ -1,0 +1,179 @@
+LECTURE TOPIC TASK
+Theme: Follow / Unfollow Communities (Social Graph Feature)
+====================================================================
+
+🎯 OBJECTIVE
+Design and implement a Follow / Unfollow Communities feature where authenticated users can subscribe to and leave communities.
+The objective is to present:
+A clear domain model
+Correct data structures
+Concrete event flows
+Proper rules & constraints
+Complete behavior models
+ASCII diagrams in <pre></pre> format
+
+====================================================================
+
+📄 DESCRIPTION
+Concepts (Abstract):
+USER
+COMMUNITY
+FOLLOWRELATION
+FOLLOWPOLICY
+Phenomena (Concrete):
+user clicks “follow”
+follow document is created
+follower count updates
+user unfollows
+Events:
+FollowRequested
+FollowCreated
+UnfollowRequested
+FollowDeleted
+Functions:
+followCommunity()
+unfollowCommunity()
+enforceFollowPolicies()
+Behaviors:
+Session gating
+Idempotent follow/unfollow
+Counter synchronization
+
+========================================================
+
+DOMAIN & DATA MODEL – FOLLOW / UNFOLLOW COMMUNITIES
+
+========================================================
+
+<pre>
+Entities
+--------
+
++---------+          follows           +------------+
+|  User   | -------------------------> | Community  |
++---------+                            +------------+
+    |                                        |
+    | userId                                 | communityId
+    v                                        v
++------------------------+
+|    FollowRelation      |
++------------------------+
+| followId = userId_comm |
+| userId                 |
+| communityId            |
+| createdAt (timestamp)  |
++------------------------+
+
+
+Firestore-style Collections
+---------------------------
+
++-----------------------------------------------+
+| Collection: /users/{userId}                   |
++-----------------------------------------------+
+| Fields: userId, displayName...                |
++-----------------------------------------------+
+
++-----------------------------------------------+
+| Collection: /communities/{communityId}        |
++-----------------------------------------------+
+| Fields: communityId, name, followersCount     |
++-----------------------------------------------+
+
++-----------------------------------------------+
+| Collection: /follows/{userId_communityId}     |
++-----------------------------------------------+
+| Fields: userId, communityId, createdAt        |
++-----------------------------------------------+
+</pre>
+====================================================================
+
+ASCII FOLLOW FLOW
+
+===============================================
+
+FOLLOW FLOW – WHEN USER CLICKS "FOLLOW"
+
+===============================================
+
+<pre>
+[User clicks "Follow"]
+          |
+          v
+[Is user authenticated?]
+        /      \
+      no        yes
+      |          |
+[Show login]   [Check FollowRelation]
+                  |
+            (exists?)
+           /         \
+      yes             no
+      |               |
+[Already following]   [Create FollowRelation]
+                      [followersCount +1]
+                      [Update UI → Following]
+</pre>
+
+
+================================================
+
+UNFOLLOW FLOW – WHEN USER CLICKS "UNFOLLOW"
+
+================================================
+
+<pre>
+[User clicks "Unfollow"]
+          |
+          v
+[Is user authenticated?]
+        /      \
+      no        yes
+      |          |
+[Show login]   [Check FollowRelation]
+                  |
+            (exists?)
+           /         \
+      no              yes
+      |               |
+[Nothing to do]   [Delete FollowRelation]
+                  [followersCount -1]
+                  [Update UI → Follow]
+</pre>
+====================================================================
+
+ASCII BEHAVIOR MODEL
+<pre> (password_ok?) ----> [FOLLOW EVENT] ----> (already_followed?) | | false yes v v [DENY FOLLOW] [NO-OP / KEEP STATE] | true ----------------------------------> no | v [CREATE FOLLOWRELATION] | v [UPDATE COUNTERS + UI] </pre>
+
+====================================================================
+
+FUNCTION TABLE
+<pre> +----------------------+--------------------------------------------+ | Domain Function | System Implementation | +----------------------+--------------------------------------------+ | followCommunity | Firestore set() + atomic increment(1) | | unfollowCommunity | Firestore delete() + atomic increment(-1) | | enforcePolicies | Check auth & rules before write | | getFollowersCount | Firestore get(community.followersCount) | +----------------------+--------------------------------------------+ </pre>
+
+====================================================================
+
+RULE DIAGRAM
+
+<pre> +-----------------------+ | AUTHENTICATED? | +-----------------------+ | yes | no v +------------------+ | ALREADY FOLLOWED?| +------------------+ | | yes no | | v v +----------------+ +----------------------------+ | NO ACTION | | CREATE FOLLOWRELATION DOC | +----------------+ +----------------------------+ | v +----------------------------+ | UPDATE followersCount (+1)| +----------------------------+ </pre>
+
+====================================================================
+
+ACCEPTANCE CRITERIA
+
+All diagrams included using <pre>...</pre>
+Domain model, events, phenomena, and functions defined
+Follow and unfollow flows modeled clearly
+Rules documented (auth, idempotence, counter consistency)
+Behavior diagrams match implementation
+
+====================================================================
+
+🚦 URGENCY & DIFFICULTY
+Urgency: 7 – Required for core community interactions
+Difficulty: 5 – Straightforward but must handle auth & consistency
+
+====================================================================
+
+END OF TASK
+
+====================================================================
