@@ -180,6 +180,7 @@ function TournamentsPage() {
   };
 
   const handleJoin = async (event, team) => {
+
     try {
       console.log("=== handleJoin START ===");
       console.log("Event:", event);
@@ -203,10 +204,8 @@ function TournamentsPage() {
       if (!currentUser.uid) {
         currentUser.uid = uid;
       }
-      console.log("User to add to team:", currentUser);
       
       currentEvent.addToTeam(team.name, currentUser);
-      console.log("Team members after adding user:", currentEvent.teams);
       
       currentEvent.participants[currentUser.uid] = {
         ...(currentEvent.participants[currentUser.uid] || {}),
@@ -214,24 +213,81 @@ function TournamentsPage() {
       };
       
       await currentEvent.UpdateEvent(currentEvent.id);
-      console.log("Event updated in Firestore");
+
+      const eventDate = currentEvent.dateValue.toDate();
+      const dateStr = eventDate.toLocaleDateString();
+      const timeStr = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      
+      // save under user
+      await addDoc(collection(db, "User", uid, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // save to global notifications
+      await addDoc(collection(db, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // popup
+      window.dispatchEvent(
+        new CustomEvent("show-notification-popup", {
+          detail: `You joined "${currentEvent.title}"`
+        })
+      );
       
       // Add event to user's participated events
-      console.log("Adding event to user profile. uid:", uid, "eventId:", event.id, "eventTitle:", event.title);
       const addResult = await addEventToUserProfile(uid, event.id, event.title);
-      console.log("addEventToUserProfile result:", addResult);
       
       if (!addResult || !addResult.success) {
-        console.error("ERROR: Failed to add event to user profile:", addResult);
         alert("Event added to team but failed to update your profile. Please refresh.");
         return;
       }
       
-      console.log("Dispatching participatedEventsUpdated event");
-      window.dispatchEvent(new Event('participatedEventsUpdated'));
-      
+      window.dispatchEvent(new Event("participatedEventsUpdated"));
+
       await loadEvents();
       const updatedEvent = await getEventById(currentEvent.id);
+
+      setSelectedEvent({
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam,
+      });
+
+    } catch (error) {
+      console.error("=== handleJoin ERROR ===", error);
+      alert("Error joining event: " + error.message);
+    }
 
       const selected = {
         id: updatedEvent.id,
@@ -420,19 +476,108 @@ function TournamentsPage() {
               </label>
             </div>
 
-            <button className="join-event-button" 
-              onClick={() => {
-                // se guarda en el evento seleccionado para que handleJoin la vea luego
+              <button 
+              className="join-event-button"
+              onClick={async () => {
+
+              const uid = localStorage.getItem("currentUserUid");
+
+              await addDoc(
+                collection(db, "User", uid, "notifications"),
+                {
+                  title: "Joining event...",
+                  message:
+                    `Preparing to join "${selectedEvent.title}"\n` +
+                    `📅 Date: ${selectedEvent.date}\n` +
+                    `🎮 Game: ${selectedEvent.game}\n` +
+                    `📍 Location: ${selectedEvent.location}`,
+                  type: "info",
+                  userID: uid,
+                  eventId: selectedEvent.id,
+                  eventTitle: selectedEvent.title,
+                  createdAt: serverTimestamp(),
+                }
+              );
+              
+              console.log("Next-step notification saved in /User/<uid>/notifications");
+
+                
+              await addDoc(
+                collection(db, "notifications"),
+                {
+                  title: "Joining event...",
+                  message:
+                    `Preparing to join "${selectedEvent.title}"\n` +
+                    `📅 Date: ${selectedEvent.date}\n` +
+                    `🎮 Game: ${selectedEvent.game}\n` +
+                    `📍 Location: ${selectedEvent.location}`,
+                  type: "info",
+                  userID: uid,
+                  eventId: selectedEvent.id,
+                  eventTitle: selectedEvent.title,
+                  createdAt: serverTimestamp(),
+                }
+              );
+
+              console.log("Next-step notification saved in GLOBAL /notifications");
+                
+                window.dispatchEvent(
+                  new CustomEvent("show-notification-popup", {
+                    detail: `You are joining "${selectedEvent.title}"`
+                  })
+                );
+
+                
+
                 if (selectedEvent) {
                   sendJoinNotification(selectedEvent.title);
                   setSelectedEvent({ ...selectedEvent, wantsNotifications });
                   closeModal();
                 }
+
+                handleNext();
               }}
             >
-            Next
+              Next
             </button>
-          </div>
+            </div>
+          )}
+
+          {modalStep === 2 && (
+            <div className="modal-teams-section">
+              <div className="teams-header">
+                <button className="back-button" onClick={handleBack}>
+                  ← Back
+                </button>
+                <h3 className="teams-title">TEAMS</h3>
+              </div>
+              
+              <div className="teams-container">
+                <div className="teams-list">
+                  {selectedEvent.teams.map((team, index) => (
+                    <div key={index} className="team-item">
+                      <div className="team-info">
+                        <span className="team-name">{team.name}</span>
+                        <span className="team-members">{team.members.length}/{team.capacity}</span>
+                      </div>
+                      <button
+                        className="join-team-button"
+                        onClick={() => handleJoin(selectedEvent, team)}
+                      >
+                        Join Team
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                
+                <button className="add-team-button"
+                  onClick={() => setMenuOpen(true)}>
+                  + Add New Team
+                </button>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </div>
