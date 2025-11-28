@@ -1,0 +1,135 @@
+= Navigation Interface Class Diagram Documentation
+Esports Organizer 
+
+
+==  Summary
+This document describes the class structure used for the navigation interface of the Esports Organizer web application.
+It includes the Navbar, its UI components, and the main pages that users can navigate to. The goal is to provide a clear,
+concise architectural view of how navigation elements relate and how they support the user flow throughout the system.
+
+== Class Diagram (mermaid)
+
+[mermaid]
+----
+classDiagram
+    direction TB
+
+    class Navbar {
+        + NavItem[] items
+        + HomePage homePage
+        + EventsPage eventsPage
+        + TeamsPage teamsPage
+        + CommunityPage communityPage
+        + HelpPage helpPage
+        + UserMenu userMenu
+        + NotificationIcon notificationIcon
+        + AdminIcon actionIcon
+        + render()
+        + selectItem(label)
+        + highlightActive()
+    }
+
+    class NavItem {
+        + string label/text
+        + string icon
+        + string route
+        + boolean isActive
+        + onClick()
+        + activate()
+        + deactivate()
+    }
+
+    class HomePage {
+        + render()
+        + loadRecommendedEvents()
+        + loadReccomendedCommunities()
+    }
+
+    class EventsPage {
+        + string searchQuery
+        + render()
+        + onSearch()
+        + filterByGame()
+    }
+
+    class TeamsPage {
+        + string searchQuery
+        + render()
+        + loadTeams()
+        + onSearch()
+    }
+
+    class CommunityPage {
+        + string searchQuery
+        + render()
+        + loadFollowedCommunities()
+        + loadTopCommunities()
+    }
+
+    class HelpPage {
+        + string FAQs
+        + string query
+        + render()
+        + onSearch()
+        + clear()
+    }
+
+    class AdminPage {
+        + render()
+        + openTools()
+        + manageUsers()
+    }
+
+    class UserMenu {
+        + string username
+        + Image avatar
+        + choosePreferences()
+        + string[] menuOptions
+        + open()
+        + close()
+        + selectOption(option)
+    }
+
+    class NotificationIcon {
+        + number unreadCount
+        + togglePanel()
+        + markAllRead()
+    }
+----
+
+== Component Descriptions
+
+=== Navbar
+The main navigation component containing all primary navigation links and UI-level interactive elements.
+It manages page selection, highlighting, and routing behavior.
+
+=== NavItem
+Represents one clickable navigation option. Stores its text, icon, route, and active/inactive state.
+
+=== HomePage
+The landing page for logged-in users. Displays recommended events and communities.
+
+=== EventsPage
+Allows searching, browsing, and filtering tournaments/events.
+
+=== TeamsPage
+Displays teams, their stats, and a search bar for filtering.
+
+=== CommunityPage
+Shows user-followed communities and recommended new ones.
+
+=== HelpPage
+Contains FAQs and search functionality for help-related topics.
+
+=== AdminPage
+Provides admin-only tools and user management functions.
+
+=== UserMenu
+User dropdown panel with profile options and preferences.
+
+=== NotificationIcon
+Displays unread notification count and opens/closes the notifications panel.
+
+== 4. Purpose
+This class diagram captures the structure of the navigation interface to support maintainability,
+clarity, and consistency in the application’s UI.
