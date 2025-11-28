@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Image dupe">
-      <change afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/ai_disclosure_statement.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Introduction/Sections/tableOfContents.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Requirements-Engineering-Process-Model/Mapping Tournament Requirements to the Process Phases.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Risk Analysis/Organizational Risks in Tournament Management.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Time Mangement, Planning, Scheduling, Tracking/Evaluation of Milestone Time Management.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="all-my-ltt's" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

@@ -1,0 +1,64 @@
+= [Lecture Topic Task] Requirements Engineering Process Model: Mapping Tournament Requirements to the Process Phases
+:author: Wilson A Morales
+
+== Introduction
+
+This document provides a narrative mapping of the Esports Organizer's Tournament Module requirements across all stages of the Requirements Engineering Process Model (SE-V3:24). The tournament subsystem is one of the most complex functional areas of the platform, involving organizers, teams, players, match scheduling, bracket generation, permissions, and live updates. Because tournaments include dynamic, event-driven workflows, their requirements must be carefully elicited, analyzed, negotiated, documented, validated, and evolved over time.
+
+The following sections examine each major requirements engineering phase, describing how the project handled or should have handled these requirements, as well as the risks associated with incomplete or ambiguous specification.
+
+== Identification of Key Tournament Requirements
+
+The Tournament Module centers around several core requirements that drive its functionality. First, organizers must be able to create a tournament by defining basic metadata such as name, type, rules, size, and format. Second, teams or players must register for the event, which requires a clear flow for participation management. Third, the system must generate, manage, and update brackets, including the ability to progress winners automatically and handle edge cases such as byes or team disqualifications. Fourth, permissions must be properly divided: organizers need administrative control while players require restricted access to view information and submit match confirmations. Fifth, the match lifecycle from scheduling to results submission must be clearly structured, and the system should display updates to participants in real time. These requirements form the foundation for mapping the module across the Requirements Engineering Process Model.
+
+== Elicitation
+
+Tournament requirements were informed by several sources, including observation of existing competitive gaming workflows, competitor platform analysis, and team discussions. Elicitation should involve direct conversations with potential users, tournament organizers, players, coaches, and reviewing how real esports events structure their brackets and rules. For example, organizers often rely on third-party tools like Challonge or Battlefy; analyzing these systems revealed user expectations for bracket behavior and match reporting flows.
+
+During elicitation, the team identified user goals such as minimizing confusion during match transitions, ensuring reliable scheduling, and providing clear permissions boundaries. The elicitation phase also showed the importance of capturing edge cases like team no-shows, late match results, and match disputes. Some of these insights emerged late in the project, indicating the need for deeper, earlier domain study.
+
+== Analysis
+
+Once requirements were gathered, they needed to be interpreted, clarified, and broken down into actionable components. Analysis involved identifying the actors involved, organizers, players, admins, and observers, and mapping their permissions. For example, analysis clarified that only organizers should be allowed to modify brackets, while players can only report match results, not change match pairings.
+
+This phase also required understanding constraints such as tournament formats (single-elimination, double-elimination), scheduling limitations, and the need for real-time updates. Analysis revealed implicit assumptions that were not originally stated, such as the expectation that the bracket should automatically advance winners rather than requiring manual updates. It also identified lifecycle events: creation, registration, locking, match generation, result submission, bracket advancement, and tournament completion.
+
+Much of the analysis also revolved around identifying ambiguities. For example, “teams register for a tournament” required clarification on whether organizers approve registrations manually or whether registration is automatic. These details had to be resolved to avoid inconsistencies later in implementation.
+
+== Negotiation
+
+Tournament requirements inherently create conflicts between stakeholders. Negotiation was essential in resolving these conflicts before documentation and implementation. One major conflict involved bracket editing: organizers wanted flexibility to correct mistakes, but unrestricted editing posed risks to competitive integrity. The negotiated solution was that bracket editing should be allowed only before the tournament starts; after the bracket locks, edits should require a documented justification or explicit administrative override.
+
+Another conflict involved permissions during match disputes. Players typically expect to contest results, but organizers need authority to enforce final rulings. Negotiation clarified workflows around match verification, dispute submission, and the level of transparency provided to participants. Additionally, time-related conflicts surfaced around registration deadlines, schedule changes, and match timing. These required negotiation to balance flexibility for participants with the need for stable scheduling.
+
+Negotiation also played a role in resolving technical-organizational conflicts, such as whether match results should be verified by both teams or whether a single confirmation was sufficient. Each decision had implications for fairness, user experience, and workload.
+
+== Documentation
+
+The requirements needed to be consistently documented within the project’s milestone deliverables. Documentation should describe tournament concepts such as bracket structure, match lifecycle, permissions, and constraints in narrative form, supported by clear definitions. Requirements should be traceable from their origin (elicitation) through analysis and negotiation, ensuring that every implemented behavior has documented justification.
+
+In practice, some tournament requirements were refined gradually across milestones, and their documentation evolved accordingly. Missing or vague documentation early in the project created inconsistencies in later phases, revealing the importance of maintaining up-to-date, centralized requirement descriptions. Ideally, requirement documentation should have used a structured hierarchy, domain definitions, functional requirements, constraints, and lifecycle descriptions to ensure consistency across developer tasks.
+
+== Validation and Verification
+
+Validation required confirming that the requirements truly reflected the needs of tournament organizers and players. This included walkthroughs, team discussions, and hypothetical scenario testing. For example, validating the scheduling flow required simulating a tournament from registration through completion to check for missing steps or unclear transitions.
+
+Verification focused on ensuring that implemented features satisfied the documented requirements. For example, if the requirement stated that only organizers may modify brackets, tests or review processes had to confirm that updates were indeed restricted and that the UI correctly reflected user permissions. Verification also ensured that match results triggered bracket progression, and that participants could only access the actions appropriate for their role.
+
+Throughout the project, verification efforts highlighted mismatches between assumptions and documented requirements, reinforcing the need for clearer requirement definitions earlier in the process.
+
+== Evolution
+
+Tournament requirements evolved as the team better understood the domain. For example, early versions of the requirements did not consider administrative dispute resolution workflows, but later analysis revealed that they were essential for fairness. Likewise, bracket editing rules evolved as the team discussed competitive integrity. The evolution phase acknowledges that requirements change over time as the domain becomes clearer or as implementation reveals gaps.
+
+In the context of the final milestone, requirement evolution primarily involved refining edge cases, resolving ambiguities, and tightening definitions to reduce future inconsistency. Since implementation was nearing completion, requirement evolution was more controlled, focusing on clarifying behavior rather than expanding scope.
+
+== Risks of Incomplete or Ambiguous Requirements
+
+Incomplete requirements create cascading problems across all stages of development. In the Tournament Module, missing definitions around permissions or match workflows could lead to incorrect behavior, user confusion, or disputes. Ambiguous requirements often result in rework, inconsistent implementation, or conflicting assumptions among developers. Poorly verified requirements can allow serious errors such as invalid bracket progression or unrestricted editing that compromise the integrity of tournaments.
+
+These risks highlight the importance of well-executed requirements engineering from the earliest project phases.
+
+== Conclusion
+
+Mapping the Esports Organizer’s Tournament Module requirements across the Requirements Engineering Process Model illustrates how critical elicitation, analysis, negotiation, documentation, validation, verification, and evolution are to building reliable tournament workflows. The project benefited from iterative refinement, but also revealed the consequences of incomplete early requirements. A disciplined approach to requirements engineering ensures that complex systems like tournament management remain consistent, fair, and aligned with stakeholder needs.
