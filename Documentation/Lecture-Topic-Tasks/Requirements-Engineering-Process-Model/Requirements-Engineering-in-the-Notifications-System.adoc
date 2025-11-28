@@ -1,0 +1,136 @@
+= Requirements Engineering in the Esports Web – Notifications System
+
+Yamilet Gomez – Esports Organizer Project  
+Team: Events & Notifications  
+INSO4101-080
+
+==  Objective
+
+This document explains the concept and process of *Requirements Engineering (RE)* and analyzes how it applies to the *Notifications System* of the Esports Organizer Web Platform.
+
+The goal is to demonstrate how RE helps define, validate, and manage project goals effectively, ensuring that the notification features align with user needs, system constraints, and overall platform objectives.
+
+== Definition
+
+According to the IEEE, a requirement is:
+[quote]
+____
+A condition or capability needed by a user to solve a problem or achieve an objective.
+____
+
+*Requirements Engineering* is the systematic process of defining, documenting, and maintaining these requirements throughout the software development lifecycle. It acts as a bridge between what users expect and what developers implement.
+
+For the *Esports Web Notifications System*, RE ensures that the platform reliably informs users about tournaments and community activities while maintaining usability, efficiency, and flexibility through features like *Save to Google Calendar* and *Mark All as Read*.
+
+== Purpose and Importance of Requirements Engineering
+
+Requirements Engineering provides a structured way to manage complexity in software projects.
+
+Its main purposes are to:
+
+* Ensure a clear understanding of what the notification system must achieve before development begins.
+* Facilitate effective communication between developers, designers, and stakeholders.
+* Avoid ambiguity by defining precise, testable requirements (e.g., “The system shall send real-time notifications for tournament updates”).
+* Detect and resolve conflicts early (e.g., scheduling notifications and Google Calendar integration).
+* Serve as a foundation for subsequent phases like design, testing, and maintenance.
+* Guarantee that all user expectations are covered without unnecessary functionality.
+
+In this context, Requirements Engineering ensures that the *Notifications System* delivers accurate, timely, and meaningful updates to users, enhancing engagement and reliability across the Esports platform.
+
+== Five Phases of Requirements Engineering
+
+Requirements Engineering consists of five main phases that ensure clarity, feasibility, and alignment with user goals.
+
+=== 1. Elicitation (Requirements Gathering)
+
+This phase focuses on understanding what users and stakeholders need from the *Notifications System*.  
+Methods include interviews, feedback sessions, and prototype testing.
+
+**Examples in the Esports Web:**
+
+* Gathering organizer needs to send tournament invitations and reminders.
+* Identifying user preferences for community post notifications.
+* Discussing integration with Google Calendar for scheduling upcoming tournaments.
+
+[example]
+ Example Requirement: “The system shall notify users 24 hours before a tournament begins and provide an option to save the event to Google Calendar.”
+
+=== 2. Analysis
+
+This phase analyzes gathered information to detect conflicts, clarify priorities, and ensure logical consistency.
+
+**Examples in the Esports Web:**
+
+* Determining notification types: tournament, community, or platform updates.
+* Identifying dependencies (e.g., tournament notifications depend on schedule data).
+* Ensuring compatibility between real-time notifications and “Mark All as Read” functionality.
+
+[example]
+ Example Outcome: Define that unread notifications persist until explicitly marked as read by the user.
+
+=== 3. Specification
+
+This phase documents requirements in a structured, formal way for development reference.
+
+**Examples in the Esports Web:**
+
+* *Functional Requirement:* The system shall display all unread notifications in descending order of date.
+* *Non-functional Requirement:* Notifications must appear in under two seconds after an event is triggered.
+* *Integration Requirement:* Users shall be able to add tournament dates to Google Calendar directly from the notification.
+
+This specification ensures that each feature is measurable, testable, and traceable.
+
+=== 4. Validation and Verification
+
+Once requirements are written, they are validated with users and verified against technical constraints.
+
+**Validation examples:**
+
+* Reviewing prototypes to ensure the “Save to Google Calendar” button works intuitively.
+* Confirming that help page content is accessible and useful to all users.
+
+**Verification examples:**
+
+* Testing that real-time notifications work across different devices.
+* Ensuring that marking all notifications as read updates the user interface correctly.
+
+[example]
+ Goal: Ensure that “the system does what users expect” and “users expect what the system does.”
+
+=== 5. Management
+
+Requirements must be tracked and updated as the platform evolves.  
+The *Notifications System* may require changes based on new community features, APIs, or design updates.
+
+**Examples in the Esports Web:**
+
+* Updating requirements when introducing new types of notifications.
+* Maintaining documentation of changes (e.g., new filters or categories).
+* Ensuring stakeholders approve major modifications, such as new calendar integration behavior.
+
+== Application to the Notifications System
+
+|===
+| *Phase* | *Example in Project*
+
+| *Elicitation*
+| Gather user needs for tournament reminders and community updates.
+
+| *Analysis*
+| Identify dependencies between event creation and notification triggers.
+
+| *Specification*
+| Write use cases for “Save to Google Calendar” and “Mark All as Read.”
+
+| *Validation*
+| Review prototypes with users to ensure clarity and usefulness.
+
+| *Management*
+| Update documentation when new notification types are added.
+|===
+
+== Conclusion
+
+Through these phases, the *Notifications System* ensures that all alerts are timely, relevant, and aligned with user expectations while maintaining scalability and usability across the Esports platform.
+
+The use of Requirements Engineering principles allows developers and stakeholders to maintain a shared vision, trace progress efficiently, and guarantee that the system meets the functional and experiential goals of the Esports Web environment.
