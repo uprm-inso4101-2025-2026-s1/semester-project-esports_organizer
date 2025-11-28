@@ -40,10 +40,7 @@
 {nbsp} +
 
 [.hl-green]#*i. Application of Topics*# +
-{nbsp} +
 
 [.hl-green]#*ii. Generative AI Use Disclosure Statement*# +
-{nbsp} +
 
 [.hl-green]#*iii. LogBook*#
-{nbsp} +
