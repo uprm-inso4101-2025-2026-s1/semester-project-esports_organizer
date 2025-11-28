@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Image dupe">
-      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Algebras/Algebraic Structures for Profile Management" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Algebras/Algebraic Structures for Profile Management.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Phenomena-and-Concepts/Applying Phenomena and Concepts to Role-Based Access and Profile Modeling" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Phenomena-and-Concepts/Applying Phenomena and Concepts to Role-Based Access and Profile Modeling.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design/Integrate 2FA, Role Modeling, and Profile" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Lecture-Topic-Tasks/Software-Architecture-Design/Integrate 2FA, Role Modeling, and Profile.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/End/Sub-Sections/ai_disclosure_statement.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/ai_disclosure_statement.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
