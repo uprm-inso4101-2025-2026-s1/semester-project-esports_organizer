@@ -214,7 +214,7 @@ function TournamentsPage() {
       
       await currentEvent.UpdateEvent(currentEvent.id);
 
-      const eventDate = currentEvent.dateValue.toDate();
+      const eventDate = currentEvent.dateValue;
       const dateStr = eventDate.toLocaleDateString();
       const timeStr = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
       
@@ -305,10 +305,6 @@ function TournamentsPage() {
 
       setSelectedEvent(selected);
       console.log("=== handleJoin COMPLETE ===");
-    } catch (error) {
-      console.error("=== handleJoin ERROR ===", error);
-      alert("Error joining event: " + error.message);
-    }
   }
 
   const handleCreateTeam = async (event, teamName) => {
@@ -475,109 +471,7 @@ function TournamentsPage() {
                 Send me reminders and updates for this event
               </label>
             </div>
-
-              <button 
-              className="join-event-button"
-              onClick={async () => {
-
-              const uid = localStorage.getItem("currentUserUid");
-
-              await addDoc(
-                collection(db, "User", uid, "notifications"),
-                {
-                  title: "Joining event...",
-                  message:
-                    `Preparing to join "${selectedEvent.title}"\n` +
-                    `📅 Date: ${selectedEvent.date}\n` +
-                    `🎮 Game: ${selectedEvent.game}\n` +
-                    `📍 Location: ${selectedEvent.location}`,
-                  type: "info",
-                  userID: uid,
-                  eventId: selectedEvent.id,
-                  eventTitle: selectedEvent.title,
-                  createdAt: serverTimestamp(),
-                }
-              );
-              
-              console.log("Next-step notification saved in /User/<uid>/notifications");
-
-                
-              await addDoc(
-                collection(db, "notifications"),
-                {
-                  title: "Joining event...",
-                  message:
-                    `Preparing to join "${selectedEvent.title}"\n` +
-                    `📅 Date: ${selectedEvent.date}\n` +
-                    `🎮 Game: ${selectedEvent.game}\n` +
-                    `📍 Location: ${selectedEvent.location}`,
-                  type: "info",
-                  userID: uid,
-                  eventId: selectedEvent.id,
-                  eventTitle: selectedEvent.title,
-                  createdAt: serverTimestamp(),
-                }
-              );
-
-              console.log("Next-step notification saved in GLOBAL /notifications");
-                
-                window.dispatchEvent(
-                  new CustomEvent("show-notification-popup", {
-                    detail: `You are joining "${selectedEvent.title}"`
-                  })
-                );
-
-                
-
-                if (selectedEvent) {
-                  sendJoinNotification(selectedEvent.title);
-                  setSelectedEvent({ ...selectedEvent, wantsNotifications });
-                  closeModal();
-                }
-
-                handleNext();
-              }}
-            >
-              Next
-            </button>
             </div>
-          )}
-
-          {modalStep === 2 && (
-            <div className="modal-teams-section">
-              <div className="teams-header">
-                <button className="back-button" onClick={handleBack}>
-                  ← Back
-                </button>
-                <h3 className="teams-title">TEAMS</h3>
-              </div>
-              
-              <div className="teams-container">
-                <div className="teams-list">
-                  {selectedEvent.teams.map((team, index) => (
-                    <div key={index} className="team-item">
-                      <div className="team-info">
-                        <span className="team-name">{team.name}</span>
-                        <span className="team-members">{team.members.length}/{team.capacity}</span>
-                      </div>
-                      <button
-                        className="join-team-button"
-                        onClick={() => handleJoin(selectedEvent, team)}
-                      >
-                        Join Team
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                
-                <button className="add-team-button"
-                  onClick={() => setMenuOpen(true)}>
-                  + Add New Team
-                </button>
-              </div>
-            </div>
-          )}
-
         </div>
       </div>
     </div>
