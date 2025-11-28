@@ -1,0 +1,60 @@
+= Lecture Topic Task - Data Flow and Synchronization Between Components
+By: Sebastian A Santiago Perez
+Course: INSO 4101  Software Engineering
+Date: November 26, 2025
+
+== Introduction
+This lecture topic task focuses on the concept of Data Flow and Synchronization Between Components and its importance in coordinating how information moves throughout the Esports Organizer platform. The platform relies on multiple connected components login, tournaments, event details, dashboards—that must share consistent and up to date data. Understanding how data flows and remains synchronized ensures that all parts of the application stay aligned with the latest backend information and with each other.
+
+Synchronization failures often result in outdated UI, inconsistent states, or duplicated data handling. Documenting this system wide flow provides clarity for developers, helping maintain reliability and enabling efficient communication across component boundaries.
+
+== Relation to Class Topics
+This topic relates closely to Software Design, System Architecture, and HCI lectures. It ties directly into discussions on component hierarchy, communication patterns, and separation of concerns. Within the Triptych Model, data synchronization serves as the mechanism that links requirements (what data must be shown), design (how components communicate), and implementation (how data is updated across the system).
+
+It reflects critical engineering principles such as:
+- *Component independence,* where components operate autonomously but share essential information.
+- *Loose coupling,* enabling changes in one area without breaking others.
+- *Reusability,* since well structured data flow patterns can be applied across multiple parts of the application.
+- *Consistency,* ensuring all views present the same version of the underlying data.
+
+== Objective
+The objective of this task is to document and visualize how data flows between various components in the Esports Organizer platform and how the system keeps the data synchronized. The diagram illustrates how components pass data, how shared state is updated, and how UI elements remain aligned with backend information. This understanding is essential for teamwork, debugging, scalability, and the addition of new features.
+
+== Process and Design Decisions
+To model the data flow, the team first identified the interactive components that frequently exchange data: event listings, user dashboards, match schedules, login status, and user preferences. The next step was to determine how data travels between them and how shared state ensures consistency.
+
+The design considerations included:
+- Determining whether components communicate *directly* (via props) or *indirectly* (via global state or context).
+- Choosing which data must be stored centrally to avoid duplication or drift.
+- Ensuring that backend updates propagate to all subscribed components.
+- Avoiding unnecessary re renders by isolating data only to components that rely on it.
+
+Synchronization occurs through mechanisms such as:
+- Global stores that broadcast changes
+- Immutable updates to ensure predictable change detection
+- Asynchronous API handling to ensure fresh backend data
+- Component level subscriptions for real time UI updates
+
+This structure prevents inconsistencies such as one component showing outdated tournaments while another shows updated results.
+
+
+
+
+
+== Example Scenario
+When a tournament is updated in the backend (e.g., new match results), a request fetches the updated tournament data. The global state store is refreshed with the new information, and every component that depends on tournament data such as the Event List, Tournament Details, and Dashboard—automatically re renders to display the latest version.
+
+This synchronization ensures users see consistent information regardless of which part of the platform they are viewing.
+
+== Connection with Software Engineering Principles
+- *Low Coupling:* Components depend on data, not on each other, reducing breakage.
+- *High Cohesion:* Each component handles only what it is responsible for.
+- *Separation of Concerns:* UI, data flow, and backend responsibilities remain isolated.
+- *Scalability:* New components can subscribe to existing data without restructuring the system.
+- *Reliability:* Synchronization prevents stale data or conflicting UI states.
+
+== Reflections and Findings
+This task revealed how critical synchronized data flow is for complex systems with multiple views and interactive features. Establishing a well-documented communication strategy prevents inconsistent user experiences and makes the codebase far easier to maintain. Changes in backend structure, feature expansion, or UI redesign become more manageable with a robust data synchronization model.
+
+== Conclusion
+The Component Data Flow and Synchronization Diagram provides a high level understanding of how information travels, updates, and remains consistent across the Esports Organizer platform. By clearly outlining how components interact and share data, the team gains insight into system dependencies and future scalability. This strengthens both the architectural integrity and long term maintainability of the application.
