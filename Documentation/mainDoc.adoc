@@ -1,0 +1,11 @@
+:imagesdir: .
+
+include::Introduction/introductionDoc.adoc[]
+
+include::Informative/informativeDoc.adoc[]
+
+include::Descriptive/descriptiveDoc.adoc[]
+
+include::Analytic/analyticDoc.adoc[]
+
+include::End/end.adoc[]

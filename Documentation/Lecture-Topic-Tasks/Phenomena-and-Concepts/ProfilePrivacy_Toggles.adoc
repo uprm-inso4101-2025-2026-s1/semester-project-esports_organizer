@@ -1,0 +1,51 @@
+= Profile Privacy Toggles Documentation
+:icons: font
+:sectnums:
+:toc: left
+:toclevels: 2
+
+== Overview
+This document explains how each privacy toggle in the *User Profile Settings* should behave.
+The goal is to ensure both developers and testers understand the intended functionality, maintaining consistency across the frontend, backend, and user experience.
+
+== Privacy Toggles and Their Behaviors
+
+[cols="1,2,2,2", options="header"]
+|===
+| Toggle Name | Description | When Enabled (ON) | When Disabled (OFF)
+
+| *Show Achievements*
+| Controls visibility of the user's unlocked badges and achievements.
+| Achievements are visible on the user's public profile.
+| Achievements are hidden from all other users.
+
+| *Show Email*
+| Determines whether the user’s email address is displayed on their profile.
+| Email is visible only to approved friends or teammates.
+| Email remains private and hidden to everyone.
+
+| *Allow Messages*
+| Defines if other users can send private messages to this user.
+| Direct messages are enabled and can be received.
+| The “Message” button is hidden and users cannot send DMs.
+
+| *Show Online Status*
+| Controls whether the user appears “Online” or “Offline” to others.
+| Real-time online status is displayed.
+| User always appears as “Offline”.
+
+| *Show Recent Activity*
+| Manages visibility of the user’s recent tournaments, matches, or achievements.
+| Activity feed is visible to others.
+| Activity feed is hidden from the public profile.
+|===
+
+== Notes
+* All privacy settings should be stored as **boolean flags** (`true` / `false`) in the user profile data model.
+* Default configuration for new users:
+** *Show Achievements:* ON
+** *Show Email:* OFF
+** *Allow Messages:* ON
+** *Show Online Status:* ON
+** *Show Recent Activity:* ON
+* These settings can be toggled at any time through the *Profile Settings* page.

@@ -1,0 +1,45 @@
+= Lecture Topic Task: Message Sequence Charts (MSC)
+
+== Introduction
+Message Sequence Charts (MSCs) are visual tools that model and represent the sequential communication between components in a distributed system. In software engineering, MSCs are especially useful to describe how different modules or layers exchange messages to perform complex operations in a coordinated way.
+
+Esports oriented usage could be to create a way to understand how the inner processes work, in this case, the database team implemented classes, MSC could provide a visual and more attractive way to explain an understand how things are handled on the inside while keeping it clear for outsiders.
+
+== Definition
+An MSC displays events and messages exchanged between objects or entities in the order they occur, making it easier to understand the temporal interaction flows between frontend, backend, and databases in modern applications.
+
+== Application in Frontend-Backend-Database Integration
+In client-server architecture systems, MSCs help document and analyze how user requests travel from the user interface (frontend) to the server (backend), where data operations take place in the database, and how responses are returned for presentation.
+
+=== Example Flow (Just to illustrate the idea): User Login
+- The user enters credentials in the frontend.  
+- The frontend sends an authentication request to the backend.  
+- The backend queries the database to verify credentials.  
+- The database responds with the query result.  
+- The backend sends the authentication response to the frontend.  
+- The frontend displays the login result to the user.
+
+This flow can be represented in an MSC to clarify responsibilities and response timings, helping to detect bottlenecks or integration issues.
+
+== Benefits
+- Clear and organized visualization of dynamic system behavior.  
+- Improves team communication by providing a common graphical documentation.  
+- Facilitates detecting message sequence errors or design decisions.  
+- Allows validation of functional requirements in terms of component interactions.
+
+== Conclusion
+Message Sequence Charts are powerful tools to organize, understand, and communicate the dynamics of integration between frontend, backend, and databases, supporting teams like the database team to ensure correct coordination and system efficiency.
+
+== Example Diagram
+
+[source,plaintext]
+----
+User       Frontend       Backend       Database
+    |             |              |              |
+    |----login--> |              |              |
+    |             |--authReq-->  |              |
+    |             |              |--queryUser-->|
+    |             |              |<--result-----|
+    |             |<--authRes--  |              |
+    |<--loginRes--|              |              |
+----

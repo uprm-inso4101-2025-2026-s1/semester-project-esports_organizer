@@ -1,0 +1,189 @@
+= Risk Assessment for Email Notification & Verification Workflow
+Oscar Santana  
+Project: Esports Organizer  
+Team: Events & Notifications  
+INSO4101-080  
+
+== 1. Introduction
+[.hl-green]#This document evaluates risks associated with the Email Notification and Verification System, following the structured risk analysis framework presented in the Risk Analysis lecture.#  
+The system interacts with external SMTP services, generates verification tokens, and triggers automated notifications tied to user and event actions.  
+Because failures can impact security, reliability, and user experience, a formal assessment is required.
+
+---
+
+== 2. Risk Identification
+
+=== 2.1 Technical Risks
+
+[cols="1,3", options="header"]
+|===
+|ID |Risk Description
+|T1 |SMTP Provider Downtime – external email service becomes unavailable.
+|T2 |Rate Limiting Blocks Legit Emails – provider flags high-volume traffic.
+|T3 |Retry Flooding – retry logic sends bursts or user spam.
+|T4 |Broken or Expired Verification Links – token issues prevent verification.
+|T5 |Template Rendering Failures – missing variables, corrupted templates.
+|T6 |Duplicate Emails (Race Conditions) – same trigger fires twice.
+|===
+
+---
+
+=== 2.2 Security Risks
+
+[cols="1,3", options="header"]
+|===
+|ID |Risk Description
+|S1 |Token Interception / Replay – stolen tokens used maliciously.
+|S2 |Token Never Expires – indefinite validity creates attack window.
+|S3 |Email Enumeration – attacker learns if accounts exist.
+|S4 |Misconfigured SMTP – insecure TLS or open relay exposure.
+|===
+
+---
+
+=== 2.3 Operational Risks
+
+[cols="1,3", options="header"]
+|===
+|ID |Risk Description
+|O1 |Users Miss Reminders – emails blocked or delayed.
+|O2 |System Load Causes Delays – high activity slows delivery.
+|O3 |Wrong Email/Domain Settings – invalid configs in deployment.
+|O4 |New Notification Types Not Included – future features break flow.
+|===
+
+---
+
+== 3. Risk Analysis
+
+Likelihood: *1 (Rare) → 5 (Very Likely)*  
+Severity: *1 (Minimal) → 5 (Critical)*  
+Risk Score = **Likelihood × Severity**
+
+[cols="1,1,1,1,1", options="header"]
+|===
+|ID |Likelihood |Severity |Score |Priority
+|T1 |3 |5 |15 |High
+|T2 |4 |4 |16 |High
+|T3 |2 |4 |8 |Medium
+|T4 |4 |3 |12 |High
+|T5 |3 |3 |9 |Medium
+|T6 |2 |4 |8 |Medium
+|S1 |2 |5 |10 |High
+|S2 |3 |4 |12 |High
+|S3 |3 |5 |15 |High
+|S4 |2 |5 |10 |High
+|O1 |3 |3 |9 |Medium
+|O2 |3 |4 |12 |High
+|O3 |4 |3 |12 |High
+|O4 |3 |2 |6 |Low
+|===
+
+---
+
+== 4. Mitigation Strategies
+
+=== Technical
+
+* **T1 – SMTP Downtime**  
+  - Implement retry w/ exponential backoff  
+  - Use alternative SMTP provider fallback  
+  - Log failures for monitoring  
+
+* **T2 – Rate Limiting**  
+  - Implement internal throttling  
+  - Use email queue worker  
+  - Monitor outgoing email rate  
+
+* **T3 – Retry Flooding**  
+  - Cap retry attempts  
+  - Avoid retries on user errors  
+  - Use idempotency keys  
+
+* **T4 – Verification Link Failures**  
+  - Use stable URL generation  
+  - Reasonable token expiration (15–60 min)  
+  - Allow explicit re-request  
+
+* **T5 – Template Errors**  
+  - Validate templates before deploy  
+  - Use fallback template on failure  
+  - Enforce variable existence  
+
+* **T6 – Race Conditions**  
+  - Add event flags + transactional updates  
+  - Idempotency check on sendTemplatedEmail  
+
+---
+
+=== Security
+
+* **S1 – Token Interception**  
+  - Enforce HTTPS everywhere  
+  - Hash tokens in DB  
+  - Token must be single-use  
+
+* **S2 – Token Never Expires**  
+  - Store expiration timestamps  
+  - Hard delete expired tokens  
+  - Require re-request for new token  
+
+* **S3 – Email Enumeration**  
+  - Use generic messages  
+  - Rate limit requests  
+  - Log suspicious patterns  
+
+* **S4 – Misconfigured SMTP**  
+  - Enforce TLS-only connections  
+  - Store credentials only in `.env`  
+  - Validate SMTP config on startup  
+
+---
+
+=== Operational
+
+* **O1 – Missed Reminders**  
+  - Send reminders early  
+  - Use job queues  
+  - Provide in-app notifications  
+
+* **O2 – High System Load**  
+  - Use background workers  
+  - Perform batching  
+  - Autoscale if applicable  
+
+* **O3 – Wrong SMTP Settings**  
+  - Provide `.env.example`  
+  - Validate environment variables  
+  - Send test email during deployment  
+
+* **O4 – Missing Notification Types**  
+  - Maintain documentation of triggers  
+  - Create implementation checklist  
+  - Ensure E2E tests break if missing  
+
+---
+
+== 5. Testing & Monitoring Recommendations
+
+* **Unit Tests:**  
+  Template rendering, token generation, expiration logic.  
+* **Integration Tests:**  
+  Mock SMTP provider sending.  
+* **E2E Tests:**  
+  - Verification email received  
+  - User verifies successfully  
+  - Event registration sends confirmation  
+  - Reminders trigger correctly  
+  - Rate-limiting does not block essential emails  
+* **Monitoring:**  
+  - Track email success/failure rate  
+  - Log retry counts  
+  - Alert on SMTP failures  
+  - Monitor bounce/invalid email rates  
+
+---
+
+== Logbook Entry
+
+| Risk Assessment for Email Notification & Verification Workflow  | Oscar Santana  | Added  | Created formal risk analysis document for the notification system.
