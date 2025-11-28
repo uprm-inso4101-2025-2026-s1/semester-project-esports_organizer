@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "../components/shared/Navbar";
 import TournamentCard from "../components/shared/TournamentCard";
@@ -7,67 +7,38 @@ import { toggleSetItem } from "../utils/helpers";
 import "./TournamentsPage.css";
 import { db } from "../database/firebaseClient";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { checkUserPermission } from "../Roles/checkUserPermission";
+import Event from "../events/EventClass";
+import SubTeamCreationMenu from "./SubTeamCreationMenu.jsx";
+import { getProfileById, addEventToUserProfile } from "../services/profile-service.js";
 
-function TournamentsPage() {
-  // State management
-  const navigate = useNavigate();
-  const [savedCards, setSavedCards] = useState(new Set());
-  const [showJoinModal, setShowJoinModal] = useState(false);
-  const [, setSelectedEvent] = useState(null);
-  const [modalStep, setModalStep] = useState(1);
-
-  // Effects
-  useEffect(() => {
-    document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [showJoinModal]); 
-
-  //Notifications
-  const userId = 'demoUser123'; 
-
-  const sendJoinNotification = async (eventTitle) => {
-    try {
-      await addDoc(collection(db, 'users', userId, 'notifications'), {
-        message: `You joined the event "${eventTitle}" `,
-        createdAt: serverTimestamp(),
-        read: false,
+async function getEventById(eventID) {
+  const data = await Event.ListEvents();
+  for (let e of data) {
+    if (e.id === eventID) {
+      return new Event({
+        title: e.title, 
+        id: e.id, 
+        decription: e.description,
+        dateValue: e.dateValue,
+        participants: e.participants,
+        teams: e.teams,
+        game: e.game,
+        location: e.location,
+        createdBy: e.createdBy,
+        community: e.community,
+        tournament: e.tournament,
+        maxTeams: e.maxTeams,
+        maxPlayersPerTeam: e.maxPlayersPerTeam
       });
-      console.log('Notification sent');
-    } catch (error) {
-      console.error('Error sending notification:', error);
     }
-  };
+  }
+}
 
-
-  // Event handlers
-
-  const toggleSaved = (cardId) => {
-    setSavedCards(prev => toggleSetItem(prev, cardId));
-  };
-
-  const handleJoinEvent = (eventTitle) => {
-    setSelectedEvent(eventTitle);
-    setShowJoinModal(true);
-    setModalStep(1);
-
-  };
-
-  const closeModal = () => {
-    setShowJoinModal(false);
-    setSelectedEvent(null);
-    setModalStep(1);
-  };
-
-  const handleNext = () => setModalStep(2);
-  const handleBack = () => setModalStep(1);
-  const handleCreateEvent = () => {
-    navigate("/create-event");
-  };
-
-  // Components
-
-  const PageHeader = () => (
-    <section className="page-header">
+function PageHeader({search, setSearch, handleCreateEvent}) {
+  return (
+    // <section className="page-header">
+    <section className={"page-header" + (console.log("rendered page header"), "")}>
       <div className="page-header-content">
         <h1 className="page-title">EVENTS</h1>
         <div className="search-and-create-container">
@@ -76,6 +47,8 @@ function TournamentsPage() {
               type="text" 
               placeholder="Search for the event" 
               className="search-input"
+              value={search} 
+              onChange={(event) => setSearch(event.target.value)}
             />
             <div className="search-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -85,7 +58,15 @@ function TournamentsPage() {
           </div>
           <button 
             className="create-event-button"
-            onClick={handleCreateEvent}
+            onClick={async () => {
+                 const uid = localStorage.getItem("uid");
+                if (await checkUserPermission(uid, "createUserEvent")==true || await checkUserPermission(uid, "createTeamEvent")==true ) {
+                    // Allowed
+                    handleCreateEvent();
+                    } else {
+                      alert("You do not have permission to create an event.");
+                    }
+              }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -96,22 +77,291 @@ function TournamentsPage() {
       </div>
     </section>
   );
+}
+
+function TournamentsPage() {
+  // State management
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [savedCards, setSavedCards] = useState(new Set());
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [search, setSearch] = useState("");
+  const[events, setEvents] = useState([]);
+
+  // Sub Team creation menu States
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [wantsNotifications, setWantsNotifications] = useState(true);
+
+  async function loadEvents() {
+      const data = await Event.ListEvents();
+      const displayEvents = data.map((event) => ({
+        id: event.id,
+        title: event.title,
+        game: event.game,
+        price: "Free",
+        date: event.dateValue.toDateString(),
+        location: event.location,
+
+        dateValue: event.dateValue,
+        participants: event.participants,
+        teams: event.teams,
+        maxTeams: event.maxTeams,
+        maxPlayersPerTeam: event.maxPlayersPerTeam
+      }));
+
+      setEvents(displayEvents);
+  }
+
+  // Effects
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
+  useEffect(() => {
+    const openEventId = location?.state?.openEventId;
+    if (openEventId && events.length > 0) {
+      const evt = events.find((e) => e.id === openEventId);
+      if (evt) {
+        setSelectedEvent(evt);
+        setShowJoinModal(true);
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+        } catch { 0; }
+      }
+    }
+  }, [events, location]);
+
+  useEffect(() => {
+    document.body.style.overflow = showJoinModal ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [showJoinModal]); 
+
+  //Notifications
+  const userId = localStorage.getItem('currentUserUid');
+
+  const sendJoinNotification = async (eventTitle) => {
+    try {
+      await addDoc(collection(db, 'users', userId, 'notifications'), {
+        message: `You joined the event "${eventTitle}" `,
+        createdAt: serverTimestamp(),
+        read: false,
+      });
+      await addDoc(collection(db, 'User', userId, 'participatedEvents'), {
+        event: eventTitle,
+        createxAt: serverTimestamp(),
+      });
+      console.log('Notification sent');
+    } catch (error) {
+      console.error('Error sending notification:', error);
+    }
+  };
+
+  const filteredEvents = events.filter((event) => {
+    const matches = event.title.toLowerCase().includes(search);
+    return matches;
+  });
+
+  const recommendedEvents = events.filter((event) => {
+    const matches = (event.participants.length < event.maxPlayersPerTeam * event.maxTeams);
+    return matches;
+  })
+
+  recommendedEvents.sort((e1, e2) => e2.participants.length - e1.participants.length);
+  // Event handlers
+
+  const toggleSaved = (cardId) => {
+    setSavedCards(prev => toggleSetItem(prev, cardId));
+  };
+
+  const handleJoinEvent = (event) => {
+    setSelectedEvent(event);
+    setShowJoinModal(true);
+  };
+
+  const handleJoin = async (event, team) => {
+
+    try {
+      console.log("=== handleJoin START ===");
+      console.log("Event:", event);
+      console.log("Team:", team);
+      
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      console.log("Current uid from localStorage:", uid);
+      
+      const currentEvent = await getEventById(event.id);
+      console.log("Retrieved current event:", currentEvent);
+      
+      const currentUser = await getProfileById(uid);
+      console.log("Retrieved current user profile:", currentUser);
+      
+      if (!currentUser) {
+        console.error("ERROR: User profile not found for uid:", uid);
+        alert("Error: Your profile was not found. Please log in again.");
+        return;
+      }
+      
+      if (!currentUser.uid) {
+        currentUser.uid = uid;
+      }
+      
+      currentEvent.addToTeam(team.name, currentUser);
+      
+      currentEvent.participants[currentUser.uid] = {
+        ...(currentEvent.participants[currentUser.uid] || {}),
+        wantsNotifications: wantsNotifications
+      };
+      
+      await currentEvent.UpdateEvent(currentEvent.id);
+
+      const eventDate = currentEvent.dateValue;
+      const dateStr = eventDate.toLocaleDateString();
+      const timeStr = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      
+      // save under user
+      await addDoc(collection(db, "User", uid, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // save to global notifications
+      await addDoc(collection(db, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // popup
+      window.dispatchEvent(
+        new CustomEvent("show-notification-popup", {
+          detail: `You joined "${currentEvent.title}"`
+        })
+      );
+      
+      // Add event to user's participated events
+      const addResult = await addEventToUserProfile(uid, event.id, event.title);
+      
+      if (!addResult || !addResult.success) {
+        alert("Event added to team but failed to update your profile. Please refresh.");
+        return;
+      }
+      
+      window.dispatchEvent(new Event("participatedEventsUpdated"));
+
+      await loadEvents();
+      const updatedEvent = await getEventById(currentEvent.id);
+
+      setSelectedEvent({
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam,
+      });
+
+    } catch (error) {
+      console.error("=== handleJoin ERROR ===", error);
+      alert("Error joining event: " + error.message);
+    }
+
+      const selected = {
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
+      }
+
+      setSelectedEvent(selected);
+      console.log("=== handleJoin COMPLETE ===");
+  }
+
+  const handleCreateTeam = async (event, teamName) => {
+    const currentEvent = await getEventById(event.id);
+    currentEvent.addTeam({name: teamName});
+    await currentEvent.UpdateEvent(currentEvent.id);
+    await loadEvents();
+
+    const updatedEvent = await getEventById(currentEvent.id);
+
+    const selected = {
+        id: updatedEvent.id,
+        title: updatedEvent.title,
+        game: updatedEvent.game,
+        price: "Free",
+        date: updatedEvent.dateValue.toDateString(),
+        location: updatedEvent.location,
+
+        dateValue: updatedEvent.dateValue,
+        participants: updatedEvent.participants,
+        teams: updatedEvent.teams,
+        maxTeams: updatedEvent.maxTeams,
+        maxPlayersPerTeam: updatedEvent.maxPlayersPerTeam
+      }
+
+    setSelectedEvent(selected);
+  }
+
+  const closeModal = () => {
+    setShowJoinModal(false);
+    setSelectedEvent(null);
+  };
+
+  const handleCreateEvent = () => {
+    navigate("/create-event");
+  };
+
+  // Components
 
   const RecommendedSection = () => (
     <section className="recommended-section">
       <div className="section-container">
         <h2 className="section-subtitle">RECOMMENDED EVENTS</h2>
         <div className="recommended-cards">
-          {TOURNAMENT_DATA.map((tournament, index) => (
-            <TournamentCard 
-              key={tournament.id} 
-              tournament={tournament} 
-              index={index}
-              isSaved={savedCards.has(index)}
-              onToggleSaved={toggleSaved}
-              onJoinEvent={handleJoinEvent}
-            />
-          ))}
+          {recommendedEvents.length > 0 ? (
+            recommendedEvents.map((tournament, index) => (
+              <TournamentCard 
+                key={tournament.id} 
+                tournament={tournament} 
+                index={index}
+                isSaved={savedCards.has(index)}
+                onToggleSaved={toggleSaved}
+                onJoinEvent={() => handleJoinEvent(tournament)}
+              />
+              ))) : (
+                <p>No events found.</p>
+            )}
         </div>
       </div>
     </section>
@@ -122,30 +372,21 @@ function TournamentsPage() {
       <div className="section-container">
         <div className="events-header">
           <h2 className="section-title">EVENTS</h2>
-          <div className="events-filters">
-            <select className="filter-select">
-              <option>All Games</option>
-              <option>Fortnite</option>
-              <option>League of Legends</option>
-            </select>
-            <select className="filter-select">
-              <option>All Dates</option>
-              <option>Today</option>
-              <option>This Week</option>
-            </select>
-          </div>
         </div>
         <div className="events-grid">
-          {EVENTS_DATA.map((tournament, index) => (
-            <TournamentCard 
-              key={tournament.id} 
-              tournament={tournament} 
-              index={index}
-              isSaved={savedCards.has(index)}
-              onToggleSaved={toggleSaved}
-              onJoinEvent={handleJoinEvent}
-            />
-          ))}
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((tournament, index) => (
+              <TournamentCard 
+                key={tournament.id} 
+                tournament={tournament} 
+                index={index}
+                isSaved={savedCards.has(index)}
+                onToggleSaved={toggleSaved}
+                onJoinEvent={() => handleJoinEvent(tournament)}
+              />
+              ))) : (
+                <p>No events found.</p>
+            )}
         </div>
       </div>
     </section>
@@ -170,74 +411,67 @@ function TournamentsPage() {
           </div>
           
           <div className="modal-event-header">
-            <h2 className="modal-event-title">1 VS 1 JUNGLE CUP - FORTNITE</h2>
+            <h2 className="modal-event-title">{selectedEvent.title}</h2>
           </div>
           
           <div className="modal-event-details">
             <div className="event-detail-row">
               <div className="event-detail">Enter Price: Free</div>
-              <div className="modal-capacity">Capacity: 0/16</div>
+              <div className="modal-capacity">Capacity: {selectedEvent.maxTeams * selectedEvent.maxPlayersPerTeam}</div>
             </div>
             <div className="event-detail-row">
-              <div className="event-detail">Date: Saturday, 01 Oct 2025 at 6:00 PM</div>
+              <div className="event-detail">Date: {selectedEvent.date}</div>
               <div className="event-detail">Modality: Teams</div>
             </div>
-            <div className="event-detail">Location: Online Tournament</div>
+            <div className="event-detail">Location: {selectedEvent.location}</div>
           </div>
           
-          {modalStep === 1 && (
-            <div className="modal-form-section">
-              <h3 className="form-title">JOIN EVENT</h3>
-              
-              <div className="form-inputs">
-                <input type="text" placeholder="Enter Name" className="form-input" />
-                <input type="text" placeholder="Enter Last Name" className="form-input" />
-                <input type="text" placeholder="Enter Username" className="form-input" />
+          <div className="modal-form-section">
+            <h3 className="form-title">JOIN EVENT</h3>
+
+            <div className="teams-container">
+              <div className="teams-list">
+                {selectedEvent.teams.map((team, index) => (
+                  <div key={index} className="team-item">
+                    <div className="team-info">
+                      <span className="team-name">{team.name}</span>
+                      <span className="team-members">{team.members.length}/{team.capacity}</span>
+                    </div>
+                    <button className="join-team-button"
+                      onClick={() => {handleJoin(selectedEvent, team)}}
+                    >Join Team</button>
+                  </div>
+                ))}
               </div>
               
-              <div className="disclaimer-section">
-                <label className="disclaimer-checkbox">
-                  <input type="checkbox" className="checkbox-input" />
-                  <span className="disclaimer-text">
-                    BY CHECKING THIS BOX, I AM AWARE THAT ABSENCE FROM THIS EVENT WILL RESULT IN IMMEDIATE DISQUALIFICATION.
-                  </span>
-                </label>
-              </div>
-              
-              <button className="join-event-button" onClick={handleNext}>
-                Next
+              <button className="add-team-button"
+                onClick={() => setMenuOpen(true)}>
+                + Add New Team
               </button>
             </div>
-          )}
-
-          {modalStep === 2 && (
-            <div className="modal-teams-section">
-              <div className="teams-header">
-                <button className="back-button" onClick={handleBack}>
-                  ← Back
-                </button>
-                <h3 className="teams-title">TEAMS</h3>
-              </div>
-              
-              <div className="teams-container">
-                <div className="teams-list">
-                  {['Team Alpha', 'Team Beta', 'Team Gamma'].map((team, index) => (
-                    <div key={index} className="team-item">
-                      <div className="team-info">
-                        <span className="team-name">{team}</span>
-                        <span className="team-members">{3 - index}/4 members</span>
-                      </div>
-                      <button className="join-team-button">Join Team</button>
-                    </div>
-                  ))}
-                </div>
-                
-                <button className="add-team-button">
-                  + Add New Team
-                </button>
-              </div>
+            
+            <div className="disclaimer-section">
+              <label className="disclaimer-checkbox">
+                <input type="checkbox" className="checkbox-input" />
+                <span className="disclaimer-text">
+                  BY CHECKING THIS BOX, I AM AWARE THAT ABSENCE FROM THIS EVENT WILL RESULT IN IMMEDIATE DISQUALIFICATION.
+                </span>
+              </label>
             </div>
-          )}
+
+            {/* Toggle de notificaciones */}
+            <div style={{ margin: "18px 0", paddingTop: "14px", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "14px", color: "#e0e0e0", cursor: "pointer" }}>
+                <input
+                  type="checkbox"
+                  checked={wantsNotifications}
+                  onChange={(e) => setWantsNotifications(e.target.checked)}
+                  style={{ width: "18px", height: "18px", accentColor: "#00d4ff" }}
+                />
+                Send me reminders and updates for this event
+              </label>
+            </div>
+            </div>
         </div>
       </div>
     </div>
@@ -247,9 +481,15 @@ function TournamentsPage() {
     <div className="tournaments-page">
       <Navbar />
       
-      <PageHeader />
-      <RecommendedSection />
+      <PageHeader search={search} setSearch={setSearch} handleCreateEvent={handleCreateEvent}/>
       <EventsSection />
+      <SubTeamCreationMenu 
+        menuOpen={menuOpen} 
+        setMenuOpen={setMenuOpen} 
+        handleCreateTeam={handleCreateTeam}
+        selectedEvent={selectedEvent}
+      />
+      <RecommendedSection />
       <JoinEventModal />
     </div>
   );

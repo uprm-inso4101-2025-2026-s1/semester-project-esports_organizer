@@ -20,7 +20,7 @@ It takes a tournament object and processes the match results through the bracket
 [source,javascript]
 ----
 //The following imports are unused as of writing:
-import Tournament from "../database/examples/Tournament.js"; // <1>
+import Tournament from "../database/core/Tournament.js"; // <1>
 import { getTournamentData } from "./BracketTeamVisualization.js"; // <1>
 ----
 <1> The imports go unused in the current implementation as of writing.

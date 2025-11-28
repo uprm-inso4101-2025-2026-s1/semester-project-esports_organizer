@@ -1,0 +1,166 @@
+= Logged In User Indicator
+ 
+== 1. Purpose
+This document describes the intended behavior, data flow, and UI states for the Logged-In User Indicator within the Esports Organizer system.  
+The goal is to provide a complete documentation deliverable to guide future implementation, replacing the need for code in this issue.
+
+== 2. Background / Technical Context
+
+Recent team commits introduced key changes related to authentication:
+
+* `auth` exported from `firebaseClient.js`
+* Firebase Auth emulator connected on port `9099`
+* `onAuthStateChanged(auth, ...)` added to `Navbar.jsx`
+* `loginUser.js` refactored using `signInWithEmailAndPassword`
+* `userIsLoggedIn` state now tied directly to Firebase Auth
+
+The Logged-In User Indicator must align with these patterns.
+
+== 3. Component Overview
+
+=== 3.1 Description
+The Logged-In User Indicator appears in the navigation bar **only when the user is authenticated**.  
+It displays the user's avatar, username, and a dropdown menu containing account-related actions.
+
+=== 3.2 Expected Directory Location
+----
+/src/components/navbar/
+/src/components/user-profile/
+----
+
+== 4. Authentication Flow
+
+The component relies on Firebase's real-time auth listener:
+
+[source,js]
+----
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    setUserIsLoggedIn(!!user);
+  });
+
+  return () => unsubscribe();
+}, []);
+----
+
+The UI must update immediately when Firebase changes authentication state.
+
+== 5. UI Behavior Specification
+
+=== 5.1 Logged-Out State
+When `userIsLoggedIn === false`:
+
+* Navbar displays **Login** and **Register**.
+* No avatar or dropdown is rendered.
+* No profile-related listeners should run.
+
+=== 5.2 Logged-In State
+When `userIsLoggedIn === true`:
+
+* Navbar shows a circular avatar button on the right.
+* Avatar image uses `profileImageURL` or fallback placeholder.
+* Clicking the avatar opens the dropdown menu.
+
+== 6. Dropdown Menu Requirements
+
+=== 6.1 Layout Structure
+
+----
++----------------------------------+
+| Avatar   Username (Role Badge)   |
++----------------------------------+
+| View Profile                     |
+| My Teams                         |
+| Settings                         |
+| -------------------------------- |
+| Log Out   (MdLogout icon)        |
++----------------------------------+
+----
+
+=== 6.2 Interaction Rules
+
+|===
+| Behavior | Requirement
+
+| Open dropdown
+| Click the avatar icon
+
+| Close dropdown
+| Click outside OR press ESC
+
+| Focus management
+| Dropdown should trap focus while open
+
+| Style/Animation
+| Use the same fade/scale pattern as NotificationsUI
+|===
+
+== 7. Data Requirements
+
+The component must retrieve:
+
+|===
+| Field | Source | Description
+
+| uid
+| Firebase Auth
+| Authenticated user ID
+
+| Email
+| Firestore User collection
+| Used for fallback display
+
+| Username
+| Firestore
+| Primary display name
+
+| profileImageURL
+| Firestore/Storage
+| Avatar image URL
+
+| Role
+| Firestore
+| Defines role badge (Player/Coach/Admin)
+|===
+
+Firebase Auth is the single source of truth for authentication status.
+
+== 8. Recommended Component Structure
+
+----
+/src/components/user-profile/
+    ProfileAvatar.jsx
+    ProfileDropdown.jsx
+    ProfileMenuItems.js
+    profileDropdown.css
+----
+
+Structure follows the style of the Notifications module and teammate Navbar logic.
+
+== 9. Accessibility Requirements
+
+* Avatar button includes: `aria-label="User Profile Menu"`.
+* Dropdown supports full keyboard navigation.
+* Contrast ratio minimum: 4.5:1.
+* Icons use `react-icons/md` for consistency (e.g., `MdLogout`).
+
+== 10. Acceptance Criteria Mapping
+
+|===
+| Acceptance Criteria | Documentation Coverage
+
+| Dropdown appears only after login
+| Sections 5.1 and 5.2
+
+| Avatar + username visible
+| Sections 5 and 7
+
+| Define data and state requirements
+| Section 7
+
+| Behavior documented for future implementation
+| Sections 5, 6 and 8
+
+| Prepared for profiles-ui branch
+| Entire document
+|===

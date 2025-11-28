@@ -6,7 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   // Ignore build output and example snippets
-  globalIgnores(['dist', 'src/database/examples/**']),
+  globalIgnores(['dist', 'src/database/core/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
