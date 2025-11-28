@@ -214,7 +214,49 @@ function TournamentsPage() {
       };
       
       await currentEvent.UpdateEvent(currentEvent.id);
-      console.log("Event updated in Firestore");
+
+      const eventDate = currentEvent.dateValue;
+      const dateStr = eventDate.toLocaleDateString();
+      const timeStr = eventDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      
+      // save under user
+      await addDoc(collection(db, "User", uid, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // save to global notifications
+      await addDoc(collection(db, "notifications"), {
+        title: "Event Joined",
+        message:
+          `You joined "${currentEvent.title}"\n` +
+          `📅 Date: ${dateStr}\n` +
+          `⏰ Time: ${timeStr}\n` +
+          `🎮 Game: ${currentEvent.game}\n` +
+          `📍 Location: ${currentEvent.location}`,
+        type: "info",
+        userId: uid,
+        eventId: currentEvent.id,
+        eventTitle: currentEvent.title,
+        createdAt: serverTimestamp(),
+      });
+
+      // popup
+      window.dispatchEvent(
+        new CustomEvent("show-notification-popup", {
+          detail: `You joined "${currentEvent.title}"`
+        })
+      );
       
       // Add event to user's participated events
       console.log("Adding event to user profile. uid:", uid, "eventId:", event.id, "eventTitle:", event.title);
@@ -249,10 +291,6 @@ function TournamentsPage() {
 
       setSelectedEvent(selected);
       console.log("=== handleJoin COMPLETE ===");
-    } catch (error) {
-      console.error("=== handleJoin ERROR ===", error);
-      alert("Error joining event: " + error.message);
-    }
   }
 
   const handleCreateTeam = async (event, teamName) => {
@@ -419,20 +457,7 @@ function TournamentsPage() {
                 Send me reminders and updates for this event
               </label>
             </div>
-
-            <button className="join-event-button" 
-              onClick={() => {
-                // se guarda en el evento seleccionado para que handleJoin la vea luego
-                if (selectedEvent) {
-                  sendJoinNotification(selectedEvent.title);
-                  setSelectedEvent({ ...selectedEvent, wantsNotifications });
-                  closeModal();
-                }
-              }}
-            >
-            Next
-            </button>
-          </div>
+            </div>
         </div>
       </div>
     </div>
