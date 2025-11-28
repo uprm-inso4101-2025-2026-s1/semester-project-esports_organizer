@@ -13,6 +13,8 @@ export default function Step2DateTime({ data, onNext, onBack }) {
   const [showPicker, setShowPicker] = useState(false);
   const pickerRef = useRef();
 
+  const today = dayjs().format("YYYY-MM-DD");
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       setTimeout(() => {
@@ -30,6 +32,18 @@ export default function Step2DateTime({ data, onNext, onBack }) {
       alert("Please select both date and time");
       return;
     }
+    
+    // Convert inputs to a full datetime
+    const selectedDateTime = dayjs(`${date} ${time}`);
+    const now = dayjs();
+  
+    // Case 1: The selected date is before today
+    if (selectedDateTime.isBefore(now)) {
+      alert("You cannot select a date in the past.");
+      return;
+    }
+  
+    // Valid
     onNext({ date, time });
   };
 
@@ -44,6 +58,7 @@ export default function Step2DateTime({ data, onNext, onBack }) {
             <input
               type="date"
               value={date}
+              min={today}
               onChange={(e) => setDate(e.target.value)}
               className="wizard-input"
             />
