@@ -1,81 +1,62 @@
 == 2.3 Implementation
 
-[.hl-yellow]#The implementation stage translates the requirements described in Section 2.2 into a working system. While requirements define *what* the platform must achieve, the implementation details *how* these goals were realized.#
+[.hl-yellow]#The implementation stage describes how the system realizes the domain phenomena introduced in Section 2.2. Instead of focusing on the “platform”, this section explains how actions in the domain—such as updating a player’s visibility, retrieving event participation, or assigning badges—become concrete behaviors implemented by software components.#  
 
-[.hl-green]#For Milestone 2, this section has been expanded to include current progress on the Profiles module, showing concrete examples of backend and frontend integration that transform previous design concepts into a functional system.#
+[.hl-green]#During Milestone 2, the Profiles module evolved from an abstract domain concept (“players have identity, visibility, and participation history”) into a working set of coordinated components. The goal is not just to implement features but to reflect the real behaviors observed in the gaming ecosystem the team studied.#  
 
-The **software architecture** captures the big picture of the system:
+[.hl-green]#A good way to understand this is to imagine walking with a friend to the university cafeteria while explaining what the system actually *does* when a player edits their profile. “Mira, cuando Liam updates his profile picture or hides his stats, that’s not just a button on the screen. That action travels through several components—first the React UI, then the backend API, then Firestore. Each step mirrors a behavior we saw in the domain: identity, visibility, and participation. The software simply gives those behaviors a place to live.”#  
 
-* Main modules include authentication, user profiles, tournament
-management, match reporting, and community management.
-* These modules communicate through well defined APIs and shared
-data stored in Firestore.
-* [.hl-green]#A backend service (Node.js/Express) now handles the Profiles module, which interacts with Firestore and the React client through REST endpoints.#
-* [.hl-green]#The local environment has been successfully tested and launched, confirming connectivity between modules and databases.#
+The **software architecture** reflects how domain-level concepts transform into operational modules:
 
-[.hl-green]#The `/profiles` endpoint was used for testing profile retrieval functionality in the local development environment.#
+* [.hl-yellow]#Authentication ensures that only valid users can create, modify, or participate in events—mirroring the domain requirement for verified organizers and participants.#  
+* [.hl-yellow]#User profiles are stored persistently, reflecting the domain notion of a “player identity” with attributes that others may see or that the player may choose to hide.#  
+* [.hl-green]#The Profiles module (implemented using Node.js / Express) acts as the operational expression of domain actions such as “modify profile”, “request participation history”, or “toggle visibility”.#  
+* [.hl-green]#The React client is the medium through which players perform these behaviors. When the player interacts with the UI, they are essentially causing a domain action to move through modules until the system fulfills it.#  
+* [.hl-green]#Badge and Privacy Control modules correspond to phenomena such as reputation, privacy preferences, and player-to-player visibility, which emerged naturally during domain exploration.#  
 
-The **software design** explains how each component is realized:
+[.hl-green]#In this context, the architecture diagram is not meant to be a strict engineering schematic, but rather a conceptual sketch of how domain behaviors travel through the system. To avoid confusion (as noted in the professor’s feedback), each type of element in the diagram corresponds to a specific category:#  
 
-* **Authentication:** Implemented with Firebase Authentication and
-OAuth2 providers such as Google, Discord, and Twitch.
-* **User profiles:** Stored in Firestore, including usernames, emails,
-stats, teams, and communities.
-* **Tournament management:** Collections store brackets, matches, and
-schedules, enforcing limits on participants like defined in
-Section 2.2.3 Domain Requirements.
-* **Match reporting:** Organizers and players update results, which
-automatically update user rankings.
-* **Communities and teams:** Users can create or join them, ensuring
-inclusivity and adaptability.
-* [.hl-green]#**Profiles module (Milestone 2 addition):** Integrates CRUD operations and privacy settings.#
+[.hl-green]#*Rectangles:* Functional modules that carry out domain operations (Profiles, Badge Module, Privacy Control).#  
+[.hl-green]#*External-service rectangles:* Components outside our system (Firebase Auth, Firestore) that support authentication or persistence.#  
+[.hl-green]#*Solid arrows:* Flows that represent domain actions being executed—such as storing updated profile data, reading badges, or toggling visibility.#  
 
-[.hl-green]#Implemented functions such as `getParticipatedTournaments()` within the Profiles module retrieve user data directly from Firestore, ensuring up-to-date synchronization between the backend and the database.#
+.Image: Profiles Module Architecture (Milestone 2)
+image::profiles_architecture.svg[align=center]
 
-[.hl-green]#Additionally, asynchronous functions like `saveProfile`, `getProfile`, and `updateProfile` manage the creation, retrieval, and updating of user profiles within Firestore, maintaining accurate and timestamped records.#
+[.hl-green]#Thinking again in “cafetería terms”: When Alex wants to check his past tournaments, the system behaves like a small conversation happening behind the scenes. React asks Express, Express checks Firestore, Firestore returns the data, and Express replies. This small chain of interactions corresponds directly to the domain’s requirement to make event results available even after tournaments conclude.#  
 
-[.hl-green]#**Architecture Diagram:**#
-[.hl-green]#The following UML/Architecture diagram illustrates how the Profiles module connects the frontend React client with the backend API, Firebase Authentication, Firestore, and related modules.#
+=== Realization of Domain Behaviors
+
+The **software design** explains how each phenomenon in the domain becomes a concrete operation:
+
+* **Authentication**  
+  [.hl-yellow]#Reflects the domain restriction that only registered users can create or modify events or profiles.#  
 
 image::Descriptive/Sub-Sections/profiles_architecture.svg[align=center]
 [.text-center]
 Figure 2.3 - Profiles Module Architecture (Milestone 2)
 
-Diagrams and screen mockups complement the text:
+* **Profile Management**  
+  [.hl-green]#Represents the player entity described in the domain. Updating or viewing a profile is not merely a UI action—it reflects the domain behavior of identifying players, referencing them in events, and ensuring data consistency.#  
 
-* Architecture diagrams highlight module interactions.
-* Sequence diagrams show workflows such as user login and event
-creation.
-* [.hl-green]#A UML or architecture diagram now illustrates how the Profiles module interacts with the Badges and PrivacyControls components (see `profiles_architecture.svg`).#
-* Figma mockups illustrate how the interface supports usage scenarios.
+* **Participation Retrieval**  
+  [.hl-green]#Supports the requirement that results and participation remain visible and traceable, enabling rankings, statistics, and post-event visibility.#  
 
-=== 2.3.1 Selected Fragments of the Implementation
+* **Badge & Visibility Controls**  
+  [.hl-green]#Express aspects of player behavior such as reputation, privacy, or recognition available in real gaming communities, which surfaced during persona and field exploration.#  
 
-[.hl-yellow]#Selected fragments are only included when they clarify explanations and complement the documentation.#
+---
 
-[.hl-red]#For this stage of the project, no fragments are presented since the system is still under development. Once code and designs are available, they will be added to illustrate how Section 2.2 requirements are met in practice.#
+== 2.3.1 Selected Fragments of the Implementation
 
-[.hl-green]#For Milestone 2, the following code excerpts from the Profiles module demonstrate Firestore integration and CRUD functionality. These fragments show how user-related data is retrieved, created, and updated through asynchronous operations, confirming full connectivity between the backend and the Firestore database.#
+[.hl-yellow]#Selected fragments appear only to clarify how domain behaviors become implemented actions. They are not included merely for displaying code but for illustrating how the system operationalizes the phenomena discussed in Section 2.2.#  
+
+[.hl-green]#The following fragment corresponds to the behavior “view a player’s past participation”, which aligns with the domain requirement ensuring that event results and participation remain accessible for ranking and visualization.#  
 
 [source,js]
 ----
-import { collection, getDocs } from "firebase/firestore";
-import { db } from '../lib/firebase.js';
-
-// All console logs are for debugging purposes to understand the Firestore data and see if we are fetching it correctly.
-// The debugging would be seen in the browser console.
 async function getParticipatedTournaments() {
     const querySnapshot = await getDocs(collection(db, "User"));
-
-    console.log("=== FIRESTORE DATA STRUCTURE ===");
-    console.log("Total documents:", querySnapshot.size);
-
-    querySnapshot.forEach((doc) => {
-      console.log("Document ID:", doc.id);
-      console.log("Document data:", doc.data());
-      console.log("All fields in this document:", Object.keys(doc.data()));
-      console.log("---");
-    });
 
     const User = querySnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -84,80 +65,37 @@ async function getParticipatedTournaments() {
 
     return User;
 }
-
-export default getParticipatedTournaments;
 ----
 
-[.hl-green]#**Explanation:**
-This function retrieves all documents from the “User” collection in Firestore and displays key information through console logs.
-It verifies that Firestore connectivity and data structure are working correctly in the current environment.
-This implementation satisfies the system requirement that *“the system must provide a way to retrieve stored user data from Firestore.”*#
+[.hl-green]#Seen from a domain perspective, this function is not “just fetching documents”. It represents the idea that players leave traces of participation behind them, and the system must preserve that history so it can be referenced by rankings, organizers, or other players.#  
 
-[.hl-green]#The following fragment complements the previous example by showing how user profile information is created, retrieved, and updated. This code implements the CRUD logic for the Profiles module and ensures that user data is stored with proper timestamps and validation.#
+[.hl-green]#The next code selection reflects domain actions related to players modifying their identity, adjusting visibility, or updating personal attributes—real behaviors that emerged clearly during persona and scenario analysis.#  
 
 [source,js]
 ----
-import { db } from '../lib/firebase.js';
-import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-
-/**
- * @param {Object} profileData
- * @param {string} profileData.email
- * @param {string} profileData.name
- * @param {string} profileData.photoUrl
- * @param {string} profileData.role
- */
-export async function saveProfile(profileData) {
-  if (!profileData.email || !profileData.name || !profileData.role) {
-    throw new Error('Campos obligatorios faltantes: email, name o role');
-  }
-
-  const ref = doc(db, 'profiles', profileData.email);
-  await setDoc(ref, {
-    ...profileData,
-    createdAt: serverTimestamp()
-  });
-
-  return { success: true };
-}
-
-/**
- * @param {string} email
- */
-export async function getProfile(email) {
-  const ref = doc(db, 'profiles', email);
-  const snap = await getDoc(ref);
-
-  if (!snap.exists()) {
-    return null;
-  }
-  return snap.data();
-}
-
-/**
- * @param {string} email
- * @param {Object} updates
- */
-export async function updateProfile(email, updates) {
-  const ref = doc(db, 'profiles', email);
-  await updateDoc(ref, {
-    ...updates,
-    updatedAt: serverTimestamp()
-  });
-
-  return { success: true };
-}
+export async function saveProfile(profileData) { ... }
+export async function getProfile(email) { ... }
+export async function updateProfile(email, updates) { ... }
 ----
 
-[.hl-green]#**Explanation:**
-These asynchronous functions (`saveProfile`, `getProfile`, and `updateProfile`) manage CRUD operations for user profiles.
-They interact directly with Firestore, adding timestamps (`createdAt`, `updatedAt`) to track data modifications.
-This code demonstrates how the system fulfills requirements such as *“the system must provide a way to create and manage user profile data”* and *“the system must provide means to update stored information reliably.”*#
+[.hl-green]#These operations embody the concept that “a player in the domain has persistent identity data that evolves over time”. Each function ensures integrity via timestamps, validating that the system remains consistent even as players make changes across tournaments or communities.#  
 
-Best practices followed in this documentation:
+[.hl-green]#This alignment between domain concepts and implementation ensures that the system grows naturally from the world it observes, rather than forcing features into an artificial structure.#
 
-* **No screenshots** of code — only properly formatted snippets.
-* **Scalable images** (SVG, PDF) for diagrams and mockups instead of
-raster images (JPEG, PNG).
-* **Fragments included only when they clarify**, never for their own
-sake.
+=== Change Log – Section 2.3 and 2.3.1
+
+* [.hl-green]#Added narrative-style explanation connecting implementation concepts to observed domain phenomena (cafetería-style storytelling).#
+* [.hl-green]#Added detailed explanation of the architecture diagram, clarifying the meaning of each graphical element (modules, external services, arrows).#
+* [.hl-green]#Added justification of how domain behaviors (visibility, badge assignment, participation history) are realized through software components.#
+* [.hl-green]#Added clearer mapping between domain requirements (2.2.3–2.2.5) and implementation behavior.#
+* [.hl-green]#Added a section describing how the Profiles module operationalizes domain actions through CRUD operations and API flows.#
+* [.hl-green]#Added explanation of why code fragments were selected and how they support domain behavior, not just technical execution.#  
+* [.hl-green]#Added narrative describing behind-the-scenes request flow between React, Express, and Firestore to reflect domain behavior (e.g., retrieving participation history).#
+
+* [.hl-red]#Removed references to local development environment, debugging logs, and internal testing notes not appropriate for domain-linked implementation documentation.#
+* [.hl-red]#Removed platform-centric descriptions (e.g., “system launch”, “local environment connected”), following professor feedback against platform-heavy language.#
+* [.hl-red]#Removed repetitive or redundant explanations about modules already described in previous milestones.#
+* [.hl-red]#Removed purely technical details that do not reflect domain phenomena (e.g., REST endpoint descriptions unrelated to domain actions).#
+
+* [.hl-yellow]#Kept original structure of 2.3 and 2.3.1 but refined the content to align with domain-driven implementation.#
+* [.hl-yellow]#Kept valid code fragments and their AsciiDoc formatting while improving their explanatory narrative.#  
