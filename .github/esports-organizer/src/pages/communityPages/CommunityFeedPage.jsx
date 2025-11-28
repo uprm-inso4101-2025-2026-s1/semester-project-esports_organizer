@@ -751,8 +751,10 @@ export default function CommunityFeedPage() {
                                 <h1>Activity in {displayCommunity.name} Community</h1>
                                 {/* Join button - show if user isn't a member yet */}
                                 {currentUserUid && displayCommunity && Array.isArray(displayCommunity.members) && displayCommunity.members.includes(currentUserUid) ? (
-                                    <button
-                                        className="leave-btn"
+                                    <Button
+                                        text="Leave"
+                                        variant="primary"
+                                        size="small"
                                         onClick={async () => {
                                             if (!currentCommunity || !currentCommunity.id) return;
                                             const success = await removeMembers(currentCommunity.id, currentUserUid);
@@ -768,12 +770,12 @@ export default function CommunityFeedPage() {
                                                 alert('Could not leave the community (not a member or error).');
                                             }
                                         }}
-                                    >
-                                        Leave
-                                    </button>
+                                    />
                                 ) : (
-                                    <button
-                                        className="join-btn"
+                                    <Button
+                                        text="Join"
+                                        variant="primary"
+                                        size="small"
                                         onClick={async () => {
                                             if (!currentCommunity || !currentCommunity.id) return;
                                             // Attempt to add member in Firestore
@@ -793,9 +795,7 @@ export default function CommunityFeedPage() {
                                                 alert('Could not join community (already a member or error).');
                                             }
                                         }}
-                                    >
-                                        Join
-                                    </button>
+                                    />
                                 )}
                             </div>
                         )}
