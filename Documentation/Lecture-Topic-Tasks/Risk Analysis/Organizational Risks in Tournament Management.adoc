@@ -1,0 +1,119 @@
+== Risk Analysis: Narrative Assessment of Organizational Risks in Tournament Management
+:author: Wilson A. Morales
+
+=== Introduction
+
+Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.
+
+Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.
+
+=== Risk Identification and Classification
+
+==== Risk 1 - Team No-Shows or Late Arrivals
+*Category:* Organizational / User-Behavior
+*Description:* Teams frequently arrive late or fail to show for scheduled matches, delaying the bracket and forcing last-minute adjustments.
+
+*Likelihood:* Moderate
+*Impact:* High (significant schedule disruption)
+
+*Mitigation Strategies:*
+
+- Mandatory pre-match check-in window (e.g., 10 minutes prior).
+- Automated reminders to team captains.
+- Clear penalty structure for repeated no-shows.
+
+*Residual Risk:* Real-life disruptions may still cause unavoidable absences. Brackets must include buffer slots.
+
+---
+
+==== Risk 2 - Scheduling Ambiguity and Overlaps
+*Category:* Organizational / Operational
+
+*Description:* Two matches may be assigned to the same team simultaneously, or teams may not receive schedule updates in time.
+
+*Likelihood:* Moderate
+*Impact:* Severe (cascading delays, bracket instability)
+
+*Mitigation Strategies:*
+
+- Centralized real-time schedule visible to all participants.
+- Manager-level verification before approving schedule adjustments.
+- Built-in buffer time between rounds.
+
+*Residual Risk:* Delays may still occur if matches exceed expected duration.
+
+---
+
+==== Risk 3 - Miscommunication Between Organizers and Participants
+*Category:* Organizational / User-Behavior
+
+*Description:* Rules, bracket formats, or procedures may be misunderstood due to inconsistent or unclear communication.
+
+*Likelihood:* High
+*Impact:* Moderate (disputes, delays, repeated clarifications)
+
+*Mitigation Strategies:*
+
+- Single official communication channel (Tournament Dashboard).
+- Rules overview and FAQ sections visible during registration.
+- Consistent announcements enforced by managers.
+
+*Residual Risk:* Some users may still ignore updates or fail to read instructions.
+
+'''
+
+==== Risk 4 - Administrative Overload and Decision Bottlenecks
+*Category:* Organizational
+
+*Description:* Organizers may face simultaneous inquiries, appeals, and administrative tasks during peak periods.
+
+*Likelihood:* High
+*Impact:* High (slower decisions, increased errors)
+
+*Mitigation Strategies:*
+
+- Clear role assignment: appeals, check-ins, rule enforcement.
+- Escalation paths involving team leads and managers.
+- Standardized decision rubrics.
+
+*Residual Risk:* Peak-time volume may exceed staff capacity in large tournaments.
+
+'''
+
+=== Qualitative Summary Table
+
+[options="header"]
+|===
+| Risk | Category | Likelihood | Impact
+| Team no-shows | Organizational / User | Moderate | High
+| Scheduling ambiguity | Operational | Moderate | Severe
+| Miscommunication | Organizational | High | Moderate
+| Administrative overload | Organizational | High | High
+|===
+
+=== Mitigation Philosophy
+
+The Risk Analysis lecture emphasizes *early identification, classification, and mitigation*. In tournament management this means:
+
+- establishing communication systems that prevent ambiguity,
+- improving organizational processes to minimize bottlenecks,
+- designing escalation policies to maintain fairness,
+- planning buffers and fallback procedures for inevitable disruptions.
+
+This document directly applies the lecture topic by converting theoretical principles into practical risks and controls specific to the Esports Organizer project.
+
+=== Residual Risk Discussion
+
+Even with strong mitigation strategies, tournament environments retain inherent unpredictability. Residual risks include:
+
+- last-minute team absences,
+- communication oversights,
+- workload spikes during peak hours,
+- disputes arising from edge cases not covered in documentation,
+- user behavior influenced by competitive pressure.
+
+Residual risk requires ongoing monitoring, real-time adjustment, and post-event retrospectives.
+
+=== Conclusion
+
+Non-technical risks in tournament management are often more disruptive than technical ones due to their human and procedural nature. By identifying, classifying, and mitigating these risks and aligning with the organizational roles and communication expectations defined for the project, this analysis strengthens the reliability and fairness of the Esports Organizer's tournament module.
