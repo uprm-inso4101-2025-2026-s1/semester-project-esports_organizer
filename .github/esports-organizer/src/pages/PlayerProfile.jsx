@@ -1,87 +1,148 @@
-import { useRef, useState, useEffect } from "react";
-import "./PlayerProfile.css";
+import { useState, useRef, useEffect, useMemo } from "react";
 import Navbar from "../components/shared/Navbar";
+import "./PlayerProfile.css";
+import { updatePlayerProfile, getProfileById, getUserParticipatedEvents } from "../services/profile-service";
 import { checkUserPermission } from "../Roles/checkUserPermission";
-import { getUserParticipatedEvents } from "../services/profile-service.js";
+
+// Flag emoji mapping
+const FLAG_EMOJI = {
+  "United States": "🇺🇸",
+  "Puerto Rico": "🇵🇷",
+  "Spain": "🇪🇸",
+};
 
 // Constants
-const FLAG_EMOJI = { US: "🇺🇸", PR: "🇵🇷", ES: "🇪🇸" };
 const BADGE_PATH = "/assets/images/LOGO1.png";
-const uid = localStorage.getItem("currentUserUid");
+const GAME_IMAGES = {
+  "Fortnite": "/assets/images/fortnite.png",
+  "League of Legends": "/assets/images/league_of_legends.png",
+  "Counter-Strike 2": "/assets/images/counter-strike-2.png",
+  "Valorant": "/assets/images/valorant.png",
+  "Dota 2": "/assets/images/dota2_image.jpg",
+  "Rocket League": "/assets/images/rocket_league_image2.png",
+  "Call of Duty": "/assets/images/call_of_duty_image.png",
+  "Apex Legends": "/assets/images/Apex_legends_image.jpeg",
+  "Overwatch 2": "/assets/images/overwatch_2_image.png",
+  "FIFA": "/assets/images/Fifa_game.png"
+};
+
+const ALL_GAMES = ["Fortnite", "League of Legends", "Counter-Strike 2", "Valorant", "Dota 2", "Rocket League", "Call of Duty", "Apex Legends", "Overwatch 2", "FIFA"];
 
 function PlayerProfile() {
-  // Primary player state
-  // TODO: replace with real data
+  // State management
   const [player, setPlayer] = useState({
-    username: "username",
-    flag: "PR",
-    bio: "Competitive support player. Always learning, always grinding.",
-    yearsActive: 3,
-    role: "Support",
-    currentTeam: "No current team",
+    Username: "",
+    bio: "",
+    country: "",
+    role: "",
+    currentTeam: "",
     avatarUrl: "",
+    createdAt: null,
+    gamesPlayed: []
   });
-
+  
+  const [loading, setLoading] = useState(true);
   const [participatedEvents, setParticipatedEvents] = useState([]);
-
-  // Static data (cards)
-  const [games] = useState([
-    {
-      id: "cr",
-      title: "Clash Royale",
-      desc: "Real-time mobile strategy game mixing card battles with tower defense.",
-      bg: "/assets/images/clash_royale.png",
-    },
-    {
-      id: "ssbu",
-      title: "Super Smash Bros. Ult.",
-      desc: "Nintendo's crossover fighter with fast-paced battles on dynamic stages.",
-      bg: "/assets/images/smash.png",
-    },
-    {
-      id: "fortnite",
-      title: "Fortnite",
-      desc: "A colorful battle royale combining shooting, building, and seasonal events.",
-      bg: "/assets/images/fortnite1.png",
-    },
-    {
-      id: "lol",
-      title: "League of Legends",
-      desc: "5v5 MOBA where teams push lanes and take objectives to destroy the Nexus.",
-      bg: "/assets/images/league_of_legends.png",
-    },
-    {
-      id: "valo",
-      title: "Valorant",
-      desc: "Tactical 5v5 shooter that blends precise gunplay with unique agent abilities.",
-      bg: "/assets/images/valorant.png",
-    },
-  ]);
-
-  const [achievements] = useState([
-    { id: 1, iconUrl: "/assets/images/CRL.png", description: "Won the national finals with clutch plays." },
-    { id: 2, iconUrl: "/assets/images/FNCS.png", description: "Top 4 finish in the 2024 intercollegiate league." },
-    { id: 3, iconUrl: "/assets/images/circuito_nacional.png", description: "Consistent high-impact performance all season." },
-  ]);
-
-  // Edit form state
   const [isEditing, setIsEditing] = useState(false);
   const [form, setForm] = useState({
-    username: player.username,
-    flag: player.flag,
-    bio: player.bio,
-    role: player.role,
-    currentTeam: player.currentTeam,
+    username: "",
+    bio: "",
+    flag: "",
+    role: "",
+    currentTeam: ""
   });
 
-  // Used only to block save when empty
   const [usernameError, setUsernameError] = useState(false);
-
-  const [achIndex, setAchIndex] = useState(0);
+  const [showGameModal, setShowGameModal] = useState(false);
   const fileInputRef = useRef(null);
+  
+  // Calculate remaining bio characters safely
+  const remainingBio = useMemo(() => {
+    const bioLength = typeof form.bio === 'string' ? form.bio.length : 0;
+    return 300 - bioLength;
+  }, [form.bio]);
 
-  const remainingBio = 300 - form.bio.length;
-  const totalAch = achievements.length;
+  // Calculate available games for modal
+  const availableGames = useMemo(() => {
+    if (!Array.isArray(player.gamesPlayed)) {
+      return ALL_GAMES;
+    }
+    return ALL_GAMES.filter(game => !player.gamesPlayed.includes(game));
+  }, [player.gamesPlayed]);
+
+  // Load profile data on component mount
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+        console.log("Loading profile for UID:", uid);
+        
+        if (!uid) {
+          console.error("No user ID found");
+          setLoading(false);
+          return;
+        }
+        
+        const profileData = await getProfileById(uid);
+        console.log("Profile data loaded:", profileData);
+        console.log("Role data:", profileData?.role, typeof profileData?.role);
+        
+        if (profileData) {
+          // Ensure role is a string, not an object
+          let roleValue = "";
+          if (typeof profileData.role === 'string') {
+            roleValue = profileData.role;
+            console.log("Role is string:", roleValue);
+          } else if (profileData.role && typeof profileData.role === 'object') {
+            // If role is an object, try to extract a string value
+            roleValue = profileData.role.value || profileData.role.name || profileData.role.type || "";
+            console.log("Role extracted from object:", roleValue);
+          } else {
+            console.log("Role is empty or undefined");
+          }
+          
+          // Check if we have a gameRole field instead
+          let gameRole = profileData.gameRole || "";
+          if (typeof gameRole === 'string' && gameRole.trim()) {
+            roleValue = gameRole;
+            console.log("Using gameRole field:", roleValue);
+          }
+          
+          const playerData = {
+            Username: String(profileData.Username || ""),
+            bio: String(profileData.bio || ""),
+            country: String(profileData.country || ""), 
+            role: roleValue,
+            currentTeam: String(profileData.currentTeam || ""),
+            avatarUrl: String(profileData.avatarUrl || ""),
+            createdAt: profileData.createdAt,
+            gamesPlayed: Array.isArray(profileData.gamesPlayed) ? profileData.gamesPlayed : []
+          };
+          
+          console.log("Final player data:", playerData);
+          console.log("Final role value:", playerData.role);
+          setPlayer(playerData);
+          
+          // Update form with loaded data
+          setForm({
+            username: String(profileData.Username || ""),
+            bio: String(profileData.bio || ""),
+            flag: String(profileData.country || ""),
+            role: roleValue,
+            currentTeam: String(profileData.currentTeam || "")
+          });
+        } else {
+          console.log("No profile data found, using defaults");
+        }
+      } catch (error) {
+        console.error("Error loading profile:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadProfile();
+  }, []);
 
   // Load participated events on mount
   useEffect(() => {
@@ -135,11 +196,11 @@ function PlayerProfile() {
   // Edit mode handlers
   const startEdit = () => {
     setForm({
-      username: player.username,
-      flag: player.flag,
-      bio: player.bio,
-      role: player.role,
-      currentTeam: player.currentTeam,
+      username: String(player.Username || ""),
+      bio: String(player.bio || ""),
+      flag: String(player.country || ""),
+      role: String(player.role || ""),
+      currentTeam: String(player.currentTeam || ""),
     });
     setUsernameError(false);
     setIsEditing(true);
@@ -149,11 +210,11 @@ function PlayerProfile() {
     setIsEditing(false);
     setUsernameError(false);
     setForm({
-      username: player.username,
-      flag: player.flag,
-      bio: player.bio,
-      role: player.role,
-      currentTeam: player.currentTeam,
+      username: String(player.Username || ""),
+      bio: String(player.bio || ""),
+      flag: String(player.country || ""),
+      role: String(player.role || ""),
+      currentTeam: String(player.currentTeam || ""),
     });
   };
 
@@ -164,7 +225,7 @@ function PlayerProfile() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const nextValue = name === "bio" ? value.replace(/\n/g, " ") : value;
+    const nextValue = name === "bio" ? String(value || "").replace(/\n/g, " ") : String(value || "");
 
     setForm((prev) => ({ ...prev, [name]: nextValue }));
 
@@ -173,193 +234,365 @@ function PlayerProfile() {
     }
   };
 
-  const saveEdit = () => {
+  const saveEdit = async () => {
     const trimmedUsername = form.username.trim();
     if (!trimmedUsername) {
-      setUsernameError(true); // block save
+      setUsernameError(true);
       return;
     }
 
-    setPlayer((prev) => ({
-      ...prev,
-      username: trimmedUsername,
-      flag: form.flag,
-      bio: form.bio,
-      role: form.role,
-      currentTeam: form.currentTeam.trim(),
-    }));
+    try {
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      if (!uid) {
+        alert("Error: No user ID found");
+        return;
+      }
 
-    setIsEditing(false);
-    setUsernameError(false);
+      const updateData = {
+        Username: String(trimmedUsername),
+        bio: String(form.bio || ""),
+        country: String(form.flag || ""),
+        gameRole: String(form.role || ""),
+        currentTeam: String(form.currentTeam || "").trim()
+      };
+
+      const result = await updatePlayerProfile(uid, updateData);
+      if (result.success) {
+        setPlayer(prev => ({ 
+          ...prev, 
+          Username: String(trimmedUsername),
+          bio: String(form.bio || ""),
+          country: String(form.flag || ""),
+          role: String(form.role || ""),
+          currentTeam: String(form.currentTeam || "").trim()
+        }));
+        setIsEditing(false);
+        setUsernameError(false);
+        alert("Profile updated successfully!");
+      } else {
+        alert(result.error || "Error updating profile");
+      }
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert("Error updating profile");
+    }
   };
 
   const handleAvatarClick = () => {
     if (fileInputRef.current) fileInputRef.current.click();
   };
 
-  const handleChangeAvatar = (e) => {
+  const handleChangeAvatar = async (e) => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setPlayer((prev) => ({ ...prev, avatarUrl: url }));
+    
+    try {
+      // Convert file to base64 for storage
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result;
+        setPlayer((prev) => ({ ...prev, avatarUrl: base64String }));
+
+        // Save avatar to database
+        try {
+          const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+          if (uid) {
+            const updateData = { avatarUrl: base64String };
+            await updatePlayerProfile(uid, updateData);
+          }
+        } catch (error) {
+          console.error("Error saving avatar:", error);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error processing avatar:", error);
+    }
   };
 
-  // Carousel
-  const prevAch = () => setAchIndex((i) => (i - 1 + totalAch) % totalAch);
-  const nextAch = () => setAchIndex((i) => (i + 1) % totalAch);
+  // Game management functions
+  const addGame = async (gameName) => {
+    const updatedGames = [...player.gamesPlayed, gameName];
+    setPlayer(prev => ({ ...prev, gamesPlayed: updatedGames }));
+
+    try {
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      if (uid) {
+        await updatePlayerProfile(uid, { gamesPlayed: updatedGames });
+      }
+    } catch (error) {
+      console.error("Error saving games:", error);
+    }
+  };
+
+  const removeGame = async (gameName) => {
+    const updatedGames = player.gamesPlayed.filter(game => game !== gameName);
+    setPlayer(prev => ({ ...prev, gamesPlayed: updatedGames }));
+
+    try {
+      const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+      if (uid) {
+        await updatePlayerProfile(uid, { gamesPlayed: updatedGames });
+      }
+    } catch (error) {
+      console.error("Error saving games:", error);
+    }
+  };
+
+  // Calculate time since profile creation
+  const calculateTimeActive = () => {
+    try {
+      if (!player.createdAt) {
+        return "New profile";
+      }
+      
+      let createdDate;
+      if (typeof player.createdAt.toDate === 'function') {
+        createdDate = player.createdAt.toDate();
+      } else if (player.createdAt instanceof Date) {
+        createdDate = player.createdAt;
+      } else {
+        return "New profile";
+      }
+      
+      const now = new Date();
+      const diffTime = Math.abs(now - createdDate);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 0) return "New profile";
+      if (diffDays === 1) return "1 day active";
+      if (diffDays < 30) return `${diffDays} days active`;
+      if (diffDays < 365) {
+        const months = Math.floor(diffDays / 30);
+        return months === 1 ? "1 month active" : `${months} months active`;
+      }
+      const years = Math.floor(diffDays / 365);
+      return years === 1 ? "1 year active" : `${years} years active`;
+    } catch (error) {
+      console.error("Error calculating time active:", error);
+      return "New profile";
+    }
+  };
 
   // Render helpers
-  const achievementItems = achievements.map((a, idx) => {
-    const active = idx === achIndex ? "active" : "";
-    return (
-      <div key={a.id} className={`ach-item ${active}`}>
-        <img className="ach-icon-img" src={a.iconUrl} alt={a.description || "achievement"} />
-        <p className="ach-desc">{a.description}</p>
-      </div>
-    );
-  });
+  const gameItems = useMemo(() => {
+    if (!Array.isArray(player.gamesPlayed)) {
+      return [];
+    }
+    
+    return player.gamesPlayed.map((gameName) => {
+      try {
+        const imageUrl = GAME_IMAGES[gameName];
+        const fallbackLetter = (gameName || "G").charAt(0).toUpperCase();
 
-  const gameItems = games.map((g) => (
-    <article
-      key={g.id}
-      className="game-card"
-      style={{ backgroundImage: `url(${g.bg})` }}
-    >
-      <div className="game-center">
-        <h3>{g.title}</h3>
-      </div>
-      <div className="game-overlay">
-        <p className="game-desc">{g.desc}</p>
-      </div>
-    </article>
-  ));
+        return (
+          <div key={gameName} className="game-card-content">
+            <button
+              className="remove-game-btn"
+              onClick={() => removeGame(gameName)}
+              title={`Remove ${gameName}`}
+            >
+              ×
+            </button>
+            <div className="game-card-image">
+              {imageUrl ? (
+                <img src={imageUrl} alt={gameName} />
+              ) : (
+                <div className="game-card-placeholder">{fallbackLetter}</div>
+              )}
+            </div>
+            <div className="game-card-title">{gameName}</div>
+          </div>
+        );
+      } catch (error) {
+        console.error("Error rendering game item:", error);
+        return null;
+      }
+    }).filter(Boolean);
+  }, [player.gamesPlayed]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="player-profile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+          <p style={{ fontSize: '1.5rem', color: '#fff' }}>Loading profile...</p>
+        </div>
+      </>
+    );
+  }
 
   // UI
-  return (
-    <>
-      <Navbar />
+  try {
+    return (
+      <>
+        <Navbar />
 
-      <div className="player-profile">
-        {/* Left Column */}
-        <div className="left-col">
-          <section className="profile-card">
-            <div className="flag-and-name">
-              <div className="flag editable">
-                <div className="display-layer">
-                  {FLAG_EMOJI[isEditing ? form.flag : player.flag] || "🏳️"}
+        <div className="player-profile">
+          {/* Left Column */}
+          <div className="left-col">
+            <section className="profile-card">
+              <div className="flag-and-name">
+                <div className="flag editable">
+                  <div className="display-layer">
+                    {FLAG_EMOJI[isEditing ? form.flag : player.country] || "🏳️"}
+                  </div>
+                  {isEditing && (
+                    <select
+                      className="edit-select--compact"
+                      name="flag"
+                      value={form.flag}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select Country</option>
+                      <option value="United States">United States</option>
+                      <option value="Puerto Rico">Puerto Rico</option>
+                      <option value="Spain">Spain</option>
+                    </select>
+                  )}
                 </div>
+
+                {/* Username */}
+                <div className="username editable">
+                  {!isEditing && <span className="display-layer">{player.Username || "Username"}</span>}
+                  {isEditing && (
+                    <input
+                      required
+                      className={`edit-layer edit-layer--center ${usernameError ? "error" : ""}`}
+                      name="username"
+                      type="text"
+                      maxLength={14}
+                      value={form.username}
+                      onChange={handleInputChange}
+                      placeholder="Enter a username"
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="bio editable" style={{ position: "relative" }}>
+                {!isEditing && (
+                  <span className="display-layer">
+                    {player.bio && player.bio.trim() ? player.bio : "No bio."}
+                  </span>
+                )}
                 {isEditing && (
-                  <select
-                    className="edit-select--compact"
-                    name="flag"
-                    value={form.flag}
-                    onChange={handleInputChange}
-                  >
-                    <option value="US">United States</option>
-                    <option value="PR">Puerto Rico</option>
-                    <option value="ES">Spain</option>
-                  </select>
+                  <>
+                    <textarea
+                      className="edit-layer"
+                      name="bio"
+                      maxLength={300}
+                      value={form.bio}
+                      onChange={handleInputChange}
+                      onKeyDown={handleBioKeyDown}
+                      placeholder="Tell us about you (≤ 300 chars)"
+                    />
+                    <span className="bio-counter">{remainingBio}</span>
+                  </>
                 )}
               </div>
 
-              {/* Username */}
-              <div className="username editable">
-                {!isEditing && <span className="display-layer">{player.username}</span>}
+              <div className="chips">
+                <span className="chip">{calculateTimeActive()}</span>
+                <span className="chip editable">
+                  {!isEditing && (
+                    <span className="display-layer">
+                      {player.role && player.role.trim() ? player.role : "Select Role"}
+                    </span>
+                  )}
+                  {isEditing && (
+                    <select
+                      className="edit-layer edit-select--chip"
+                      name="role"
+                      value={form.role}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select Role</option>
+                      <option value="Support">Support</option>
+                      <option value="Assault">Assault</option>
+                      <option value="Tank">Tank</option>
+                    </select>
+                  )}
+                </span>
+              </div>
+
+              <div className="actions">
+                {!isEditing && (
+                  <button className="btn primary" type="button" onClick={async () => {
+                    const uid = localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+                    if (await checkUserPermission(uid, "canEditUserProfile")==true) {
+                      // Allowed
+                      startEdit();
+                    } else {
+                      alert("You do not have permission to edit the profile.");
+                    }
+                  }}>
+                    Edit Profile
+                  </button>
+                )}
                 {isEditing && (
-                  <input
-                    required
-                    className="edit-layer edit-layer--center"
-                    name="username"
-                    type="text"
-                    maxLength={14}
-                    value={form.username}
-                    onChange={handleInputChange}
-                    placeholder="Enter a username"
-                  />
+                  <>
+                    <button className="btn success" type="button" onClick={saveEdit}>
+                      Done
+                    </button>
+                    <button className="btn secondary" type="button" onClick={cancelEdit}>
+                      Cancel
+                    </button>
+                  </>
                 )}
               </div>
-            </div>
+            </section>
+          </div>
 
-            <div className="bio editable" style={{ position: "relative" }}>
-              {!isEditing && (
-                <span className="display-layer">
-                  {player.bio && player.bio.trim() ? player.bio : "No bio."}
+          {/* Center Column */}
+          <section className="profile-hero">
+            <h1 className="profile-hero-title">
+              {player.currentTeam && player.currentTeam.trim() ? player.currentTeam : "CURRENT TEAM"}
+            </h1>
+
+            <div
+              className={`avatar-circle ${player.avatarUrl ? "has-image" : "no-image"}`}
+              onClick={handleAvatarClick}
+              style={player.avatarUrl ? { backgroundImage: `url(${player.avatarUrl})` } : undefined}
+            >
+              {!player.avatarUrl && (
+                <span className="avatar-hint">
+                  click to change
+                  <br />
+                  profile picture
                 </span>
               )}
-              {isEditing && (
-                <>
-                  <textarea
-                    className="edit-layer"
-                    name="bio"
-                    maxLength={300}
-                    value={form.bio}
-                    onChange={handleInputChange}
-                    onKeyDown={handleBioKeyDown}
-                    placeholder="Tell us about you (≤ 300 chars)"
-                  />
-                  <span className="bio-counter">{remainingBio}</span>
-                </>
-              )}
-            </div>
-
-            <div className="chips">
-              <span className="chip">{player.yearsActive} yrs active</span>
-              <span className="chip editable">
-                {!isEditing && <span className="display-layer">{player.role}</span>}
-                {isEditing && (
-                  <select
-                    className="edit-layer edit-select--chip"
-                    name="role"
-                    value={form.role}
-                    onChange={handleInputChange}
-                  >
-                    <option value="Support">Support</option>
-                    <option value="Assault">Assault</option>
-                    <option value="Tank">Tank</option>
-                  </select>
-                )}
-              </span>
-            </div>
-
-            <div className="actions">
-              {!isEditing && (
-                <button className="btn primary" type="button" onClick={async () => {
-                  if (await checkUserPermission(uid, "canEditUserProfile")==true) {
-                    // Allowed
-                    startEdit();
-                  } else {
-                    alert("You do not have permission to edit the profile.");
-                  }
-                }}>
-                  Edit Profile
-                </button>
-              )}
-              {isEditing && (
-                <>
-                  <button className="btn success" type="button" onClick={saveEdit}>
-                    Done
-                  </button>
-                  <button className="btn secondary" type="button" onClick={cancelEdit}>
-                    Cancel
-                  </button>
-                </>
-              )}
+              <img className="avatar-badge" src={BADGE_PATH} alt="badge" draggable="false" />
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleChangeAvatar}
+                className="visually-hidden"
+                tabIndex={-1}
+              />
             </div>
           </section>
 
-          {/* Achievements */}
-          <section className="achievements">
-            <h2 className="ach-title-center">ACHIEVEMENTS</h2>
-            <div className="ach-viewport">
-              <button className="ach-nav-btn ach-nav-left" type="button" onClick={prevAch}>
-                ‹
+          {/* Right Column */}
+          <aside className="games-played">
+            <h2>FAVORITE GAMES</h2>
+            <div className="user-games-list">
+              {gameItems.length === 0 ? (
+                <div className="no-games-message">No games added yet</div>
+              ) : (
+                gameItems
+              )}
+              <button
+                className="add-game-btn"
+                onClick={() => setShowGameModal(true)}
+                disabled={availableGames.length === 0}
+              >
+                + Add Game
               </button>
-              <button className="ach-nav-btn ach-nav-right" type="button" onClick={nextAch}>
-                ›
-              </button>
-              {achievementItems}
             </div>
-          </section>
+          </aside>
 
           {/* Participated Events */}
           <section className="participated-events">
@@ -380,44 +613,48 @@ function PlayerProfile() {
           </section>
         </div>
 
-        {/* Center Column */}
-        <section className="profile-hero">
-          <h1 className="profile-hero-title">
-            {player.currentTeam && player.currentTeam.trim() ? player.currentTeam : "CURRENT TEAM"}
-          </h1>
-
-          <div
-            className={`avatar-circle ${player.avatarUrl ? "has-image" : "no-image"}`}
-            onClick={handleAvatarClick}
-            style={player.avatarUrl ? { backgroundImage: `url(${player.avatarUrl})` } : undefined}
-          >
-            {!player.avatarUrl && (
-              <span className="avatar-hint">
-                click to change
-                <br />
-                profile picture
-              </span>
-            )}
-            <img className="avatar-badge" src={BADGE_PATH} alt="badge" draggable="false" />
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleChangeAvatar}
-              className="visually-hidden"
-              tabIndex={-1}
-            />
+        {/* Game Selection Modal */}
+        {showGameModal && (
+          <div className="game-modal-overlay" onClick={() => setShowGameModal(false)}>
+            <div className="game-modal" onClick={(e) => e.stopPropagation()}>
+              <h3>Select a Game</h3>
+              <div className="game-modal-list">
+                {availableGames.length === 0 ? (
+                  <p>All games have been added!</p>
+                ) : (
+                  availableGames.map((game) => (
+                    <button
+                      key={game}
+                      className="game-modal-item"
+                      onClick={() => {
+                        addGame(game);
+                        setShowGameModal(false);
+                      }}
+                    >
+                      {game}
+                    </button>
+                  ))
+                )}
+              </div>
+              <button className="game-modal-close" onClick={() => setShowGameModal(false)}>
+                Close
+              </button>
+            </div>
           </div>
-        </section>
-
-        {/* Right Column */}
-        <aside className="games-played">
-          <h2>GAMES PLAYED</h2>
-          <div className="games-scroll">{gameItems}</div>
-        </aside>
-      </div>
-    </>
-  );
+        )}
+      </>
+    );
+  } catch (error) {
+    console.error("Error rendering PlayerProfile:", error);
+    return (
+      <>
+        <Navbar />
+        <div className="player-profile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+          <p style={{ fontSize: '1.5rem', color: '#fff' }}>Error loading profile. Please try again.</p>
+        </div>
+      </>
+    );
+  }
 }
 
 export default PlayerProfile;
