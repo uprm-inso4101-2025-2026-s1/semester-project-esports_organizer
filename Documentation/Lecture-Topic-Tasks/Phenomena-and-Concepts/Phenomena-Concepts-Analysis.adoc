@@ -1,0 +1,74 @@
+= Phenomena & Concepts Analysis for Esports Organizer
+Gabriel Rivera
+:toc:
+:toclevels: 2
+
+== 1. Overview
+This document identifies the key *phenomena* and *concepts* relevant to the Esports Organizer platform.
+It clarifies how the system observes, reacts to, and represents real-world user behavior.
+
+== 2. Phenomena
+
+=== 2.1 World Phenomena
+(Things happening in the real world, outside the system)
+
+* W1: A player decides to join an esports event.
+* W2: An organizer chooses to create or edit an event.
+* W3: Users form teams or plan participation.
+* W4: Users expect reminders or updates before events start.
+* W5: An event occurs at a specific real-world date/time.
+
+=== 2.2 Machine Phenomena
+(Behaviors controlled entirely by the system)
+
+* M1: System stores event and profile data in Firestore.
+* M2: System schedules notifications and reminders.
+* M3: System enforces role-based permissions (e.g., admin vs. player).
+* M4: PlayerProfile renders participated events and favorite games.
+* M5: Notification Service sends reminder messages.
+* M6: UI updates dynamically when data changes.
+
+=== 2.3 Shared Phenomena
+(Interactions between user actions and system responses)
+
+* S1: User clicks **Join Event** → System updates participants list.
+* S2: Organizer edits event → System updates event data and reschedules reminders.
+* S3: User updates profile → System stores changes (bio, username, country).
+* S4: System sends notifications → User reads reminder or update.
+* S5: User views PlayerProfile → System retrieves profile and participatedEvents.
+
+== 3. Concepts
+
+=== 3.1 Core Domain Concepts
+|===
+| Concept | Description
+
+| Event | A scheduled competitive match with game, time, participants, and limits.
+| Player Profile | Representation of a user (username, bio, country, avatar, games, participatedEvents).
+| Participation | The relationship between a user and an event they have joined.
+| Notification | A reminder or announcement triggered by system logic.
+| Role | User type (Player, Organizer, Admin) determining permissions.
+| Team | Optional grouping of players for team-based events.
+| Scheduler | Component responsible for scheduling reminder triggers.
+|===
+
+== 4. Linking Phenomena to Concepts
+
+* W1 + S1 → *Participation* concept
+When a player decides to join an event (world), the system updates participants (shared).
+
+* W4 + M2 → *Notification* concept
+Users expect reminders (world), and the system schedules them (machine).
+
+* W2 + S2 → *Event* concept
+Organizers modify events (world), and the system updates and propagates changes (shared).
+
+* S3 + M1 → *Player Profile* concept
+User edits profile (shared), system persists updates (machine).
+
+* W5 + M2 → *Scheduler* concept
+Real-world event time influences internal reminder logic.
+
+== 5. Summary
+This Phenomena & Concepts analysis reveals how the Esports Organizer system maps real-world actions into system-controlled behaviors.
+Understanding these relationships helps ensure that requirements are grounded in actual user behavior and domain semantics.
