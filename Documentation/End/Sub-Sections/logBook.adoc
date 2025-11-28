@@ -19,4 +19,5 @@
 | Descriptive Section 2.1.1 - 2.1.6 | Héctor Rivera | Modified | Refactored the entire Domain Description subsection to align with professor feedback. Integrated life-like Rough Sketch statements, corrected domain terminology, restructured Events/Actions/Behaviors, and reorganized function signatures under corresponding actions. Ensured all content reflects real-world domain phenomena without referencing system behavior.
 | Descriptive Section 2.2.3 - 2.2.4 | Andres Cruz Zapata | Added/Modified | Added several essential requirements missing from the previous version, removed outdated requirements, and reworded some existing requirements to improve clarity.
 | Derived Goals | Jayden Sánchez | Modified | Finalizes subsection with refined content, clear goal independence, and required updates to improve clarity and structure.
+| Introduction Section | Jayden Sánchez | Modified | Reviewed and updated the presentation page, table of contents, logbook legend, and introduction, refining formatting and adding all necessary updates for Milestone 3.
 |===
