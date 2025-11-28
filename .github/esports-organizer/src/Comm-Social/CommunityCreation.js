@@ -5,7 +5,9 @@ import {
     getDoc,
     collection,
     getDocs,
-    deleteDoc
+    deleteDoc,
+    updateDoc,
+    arrayUnion
 } from "firebase/firestore";
 
 import {db} from "../database/firebaseClient.js"
@@ -107,8 +109,55 @@ async function createCommunity(name, description, admin, tags, game, location, i
             console.error("Error deleting community: ", error);
         }
     }
+    /**
+     * Add a member to the community in Firestore.
+     * If the community exists and the UID is not already present, the UID is appended
+     * to the `members` array in the document.
+     * Returns true if the member was added, false if not (already a member or community not found)
+     * or throws the error if something unexpected happens.
+     */
+    async function addMembers(commId, UID) {
+        if (!commId || !UID) {
+            console.error('addMembers: commId and UID are required');
+            return false;
+        }
+
+        try {
+            const communityRef = doc(firestore, "Communities", commId);
+            const snap = await getDoc(communityRef);
+
+            if (!snap.exists()) {
+                console.warn(`addMembers: Community ${commId} does not exist`);
+                return false;
+            }
+
+            const data = snap.data() || {};
+            const members = Array.isArray(data.members) ? data.members : [];
+
+            // If UID is already a member, no-op
+            if (members.includes(UID)) {
+                console.info(`addMembers: UID ${UID} is already a member of ${commId}`);
+                return false;
+            }
+
+            // Use updateDoc + arrayUnion when available to safely append without overwriting
+            try {
+                await updateDoc(communityRef, { members: arrayUnion(UID) });
+                return true;
+            } catch (updateErr) {
+                // Fall back to reading/writing the document (compatible with older SDKs)
+                members.push(UID);
+                await setDoc(communityRef, { ...data, members }, { merge: true });
+                return true;
+            }
+
+        } catch (err) {
+            console.error('addMembers error:', err);
+            return false;
+        }
+    }
 
 // Prevent ESLint 'defined but never used' for exported functions — they are used externally.
 void isCommunityInDataBase;
 void deleteCommunity;
-export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity, isCommunityInDataBase, deleteCommunity}
+export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity, isCommunityInDataBase, deleteCommunity, addMembers}
