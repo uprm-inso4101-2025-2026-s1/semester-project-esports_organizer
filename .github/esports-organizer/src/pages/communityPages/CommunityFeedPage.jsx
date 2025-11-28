@@ -11,7 +11,7 @@ import { checkUserPermission } from "../../Roles/checkUserPermission.js";
 import Event from "../../events/EventClass.js";
 
 const uid = localStorage.getItem("uid");
-import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity, addMembers } from "../../Comm-Social/CommunityCreation.js";
+import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity, addMembers, removeMembers } from "../../Comm-Social/CommunityCreation.js";
 import { getProfileById} from "../../services/profile-service.js"; 
 
 // Mock data as placeholders
@@ -751,7 +751,26 @@ export default function CommunityFeedPage() {
                                 <h1>Activity in {displayCommunity.name} Community</h1>
                                 {/* Join button - show if user isn't a member yet */}
                                 {currentUserUid && displayCommunity && Array.isArray(displayCommunity.members) && displayCommunity.members.includes(currentUserUid) ? (
-                                    <button className="joined-btn" disabled>Joined</button>
+                                    <button
+                                        className="leave-btn"
+                                        onClick={async () => {
+                                            if (!currentCommunity || !currentCommunity.id) return;
+                                            const success = await removeMembers(currentCommunity.id, currentUserUid);
+                                            if (success) {
+                                                // Remove from local state
+                                                const updated = { ...currentCommunity };
+                                                updated.members = Array.isArray(updated.members) ? updated.members.filter(m => m !== currentUserUid) : [];
+                                                setCurrentCommunity(updated);
+
+                                                // Update topCommunities (decrement followers)
+                                                setTopCommunities(prev => prev.map(c => c.id === updated.id ? { ...c, followers: Math.max(0, (c.followers || 0) - 1), members: (c.members || []).filter(m => m !== currentUserUid) } : c));
+                                            } else {
+                                                alert('Could not leave the community (not a member or error).');
+                                            }
+                                        }}
+                                    >
+                                        Leave
+                                    </button>
                                 ) : (
                                     <button
                                         className="join-btn"

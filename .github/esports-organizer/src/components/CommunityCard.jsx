@@ -41,7 +41,7 @@ export default function CommunityCard({
       {/* Footer */}
       <div className="ccard__footer">
         <button className="ccard__join-btn" onClick={onJoin}>
-          Join
+          Explore
         </button>
       </div>
     </div>

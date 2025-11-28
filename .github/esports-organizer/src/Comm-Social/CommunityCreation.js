@@ -7,7 +7,8 @@ import {
     getDocs,
     deleteDoc,
     updateDoc,
-    arrayUnion
+    arrayUnion,
+    arrayRemove
 } from "firebase/firestore";
 
 import {db} from "../database/firebaseClient.js"
@@ -157,7 +158,52 @@ async function createCommunity(name, description, admin, tags, game, location, i
         }
     }
 
+    /**
+     * Remove a member from the community in Firestore.
+     * Returns true if the member was removed, false if the member wasn't present or community not found.
+     */
+    async function removeMembers(commId, UID) {
+        if (!commId || !UID) {
+            console.error('removeMembers: commId and UID are required');
+            return false;
+        }
+
+        try {
+            const communityRef = doc(firestore, "Communities", commId);
+            const snap = await getDoc(communityRef);
+
+            if (!snap.exists()) {
+                console.warn(`removeMembers: Community ${commId} does not exist`);
+                return false;
+            }
+
+            const data = snap.data() || {};
+            const members = Array.isArray(data.members) ? data.members : [];
+
+            // If UID is not in members, nothing to remove
+            if (!members.includes(UID)) {
+                console.info(`removeMembers: UID ${UID} is not a member of ${commId}`);
+                return false;
+            }
+
+            // Prefer updateDoc + arrayRemove
+            try {
+                await updateDoc(communityRef, { members: arrayRemove(UID) });
+                return true;
+            } catch (updateErr) {
+                // Fallback: write filtered array
+                const updated = members.filter(m => m !== UID);
+                await setDoc(communityRef, { ...data, members: updated }, { merge: true });
+                return true;
+            }
+
+        } catch (err) {
+            console.error('removeMembers error:', err);
+            return false;
+        }
+    }
+
 // Prevent ESLint 'defined but never used' for exported functions — they are used externally.
 void isCommunityInDataBase;
 void deleteCommunity;
-export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity, isCommunityInDataBase, deleteCommunity, addMembers}
+export{getAllCommunitiesFromDatabase, createCommunity, getCommunityFromFirestore, updateCommunity, isCommunityInDataBase, deleteCommunity, addMembers, removeMembers}
