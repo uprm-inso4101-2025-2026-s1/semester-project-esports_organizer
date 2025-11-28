@@ -1102,14 +1102,14 @@
 
 /* Form Section */
 .modal-form-section {
-  padding: 0 0 2rem 0;
+  padding: 0 0 0 0 !important;
 }
 
 .form-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   font-family: var(--font-heading);
 }
 
@@ -1231,7 +1231,7 @@
 .teams-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .teams-list {
