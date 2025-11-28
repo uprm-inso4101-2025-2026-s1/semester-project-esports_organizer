@@ -28,7 +28,7 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 '''
 
 ==== Risk 2 - Scheduling Ambiguity and Overlaps
-[.hl-green]#*Category:* Organizational / Operational
+[.hl-green]#*Category:* Organizational / Operational#
 
 *Description:* Two matches may be assigned to the same team simultaneously, or teams may not receive schedule updates in time.
 
