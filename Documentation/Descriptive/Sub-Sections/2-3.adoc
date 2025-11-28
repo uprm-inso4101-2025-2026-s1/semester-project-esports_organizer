@@ -32,6 +32,10 @@ The **software design** explains how each phenomenon in the domain becomes a con
 * **Authentication**  
   [.hl-yellow]#Reflects the domain restriction that only registered users can create or modify events or profiles.#  
 
+image::Descriptive/Sub-Sections/profiles_architecture.svg[align=center]
+[.text-center]
+Figure 2.3 - Profiles Module Architecture (Milestone 2)
+
 * **Profile Management**  
   [.hl-green]#Represents the player entity described in the domain. Updating or viewing a profile is not merely a UI action—it reflects the domain behavior of identifying players, referencing them in events, and ensuring data consistency.#  
 

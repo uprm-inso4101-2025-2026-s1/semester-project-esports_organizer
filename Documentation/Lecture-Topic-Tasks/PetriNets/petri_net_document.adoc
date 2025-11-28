@@ -1,0 +1,109 @@
+= Petri Net Check-In Flow Documentation
+Victor R. Santos–Figueroa
+:doctype: article
+:toc: left
+:icons: font
+:source-highlighter: highlightjs
+
+== Model Explanation
+
+This Petri net model represents the complete player check-in flow within the Esports Organizer system. 
+The goal is to clearly illustrate how a player progresses through the system before a match begins, 
+how delays or no-shows are handled, and how different transitions alter a player's state. 
+Using a token-based representation makes the flow intuitive and highlights how the system behaves under different scenarios.
+
+The model begins with the player in the *Waiting for Check-In* state. 
+A token is placed in this initial place to represent one player who has not yet interacted with the check-in system. 
+When the player arrives and performs the check-in action, the transition *Player Arrives* fires, 
+moving the token into the *Checked-In* state. This represents the user pressing the "Check-In" button in the interface.
+
+Once the player is in *Checked-In*, they must confirm readiness before the match can begin. 
+When the confirmation occurs, the *Confirm Ready* transition fires, moving the token to the *Ready for Match* state. 
+This indicates that the player has completed pre-match requirements. In the real system, this corresponds to backend logic updating the player's ready status.
+
+If the player does not check in within the allowed time, the *Timeout Occurs* transition fires, 
+sending the token from *Waiting for Check-In* to *No-Show*. 
+This is triggered by a countdown or scheduled function. 
+Admins may also manually flag a player absent using the *Mark as No-Show* transition, moving the token from *Checked-In* to *No-Show*.
+
+These transitions illustrate how the system handles normal and exceptional flow paths. 
+The model ensures that all possible outcomes are explicitly defined—arriving on time, confirming readiness, failing to check in, or being manually marked absent.
+
+== Concurrency Analysis
+
+The Petri net model is valuable for analyzing concurrency during the check-in process. 
+Because each player is represented as an independent token, the model naturally supports scenarios where multiple actions occur at the same time.
+
+When multiple players arrive simultaneously, the *Player Arrives* transition can fire independently and in parallel for each token. 
+Thus, the system does not force sequential check-ins. 
+Each token moves from *Waiting for Check-In* to *Checked-In* as soon as its own conditions are met. 
+This mirrors real-world behavior where multiple API calls or UI events occur nearly simultaneously.
+
+Concurrency also applies to no-shows. 
+If several players fail to check in before the deadline, the *Timeout Occurs* transition may fire simultaneously for multiple tokens. 
+Likewise, *Mark as No-Show* can be triggered multiple times if admins manually intervene.
+
+This analysis exposes potential bottlenecks. 
+For instance, if many players reach *Checked-In* but fail to confirm readiness, the *Confirm Ready* transition becomes a critical point 
+that may delay the match start. Tokens can accumulate here under heavy load or user inactivity.
+
+Overall, the Petri net ensures consistent system behavior under concurrent events.
+
+== Delay Propagation Analysis
+
+Delays during check-in can create significant downstream effects impacting match start times. 
+The Petri net makes these delay points visible by showing where tokens accumulate and which transitions are blocked.
+
+The most common delay occurs in *Waiting for Check-In*. 
+If the token remains longer than expected because a player arrives late or is inactive, 
+the *Player Arrives* transition cannot fire, delaying *Confirm Ready* and ultimately *Ready for Match*. 
+Since a match cannot begin until all required players reach the *Ready for Match* state, 
+a single delayed player can prevent the entire match from progressing.
+
+If the delay continues long enough, *Timeout Occurs* fires, sending the token to *No-Show*. 
+However, this still requires waiting the full timeout duration, which may postpone match start by several minutes.
+
+Delays in *Checked-In* can also propagate. 
+A player who checks in but does not confirm readiness blocks progress to *Ready for Match*. 
+If multiple players stop at this stage, tokens accumulate and the match cannot advance.
+
+The model highlights opportunities for system improvements such as earlier reminders, countdown indicators, 
+or admin overrides using *Mark as No-Show*.
+
+== Connection to Real System
+
+=== Mapping Places to System Components
+
+* *Waiting for Check-In → Player Document (status: "waiting")*  
+Represents a registered player who has not yet interacted with check-in.  
+Stored in Firebase under `players` or `matchParticipants`.
+
+* *Checked-In → UI Check-In Action Processed*  
+Represents pressing the "Check-In" button. Backend updates to `status: "checked-in"`.
+
+* *Ready for Match → Backend Readiness Logic*  
+Represents user confirmation and backend marking the player as ready.
+
+* *No-Show → Absence Handling*  
+Represents timeout expiration or manual admin marking.
+
+=== Mapping Transitions to System Actions
+
+* *Player Arrives → User taps "Check-In"*  
+* *Confirm Ready → User taps "I'm Ready"*  
+* *Timeout Occurs → Cloud Function / Timer triggers*  
+* *Mark as No-Show → Admin manual override*
+
+=== Mapping Tokens to Database Entities
+
+Each token corresponds to one player document.  
+Tokens move independently, just as player documents update independently in Firebase.
+
+=== How the Petri Net Improves System Reliability
+
+* Reveals concurrency issues  
+* Represents real-time delays  
+* Identifies bottlenecks  
+* Ensures readiness before starting a match  
+* Prevents logical bugs like starting a match with missing players  
+* Validates backend logic before development  
