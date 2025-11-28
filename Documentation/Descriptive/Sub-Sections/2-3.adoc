@@ -78,21 +78,3 @@ export async function updateProfile(email, updates) { ... }
 [.hl-green]#These operations embody the concept that “a player in the domain has persistent identity data that evolves over time”. Each function ensures integrity via timestamps, validating that the system remains consistent even as players make changes across tournaments or communities.#  
 
 [.hl-green]#This alignment between domain concepts and implementation ensures that the system grows naturally from the world it observes, rather than forcing features into an artificial structure.#
-
-=== Change Log – Section 2.3 and 2.3.1
-
-* [.hl-green]#Added narrative-style explanation connecting implementation concepts to observed domain phenomena (cafetería-style storytelling).#
-* [.hl-green]#Added detailed explanation of the architecture diagram, clarifying the meaning of each graphical element (modules, external services, arrows).#
-* [.hl-green]#Added justification of how domain behaviors (visibility, badge assignment, participation history) are realized through software components.#
-* [.hl-green]#Added clearer mapping between domain requirements (2.2.3–2.2.5) and implementation behavior.#
-* [.hl-green]#Added a section describing how the Profiles module operationalizes domain actions through CRUD operations and API flows.#
-* [.hl-green]#Added explanation of why code fragments were selected and how they support domain behavior, not just technical execution.#  
-* [.hl-green]#Added narrative describing behind-the-scenes request flow between React, Express, and Firestore to reflect domain behavior (e.g., retrieving participation history).#
-
-* [.hl-red]#Removed references to local development environment, debugging logs, and internal testing notes not appropriate for domain-linked implementation documentation.#
-* [.hl-red]#Removed platform-centric descriptions (e.g., “system launch”, “local environment connected”), following professor feedback against platform-heavy language.#
-* [.hl-red]#Removed repetitive or redundant explanations about modules already described in previous milestones.#
-* [.hl-red]#Removed purely technical details that do not reflect domain phenomena (e.g., REST endpoint descriptions unrelated to domain actions).#
-
-* [.hl-yellow]#Kept original structure of 2.3 and 2.3.1 but refined the content to align with domain-driven implementation.#
-* [.hl-yellow]#Kept valid code fragments and their AsciiDoc formatting while improving their explanatory narrative.#  

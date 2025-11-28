@@ -28,6 +28,7 @@ shippable increment of the project.#
 The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.
 
 [.hl-green]#To make an informed decision, both options were compared using Non-Functional Requirements (NFRs). The qualitative attributes of a system rather than its specific functions.#
+
 [.hl-green]#The chosen criteria were:#
 
 [.hl-green]#Speed of Communication - How fast users can exchange information.#
@@ -40,11 +41,36 @@ The team applied systematic evaluation methods for technical choices, such as th
 
 === Process Modeling
 
-Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams illustrated tournament lifecycle interactions between hosts and participants. State charts defined tournament progression through creation, registration, match progression, and completion states.
+[.hl-red]#Petri nets modeled competing processes in tournament registration, particularly for limited slot allocation. Sequence diagrams illustrated tournament lifecycle interactions between hosts and participants. State charts defined tournament progression through creation, registration, match progression, and completion states.#
 
-[.hl-green]#Petri Nets help visualize how different backend functions interact dynamically within the tournament system.#
+[.hl-red]#Petri Nets help visualize how different backend functions interact dynamically within the tournament system.#
 
-[.hl-green]#In our project, Petri Nets work as graphical representations of workflows inside the backend system, for tournament creation, registration, and progression. Each place represents a specific system state, while each transition models a backend function or event triggered by user or system actions.#
+[.hl-red]#In our project, Petri Nets work as graphical representations of workflows inside the backend system, for tournament creation, registration, and progression. Each place represents a specific system state, while each transition models a backend function or event triggered by user or system actions.#
+
+[.hl-green]#Petri nets within our project were primarily implemented as guides and visual representations of how different classes are expected to operate and collaborate when needed. They serve as graphical descriptions of what a process should look like, considering all the possible (at least currently known) paths that lead to a successful and complete “circuit.” The goal is to ensure that anyone, even someone outside the project can understand how the workflow described by the Petri Net functions at a theoretical level.#
+
+[.hl-green]#Let us consider, for example, the tournament Petri Net previously created by the database team developers:#
+
+image::End/Sub-Sections/tournament.svg[align=center]
+[.text-center]
+ Tournament Workflow Petri Net
+
+[.hl-green]#We follow its path: circles represent *events*, rectangles represent *actions*, and arrows indicate the *workflow*.#
+
+[.hl-green]#The flow is as follows:#
+
+* [.hl-green]#Tournament is announced#
+* [.hl-green]#Organizer creates the tournament#
+* [.hl-green]#Player/Team registration process takes place#
+* [.hl-green]#Classes handle bracket generation, match creation, and tournament logistics#
+* [.hl-green]#The system tracks registration results and how brackets and matches are formed#
+* [.hl-green]#Each time a match occurs, brackets update accordingly#
+* [.hl-green]#At the end, general results are produced#
+
+[.hl-green]#This Petri Net is oriented toward the general “big picture” of tournament logistics as we understand them, data-focused, high-level, and representative of how tournament information flows through the system.#
+
+[.hl-green]#Across milestones, additional Petri nets similar to this one have been developed to track and clarify other workflows throughout the project.#
+
 
 === Real-Time System Design
 
