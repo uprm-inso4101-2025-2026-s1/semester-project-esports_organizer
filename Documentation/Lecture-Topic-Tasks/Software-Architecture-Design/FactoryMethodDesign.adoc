@@ -1,0 +1,95 @@
+= Software Architecture Design for Events and Brackets Using Factory Method
+
+== Objective
+Define how the Factory Method pattern can help standardize and future-proof the way tournaments, brackets, and game-specific event variations are created as the platform grows to support more games, regions, and formats.
+
+== Introduction
+Right now, it’s relatively easy to think about “creating an event” or “spinning up a bracket” in a straightforward way. But as the platform expands, that simple idea starts to branch out:
+
+- Different tournament formats (single elimination, double elimination, leagues, hybrids)
+- Different games with their own rules and constraints
+- Regional or organizer-specific variations (house rules, time zones, check-in policies)
+- Seasonal events or special formats that come and go
+
+If all of this creation logic cements itself directly into core controllers or services, it quickly becomes hard to change or extend. The Factory Method pattern offers a way to centralize and encapsulate event and bracket creation so that new variations can be introduced with minimal impact on the rest of the codebase.
+
+== Why Event and Bracket Creation Needs Structure
+Event and bracket creation touches multiple concerns at once:
+
+- Core tournament structure (format, rounds, seeding behavior)
+- Registration rules (who can join, when, and under what conditions)
+- Game-specific details (map pools, match length, scoring)
+- Organizer preferences (check-in rules, visibility, regions, scheduling style)
+
+Without a clear pattern, each new tournament type risks turning into a special case scattered across the code, making it harder to reason about behavior and much harder to scale.
+
+== Factory Method in This Context
+
+- The rest of the platform asks for “an event of a certain kind” or “a bracket of a certain type”.
+- A factory object, chosen based on configuration or input, is responsible for actually building that event or bracket and any related structures.
+- The calling code doesn’t need to know which concrete type is used or how all the details are wired together.
+
+This would be divided into two aspects:
+
+- What the platform needs:
+  - “Create a tournament for this game and format.”
+  - “Create a bracket that matches these constraints.”
+- From how that gets built:
+  - Which internal classes or data configurations represent that tournament or bracket.
+  - How defaults are applied for a given game, format, or region.
+
+== Design Considerations for Factory-Based Creation
+
+=== Thinking in Families of Variations
+Instead of thinking in single, hard-coded types, it helps to think in families:
+
+- Format families: single elimination, double elimination, round-robin, league, Swiss, etc.
+- Game families: each title might have defaults and rules that differ from others.
+- Regional or organizer variants: different time zones, check-in behavior, limitations, or branding.
+
+=== Where Creation Logic Should Live
+The creation logic should be pulled away from:
+
+- Controllers or handlers that respond to user actions.
+- Generic services that handle business logic but shouldn’t need to know about every event type.
+
+Instead, those parts of the system can:
+
+- Interpret user input or configuration (format selection, game choice, options).
+- Decide which factory to use.
+- Delegate the actual creation to that factory.
+
+== Future Extension Pathways
+A major reason to use Factory Method here is to make growth safer and more predictable. For example:
+
+- Adding a new game title  
+  When a new game is introduced, the platform can define a new factory (or configure an existing one) that:
+  - Applies game-specific defaults.
+  - Ensures any special constraints are respected.
+  - Constructs brackets and events consistently with existing flows.
+
+- Supporting seasonal or limited-time variations
+  Seasonal events may involve customized rules, visuals, or schedule patterns. A factory dedicated to that seasonal event type can handle those details, and once the season ends, it can be turned off or removed with far less risk to the rest of the code.
+
+== Trade-Offs and Potential Scaling Challenges
+
+Using Factory Method brings clear benefits, but it also introduces some considerations:
+
+- Number of factories 
+  As the platform grows, it may be tempting to create a factory for every small variation. This can be controlled by:
+  - Grouping related behaviors where possible.
+  - Using configuration to handle small differences instead of creating entirely new factories.
+
+- Versioning and backwards compatibility  
+  If the construction rules for a given event type need to change over time, there may be more than one “version” of that factory’s behavior. The architecture should anticipate:
+  - How older events continue to be understood and managed.
+  - How newer events can use updated creation rules without collisions.
+
+== Summary
+Using the Factory Method pattern for event and bracket creation gives the platform a more deliberate way to handle complexity as it scales:
+
+- Creation logic is centralized and easier to reason about.
+- New games, formats, and variations can be added with smaller, localized changes.
+- Core workflows and surrounding features are shielded from format-specific details.
+
+The result is an architecture that’s better suited to a long-term esports platform: flexible enough to evolve, but structured enough that it doesn’t collapse under its own variety.

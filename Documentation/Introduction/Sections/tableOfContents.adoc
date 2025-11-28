@@ -4,12 +4,11 @@
 [.hl-green]#*0 Introductory Part*# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#0.1 Purpose# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#0.2 Skeleton# +
-{nbsp} +
 
 [.hl-green]#*1 Informative Part*# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#1.1 Team Members# +
-{nbsp}{nbsp}{nbsp} [.hl-green]#1.2 Current situation, needs ideas# +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#1.2.1 Current situation# +
+{nbsp}{nbsp}{nbsp} [.hl-green]#1.2 Current Situation, Needs, Ideas# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#1.2.1 Current Situation# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#1.2.2 Needs# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#1.2.3 Ideas# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#1.3 Scope, Span, and Synopsis# +
@@ -17,16 +16,15 @@
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#1.3.2 Synopsis# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#1.4 Other activities than just developing source code# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#1.5 Derived Goals# +
-{nbsp} +
 
 [.hl-green]#*2 Descriptive Part*# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#2.1 Domain Description# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.1 Rough Sketch# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.2 Terminology# +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.3 Domain Terminology in Relation to Domain Rough Sketch# +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.4 Narrative# +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.5 Events, Actions, and Behaviors# +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.6 Function Signatures# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.3 Relationship Between Rough Sketch and Terminology# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.4 Expanded Narrative# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.5 Unified Domain Concepts and Operations# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.6 Function Signatures (Grouped with Actions)# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#2.2 Requirements# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.2.1 User Stories, Epics, Features# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.2.2 Personas# +
@@ -35,11 +33,17 @@
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.2.5 Machine Requirements# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#2.3 Implementation# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.3.1 Selected Fragments of Implementation# +
-{nbsp} +
 
 [.hl-green]#*3 Analytic Part*# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#3.1 Concept Analysis# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#3.2 Validation and Verification# +
 {nbsp} +
 
-[.hl-green]#*i. LogBook*#
+[.hl-green]#*i. Application of Topics*# +
+{nbsp} +
+
+[.hl-green]#*ii. Generative AI Use Disclosure Statement*# +
+{nbsp} +
+
+[.hl-green]#*iii. LogBook*#
+{nbsp} +

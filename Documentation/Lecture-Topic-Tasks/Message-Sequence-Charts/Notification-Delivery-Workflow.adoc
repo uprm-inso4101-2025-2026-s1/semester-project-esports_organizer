@@ -1,0 +1,277 @@
+= Modeling Notification Delivery Workflow Using Message Sequence Charts
+Gabriel Rivera <you@example.com>
+:toc:
+:toclevels: 3
+
+== Objective
+
+Use Message Sequence Charts (MSCs) / sequence diagrams to represent how asynchronous and synchronous messages flow between:
+
+* Event Manager
+* Notification Scheduler
+* User Preferences
+* Notification Service
+* Delivery Channels (Email / SMS / Push)
+* The User
+
+Goals:
+
+* Ensure reminders and notifications are sent only to opted-in users.
+* Make message ordering and timing explicit.
+* Expose timing conflicts (e.g., event edited or cancelled close to reminder time).
+* Provide a reference for implementing the Events & Notifications subsystem.
+
+== Main Components
+
+[cols="1,3",options="header"]
+|===
+| Component
+| Responsibility
+
+| User
+| Receives notifications and interacts with the app (web/mobile).
+
+| Client App
+| UI layer. Sends user actions (join event, edit event, cancel event) to the backend.
+
+| Event Manager
+| Owns event lifecycle (creation, updates, cancellations; user joins/leaves events).
+
+| User Preferences
+| Stores notification preferences (channels, opt-in/out, quiet hours, reminder offsets).
+
+| Notification Scheduler
+| Maintains a schedule of future notifications (reminders) and triggers them at the correct time.
+
+| Notification Service
+| Builds notification payloads and delegates to channel providers.
+
+| Channel Provider
+| External provider or internal module that handles actual delivery (Email/SMS/Push).
+
+| Data Store
+| Persists events, user preferences, and scheduled jobs.
+|===
+
+== Use Case 1: User joins an event → reminder scheduled and sent
+
+=== Narrative
+
+1. User taps **Join Event** in the client app.
+2. Client sends a request to the Event Manager.
+3. Event Manager:
+* Validates that the user can join.
+* Persists the event participation.
+* Queries User Preferences to see whether reminders are enabled and what channels to use.
+4. If reminders are enabled:
+* Event Manager sends a scheduling request to Notification Scheduler with:
+** event id
+** user id
+** reminder time (event start − offset)
+** notification type (reminder)
+5. At reminder time, Notification Scheduler:
+* Triggers Notification Service.
+* Passes user id, event id, notification type, and channels.
+6. Notification Service:
+* Fetches event details and user data.
+* Filters channels against user preferences (e.g., SMS disabled).
+* Dispatches one message per allowed channel via Channel Provider.
+7. User receives the reminder via the configured channels.
+
+=== Message Sequence Chart (PlantUML)
+
+[plantuml, msc-event-join, svg]
+----
+@startuml
+actor User
+participant "Client App" as Client
+participant "Event Manager" as EM
+participant "User Preferences" as Pref
+participant "Notification Scheduler" as NS
+database "Data Store" as DB
+participant "Notification Service" as Notif
+participant "Channel Provider" as Provider
+
+== User joins event ==
+User -> Client: Tap "Join Event"
+Client -> EM: POST /events/{id}/join (userId)
+EM -> DB: Persist participation (userId, eventId)
+DB --> EM: OK
+
+EM -> Pref: Get notification prefs(userId)
+Pref --> EM: prefs(remindersEnabled, channels, offset)
+
+alt Reminders enabled
+  EM -> NS: scheduleReminder(userId, eventId,\, time = startAt - offset)
+  NS -> DB: Save scheduled job
+  DB --> NS: OK
+else Reminders disabled
+  EM -> Client: 200 OK (joined, no reminder)
+end
+
+EM -> Client: 200 OK (joined)
+
+== Reminder time reached ==
+NS -> DB: Load job + event + user data
+DB --> NS: job(eventId, userId, channels, type="reminder")
+
+NS -> Notif: triggerReminder(userId, eventId, channels)
+Notif -> Pref: Re-check prefs(userId)  # in case user changed them
+Pref --> Notif: prefs(channelsAllowed)
+
+Notif -> DB: Load event + user details
+DB --> Notif: event(title, startAt), user(contact)
+
+loop For each allowed channel
+  Notif -> Provider: sendReminder(channel, user, event)
+  Provider --> Notif: deliveryStatus
+end
+
+@enduml
+----
+
+== Use Case 2: Event edited or cancelled → update or suppress reminders
+
+=== Narrative
+
+Two sub-cases:
+
+*Event edited (time changed)*
+
+1. Event Owner or Admin edits the event (e.g., new start time).
+2. Event Manager updates the event in Data Store.
+3. Event Manager notifies Notification Scheduler to:
+* Cancel any existing scheduled reminders for this event/user.
+* Create new reminders with the updated time (for all participants).
+
+*Event cancelled*
+
+1. Event Owner cancels the event.
+2. Event Manager:
+* Marks event as cancelled in Data Store.
+* Sends a **cancel scheduled reminders** request to Notification Scheduler.
+3. Notification Scheduler:
+* Removes future reminder jobs for that event.
+4. Event Manager optionally triggers **cancellation notifications**:
+* Via Notification Service → Channel Provider → User.
+
+=== Message Sequence Chart (PlantUML) – Event Time Edited
+
+[plantuml, msc-event-edited, svg]
+----
+@startuml
+actor "Event Owner" as Owner
+participant "Client App" as Client
+participant "Event Manager" as EM
+participant "Notification Scheduler" as NS
+database "Data Store" as DB
+participant "Notification Service" as Notif
+participant "Channel Provider" as Provider
+
+== Event owner edits event time ==
+Owner -> Client: Edit event (new start time)
+Client -> EM: PUT /events/{id} (newStartAt)
+EM -> DB: Update event(startAt = newStartAt)
+DB --> EM: OK
+
+== Reschedule existing reminders ==
+EM -> NS: rescheduleReminders(eventId, newStartAt)
+
+NS -> DB: Fetch participants for eventId
+DB --> NS: [user1, user2, ...]
+
+NS -> DB: Delete old reminder jobs(eventId, *)
+DB --> NS: OK
+
+loop For each participant
+  NS -> DB: Create new job(userId, eventId, newStartAt - offset)
+  DB --> NS: OK
+end
+
+EM -> Client: 200 OK (event updated)
+
+== Optional: notify participants about change ==
+NS -> Notif: triggerEventUpdated(eventId)
+Notif -> DB: Load event + participant contacts
+DB --> Notif: data
+
+loop For each participant + channel
+  Notif -> Provider: sendEventUpdated(user, channel, event)
+  Provider --> Notif: deliveryStatus
+end
+
+@enduml
+----
+
+=== Message Sequence Chart (PlantUML) – Event Cancelled
+
+[plantuml, msc-event-cancelled, svg]
+----
+@startuml
+actor "Event Owner" as Owner
+participant "Client App" as Client
+participant "Event Manager" as EM
+participant "Notification Scheduler" as NS
+database "Data Store" as DB
+participant "Notification Service" as Notif
+participant "Channel Provider" as Provider
+
+== Event cancelled ==
+Owner -> Client: Cancel event
+Client -> EM: POST /events/{id}/cancel
+EM -> DB: Mark event as cancelled
+DB --> EM: OK
+
+== Cancel future reminders ==
+EM -> NS: cancelReminders(eventId)
+
+NS -> DB: Delete scheduled jobs for eventId
+DB --> NS: OK
+
+== Notify participants ==
+EM -> Notif: notifyEventCancelled(eventId)
+Notif -> DB: Load event + participants + prefs
+DB --> Notif: data
+
+loop For each participant with notifications enabled
+  Notif -> Channel Provider: sendCancellation(user, channel, event)
+  Channel Provider --> Notif: deliveryStatus
+end
+
+EM -> Client: 200 OK (event cancelled)
+
+@enduml
+----
+
+== Edge Cases & Timing Conflicts
+
+* *Last-minute edits/cancellations*:
+If the event is edited or cancelled very close to reminder time, `Notification Scheduler` should:
+** check event state (active/cancelled) before firing.
+** apply a cutoff window (e.g., do not send reminders if less than X minutes before start).
+
+* *Preference changes between scheduling and send time*:
+`Notification Service` should re-read preferences at trigger time (as in Use Case 1) to avoid sending messages to users who have recently opted out.
+
+* *Duplicate reminders*:
+When time changes, always **cancel old jobs first** and then create new ones. Use an idempotent job key like `(userId, eventId, type)`.
+
+== Implementation Checklist
+
+. Define persistence model:
+* `Event`, `UserPreferences`, `ScheduledJob`.
+. Implement API endpoints:
+* Join event, edit event, cancel event.
+. Implement `Notification Scheduler`:
+* Store jobs.
+* Trigger jobs at the correct time.
+* Handle rescheduling/cancellation.
+. Implement `Notification Service`:
+* Build messages.
+* Filter by user preferences.
+* Integrate with channel providers.
+. Use the MSCs above as reference to:
+* Verify message ordering.
+* Ensure we never send reminders for cancelled events.
+* Ensure we respect user opt-in/opt-out at send time.
+

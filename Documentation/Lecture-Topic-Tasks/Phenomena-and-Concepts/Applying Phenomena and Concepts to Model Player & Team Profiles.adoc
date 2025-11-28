@@ -1,0 +1,74 @@
+= Lecture Topic – Applying Phenomena and Concepts to Model Player & Team Profiles
+
+== 1. Overview
+This lecture task applies the distinction between **Phenomena** and **Concepts** to the design of the *Player Profile* and *Team Profile* modules in the Esports Organizer system.  
+(Reference: Slides 1–8, *Phenomena and Concepts*, Marko Schütz-Schmuck, UPRM 2020)
+
+== 2. Phenomena vs. Concepts
+*Phenomena* are **observable, concrete instances**—things that can be sensed or measured (e.g., “a player pressing ‘Join Team’”).  
+*Concepts* are **abstractions, classes, or kinds** that capture general characteristics beyond one instance (e.g., the class `PlayerProfile` representing any player in the system).  
+Concrete and abstract concepts differ only in **level of abstraction**.
+
+Example (adapted from slides):  
+- “Jeremy’s PlayerProfile” → phenomenon (specific, measurable data)  
+- “PlayerProfile as a type” → concept (abstraction of all players)  
+- “Profiles in the Esports Organizer System” → set of concepts (higher-level abstraction)
+
+== 3. Categories of Phenomena and Concepts
+
+=== 3.1 Entities – Carry Information (Data Inside the Machine)
+*Slide Reference: Entities*  
+Entities represent **things** that mainly carry information. In our domain:
+
+- **Entity 1: PlayerProfile**  
+  *Phenomenon:* a player’s actual profile shown in the app.  
+  *Concept:* class `PlayerProfile` with `username`, `rank`, `winRate`.  
+  *Example:* “Jeremy’s profile (updated rank = Gold II)” → phenomenon;  
+  `PlayerProfile` type → concept.
+
+- **Entity 2: TeamProfile**  
+  *Phenomenon:* a real team called “UPRM Legends” with 5 players.  
+  *Concept:* `TeamProfile` with `teamName`, `roster`, `teamPoints`.
+
+Both are **composed entities** (records of multiple attributes) as described in the slide on mereology.
+
+=== 3.2 Functions – Apply to Something and Produce Something
+*Slide Reference: Functions I–II*  
+Functions define transformations on entities—similar to mathematical functions but expressed as software operations.
+
+- **Function 1: updatePlayerStats()**  
+  Signature: `PlayerProfile → MatchResult → PlayerProfile`  
+  *Phenomenon:* player finishes a match.  
+  *Concept:* system applies `updatePlayerStats()` to modify stored values.
+
+- **Function 2: createTeamProfile()**  
+  Signature: `User → TeamData → TeamProfile`  
+  *Phenomenon:* a user creates a new team.  
+  *Concept:* function instantiates a TeamProfile entity and stores it.
+
+Following slide logic: first capture *what* the function does (specification), then *how* it does it (algorithm).
+
+=== 3.3 Events & Behaviors – Observable Actions and Sequences
+*Slide Reference: Events and Behaviors*  
+Events are **instantaneous triggers**; behaviors are **sequences of actions interleaved with events**.
+
+- **Event Example:** “Player joins team.”  
+  *Trigger:* action `JoinTeamButtonPressed`.  
+  *System Concept:* `addPlayerToTeam(playerId, teamId)` updates both entities.  
+  *Instantaneous:* once clicked, the event fires and updates state.
+
+- **Behavior Example:** “Profile updated after match.”  
+  Sequence of actions: match ends → stats computed → leaderboard refreshed.  
+  This aligns with the slide’s definition of *behaviors as interleaved events and actions*.
+
+== 4. Conceptual Mapping Table
+|===
+| Category | Real-World Phenomenon | System Concept | Example in Domain
+| Entities | Player or Team exists | PlayerProfile, TeamProfile | Data records with stats and roster
+| Functions | Actions affect entities | updatePlayerStats(), createTeamProfile() | Stat update after match
+| Events & Behaviors | Observable interactions | addPlayerToTeam(), profileUpdated | Player joins team, match sequence
+|===
+
+== 5. Conclusion
+By grounding our model in the professor’s *Phenomena and Concepts* framework, we ensure that the **Player & Team Profile** components represent real-world interactions faithfully.  
+Phenomena (what users see and do) become structured concepts (entities, functions, and behaviors) that maintain logical abstraction and enable consistent system design.

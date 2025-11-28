@@ -4,6 +4,8 @@
 Our project's team is composed entirely of students participating in the Esports Organizer project. Every team member is directly involved in the development, design, and decision-making processes. 
 [.hl-yellow]#While the project does not have external clients or sponsors, it still involves several types of stakeholders. Stakeholders include players, organizers, spectators,community members / clubs, developers / team members themselves that have an interest by the system’s outcomes. Recognizing this distinction helps the team consider diverse perspectives when making design and implementation decisions.#
 
+[.hl-green]#During the later stages of the project, and in order to improve communication and overall project flow, the Player and Teams Profile team and the Identity and Data Systems team were merged. This integration helped minimize misunderstandings, reduce duplicated work, and ensure that player-related features were directly aligned with backend structures and functionality.#
+
 Roles and responsibilities are distributed among the team members as follows:
 
 - Experience Design Team - Focuses on the user interface and overall user experience of the platform. This includes designing intuitive layouts, ensuring visual appeal, and optimizing how users interact with the system to create a seamless and pleasant experience.

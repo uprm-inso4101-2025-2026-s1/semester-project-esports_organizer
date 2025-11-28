@@ -1,0 +1,30 @@
+= Availability and Fallback Notes for Data Fetches
+Jayden A. Sánchez Valentín, November 24, 2025
+
+== Introduction
+Availability focuses on keeping key parts of the web app working even when data loads slowly or temporarily fails. Instead of leaving the user with an empty screen, the system can show cached content, placeholders, or automatic retries to keep the experience moving. This kind of fallback support helps the app feel stable and dependable during brief disruptions.
+
+== Selected Features
+- Tournament List Page
+- Player Profile Page
+- Team Info Section
+
+== Availability Requirements and Fallbacks
+
+=== 1. Tournament List Page
+*Requirement:* The tournament list should still show basic information even if the main API does not respond. +
+*Fallback:* Display cached or placeholder content, such as “Loading tournaments…” with default icons, instead of leaving the page empty. +
+*Benefit:* Keeps users informed and prevents confusion during temporary data outages.
+
+=== 2. Player Profile Page
+*Requirement:* The player's main details (name, picture, etc.) should remain available even if stats or achievements fail to load. +
+*Fallback:* Show a simplified version of the profile with a short message like “Detailed stats unavailable at the moment.” +
+*Benefit:* Preserves partial functionality and avoids frustration when only some data is missing.
+
+=== 3. Team Info Section
+*Requirement:* When the server response is slow, the web app should attempt an automatic retry after a short delay. +
+*Fallback:* Show a clear message such as “Retrying connection…” and offer a manual refresh option. +
+*Benefit:* Improves reliability, reduces downtime impact, and communicates progress to the user.
+
+== Summary
+These examples show how simple availability and fallback strategies can reduce the impact of temporary errors in the Esports Organizer. Using placeholders, retries, and simplified views helps keep the web app usable and prevents empty or broken screens. These general examples highlight basic ways the system can stay reliable when data is unavailable.

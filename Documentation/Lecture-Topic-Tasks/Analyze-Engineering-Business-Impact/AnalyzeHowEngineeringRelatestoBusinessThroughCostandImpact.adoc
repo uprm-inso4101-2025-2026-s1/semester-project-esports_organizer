@@ -1,0 +1,74 @@
+= Lecture Topic Task: Engineering, Cost, and Business Impact
+:author: Gabriela Martínez Disla
+:platform: Esports Organizer Platform
+
+== Introduction
+
+This analysis examines how engineering decisions influence business outcomes by applying cost and impact considerations to the *Esports Organizer* platform. The platform’s purpose is to unify scattered gaming communities, centralize tournament announcements, send notifications, track rankings, and help players discover competitive events in their local area. The four guiding questions: development cost, deployment cost, operational cost, and business process impact, are applied specifically to a competitive gaming platform rather than to a generic system.
+
+== Development Cost
+
+Developing the Esports Organizer requires creating core subsystems such as:
+
+- User authentication and profiles  
+- Tournament creation tools  
+- Event scheduling workflows  
+- Notification delivery  
+- Team formation  
+- Ranking and scoring algorithms  
+
+The largest portion of development cost comes from engineering hours required to build these features. More advanced features such as automated brackets, real-time notifications, or integrated team rankings increase complexity and therefore development cost.
+
+UI/UX design also contributes significantly, as the platform must be intuitive for both casual players and tournament organizers. Technical decisions, like choosing Firebase or building a custom backend, directly affect development time, security requirements, scalability planning, and integration overhead.
+
+In general, the more automation and functionality the system provides, the higher the upfront engineering investment.
+
+== Deployment (Manufacturing) Cost
+
+In software, “manufacturing cost” corresponds to deployment and hosting expenses. For the Esports Organizer, these include:
+
+- Hosting the web application  
+- Cloud database reads, writes, and storage  
+- Authentication services  
+- Notification provider usage  
+- Bandwidth required for large communities and active tournaments  
+
+As the platform gains users, these costs increase. High tournament activity results in spikes in cloud usage, especially for notifications and ranking updates.
+
+Architecture choices such as using serverless infrastructure, caching layers, or optimized database schemas, directly influence how expensive the platform becomes at scale. Poorly optimized systems require more server power and cost more per user. Efficient engineering reduces long-term deployment expenses.
+
+== Operational Cost
+
+Operational cost refers to the resources needed to keep the system functioning after launch. For the Esports Organizer, operational activities include:
+
+- Bug fixes and feature enhancements  
+- Maintaining ranking logic and tournament flows  
+- Monitoring uptime and reliability  
+- Applying security updates  
+- Supporting users and organizers  
+- Moderating communities  
+- Updating integrations with notification services  
+
+A clean modular architecture lowers these costs by making the system easier to maintain. However, rushed development or technical debt increases operational burden significantly.
+
+As user activity grows, operational cost grows as well: more support requests, more moderation hours, and more performance tuning.
+
+== Business Process Impact
+
+The Esports Organizer changes how gaming communities operate by centralizing processes that were previously spread across Discord, Twitter, and group chats.
+
+Key business impacts include:
+
+- *Simplified tournament organization:* Events can be announced in a single platform.  
+- *Automated notifications:* Reduces manual coordination effort and increases player turnout.  
+- *Unified rankings and team management:* Eliminates spreadsheets and inconsistent manual processes.  
+- *Improved event visibility:* Players discover more tournaments, increasing engagement.  
+- *Higher retention:* Reliable and centralized information keeps communities active longer.  
+
+The platform creates measurable value for organizers, players, teams, and local gaming communities by reducing operational friction and making competitive scenes easier to sustain.
+
+== Conclusion
+
+Engineering decisions—architecture, database design, notification strategy, and feature complexity not only shape the technical qualities of the Esports Organizer but also determine its total cost, maintainability, and long-term business value.
+
+By investing in thoughtful, strategic engineering, the platform can significantly improve how tournaments and gaming communities function, supporting long-term growth and stability within the esports ecosystem.

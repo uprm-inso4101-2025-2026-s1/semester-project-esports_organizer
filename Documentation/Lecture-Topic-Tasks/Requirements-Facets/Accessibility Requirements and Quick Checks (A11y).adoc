@@ -1,0 +1,40 @@
+= Accessibility Requirements and Quick Checks (A11y)
+Jayden A. Sánchez Valentín, November 24, 2025
+
+== Introduction
+Accessibility ensures that all users, including people with visual, motor, or learning difficulties, can navigate and use the web app effectively. By focusing on readable text, clear structure, and easy navigation throughout the interface, the design becomes more inclusive and improves the overall experience for everyone.
+
+== Selected Pages
+- Home Page
+- Player Profile Page
+- Tournaments Page
+
+== Accessibility Requirements and Verification Methods
+
+=== 1. Color Contrast
+- Text and background colors must maintain at least a 4.5:1 contrast ratio to ensure readability for users with low vision or color-blindness.
+
+*Verification:* Check color contrast using an online tool such as WebAIM Contrast Checker.
+
+=== 2. Keyboard Navigation
+- All interactive elements (buttons, menus, links) should be reachable with the Tab key, and focus indicators should be visible at all times.
+
+*Verification:* Navigate the page using only the keyboard and confirm every element is reachable.
+
+=== 3. Alt Text for Images
+- All images and icons (player avatars, team logos, etc.) need meaningful alt text to support users who rely on screen readers.
+
+*Verification:* Inspect the HTML and confirm each `<img>` tag has an accurate `alt` attribute.
+
+=== 4. Font Size and Readability
+- Text must use a minimum base font size of 16px and remain readable when zoomed up to 200% without breaking the layout.
+
+*Verification:* Zoom the browser window and check for readability and layout stability.
+
+=== 5. Error Message Clarity
+- Forms such as login and profile edit must display clear and descriptive error messages to help users understand and correct mistakes.
+
+*Verification:* Trigger validation errors and verify that messages are visible and easy to understand.
+
+== Summary
+These accessibility requirements improve inclusivity and ease of use across the Esports Organizer. Following these checks helps users with visual, cognitive, or motor limitations can navigate and interact with the app smoothly, enhancing the overall user experience and aligning the project with accessibility best practices.

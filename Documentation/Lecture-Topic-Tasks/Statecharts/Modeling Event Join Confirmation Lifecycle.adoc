@@ -1,0 +1,61 @@
+= Event Join Confirmation Statechart
+:toc: none
+
+image::statechart.png[Event Join Confirmation Statechart]
+
+== States
+
+1. *Idle*  
+   The user has not initiated any join action.
+
+2. *Join Initiated*  
+   The system begins preparing the confirmation message after the user clicks *Next* or *Join Team*.
+
+3. *Confirmation Created*  
+   The confirmation message is written to `User/<uid>/notifications`.
+
+4. *Notification Delivered*  
+   The notification appears in the interface and can be opened or cleared by the user.
+
+== Transitions
+
+* *Idle → Join Initiated*  
+  *Trigger:* The user clicks *Next* or *Join Team*.
+
+* *Join Initiated → Confirmation Created*  
+  *Trigger:* The system formats event information (title, date, game, location) and constructs the confirmation object.
+
+* *Confirmation Created → Notification Delivered*  
+  *Trigger:* Firestore successfully saves the notification and the UI real-time listener detects the update.
+
+== Overview
+
+This Statechart models the simplified lifecycle of event join confirmations within the event system.  
+The lifecycle begins in the *Idle* state, where no action has been taken. When the user selects *Next* or *Join Team*, the system transitions to *Join Initiated* and prepares all required event details. Once the confirmation is successfully written to the user's Firestore path (`User/<uid>/notifications`), the process enters *Confirmation Created*. Firestore’s real-time listeners then immediately update the interface, completing the transition to *Notification Delivered*.  
+
+By structuring the process in this way, the Statechart prevents invalid behaviors like displaying a notification before it exists and ensures that each confirmation follows a predictable, verifiable sequence, aligning with the lecture material’s emphasis on modeling lifecycle behavior using Statecharts.
+
+== State Descriptions
+
+=== Idle
+The baseline state where no join process is active. No confirmation message is being built or displayed.
+
+=== Join Initiated
+Entered only through user action.  
+The system gathers all relevant event details (date, time, game, location) and constructs the confirmation payload.
+
+=== Confirmation Created
+Represents the moment the confirmation is successfully persisted in Firestore.  
+This creates a durable record of user action, consistent with Statechart principles of modeling explicit lifecycle states.
+
+=== Notification Delivered
+Triggered by Firestore's real-time update.  
+The confirmation appears under the notification bell, and remains until the user reads or clears it.
+
+== Why This Ensures Correct Behavior
+
+* Prevents invalid ordering (for example: notification appearing before creation).
+* Ensures every join action generates a stored confirmation.
+* Removes ambiguity in asynchronous operations by tying transitions to explicit triggers.
+* Makes it simple to identify race conditions or missing lifecycle steps.
+* Follows Statechart best practices: modeling lifecycle behavior abstractly and predictably.

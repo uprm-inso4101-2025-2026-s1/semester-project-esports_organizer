@@ -1,0 +1,118 @@
+= Requirements Engineering & Requirements Facets for Esports Organizer
+Gabriel Rivera <gabriel@example.com>
+:toc:
+:toclevels: 2
+
+== 1. Overview
+This document defines the requirements of the *Esports Organizer Platform* using Requirements Engineering principles and the five RE facets.
+It clarifies what the system must do, the constraints it must follow, and the expectations of users and stakeholders.
+
+== 2. System Goals
+* Allow users to create, join, and manage esports events.
+* Provide player profiles with roles, games, and participation history.
+* Deliver reminders and event notifications reliably.
+* Enforce role-based permissions (Player, Organizer, Admin).
+
+== 3. Requirements by Facet
+
+=== 3.1 Functional Requirements (FR)
+|===
+|ID | Requirement | Description
+
+|FR1 | Users shall create events with title, game, date/time, and limits. | Supports event lifecycle.
+|FR2 | Users shall join existing events. | Participant management.
+|FR3 | The system shall store participated events in the user profile. | Visible in PlayerProfile.
+|FR4 | Users shall update their profile (bio, username, flag, games). | Profile editing.
+|FR5 | The system shall send reminders before event start. | Supports notification scheduling.
+|FR6 | The system shall notify participants when an event is edited or cancelled. | Ensures accuracy.
+|FR7 | The system shall display a user’s past and upcoming events. | Visibility feature.
+|FR8 | The system shall enforce permissions for editing profiles and events. | Security & roles.
+|===
+
+=== 3.2 Non-Functional Requirements (NFR)
+|===
+|ID | Requirement | Description
+|NFR1 | Notifications must be delivered no later than 1 minute after scheduled time. | Timeliness.
+|NFR2 | UI must load the profile page within 2 seconds on a typical connection. | Performance.
+|NFR3 | The system must prevent unauthorized edits. | Security.
+|NFR4 | User actions should be consistent across devices. | Usability & consistency.
+|===
+
+=== 3.3 Stakeholder Requirements
+|===
+|ID | Requirement | Stakeholder
+|SR1 | Players want to easily join events. | Player
+|SR2 | Organizers want clear event management workflows. | Organizer
+|SR3 | Admins require visibility and control over user accounts. | Admin
+|SR4 | Users want reliable notifications. | All
+|===
+
+=== 3.4 Environmental / Context Requirements
+|===
+|ID | Requirement | Description
+|ER1 | System relies on Firebase Firestore for data. | Persistence constraint.
+|ER2 | Authentication is performed via Firebase Auth or local credentials. | Environment constraint.
+|ER3 | Runs as a browser-based React application. | Execution environment.
+|===
+
+=== 3.5 Domain & Business Constraints
+|===
+|ID | Requirement | Description
+|DC1 | Event must have a valid date/time in the future. | Domain rule.
+|DC2 | Users may only have roles defined in the system’s role model. | Constraint.
+|DC3 | Reminder time depends on user preferences (offset). | Domain logic.
+|DC4 | A user cannot join an event beyond defined limits. | Business rule.
+|===
+
+== 4. Requirements Facet Classification Table
+|===
+|Requirement | Facet | Notes
+|Join Event | Functional | Uses Firestore & UI
+|Only Admins can delete profiles | Constraint | Role-based access
+|Event reminders must be timely | NFR | Timeliness/Correctness
+|Profile uses Firebase Auth | Environmental | Platform dependency
+|Show participated events | Functional | Profile integration
+|===
+
+== 5. Use Case: Join Event
+
+=== 5.1 Name
+Join Event
+
+=== 5.2 Primary Actor
+Player
+
+=== 5.3 Preconditions
+* User is authenticated.
+* Event exists and has available space.
+
+=== 5.4 Trigger
+User clicks **Join Event**.
+
+=== 5.5 Main Flow
+1. User requests to join.
+2. React client sends `POST /events/{id}/join`.
+3. Event Manager validates participation.
+4. The system adds user to event participants.
+5. User’s `participatedEvents` list is updated.
+6. If reminders are enabled → Scheduler schedules a reminder.
+7. System returns success.
+
+=== 5.6 Exceptions
+* Event full → Reject with message.
+* User already joined → No duplicate entry.
+* Event cancelled → Reject.
+
+=== 5.7 Postconditions
+* User is listed as a participant.
+* Reminder job exists in Notification Scheduler.
+
+== 6. Identified Gaps & Ambiguities
+* Permission enforcement currently occurs only on client; backend rules needed.
+* Notification reliability requirement not formally defined.
+* Event cancellation rules (timing, notification expectations) need refinement.
+* User preference model for reminders could require more structure.
+
+== 7. Summary
+This requirements document defines what the Esports Organizer must support and clarifies system behavior using the five RE facets.
+It serves as a foundation for improving architecture, implementation, and consistency across the platform.

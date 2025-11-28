@@ -1,0 +1,96 @@
+= Applying Domain Engineering Concepts to Account Recovery Implementation
+
+== Introduction
+
+This document connects the lecture "Domain Engineering and Domain Facets" with the practical implementation of the account recovery system. It focuses on identifying the domain stakeholder (user), defining entities and behaviors (emails, password, password resetting), and analyzing support technologies (Firebase and JavaScript).
+
+== Domain Concepts Mapping for Account Recovery
+
+|===
+| Domain Concept | Implementation Component (Account Recovery)
+
+| Entity
+| *User account* - Represents the identity and credentials of the user.
+*Security question* - Stored question/answer for account verification.
+*Password* - The user's authentication secret, to be reset.
+
+| Event
+| *Forgot password clicked* - User initiates recovery.
+*Account lookup performed* - System checks for account by email/username.
+*Security question presented* - System asks for answer.
+*Answer verified* - System checks answer.
+*Password reset form shown* - User enters new password.
+*Password updated* - System changes password.
+*Error shown* - System notifies user of issues (account not found, wrong answer).
+
+| Behavior
+| *Account recovery flow* -
+1. User clicks "Forgot Password" in the UI
+2. System asks for email or username
+	- If not found, error: "Account does not exist"
+	- If found, system asks security question
+3. User provides answer
+	- If incorrect, error and stop
+	- If correct, proceed
+4. User enters new password and confirms
+	- System checks both entries match and meet requirements
+5. If successful, password is changed and user is notified
+
+| Function
+| *confirmUser(inputemailOrUsername)* - Finds account by identifier.
+*getQuestion(inputemailOrUsername)* - Shows security question for account.
+*verifyAnswer(inputemailOrUsername, userAnswer)* - Checks answer validity.
+*resetPassword(inputemailOrUsername, newPassword)* - Updates password if all checks pass.
+
+| Rule / Regulation
+| *Password complexity requirements* - Minimum length, character types, etc.
+*Security question must be set* - Account must have a question/answer.
+*Answer must match stored value* - Only correct answer allows reset.
+*Password confirmation required* - New password must be entered twice and match.
+*Error handling* - User must be notified of any issues.
+
+| Support Technology
+| *Firebase Authentication* - User management and password update.
+*Firestore* - Stores user data, security questions, and answers.
+*JavaScript/React* - UI logic for recovery flow.
+|===
+
+== Stakeholder Identification
+
+=== Primary Stakeholder: User
+
+The main stakeholder in the account recovery domain is the ** user** who:
+
+* Has forgotten their password and needs account access restoration
+* Requires a fast and reliable account recovery process
+* Be able to securely reset their password without unauthorized access
+
+== Domain Analysis for Account Recovery
+
+=== Key Entities
+
+*User Account*::
+The core entity representing the user's identity and authentication credentials.
+
+*Security Question*::
+Security question asked to verify user identity during recovery.
+
+*Password*::
+The entity that secures access to the account, to be reset.
+
+=== Behavioral Flow
+
+The account recovery process follows this behavioral sequence:
+
+1. *Initiation*: User clicks on "Forgot Password" on the login page in the UI.
+2. *Account Lookup*: System asks for the email or username associated with the account.
+	- If the account does not exist, an error is shown: "Account does not exist."
+	- If the account exists, proceed to the next step.
+3. *Security Question*: System presents the security question set for that account.
+	- User must provide the correct answer.
+	- If the answer is incorrect, an error is shown and the user must try again.
+	- If the answer is correct, proceed to the next step.
+4. *Password Reset*: User is prompted to enter a new password and repeat it to confirm.
+	- System checks that both entries match and meet password requirements.
+5. *Completion*: If successful, the password is changed to the new one and the user is notified of the update.
+

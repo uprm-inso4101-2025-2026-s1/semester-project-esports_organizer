@@ -1,0 +1,111 @@
+= Identifying Carrier Sets and Operations for Core Esports Organizer Components
+Yasser Alonso Ruiz, November 26, 2025
+
+== Introduction
+This task applies the concepts on algebras in requirements engineering. The goal is to identify the carrier sets, operations, arity, and closure properties for two small components in the Esports Organizer system. This clarifies how each subsystem behaves, what elements it manipulates, and what transformations are valid within that subsystem.
+
+For this LTT, the selected components are:
+
+1. Teams  
+2. Notifications  
+
+These components were selected because they represent distinct system behaviors: one models group structure and membership, while the other models communication flow and event-triggered updates.
+
+== Diagram: Teams and Notifications Algebras
+The following diagram visually presents the algebraic structure of the Teams and Notifications components.  
+It shows:
+
+- The carrier set of each component  
+- The set of operations  
+- Arity  
+- Closure properties  
+
+image::Identifying-Carrier-Sets-and-Operations-for-Core-Esports-Organizer-Components.png[width=850,align=center]
+
+
+
+== Component 1: Teams Algebra
+
+=== Carrier Set
+The carrier set for Teams is:
+
+Team = { all team objects stored in Firestore }
+
+Each element in this set contains fields such as teamId, teamName, members, captainId, createdAt, and ranking or statistics.
+
+=== Operations
+
+==== addMember(team, player)
+Arity: binary  
+Description: Adds a player to the team's members list.  
+Closure: The output remains in Team.  
+addMember(team, player) -> Team
+
+==== removeMember(team, player)
+Arity: binary  
+Description: Removes a player from the team's members list.  
+Closure: The output remains in Team.  
+removeMember(team, player) -> Team
+
+==== changeCaptain(team, player)
+Arity: binary  
+Description: Updates the captainId field of the team.  
+Closure: The resulting structure remains part of Team.
+
+==== updateTeamName(team, newName)
+Arity: binary  
+Description: Updates the teamName field.  
+Closure: Output remains a Team element.
+
+=== Benefits of This Algebra
+Defining Teams as an algebra highlights important system invariants:
+
+- A team must always have a valid captain.  
+- All operations maintain a valid Team structure (closure).  
+- No operation produces malformed or incomplete team objects.
+
+This reduces ambiguity, prevents invalid team states, and clarifies the preconditions and postconditions needed for testing.
+
+== Component 2: Notifications Algebra
+
+=== Carrier Set
+The carrier set for Notifications is:
+
+Notification = { all notification objects delivered to users }
+
+Each notification includes notificationId, recipientUserId, type, message, isRead, and timestamp.
+
+=== Operations
+
+==== markRead(notification)
+Arity: unary  
+Description: Sets isRead to true.  
+Closure: The output remains an element of Notification.
+
+==== updateMessage(notification, newMessage)
+Arity: binary  
+Description: Updates the message text of the notification.  
+Closure: The output remains in Notification.
+
+==== retarget(notification, newRecipient)
+Arity: binary  
+Description: Assigns the notification to a different user.  
+Closure: Output stays inside Notification.
+
+==== transformType(notification, newType)
+Arity: binary  
+Description: Changes the notification type.  
+Closure: The resulting object remains a Notification.
+
+=== Benefits of This Algebra
+This algebraic approach reveals assumptions and prevents errors such as:
+
+- Incorrect deletion or modification of notifications when marked as read  
+- Producing notifications without required fields  
+- Targeting invalid or unauthorized recipients  
+
+Algebra clarifies valid state transitions and enforces structural consistency.
+
+== Summary
+By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.  
+This method strengthens the requirements model, exposes hidden assumptions, clarifies subsystem behavior, and supports correctness and maintainability across the Esports Organizer system.
