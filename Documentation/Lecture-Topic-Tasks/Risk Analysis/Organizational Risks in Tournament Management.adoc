@@ -24,7 +24,7 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 
 *Residual Risk:* Real-life disruptions may still cause unavoidable absences. Brackets must include buffer slots.
 
----
+'''
 
 ==== Risk 2 - Scheduling Ambiguity and Overlaps
 *Category:* Organizational / Operational
@@ -42,7 +42,7 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 
 *Residual Risk:* Delays may still occur if matches exceed expected duration.
 
----
+'''
 
 ==== Risk 3 - Miscommunication Between Organizers and Participants
 *Category:* Organizational / User-Behavior
