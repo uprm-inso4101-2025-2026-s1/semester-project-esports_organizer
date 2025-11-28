@@ -1,0 +1,79 @@
+= Feedback and Error Handling Analysis in User Interfaces for Esports Organizer
+Eliel Hernández González
+:toc: left
+:sectnums:
+
+== Introduction: Feedback & Error Handling in UI Design
+Feedback is a core component of usability. A well-designed interface must clearly communicate:
+
+* What just happened (confirmation)
+* What the system is doing (loading / progress)
+* What went wrong (errors)
+* What the user should do next (guidance)
+
+Effective feedback reduces confusion, supports learnability, and prevents repeated mistakes.  
+Poor feedback can increase user frustration and cognitive load.
+
+== Feedback and Error Handling Cases Analyzed
+This analysis focuses on three key scenarios within *Esports Organizer*:
+
+1. Login error messages
+2. Form submission feedback (e.g., tournament creation)
+3. Profile update confirmation
+
+== Analysis Tables
+
+.Login Error Messaging
+[cols="2,2,2,3", options="header"]
+|===
+| Scenario | System Response | Visibility / Clarity | Suggested Improvement
+
+| Incorrect email or password | Displays an error message below inputs | Visible, message highlights which field is incorrect | Add specific field highlighting and more informative copy ("Email not found" / "Password incorrect")
+| Empty fields submitted | Prevents submission | Users know which fields are required as they are marked with (*) | N/A
+|===
+
+.Tournament Creation – Form Submission
+[cols="2,2,2,3", options="header"]
+|===
+| Scenario | System Response | Visibility / Clarity | Suggested Improvement
+
+| User clicks "Save" without completing required fields | System blocks progression | Error messages correctly highlight required fields | N/A
+| Successfully entering tournament info | No visible confirmation: the user is taken to the next page immediately | Low visibility – user might wonder if changes were saved | Add brief confirmation banner ("Information saved ✓")
+|===
+
+.Profile Update – Editing Preferences
+[cols="2,2,2,3", options="header"]
+|===
+| Scenario | System Response | Visibility / Clarity | Suggested Improvement
+
+| User updates profile info | Success message after clicking "Done" | High, it's clear if preferences were stored | N/A
+| Changing color mode preference | UI updates instantly; clear visual feedback | High clarity | Add tooltip explaining theme persistence
+|===
+
+== Summary of Findings
+Across the evaluated interaction scenarios in *Esports Organizer*, several consistent patterns emerged regarding feedback and error handling:
+
+* Feedback is generally present and functional, but often minimal. Users sometimes receive just enough information to proceed, yet not enough to fully understand what happened.
+* Error messages tend to be correct but lack depth or specificity, especially in authentication flows, where distinguishing between similar errors (e.g., incorrect email vs. incorrect password) would reduce user confusion.
+* Success confirmation is inconsistent across the system. Some interactions (such as profile updates) provide clear success messages, while others (like tournament creation) advance to the next screen without confirming that data has been saved.
+* Preventive validation is strong, particularly in required fields, but positive reinforcement and progress acknowledgment are underutilized, which can leave users uncertain about completed actions.
+* Overall clarity is good, but opportunities exist to make system responses more explicit, immediate, and user-guiding, improving trust in the interface and reducing cognitive load.
+
+== Recommendations for Improvement
+
+=== Maintain Strong Error Highlighting (Already Good)
+* Login and tournament forms currently do a good job at highlighting incorrect or incomplete fields.
+* No immediate changes are required in error validation.
+
+=== Add Success Confirmation for Form Submissions
+* For flows like tournament creation, add a short confirmation banner or checkmark indicator after successful input:
+** "Information saved ✓"
+* This prevents uncertainty and increases the user's confidence in moving forward.
+
+=== Improve Preference Persistence Communication
+* Add a simple tooltip for the color mode toggle explaining persistence.
+* This reinforces user understanding of system behavior, especially for first-time users.
+
+=== Ensure Consistency Across All Feedback Types
+* Confirmation feedback is strong in profile updates but missing in tournament creation.
+* Standardizing success feedback ensures a smoother and more predictable UX across the platform.
