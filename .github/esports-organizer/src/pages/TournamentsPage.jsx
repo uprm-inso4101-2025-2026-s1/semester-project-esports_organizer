@@ -361,6 +361,16 @@ function TournamentsPage() {
     navigate("/create-event");
   };
 
+
+  // Helper to check if user's team is in event
+  function isTeamInEvent(event, userTeam) {
+    if (!userTeam || !event.teams) return false;
+    const is = event.teams.some(
+      team => (typeof team === "object" ? team.name : team) === btoa(userTeam.teamName)
+    );
+    return is
+  }
+
   // Components
 
   const RecommendedSection = () => (
@@ -377,6 +387,7 @@ function TournamentsPage() {
                 isSaved={savedCards.has(index)}
                 onToggleSaved={toggleSaved}
                 onJoinEvent={() => handleJoinEvent(tournament)}
+                isJoined={isTeamInEvent(tournament, userTeam)}
               />
               ))) : (
                 <p>No events found.</p>
@@ -402,6 +413,7 @@ function TournamentsPage() {
                 isSaved={savedCards.has(index)}
                 onToggleSaved={toggleSaved}
                 onJoinEvent={() => handleJoinEvent(tournament)}
+                isJoined={isTeamInEvent(tournament, userTeam)}
               />
               ))) : (
                 <p>No events found.</p>

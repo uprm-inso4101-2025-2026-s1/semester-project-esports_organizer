@@ -16,27 +16,18 @@ const MAPPING = {
 }
 
 function TournamentCard({
-  tournament, 
-  index, 
-  prefix = "", 
-  isSaved, 
-  onJoinEvent,
-  userTeam
-}) {
-  const navigate = useNavigate();
+    tournament, 
+    index, 
+    prefix = "", 
+    isSaved, 
+    onJoinEvent,
+    isJoined
+  }) {
+    const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
-
-  // Check if user's team has already joined this event
-  // let hasTeamJoined = false;
-  const [hasTeamJoined, setTeamJoined] = useState(false);
-  useEffect(() => {
-    setTeamJoined(userTeam && tournament.teams && 
-      tournament.teams.some(eventTeam => eventTeam == userTeam.id)
-    );
-  }, [userTeam, tournament]);
+    const handleNavigation = (path) => {
+      navigate(path);
+    };
 
   return (
     <div className="tournament-card">
@@ -81,16 +72,16 @@ function TournamentCard({
         <div className="tournament-actions">
           <button 
             type="button"
-            className={`join-event-button ${hasTeamJoined ? 'joined' : ''}`}
-            onClick={hasTeamJoined ? undefined : () => onJoinEvent(tournament)}
-            disabled={hasTeamJoined}
+            className={`join-event-button ${isJoined ? 'joined' : ''}`}
+            onClick={isJoined ? undefined : () => onJoinEvent(tournament)}
+            disabled={isJoined}
             style={{
-              background: hasTeamJoined ? '#666' : '',
-              cursor: hasTeamJoined ? 'default' : 'pointer',
-              opacity: hasTeamJoined ? 0.7 : 1
+              background: isJoined ? '#aaa' : '',
+              cursor: isJoined ? 'not-allowed' : 'pointer',
+              opacity: isJoined ? 0.7 : 1
             }}
           >
-            {hasTeamJoined ? 'Joined!' : 'Join Event'}
+            {isJoined ? 'Event Joined' : 'Join Event'}
           </button>
           <button 
             type="button"

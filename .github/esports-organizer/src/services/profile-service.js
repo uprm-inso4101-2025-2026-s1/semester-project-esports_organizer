@@ -284,61 +284,6 @@ export async function removeEventFromUserProfile(uid, eventId) {
     }
 }
 
-
-/**
- * Join a team by setting the user's teamId
- * @param {string} teamId - Team ID to join
- * @returns {Promise<Object>} Result object with success status
- */
-export async function joinTeam(teamId, force = false) {
-  const uid = localStorage.getItem("currentUserUid");
-  if (!uid || !teamId) {
-    return { success: false, error: "User ID and team ID are required." };
-  }
-  const ref = doc(db, 'User', uid);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) {
-    return { success: false, error: "Profile not found." };
-  }
-  const currentData = snap.data();
-  if (currentData.teamId && currentData.teamId !== teamId && !force) {
-    // User is already in a team, require confirmation
-    return {
-      success: false,
-      confirm: true,
-      message: `You are already in a team (${atob(currentData.teamId)}). Are you sure you wanna change?`,
-      currentTeamId: currentData.teamId
-    };
-  }
-  await updateDoc(ref, {
-    teamId,
-    updatedAt: serverTimestamp()
-  });
-  return { success: true, message: "Joined team successfully.", teamId };
-}
-
-/**
- * Leave the current team by setting teamId to null
- * @returns {Promise<Object>} Result object with success status
- */
-export async function leaveTeam() {
-  const uid = localStorage.getItem("currentUserUid");
-  if (!uid) {
-    return { success: false, error: "User ID is required." };
-  }
-  const ref = doc(db, 'User', uid);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) {
-    return { success: false, error: "Profile not found." };
-  }
-  await updateDoc(ref, {
-    teamId: null,
-    updatedAt: serverTimestamp()
-  });
-  return { success: true, message: "Left team successfully." };
-}
-
-
 /**
  * Join a team by setting the user's teamId
  * @param {string} teamId - Team ID to join
