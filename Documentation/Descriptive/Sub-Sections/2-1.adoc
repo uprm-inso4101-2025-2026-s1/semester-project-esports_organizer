@@ -87,8 +87,9 @@ This diagram illustrates the flow of the result report creation process.#
 - **Purple diamonds** represent questions (Is the data empty?, Are there more teams to import.).
 - **Arrows** indicate the flow of interactions.
 
-- [.hl-green]#*Tournament Data*: Data on the tournamnets, final standing, KDA etc. used to create the final ranking list.
-- *Ranking array*: Final ranking list. every team is placed on the order of where they finished on the ladder.#
+- [.hl-green]#*Tournament Data*: Data on the tournamnets, final standing, KDA etc. used to create the final ranking list.#
+
+- [.hl-green]#*Ranking array*: Final ranking list. every team is placed on the order of where they finished on the ladder.#
 
 - [.hl-yellow]#Match: A competitive encounter between two teams within a tournament, whose outcome contributes to bracket progress, standings, or ranking calculations.#  
 
@@ -189,35 +190,34 @@ Figure 2.1.4 - Example check in flow
 [.hl-green]#This Petri net model represents the complete player check-in flow within the Esports Organizer system. 
 The goal is to clearly illustrate how a player progresses through the system before a match begins, 
 how delays or no-shows are handled, and how different transitions alter a player's state. 
-Using a token-based representation makes the flow intuitive and highlights how the system behaves under different scenarios.
+Using a token-based representation makes the flow intuitive and highlights how the system behaves under different scenarios.#
 
-The model begins with the player in the *Waiting for Check-In* state. 
+[.hl-green]#The model begins with the player in the *Waiting for Check-In* state. 
 A token is placed in this initial place to represent one player who has not yet interacted with the check-in system. 
 When the player arrives and performs the check-in action, the transition *Player Arrives* fires, 
-moving the token into the *Checked-In* state. This represents the user pressing the "Check-In" button in the interface.
+moving the token into the *Checked-In* state. This represents the user pressing the "Check-In" button in the interface.#
 
-Once the player is in *Checked-In*, they must confirm readiness before the match can begin. 
+[.hl-green]#Once the player is in *Checked-In*, they must confirm readiness before the match can begin. 
 When the confirmation occurs, the *Confirm Ready* transition fires, moving the token to the *Ready for Match* state. 
-This indicates that the player has completed pre-match requirements. In the real system, this corresponds to backend logic updating the player's ready status.
+This indicates that the player has completed pre-match requirements. In the real system, this corresponds to backend logic updating the player's ready status.#
 
-If the player does not check in within the allowed time, the *Timeout Occurs* transition fires, 
+[.hl-green]#If the player does not check in within the allowed time, the *Timeout Occurs* transition fires, 
 sending the token from *Waiting for Check-In* to *No-Show*. 
 This is triggered by a countdown or scheduled function. 
-Admins may also manually flag a player absent using the *Mark as No-Show* transition, moving the token from *Checked-In* to *No-Show*.
+Admins may also manually flag a player absent using the *Mark as No-Show* transition, moving the token from *Checked-In* to *No-Show*.#
 
-These transitions illustrate how the system handles normal and exceptional flow paths. 
+[.hl-green]#These transitions illustrate how the system handles normal and exceptional flow paths. 
 The model ensures that all possible outcomes are explicitly defined—arriving on time, confirming readiness, failing to check in, or being manually marked absent.#
 
-Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
+[.hl-green]#Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.#
 
-Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.
+[.hl-green]#Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.#
 
 == 2.1.7 
 = Identifying Carrier Sets and Operations for Core Esports Organizer Components
-Yasser Alonso Ruiz, November 26, 2025
 
 == Introduction
-[.hl-green]#This task applies the concepts on algebras in requirements engineering. The goal is to identify the carrier sets, operations, arity, and closure properties for two small components in the Esports Organizer system. This clarifies how each subsystem behaves, what elements it manipulates, and what transformations are valid within that subsystem.3
+[.hl-green]#This task applies the concepts on algebras in requirements engineering. The goal is to identify the carrier sets, operations, arity, and closure properties for two small components in the Esports Organizer system. This clarifies how each subsystem behaves, what elements it manipulates, and what transformations are valid within that subsystem.#
 
 [.hl-green]#For this LTT, the selected components are:#
 
@@ -324,7 +324,7 @@ Closure: The resulting object remains a Notification.#
 [.hl-green]#By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.  
 This method strengthens the requirements model, exposes hidden assumptions, clarifies subsystem behavior, and supports correctness and maintainability across the Esports Organizer system.#
 
-== 2.1.8*Database Algebras*
+== 2.1.8 Database Algebras
 
 *Events:*
 [.hl-green]#For events in the esports organizer the following algebra can be used to describe the processes that are applied to them in the database.#
@@ -336,7 +336,7 @@ This method strengthens the requirements model, exposes hidden assumptions, clar
 
 [.hl-green]#*E* : Represents the set of events.#
 
-*N* : Represents the set of events with the addition of a null element, which can be described as _N = E U {none}_.
+[.hl-green]#*N* : Represents the set of events with the addition of a null element, which can be described as _N = E U {none}_.#
 
 *B* : Represents the set of Boolean values _{true, false}_.
 
