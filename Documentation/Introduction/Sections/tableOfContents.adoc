@@ -25,6 +25,8 @@
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.4 Expanded Narrative# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.5 Unified Domain Concepts and Operations# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.6 Function Signatures (Grouped with Actions)# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.7 Identifying Carrier Sets and Operations for Core# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.1.8 Database Algebras# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#2.2 Requirements# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.2.1 User Stories, Epics, Features# +
 {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#2.2.2 Personas# +
@@ -37,13 +39,18 @@
 [.hl-green]#*3 Analytic Part*# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#3.1 Concept Analysis# +
 {nbsp}{nbsp}{nbsp} [.hl-green]#3.2 Validation and Verification# +
-{nbsp} +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#3.2.1 Narrative Assessment of Organizational Risks in Tournament Management# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#3.2.2 Risk Tree and Analysis for Team Creation# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#3.2.3 Risk Analysis Tree for Tournaments# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#3.2.4 Risk Tree and Analysis for Admin Banning User Permission# +
+{nbsp}{nbsp}{nbsp} [.hl-green]#3.3 Validation and Verification# +
+{nbsp}{nbsp}{nbsp} [.hl-green]#3.4 Checking relevant properties through TLA+# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#3.4.1 TLA+ Model for Core Database Operations# +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} [.hl-green]#3.4.2 TLA+ Model for Dynamic Match Progression# +
 
-[.hl-green]#*i. Application of Topics*# +
-{nbsp} +
 
-[.hl-green]#*ii. Generative AI Use Disclosure Statement*# +
-{nbsp} +
+[.hl-red]#*i. Application of Topics*# +
 
-[.hl-green]#*iii. LogBook*#
-{nbsp} +
+[.hl-green]#*i. Generative AI Use Disclosure Statement*# +
+
+[.hl-green]#*ii. LogBook*#

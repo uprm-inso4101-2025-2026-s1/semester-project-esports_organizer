@@ -1,0 +1,100 @@
+= Time Management & Scheduling: Managerial Evaluation of Milestone Planning Effectiveness (Final Milestone)
+:author: Wilson A. Morales
+
+== Introduction
+
+This evaluation analyzes how our project’s time management, scheduling, and resource allocation aligned with I2PSP principles during the *entire semester*, with emphasis on the planning and execution observed up to the final milestone. Since we are now in the last milestone, the focus is on assessing patterns that persisted throughout the project rather than planning for another cycle.
+
+The I2PSP framework highlights early task definition, balanced scheduling, workload distribution, tracking habits, and risk anticipation. This document reflects on how effectively these principles were applied and what managerial actions would have strengthened our planning earlier in the project.
+
+== Assessment of Current Practices
+
+=== Alignment of Tasks With Milestone Goals
+
+Across the milestones, most tasks eventually aligned with the established goals, but this alignment often required clarification, revision, and follow-up discussions. Earlier milestones demonstrated a recurring pattern:
+
+- tasks being created after the milestone had already begun,
+- tasks lacking full descriptions or clear “done” criteria,
+- developers needing multiple iterations before tasks were ready for assignment.
+
+These issues decreased over time, but even in the final milestone, some tasks required refinement after creation. According to I2PSP, much of this should have happened *before* execution started, suggesting that earlier adherence to pre-milestone planning would have improved pacing and predictability.
+
+=== Bottlenecks Observed
+
+Throughout the project, several scheduling and planning bottlenecks appeared consistently.
+
+==== 1. Late Task Creation
+This was the most persistent issue across milestones. When tasks were not created or refined before the milestone start, managers could not perform early estimation or workload distribution. This reduced our ability to follow I2PSP’s ideal planning cycle and increased pressure toward milestone deadlines.
+
+==== 2. Uneven Developer Workload
+Throughout the semester, some developers tended to accumulate more tasks while others had fewer responsibilities. This imbalance often came from:
+
+- unclear sizing of tasks at the moment of creation,
+- different pacing comfort levels among developers,
+- people picking tasks opportunistically rather than by planned distribution.
+
+Although the team improved somewhat during later milestones, complete balance was never fully achieved.
+
+==== 3. Blocked Tasks Due to Dependencies
+Tasks dependent on other teams, especially documentation-dependent or requirement-dependent tasks, frequently stalled progress. In several cases, developers could not continue because information from other groups arrived later than expected.
+
+These blocked states created scheduling risk that could not always be resolved quickly, especially in earlier milestones.
+
+==== 4. Reprioritization and Scope Adjustments
+Several tasks shifted in priority mid-milestone when new requirements emerged or misunderstandings surfaced. This indicated incomplete early planning or insufficient definition of milestone scope. While some reprioritization is inevitable, a more disciplined freeze period would have reduced this turbulence.
+
+=== Scheduling Risk Evaluation
+
+Across milestones, the following risks were consistently present:
+
+- the risk of working heavily during the end of milestones rather than distributing effort evenly,
+- the risk that tasks would be rejected for missing information,
+- the risk that developers would not perform work in both halves of the milestone,
+- the risk of unexpected dependencies delaying other teams.
+
+These represent classical I2PSP scheduling risks that should have been anticipated and mitigated earlier.
+
+== Improvement Reflections (Final Milestone Perspective)
+
+Because this is the last milestone, the focus is on what *should have been done earlier* to improve planning throughout the project, and what is still relevant now for finishing strong.
+
+=== 1. The Project Should Have Front-Loaded Task Creation Earlier
+Had tasks been consistently created with full descriptions before each milestone began, the project would have avoided much of the early-cycle churn. In the final milestone, we benefited from more experienced developers and a clearer structure, but earlier milestones suffered from unclear task descriptions and insufficient pre-planning.
+
+=== 2. Earlier Emphasis on Workload Balancing
+A more deliberate workload balancing strategy based on task complexity, not developer preference would have smoothed pacing throughout the semester. Team leads and managers could have introduced effort estimates earlier, allowing for more predictable scheduling.
+
+Even in the final milestone, some imbalance continues, although at a smaller scale.
+
+=== 3. Dependency Mapping Should Have Been Adopted in Milestone 1
+Many delays across the semester occurred because teams relied on documentation, design clarification, or review cycles from other teams. A simple dependency map in Milestone 1 would have created clearer visibility and reduced later blockages.
+
+This is less of a problem now because the final milestone focuses more on completing, polishing, and documenting work.
+
+=== 4. Communication Improvements Should Have Been Standardized Sooner
+While the team eventually built good communication habits, earlier milestones would have benefited from:
+
+- standardized weekly status formats,
+- explicit deadlines for clarifications and review,
+- more consistent use of GitHub discussions for transparent planning.
+
+These improvements strengthened the final milestone, but would have been even more impactful earlier.
+
+== Communication and Tracking (Final Milestone Context)
+
+Since we are in the last milestone, communication now serves to:
+
+- reduce last-minute misunderstandings,
+- ensure all documentation is aligned and complete,
+- finalize the remaining tasks with clarity,
+- prevent duplicated work or missing sections.
+
+Tracking is now focused on closure rather than long-term pacing, but I2PSP principles still apply: transparency, accountability, and clear time expectations are essential for finishing the project cleanly.
+
+== Conclusion
+
+Viewed through the lens of I2PSP principles, the project’s time management and scheduling showed improvement over the semester but would have benefited from earlier adoption of consistent planning habits. Late task creation, uneven workload, and dependency delays were recurring issues that shaped how milestones progressed.
+
+In this final milestone, the team is performing more predictably and with stronger communication, but this stability grew from lessons learned throughout the project rather than early adherence to I2PSP. If these practices had been established sooner, earlier milestones would have experienced less friction and more balanced execution.
+
+This evaluation reflects the complete arc of the project and highlights the managerial insights gained for future team-based software engineering work.

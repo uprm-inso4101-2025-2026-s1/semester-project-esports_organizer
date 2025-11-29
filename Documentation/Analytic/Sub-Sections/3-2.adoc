@@ -1,27 +1,321 @@
-=== 3.2 Validation and Verification
+[#sec-3-2,role="hl-green"]
+== 3.2 Risk Analysis
 
-Validation determines whether stakeholders agree with our understanding of the esports domain as we have documented it.
+=== 3.2.1  Narrative Assessment of Organizational Risks in Tournament Management
 
-**Domain Concept Validation:**
+==== Introduction
 
-Present our identified concepts to stakeholders and ask for their agreement:
+Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.
 
-- Present our concept of *Gaming Community* as "groups of players who compete in specific games within geographic regions" to community members and verify this reflects their experience
-- Share our understanding of *Local Competitive Scene* as "geographically-bounded communities where players can feasibly attend in-person events" with tournament organizers and participants
+Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.
 
-**Domain Understanding Validation:**
+==== Risk Identification and Classification
 
-Present our domain analysis directly to stakeholders:
+==== Risk 1 - Team No-Shows or Late Arrivals
+[.hl-green]#*Category:* Organizational / User-Behavior#
+[.hl-green]#*Description:* Teams frequently arrive late or fail to show for scheduled matches, delaying the bracket and forcing last-minute adjustments.#
 
-- Share our understanding that tournaments contain structured match progressions organized in brackets, and verify this reflects how competitive events actually operate
-- Show our understanding that competition results and player rankings currently exist in fragmented form across different platforms, and ask stakeholders if this characterizes their current situation
+[.hl-green]#*Likelihood:* Moderate#
+[.hl-green]#*Impact:* High (significant schedule disruption)#
 
-**Terminology Validation:**
+[.hl-green]#*Mitigation Strategies:*#
 
-Present our terminology definitions to stakeholders and ask for confirmation:
+- Mandatory pre-match check-in window (e.g., 10 minutes prior).
+- Automated reminders to team captains.
+- Clear penalty structure for repeated no-shows.
 
-- Confirm that our definition of *Match* as individual competitions within tournaments aligns with how stakeholders use this term
-- Check that our concept boundaries between different domain entities match stakeholder understanding
+*Residual Risk:* Real-life disruptions may still cause unavoidable absences. Brackets must include buffer slots.
+
+'''
+
+==== Risk 2 - Scheduling Ambiguity and Overlaps
+[.hl-green]#*Category:* Organizational / Operational#
+
+*Description:* Two matches may be assigned to the same team simultaneously, or teams may not receive schedule updates in time.
+
+*Likelihood:* Moderate
+*Impact:* Severe (cascading delays, bracket instability)
+
+*Mitigation Strategies:*
+
+[.hl-green]#- Centralized real-time schedule visible to all participants.
+- Manager-level verification before approving schedule adjustments.
+- Built-in buffer time between rounds.#
+
+[.hl-green]#*Residual Risk:* Delays may still occur if matches exceed expected duration.#
+
+'''
+
+==== Risk 3 - Miscommunication Between Organizers and Participants
+[.hl-green]#*Category:* Organizational / User-Behavior#
+
+[.hl-green]#*Description:* Rules, bracket formats, or procedures may be misunderstood due to inconsistent or unclear communication.#
+
+[.hl-green]#*Likelihood:* High#
+[.hl-green]#*Impact:* Moderate (disputes, delays, repeated clarifications)#
+
+[.hl-green]#*Mitigation Strategies:*#
+
+- Single official communication channel (Tournament Dashboard).
+- Rules overview and FAQ sections visible during registration.
+- Consistent announcements enforced by managers.
+
+[.hl-green]#*Residual Risk:* Some users may still ignore updates or fail to read instructions.#
+
+'''
+
+==== Risk 4 - Administrative Overload and Decision Bottlenecks
+[.hl-green]#*Category:* Organizational#
+
+[.hl-green]#*Description:* Organizers may face simultaneous inquiries, appeals, and administrative tasks during peak periods.#
+
+[.hl-green]#*Likelihood:* High#
+[.hl-green]#*Impact:* High (slower decisions, increased errors)#
+
+*Mitigation Strategies:*
+
+- Clear role assignment: appeals, check-ins, rule enforcement.
+- Escalation paths involving team leads and managers.
+- Standardized decision rubrics.
+
+[.hl-green]#*Residual Risk:* Peak-time volume may exceed staff capacity in large tournaments.#
+
+'''
+
+==== Qualitative Summary Table
+
+[options="header"]
+|===
+| Risk | Category | Likelihood | Impact
+| Team no-shows | Organizational / User | Moderate | High
+| Scheduling ambiguity | Operational | Moderate | Severe
+| Miscommunication | Organizational | High | Moderate
+| Administrative overload | Organizational | High | High
+|===
+
+==== Mitigation Philosophy
+
+[.hl-green]#The Risk Analysis lecture emphasizes *early identification, classification, and mitigation*. In tournament management this means:#
+
+- establishing communication systems that prevent ambiguity,
+- improving organizational processes to minimize bottlenecks,
+- designing escalation policies to maintain fairness,
+- planning buffers and fallback procedures for inevitable disruptions.
+
+[.hl-green]#This document directly applies the lecture topic by converting theoretical principles into practical risks and controls specific to the Esports Organizer project.#
+
+==== Residual Risk Discussion
+
+[.hl-green]#Even with strong mitigation strategies, tournament environments retain inherent unpredictability. Residual risks include:#
+
+- last-minute team absences,
+- communication oversights,
+- workload spikes during peak hours,
+- disputes arising from edge cases not covered in documentation,
+- user behavior influenced by competitive pressure.
+
+[.hl-green]#Residual risk requires ongoing monitoring, real-time adjustment, and post-event retrospectives.#
+
+==== Conclusion
+
+[.hl-green]#Non-technical risks in tournament management are often more disruptive than technical ones due to their human and procedural nature. By identifying, classifying, and mitigating these risks and aligning with the organizational roles and communication expectations defined for the project, this analysis strengthens the reliability and fairness of the Esports Organizer's tournament module.#
+
+=== 3.2.2 Risk Tree and Analysis for Team Creation
+
+==== Introduction
+[.hl-green]#This section presents a risk analysis for the *Team Creation* subsystem within the Esports Organizer Manager platform.#
+[.hl-green]#Team creation is essential for organizing group-based tournaments, assigning captains, managing rosters, and ensuring the integrity of competitive structures.#
+[.hl-green]#Failures in this subsystem can lead to inconsistent teams, broken tournament logic, or players being assigned to invalid or duplicated team states.#
+
+[.hl-green]#This risk analysis decomposes potential failures into structured branches and identifies where inconsistencies, validation errors, backend–frontend mismatches, or documentation gaps might corrupt the team creation process.#
+
+==== Purpose of the Analysis
+The purpose of this analysis is to:
+
+* Identify the **top event** leading to team creation failure.
+* Break it down into clear risk branches using a fault-tree model.
+* Connect the failure modes to inconsistencies across documentation, API behavior, UX, and data models.
+* Provide mitigation strategies and non-functional considerations.
+* Support future formal verification or consistency-checking tasks.
+
+This analysis focuses on *how a valid team fails to be created or becomes inconsistent*, not the general management of teams.
+
+==== Top Event: Team Creation Failure
+
+❌ *Team Creation Failure*  
+[.hl-green]#A failure occurs when the system creates an invalid team, fails to create a team, or produces inconsistent data that breaks tournament logic.#
+
+Examples include:
+
+* Team created without a captain  
+* Duplicate team names  
+* A user assigned to multiple teams simultaneously  
+* Team created with missing or corrupted fields  
+* UI indicates successful team creation but backend fails  
+* Conflicting team size limits across modules
+
+==== Risk Tree Diagram
+
+[%center]
+image::Analytic/Sub-Sections/RiskAnalysisTeams.png[width=90%,opts=center]
+
+==== Risk Tree Structure and Branches
+
+[.hl-green]#The following sections detail the major risk branches contributing to Team Creation Failure.#
+
+==== 1. Validation & Constraint Risks (T1–T3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| T1 | Team created without required fields| Incomplete or unusable team records
+| T2 | Team size validation missing or incorrect | Teams with too many or too few members
+| T3 | Duplicate team names not prevented | Conflicting team identities in tournaments
+|===
+
+Mitigation strategies:
+
+* Enforce server-side validation of all required fields.
+* Apply unique constraints on team names.
+* Add UI-level validation to prevent incomplete form submissions.
+
+==== 2. Frontend–Backend Inconsistency Risks (F1–F3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| F1 | Mismatched field names or missing request data | Backend receives incomplete team data
+| F2 | UI indicates success but backend rejects creation | Users believe team exists when it does not
+| F3 | Team creation logic differs between frontend and API docs | Conflicting expectations when creating teams
+|===
+
+Mitigation strategies:
+
+* Synchronize API schemas through OpenAPI.
+* Require documentation updates for all team-related changes.
+* Add design-time and runtime request/response validation.
+
+==== 3. Member Management Risks (V1–V3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| V1 | User added to multiple teams simultaneously | Invalid tournament participation
+| V2 | Captain role not properly updated or validated | Teams created without leadership structure
+| V3 | Member removal/addition race conditions | Corrupted or duplicated roster entries
+|===
+
+Mitigation strategies:
+
+* Enforce membership exclusivity rules.
+* Validate captain assignment at both UI and backend layers.
+* Use database transactions when updating rosters.
+
+==== 4. Communication & Documentation Risks (C1–C3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| C1 | Unclear definitions of “team,” “captain,” or “member” | Incorrect assumptions by developers
+| C2 | Team size or eligibility rules not documented | Inconsistent enforcement across modules
+| C3 | Incomplete documentation on team update workflows | Incorrect implementation of roster operations
+|===
+
+Mitigation strategies:
+
+* Maintain a glossary for all team-related terminology.
+* Document constraints (size, eligibility, roles) in the wiki.
+* Track inconsistencies in the `#inconsistencies_channel`.
+
+==== 5. Data Integrity & Storage Risks (D1–D3)
+
+[cols="1,3,3", options="header"]
+|===
+| Risk ID | Description | Example Consequence
+
+| D1 | Partial team data saved due to interrupted request | Broken team records
+| D2 | No unique constraints on team IDs or captain IDs | Duplicate or corrupted relationships
+| D3 | Outdated or cached team data overwritten | Loss of valid roster info
+|===
+
+Mitigation strategies:
+
+* Ensure atomic DB operations for team creation and updates.
+* Add unique and foreign-key constraints on team and user tables.
+* Use versioned updates or optimistic locking.
+
+==== Link to Lecture Topic Task: Identifying Inconsistencies
+
+Many risks originate from inconsistencies such as:
+
+* Terminological clashes: C1
+* Structural mismatches: F1, D1
+* Behavioral inconsistencies: F2, V1
+* Process/documentation issues: C2, C3
+
+[.hl-green]#This risk analysis supports the Identifying Inconsistencies task by showing exactly how mismatches propagate into invalid team states.#
+
+==== Conclusion
+
+[.hl-green]#This risk analysis shows how *Team Creation Failure* can arise from validation errors, inconsistent cross-component communication, incorrect member management, or weak data integrity rules.
+By identifying these risks and applying mitigation strategies, the Esports Organizer Manager improves the reliability of its team management and ensures consistent tournament operations.#
+
+=== 3.2.3 Risk Analysis Tree for Tournaments
+
+---
+
+==== Introduction
+[.hl-green]#Risk Trees help identify the potential errors or failure points a program might encounter. By breaking down risks into smaller, traceable causes, they allow testers to design more targeted and efficient test cases. This structured view not only improves test coverage but also helps developers anticipate where bugs, crashes, or unexpected behaviors are most likely to occur during execution.#
+
+
+image::Analytic/Sub-Sections/Risk-Analysis-Tree-For-Tournament.png[800, 600]
+[.text-center]
+Tournament Risk Analysis Tree
+
+==== Analysis
+
+[.hl-green]#Tournaments system can fail in some ways that could be fatal to the product. The first thing that could disrupt the process of tournaments would be the Time display not being correct. This could cause players to miss matches or lose time. This could happen because of a manual input error caused by the manager, but it could also be because the time logic in the system is not updated and database not provide the correct information for the program. 
+Another issue that could interfere with a tournament would be Brackets not updating or failing. This could be caused by Incorrect bracket logic which would mean that brackets do not show up how they are supposed to. There could be a Sync delay within the tournaments causing brackets to show incorrect or incomplete information to a user. Database not responding correctly could also damage the integrity of the brackets since nothing would appear to a user causing a disruption to the process of tournaments in the program.
+Overall, these risks emphasize the importance of reliable database connectivity and well-designed system logic. By addressing these potential failures, developers and testers can ensure that tournaments run smoothly and maintain their integrity.#
+
+=== 3.2.4 Risk Tree and Analysis for Admin Banning User Permission
+
+image::Analytic/Sub-Sections/AdminBanningPermissionRiskTree.png[align=center]
+[.text-center]
+Admin Banning Permission Risk Tree
+
+[.hl-green]#This risk tree outlines the potential risks associated with granting the Admin role the permission to ban users. At the top the risk of such permission to an admin can have the risk of 2 things. It could take a permission misconfiguration route on where if not coded well this could lead to the action or permission of banning a user could be used by anyone since it never verified well if the user doing this action is really an admin which lead to a huge permission breach where anyone can just ban whoever they want. The other route is that even if the permission is well coded and verified, there is still a big risk that a rogue admin can be power hungry and ban users for no reason and because they wanted to at any time or any place, which this leads to user dissatisfaction due to the unfair banning of users because nobody likes to be banned for no reason.#
+
+[.hl-green]#To avoid such risks, it is important to implement strict permission checks in the code to ensure that only users with the Admin role can execute the ban user action. Additionally, having some sort alternative to trust users that want to be admins and giving them the role only if they are trusted enough to not abuse their power can help mitigate the risk of rogue admins banning users unfairly.#
+
+=== 3.3 Validation and Verification
+
+[.hl-green]#Validation determines whether stakeholders agree with our understanding of the esports domain as we have documented it.#
+
+[.hl-green]#**Domain Concept Validation:**#
+
+[.hl-green]#Present our identified concepts to stakeholders and ask for their agreement:#
+
+* [.hl-green]#Present our concept of *Gaming Community* as "groups of players who compete in specific games within geographic regions" to community members and verify this reflects their experience#
+* [.hl-green]#Share our understanding of *Local Competitive Scene* as "geographically-bounded communities where players can feasibly attend in-person events" with tournament organizers and participants#
+
+[.hl-green]#**Domain Understanding Validation:**#
+
+[.hl-green]#Present our domain analysis directly to stakeholders:#
+
+* [.hl-green]#Share our understanding that tournaments contain structured match progressions organized in brackets, and verify this reflects how competitive events actually operate#
+* [.hl-green]#Show our understanding that competition results and player rankings currently exist in fragmented form across different platforms, and ask stakeholders if this characterizes their current situation#
+
+[.hl-green]#**Terminology Validation:**#
+
+[.hl-green]#Present our terminology definitions to stakeholders and ask for confirmation:#
+
+* [.hl-green]#Confirm that our definition of *Match* as individual competitions within tournaments aligns with how stakeholders use this term#
+* [.hl-green]#Check that our concept boundaries between different domain entities match stakeholder understanding#
 
 ==== Verification Strategy
 
@@ -51,14 +345,89 @@ Present our terminology definitions to stakeholders and ask for confirmation:
 
 *Validation Success Indicators:*
 
-- Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate
-- Stakeholders agree with our concept definitions and the relationships we've identified between domain entities
-- When stakeholders suggest modifications, they represent refinements rather than fundamental misunderstandings of the domain
+* [.hl-green]#Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate#
+* [.hl-green]#Stakeholders agree with our concept definitions and the relationships we've identified between domain entities#
+* [.hl-green]#When stakeholders suggest modifications, they represent refinements rather than fundamental misunderstandings of the domain#
 
-*Verification Success Indicators:*
+[.hl-green]#*Verification Success Indicators:*#
 
-- All cross-references between project documents are accurate and consistent
-- Domain concepts are used consistently across all development phases
-- Requirements properly trace to domain properties without gaps or contradictions
-- Software architecture adequately addresses all specified requirements without conflicts
-- [.hl-green]#Each requirement maps to at least one test case of the appropriate type(s)#
+* [.hl-green]#All cross-references between project documents are accurate and consistent#
+* [.hl-green]#Domain concepts are used consistently across all development phases#
+* [.hl-green]#Requirements properly trace to domain properties without gaps or contradictions#
+* [.hl-green]#Software architecture adequately addresses all specified requirements without conflicts#
+* [.hl-green]#Each requirement maps to at least one test case of the appropriate type(s)#
+
+== 3.4 Checking relevant properties through TLA+
+=== 3.4.1 TLA+ Model for Core Database Operations
+
+==== Acceptance Criteria
+
+* [.hl-green]#TLA+ model checking successfully generated 327 states with 85 distinct states found. It managed complete state space exploration within defined constraints, and no safety property violations were detected. Execution was also completed in under a second. Insight into core operations is detailed below.#
+
+==== Findings Report
+
+* [.hl-green]#After establishing basic functions like `CreateEvent`, `RemoveParticipant`, and `AddParticipant`, I moved onto `ToggleEventFinished`. The logic behind this function was to create an invariant that does not allow events to be toggled as finished if there are active participants in that event. When I went to revise the database logic, I realized there is no specific implementation for event lifecycle management.#
+* [.hl-green]#In `Events.js`, the current boolean property `finished` currently acts only as a placeholder for event status. There is no specific method designed for safe event status toggling.#
+
+==== Solution
+
+* [.hl-green]#The Event class in the database code lacks a method to safely toggle the finished status with proper validation. It includes methods like addParticipant() and removeParticipant(), but no method to safely toggle the finished status while checking if participants exist.#
+* [.hl-green]#Implement a method to the event class to safely toggle event status while ensuring there are no active users within it.#
+* [.hl-green]#Doing so would prevent both incomplete event management and poor user experience.#
+
+
+image::Analytic/Sub-Sections/TLA+1.png[align=center]
+[.text-center]
+TLA+ Model Checking Results
+
+=== 3.4.2 TLA+ Model for Dynamic Match Progression
+==== Overview
+[.hl-green]#TLA+ specification for analyzing tournament bracket progression logic based on the implementations from `MatchProgression.js`, `ResultReport.js`, and `BracketsTournamentPage.jsx`.#
+
+==== Objectives
+* [.hl-green]#Model single-elimination tournament bracket progression#
+* [.hl-green]#Verify correct winner selection and elimination tracking#
+* [.hl-green]#Detect potential flaws in round advancement logic#
+* [.hl-green]#Ensure valid tournament termination properties#
+
+
+==== Model Configuration
+
+.[.hl-green]#Configuration for 8-team tournament#
+[source,sub-sections]
+----
+include::DynamicMatchProgression.cfg[]
+----
+
+==== **Key Properties Verified**
+
+==== Safety Properties
+* [.hl-green]#*TypeInvariant*: All tournament state values maintain correct types and ranges#
+* [.hl-green]#*NoDuplicateEliminations*: No team appears more than once in the elimination order#
+* [.hl-green]#*EveryTeamEliminatedOrChampion*: When a tournament completes, exactly N-1 teams are eliminated and 1 is champion#
+
+==== Liveness Properties
+* [.hl-green]#*TournamentTerminates*: Tournament eventually completes with a champion#
+* [.hl-green]#*NoDeadlock*: System never gets stuck in non-terminal state#
+
+==== Analysis Results
+
+.[.hl-green]#Possible Flaws Detected#
+|===
+| Property | Status | Description
+
+| Match double-counting | Safe | Model confirms matches cannot be double-counted
+| Incomplete round progression | Safe | Rounds only advance when all matches complete
+| Elimination order consistency | Safe | Elimination order correctly tracks losers
+| Tournament termination | Safe | Tournament always completes with a single champion
+|===
+
+==== Mapping to the JavaScript Implementation
+
+.[.hl-green]#The following JavaScript behaviors are modeled:#
+* [.hl-green]#`initializeBracket()` → `InitializeFirstRound()`#
+* [.hl-green]#`progressMatch()` → `ProgressMatch()`#
+* [.hl-green]#Round advancement logic → `AdvanceRound()`#
+* [.hl-green]#Elimination order tracking → `updatedEliminationOrder`#
+* [.hl-green]#Tournament completion → `DeclareChampion`#
+

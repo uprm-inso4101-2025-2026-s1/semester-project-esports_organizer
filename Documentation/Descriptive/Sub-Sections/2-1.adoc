@@ -78,7 +78,18 @@ Figure 2.1.1 - Tournament and community interaction flow
 
 - [.hl-yellow]#Organizer: A person or group that plans, schedules, and manages esports tournaments, defines eligibility rules, determines formats, and oversees match progression.#  
 
-- [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).#  
+- [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).#
+
+[.hl-green]#Figure Result Report Interaction Flow.
+This diagram illustrates the flow of the result report creation process.#  
+
+- **Blue rectangles** represent actions (Create array, trow error, etc).
+- **Purple diamonds** represent questions (Is the data empty?, Are there more teams to import.).
+- **Arrows** indicate the flow of interactions.
+
+- [.hl-green]#*Tournament Data*: Data on the tournamnets, final standing, KDA etc. used to create the final ranking list.#
+
+- [.hl-green]#*Ranking array*: Final ranking list. every team is placed on the order of where they finished on the ladder.#
 
 - [.hl-yellow]#Match: A competitive encounter between two teams within a tournament, whose outcome contributes to bracket progress, standings, or ranking calculations.#  
 
@@ -174,6 +185,170 @@ image::Descriptive/Sub-Sections/image1.png[align=center,scaledwidth=55%]
 [.text-center]
 Figure 2.1.4 - Example check in flow
 
-Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
+**Model Explanation**
 
-Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.
+[.hl-green]#This Petri net model represents the complete player check-in flow within the Esports Organizer system. 
+The goal is to clearly illustrate how a player progresses through the system before a match begins, 
+how delays or no-shows are handled, and how different transitions alter a player's state. 
+Using a token-based representation makes the flow intuitive and highlights how the system behaves under different scenarios.#
+
+[.hl-green]#The model begins with the player in the *Waiting for Check-In* state. 
+A token is placed in this initial place to represent one player who has not yet interacted with the check-in system. 
+When the player arrives and performs the check-in action, the transition *Player Arrives* fires, 
+moving the token into the *Checked-In* state. This represents the user pressing the "Check-In" button in the interface.#
+
+[.hl-green]#Once the player is in *Checked-In*, they must confirm readiness before the match can begin. 
+When the confirmation occurs, the *Confirm Ready* transition fires, moving the token to the *Ready for Match* state. 
+This indicates that the player has completed pre-match requirements. In the real system, this corresponds to backend logic updating the player's ready status.#
+
+[.hl-green]#If the player does not check in within the allowed time, the *Timeout Occurs* transition fires, 
+sending the token from *Waiting for Check-In* to *No-Show*. 
+This is triggered by a countdown or scheduled function. 
+Admins may also manually flag a player absent using the *Mark as No-Show* transition, moving the token from *Checked-In* to *No-Show*.#
+
+[.hl-green]#These transitions illustrate how the system handles normal and exceptional flow paths. 
+The model ensures that all possible outcomes are explicitly defined—arriving on time, confirming readiness, failing to check in, or being manually marked absent.#
+
+[.hl-green]#Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.#
+
+[.hl-green]#Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.#
+
+=== 2.1.7 Identifying Carrier Sets and Operations for Core Esports Organizer Components
+
+
+==== Introduction
+[.hl-green]#This task applies the concepts on algebras in requirements engineering. The goal is to identify the carrier sets, operations, arity, and closure properties for two small components in the Esports Organizer system. This clarifies how each subsystem behaves, what elements it manipulates, and what transformations are valid within that subsystem.#
+
+[.hl-green]#For this LTT, the selected components are:#
+
+[.hl-green]#1. Teams#
+
+[.hl-green]#2. Notifications#
+
+[.hl-green]#These components were selected because they represent distinct system behaviors: one models group structure and membership, while the other models communication flow and event-triggered updates.#
+
+==== Diagram: Teams and Notifications Algebras
+[.hl-green]#The following diagram visually presents the algebraic structure of the Teams and Notifications components.#
+[.hl-green]#It shows:#
+
+* [.hl-green]#The carrier set of each component#
+
+* [.hl-green]#The set of operations#
+
+* [.hl-green]#Arity#
+
+* [.hl-green]#Closure properties#
+
+image::Descriptive/Sub-Sections/Identifying-Carrier-Sets-and-Operations-for-Core-Esports-Organizer-Components.png[width=850,align=center]
+
+
+==== Component 1: Teams Algebra
+
+==== Carrier Set
+[.hl-green]#The carrier set for Teams is:#
+
+[.hl-green]#Team = { all team objects stored in Firestore }#
+
+[.hl-green]#Each element in this set contains fields such as teamId, teamName, members, captainId, createdAt, and ranking or statistics.#
+
+==== Operations
+
+[.hl-green]#**addMember(team, player)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Adds a player to the team's members list.#
+[.hl-green]#Closure: The output remains in Team.#
+[.hl-green]#addMember(team, player) -> Team#
+
+[.hl-green]#**removeMember(team, player)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Removes a player from the team's members list.#
+[.hl-green]#Closure: The output remains in Team.#
+[.hl-green]#removeMember(team, player) -> Team#
+
+[.hl-green]#**changeCaptain(team, player)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Updates the captainId field of the team.#
+[.hl-green]#Closure: The resulting structure remains part of Team.#
+
+[.hl-green]#**updateTeamName(team, newName)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Updates the teamName field.#
+[.hl-green]#Closure: Output remains a Team element.#
+
+==== Benefits of This Algebra
+[.hl-green]#Defining Teams as an algebra highlights important system invariants:#
+
+* [.hl-green]#A team must always have a valid captain.#
+* [.hl-green]#All operations maintain a valid Team structure (closure).#
+* [.hl-green]#No operation produces malformed or incomplete team objects.#
+
+[.hl-green]#This reduces ambiguity, prevents invalid team states, and clarifies the preconditions and postconditions needed for testing.#
+
+==== Component 2: Notifications Algebra
+
+[.hl-green]#**Carrier Set**#
+
+[.hl-green]#The carrier set for Notifications is:#
+
+[.hl-green]#Notification = { all notification objects delivered to users }#
+
+[.hl-green]#Each notification includes notificationId, recipientUserId, type, message, isRead, and timestamp.#
+
+==== Operations
+
+[.hl-green]#**markRead(notification)**#
+[.hl-green]#Arity: unary#
+[.hl-green]#Description: Sets isRead to true.#
+[.hl-green]#Closure: The output remains an element of Notification.#
+
+[.hl-green]#**updateMessage(notification, newMessage)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Updates the message text of the notification.#
+[.hl-green]#Closure: The output remains in Notification.#
+
+[.hl-green]#**retarget(notification, newRecipient)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Assigns the notification to a different user.#
+[.hl-green]#Closure: Output stays inside Notification.#
+
+[.hl-green]#**transformType(notification, newType)**#
+[.hl-green]#Arity: binary#
+[.hl-green]#Description: Changes the notification type.#
+[.hl-green]#Closure: The resulting object remains a Notification.#
+
+[.hl-green]#**Benefits of This Algebra**#
+[.hl-green]#This algebraic approach reveals assumptions and prevents errors such as:#
+
+* [.hl-green]#Incorrect deletion or modification of notifications when marked as read#
+* [.hl-green]#Producing notifications without required fields#
+* [.hl-green]#Targeting invalid or unauthorized recipients#
+
+[.hl-green]#Algebra clarifies valid state transitions and enforces structural consistency.#
+
+==== Summary
+[.hl-green]#By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.#
+[.hl-green]#This method strengthens the requirements model, exposes hidden assumptions, clarifies subsystem behavior, and supports correctness and maintainability across the Esports Organizer system.#
+
+=== 2.1.8 Database Algebras
+
+*Events:*
+[.hl-green]#For events in the esports organizer the following algebra can be used to describe the processes that are applied to them in the database.#
+
+[.hl-green]#_(N_ U _B, {addEventToDatabase: E -> B, deleteEvent: EventID -> B, isEventInDatabase: E -> B, getEventFromFirestore: EventID -> N})_#
+
+[.hl-green]#Where:
+*N U B* : Is the set of elements on which operations can be applied to.#
+
+[.hl-green]#*E* : Represents the set of events.#
+
+[.hl-green]#*N* : Represents the set of events with the addition of a null element, which can be described as _N = E U {none}_.#
+
+*B* : Represents the set of Boolean values _{true, false}_.
+
+[.hl-green]#*addEventToDatabase* : Takes an event object as a parameter, if it is not in the database, it is added to the database. Returns a Boolean to show if the event was added successfully or not; returns true if the event was added and false if the event could not be added.#
+
+[.hl-green]#*deleteEvent* : Takes an Event's ID, such as its name, and removes the corresponding event from the database if it was found. Returns true if the event was removed and false otherwise.#
+
+[.hl-green]#*isEventInDatabase* : Takes an Event and checks if an event in the database has the same ID/name as the provided event. Returns a Boolean to indicate if the event was found.#
+
+[.hl-green]#*getEventFromFirestore* : takes an Event ID and searches in the database for an event that has a matching ID. Returns the found event and a null object if the event was not found.#

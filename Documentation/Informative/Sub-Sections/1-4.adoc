@@ -1,2 +1,28 @@
 === 1.4 Other activities than just developing source code
 [.hl-red]#Our project is not limited to just source code. Through research, each team worked to ensure the system is meaningful and effective for the gaming community, addressing problems seen in other platforms.#
+
+==== 1.4.1 Agile Practices
+[.hl-green]#Following Scrum methodology with bi-weekly sprints, the team organized around specialized roles including Managers, Team Leaders, and Development Teams (Database/Backend, Events, Profiles, Social Features, UI). Weekly ceremonies included sprint planning, progress reviews, and retrospectives. GitHub issues tracked feature development through branching and pull requests. This structure enabled continuous delivery of backend features and improved cross-team communication.#
+
+[.hl-green]#Agile is a software development approach which prioritized delivering working software in small, frequent iterations while adapting to feedback such as changing system requirement or user necessities. Agile encourages continuous collaboration, constant improvement and incremental delivery. Our team follows the scrum methodology, which structures development into bi-weekly cycles called sprints. After each sprint it is intended to have a potentially shippable increment of the project.#
+
+[.hl-green]#Team Roles#
+
+• [.hl-green]#Managers: Ensures the scrum process is followed and manages the whole team.#
+• [.hl-green]#Team Leaders: They coordinate weekly meetings, verify and approve issues before the managers view them and are up to date with the achievements of every member on their team.#
+• [.hl-green]#Development Teams: Database and Backend, events and notifications, Profiles, social features, and UI teams in charge of developing the frontend and backend tasks.#
+
+==== 1.4.2 Decision-Making Processes
+[.hl-green]#The team applied systematic evaluation methods for technical choices, such as the communication platform selection comparing Email versus Discord. Using weighted scoring matrices based on non-functional requirements (speed, ease of use, organization, scalability), Discord was selected with a score of 1.8 versus Email's 0.4. Similar evaluation processes were used for database design and architecture decisions.#
+
+[.hl-green]#To make an informed decision, both options were compared using Non-Functional Requirements (NFRs). The qualitative attributes of a system rather than its specific functions.#
+
+[.hl-green]#The chosen criteria were:#
+
+[.hl-green]#Speed of Communication - How fast users can exchange information.#
+
+[.hl-green]#Ease of Use - How intuitive and accessible the platform is for all team members.#
+
+[.hl-green]#Information Organization - How effectively messages and files can be structured and retrieved later.#
+
+[.hl-green]#Scalability - How easily the platform can handle team growth in members, channels, and activities.#

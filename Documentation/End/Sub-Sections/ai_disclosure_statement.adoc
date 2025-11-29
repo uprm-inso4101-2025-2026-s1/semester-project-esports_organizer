@@ -1,1 +1,42 @@
 == Generative AI Use Disclosure Statement
+
+[.hl-green]#Our team used AI tools thoughtfully and intentionally throughout the Esports Organizer project. The primary tools used were *GitHub Copilot* (free and Pro versions), *DeepSeek* and *ChatGPT*. Copilot Pro supported faster responses, expanded model options, and unlimited usage, while DeepSeek and *ChatGPT* assisted with conceptual explanations and clarification of complex diagrams and documentation.#
+
+=== Stages of AI Use
+
+[.hl-green]#AI supported multiple stages of the project:#
+
+* [.hl-green]#*Brainstorming & Problem-Solving:*#
+[.hl-green]#Generating alternative architectural approaches and breaking down complex tasks, particularly for the *tournament bracket page* and *team visibility controls*.#
+
+* [.hl-green]#*Debugging & Optimization:*#
+[.hl-green]#Identifying error sources and proposing efficiency improvements for Firestore operations used in *event data retrieval* and *user authentication workflows*.#
+
+* [.hl-green]#*Code Refinement:*#
+[.hl-green]#Improving readability, reducing redundancy, and suggesting more maintainable patterns across front-end components.#
+
+* [.hl-green]#*Responsive Design Support:*#
+[.hl-green]#Troubleshooting alignment and layout issues on the *dashboard*, *profile pages*, and *tournament pages*, including CSS and media queries.#
+
+* [.hl-green]#*Conceptual Understanding:*#
+[.hl-green]#Clarifying difficult concepts such as Petri nets, TLA+, state charts, and sequence diagrams to support high-level design decisions.#
+
+=== Division of Work
+
+[.hl-green]#Team members handled all core implementation, architectural decisions, business logic, Firestore integration, and testing.#
+[.hl-green]#AI-assisted suggestions were reviewed, adapted, or rewritten before integration. AI-generated starting points, such as early bracket logic structures, CSS recommendations, or sample Firestore queries were significantly modified to match the project's requirements.#
+
+=== Verification & Fact-Checking
+
+[.hl-green]#All AI-assisted code was:#
+
+* [.hl-green]#tested locally,#
+* [.hl-green]#validated against official Firestore documentation,#
+* [.hl-green]#cross-referenced with course materials when conceptual explanations were involved.#
+
+[.hl-green]#A notable example occurred when AI suggested a forEach-based filtering approach for Firestore queries. After reviewing documentation, the team replaced it with the more efficient and correct `.where()` pattern.#
+
+=== Learning Impact
+
+[.hl-green]#AI tools improved understanding of complex concepts, accelerated debugging, and revealed more efficient design patterns.#
+[.hl-green]#This balance of AI assistance and intentional team verification helped deliver a high-quality product while maintaining learning, accountability, and ownership over all final design decisions.#
