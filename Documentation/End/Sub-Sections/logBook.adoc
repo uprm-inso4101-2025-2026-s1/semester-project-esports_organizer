@@ -23,4 +23,5 @@
 | Informative Section 1.1 | Yamilet Gómez | Modified | Updated team structure to include the newly formed union between two teams for the final phase of the project. Adjusted Section 1.1 accordingly to reflect the revised organization of members and responsibilities.
 | 2.2, 2.3, 1.4, application of topics | Wilson Morales | Added/Removed | Moved application of topics to the documentation sections.
 | Edited sections to ToC | Wilson Morales | Added/Removed | Added and removed  sections and sub-sections to the table of contents.
+| Descriptive Section 2.1, 3.2, 3.4| Anthony Garcia | Added | Added new subsection on Database Algebras, defining carrier sets, operations, arity, and closure properties for Events and Users components in the Esports Organizer system. Integrated diagrams to visually represent the algebraic structures.Integrated TLA+ and Risk Analysis. Moved diagrams made by other developers into the documentation
 |===
