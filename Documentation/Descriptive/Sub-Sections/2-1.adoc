@@ -323,3 +323,26 @@ Closure: The resulting object remains a Notification.#
 == Summary
 [.hl-green]#By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.  
 This method strengthens the requirements model, exposes hidden assumptions, clarifies subsystem behavior, and supports correctness and maintainability across the Esports Organizer system.#
+
+== 2.1.8*Database Algebras*
+
+*Events:*
+[.hl-green]#For events in the esports organizer the following algebra can be used to describe the processes that are applied to them in the database.#
+
+[.hl-green]#_(N_ U _B, {addEventToDatabase: E -> B, deleteEvent: EventID -> B, isEventInDatabase: E -> B, getEventFromFirestore: EventID -> N})_#
+
+[.hl-green]#Where:
+*N U B* : Is the set of elements on which operations can be applied to.#
+
+[.hl-green]#*E* : Represents the set of events.#
+
+*N* : Represents the set of events with the addition of a null element, which can be described as _N = E U {none}_.
+
+*B* : Represents the set of Boolean values _{true, false}_.
+
+[.hl-green]#*addEventToDatabase* : Takes an event object as a parameter, if it is not in the database, it is added to the database. Returns a Boolean to show if the event was added successfully or not; returns true if the event was added and false if the event could not be added.#
+
+[.hl-green]#*deleteEvent* : Takes an Event's ID, such as its name, and removes the corresponding event from the database if it was found. Returns true if the event was removed and false otherwise.#
+
+[.hl-green]#*isEventInDatabase* : Takes an Event and checks if an event in the database has the same ID/name as the provided event. Returns a Boolean to indicate if the event was found.#
+[.hl-green]#*getEventFromFirestore* : takes an Event ID and searches in the database for an event that has a matching ID. Returns the found event and a null object if the event was not found.#
