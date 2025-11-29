@@ -1,0 +1,44 @@
+= Aplicación de Requirements Engineering & Requirements Facets en el módulo *Team Management* del proyecto *eSports Organizer*
+
+En el desarrollo del proyecto *eSports Organizer*, la Ingeniería de Requisitos (*Requirements Engineering*) desempeña un papel fundamental dentro del ciclo de vida del software, especialmente en el módulo de *Team Management*, donde se gestionan las funciones relacionadas con la creación, administración y mantenimiento de equipos.
+
+Este proceso busca identificar, analizar, documentar y validar las necesidades de los usuarios y del sistema, asegurando que cada requerimiento contribuya directamente al cumplimiento de los objetivos del proyecto. Aplicar de manera correcta la Ingeniería de Requisitos permite reducir la ambigüedad, mejorar la comunicación entre los miembros del equipo y establecer una base sólida para las etapas de diseño, implementación y pruebas.
+
+== Elicitación de Requisitos
+El proceso comienza con la *elicitación de requisitos*, en la cual se recopila información directamente de los usuarios y partes interesadas. En el caso del módulo *Team Management*, esto implica entender las necesidades de los jugadores, capitanes y administradores, quienes requieren herramientas claras para crear equipos, agregar o eliminar miembros, asignar roles de liderazgo, y consultar estadísticas o información de rendimiento.
+
+Durante esta fase, se busca obtener una visión completa de cómo los usuarios interactuarán con el sistema y qué problemas esperan resolver con la aplicación.
+
+== Análisis de Requisitos
+Posteriormente, el *análisis de requisitos* se centra en estudiar la información recopilada para definir las relaciones entre diferentes funciones del sistema, detectar posibles conflictos o redundancias y establecer prioridades.
+
+Por ejemplo, dentro del módulo *Team Management*, se debe garantizar que la creación de un equipo esté vinculada correctamente con los perfiles de usuario y que los permisos de administración no entren en conflicto con los de los jugadores comunes.
+
+Esta etapa también permite determinar la viabilidad técnica de los requisitos y su impacto en otros módulos del proyecto, como la gestión de torneos o los perfiles individuales.
+
+== Especificación de Requisitos
+Luego, la *especificación de requisitos* transforma los hallazgos en descripciones formales y detalladas.
+
+Aquí se definen:
+
+=== Requisitos Funcionales
+Estos describen las acciones que el sistema debe realizar —como crear, editar o eliminar equipos, designar capitanes y mostrar listas de miembros—.
+
+=== Requisitos No Funcionales y Facets
+Estos requisitos se dividen en diferentes *facetas* que ayudan a organizar y entender los atributos de calidad del software.
+
+Las principales facets aplicadas al proyecto son:
+
+- *Rendimiento (performance)*: garantiza la actualización inmediata de la información al modificar equipos.
+- *Usabilidad*: busca interfaces intuitivas y fáciles de navegar.
+- *Fiabilidad (reliability)*: asegura la consistencia de los datos entre el frontend y la base de datos.
+- *Seguridad*: controla los permisos según roles y protege la información de los usuarios.
+- *Escalabilidad*: permite que el sistema soporte un número creciente de equipos y jugadores sin afectar el rendimiento.
+
+== Validación de Requisitos
+La *validación de requisitos* es otro paso crucial, ya que se revisa que los requisitos definidos sean claros, realistas, verificables y alineados con las expectativas de los usuarios.
+
+En el contexto del módulo *Team Management*, esta fase implica revisar junto al equipo de desarrollo y los usuarios que todas las funciones propuestas respondan a las verdaderas necesidades del sistema y que los criterios de aceptación sean medibles y comprobables.
+
+== Gestión de Requisitos
+Finalmente, la *gestión de requisitos (requirements management)* permite mantener los documentos actualizados durante todo el desarrollo, estableciendo control de versiones, trazabilidad y mecanismos para registrar cambios a medida que el sistema evoluciona.

@@ -1,0 +1,63 @@
+= Aplicación de Agile Development en el *Team Management* del proyecto *eSports Organizer*
+
+En el proyecto *eSports Organizer*, la metodología Agile se aplica como base para la gestión del equipo y la organización del desarrollo de las funcionalidades principales del sistema, en especial en el módulo de *Team Profile & User Management*. 
+
+Este enfoque permite estructurar el trabajo de manera iterativa y colaborativa, fomentando la comunicación constante y la adaptación rápida a los cambios que puedan surgir durante el desarrollo. A través de la creación y gestión de *backlogs*, el equipo puede priorizar las tareas de acuerdo con las necesidades más urgentes o valiosas para los usuarios finales, garantizando que cada entrega aporte valor tangible al producto.
+
+== Product Backlogs
+
+El uso de *product backlogs* en este proyecto permite describir claramente los entregables de cada sprint y mantener una visión organizada de las funcionalidades que deben implementarse, tales como la creación de perfiles de usuario, gestión de equipos, integración de estadísticas o administración de personalizaciones.
+
+Cada ítem del backlog se formula siguiendo criterios como:
+
+- funcionalidad requerida  
+- prioridad  
+- descomposición en tareas independientes (para agilidad)  
+- claridad en la descripción  
+- negociabilidad  
+- valor para el usuario  
+- estimables (para planificar el sprint)  
+- verificables (para evaluar al final si se cumplieron los criterios)
+
+Estos principios están alineados con el marco Agile, donde se busca priorizar las tareas que aporten valor inmediato y que puedan evaluarse claramente al finalizar cada ciclo de desarrollo.
+
+== User Stories
+
+Las *user stories* son otra herramienta fundamental aplicada en el equipo de *Team Profile & User Management*. Estas historias permiten capturar los requisitos desde la perspectiva del usuario, expresando necesidades reales del jugador o administrador dentro de la plataforma.
+
+Por ejemplo, una historia podría plantearse así:
+
+> “Como jugador, quiero crear y editar mi perfil de equipo para mostrar mis logros y estadísticas.”
+
+Este formato orientado al usuario facilita que el equipo desarrolle funciones que respondan directamente a los objetivos del proyecto, mejorando la experiencia dentro de la aplicación y asegurando que cada funcionalidad tenga un propósito claro y medible.
+
+== Agile Dynamics in Team Management
+
+Dentro del *team management*, Agile impulsa una dinámica de trabajo colaborativa donde todos los miembros del equipo tienen voz en la planificación y mejora continua. A través de reuniones de coordinación como los *daily stand-ups*, el equipo puede:
+
+- compartir avances  
+- identificar obstáculos  
+- ajustar estrategias  
+- mejorar la eficiencia
+
+Asimismo, las *retrospectivas* al final de cada sprint fomentan la reflexión colectiva sobre:
+
+- qué funcionó bien  
+- lo que se puede mejorar  
+- cómo incrementar la calidad del desarrollo en el próximo ciclo  
+
+Este enfoque es especialmente valioso en un proyecto como *eSports Organizer*, donde los requisitos pueden cambiar rápidamente según las expectativas de la comunidad, lo que requiere ciclos ágiles.
+
+== Conclusión
+
+En conclusión, aplicar los principios de *Agile Development* en el módulo *Team Management* del proyecto *eSports Organizer* permite mantener un flujo de trabajo flexible, enfocado en resultados y centrado en el usuario.
+
+Gracias a herramientas como:
+
+- *backlogs* bien estructurados  
+- user stories claras  
+- criterios INVEST  
+
+el equipo puede organizar sus tareas de forma efectiva, cumplir con los criterios de aceptación establecidos y entregar un producto que evoluciona constantemente según las expectativas de jugadores y organizadores de torneos.
+
+Esta metodología no solo optimiza la productividad del equipo, sino que también garantiza que cada sprint contribuya a un sistema funcional, adaptable y de alta calidad.
