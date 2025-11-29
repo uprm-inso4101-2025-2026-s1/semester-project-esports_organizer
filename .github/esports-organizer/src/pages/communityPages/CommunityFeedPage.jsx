@@ -11,7 +11,7 @@ import { checkUserPermission } from "../../Roles/checkUserPermission.js";
 import Event from "../../events/EventClass.js";
 
 const uid = localStorage.getItem("uid");
-import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
+import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity, addMembers, removeMembers } from "../../Comm-Social/CommunityCreation.js";
 import { getProfileById} from "../../services/profile-service.js"; 
 
 // Mock data as placeholders
@@ -22,25 +22,6 @@ const mockCommunity = {
     onlineCount: 342,
 };
 
-
-const mockEvents = [
-    {
-        id: 1,
-        title: "Marvel Rivals Tournament",
-        date: "01 Oct 2025",
-        price: "Free",
-        location: "Online",
-        game: "Marvel Rivals",
-    },
-    {
-        id: 2,
-        title: "Weekly Rivals Comp",
-        date: "16 Oct 2025",
-        price: "20$",
-        location: "Online",
-        game: "Marvel Rivals",
-    },
-];
 
 const mockSidebarCommunities = {
     followed: [
@@ -348,12 +329,27 @@ export default function CommunityFeedPage() {
     const [topCommunities, setTopCommunities] = useState([]);
     const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
 
-    // New State for fetched Posts
-    const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-    
+    // Followed communities derived from topCommunities + current user
+    const [followedCommunities, setFollowedCommunities] = useState([]);
+
     // New State for current user
     const [currentUser, setCurrentUser] = useState(null);
     const [currentUserUid, setCurrentUserUid] = useState(null);
+
+    useEffect(() => {
+        if (!currentUserUid || !Array.isArray(topCommunities)) {
+            setFollowedCommunities([]);
+            return;
+        }
+
+        const followed = topCommunities.filter(c => Array.isArray(c.members) && c.members.includes(currentUserUid));
+        setFollowedCommunities(followed);
+    }, [topCommunities, currentUserUid]);
+
+    // New State for fetched Posts
+    const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+    
+    
 
     const[events, setEvents] = useState([]);
 
@@ -463,7 +459,9 @@ export default function CommunityFeedPage() {
                     title: community.name,
                     imageUrl: community.icon || null,
                     game: community.game,
-                    location: community.location
+                    location: community.location,
+                    members: community.members || [],
+                    followers: community.members ? community.members.length : 0
                 }));
                 
                 setTopCommunities(transformedCommunities);
@@ -749,7 +747,57 @@ export default function CommunityFeedPage() {
                         {isLoadingCommunity ? (
                             <h1>Loading community...</h1>
                         ) : (
-                            <h1>Activity in {displayCommunity.name} Community</h1>
+                            <div className="community-header-row">
+                                <h1>Activity in {displayCommunity.name} Community</h1>
+                                {/* Join button - show if user isn't a member yet */}
+                                {currentUserUid && displayCommunity && Array.isArray(displayCommunity.members) && displayCommunity.members.includes(currentUserUid) ? (
+                                    <Button
+                                        text="Leave"
+                                        variant="primary"
+                                        size="small"
+                                        onClick={async () => {
+                                            if (!currentCommunity || !currentCommunity.id) return;
+                                            const success = await removeMembers(currentCommunity.id, currentUserUid);
+                                            if (success) {
+                                                // Remove from local state
+                                                const updated = { ...currentCommunity };
+                                                updated.members = Array.isArray(updated.members) ? updated.members.filter(m => m !== currentUserUid) : [];
+                                                setCurrentCommunity(updated);
+
+                                                // Update topCommunities (decrement followers)
+                                                setTopCommunities(prev => prev.map(c => c.id === updated.id ? { ...c, followers: Math.max(0, (c.followers || 0) - 1), members: (c.members || []).filter(m => m !== currentUserUid) } : c));
+                                            } else {
+                                                alert('Could not leave the community (not a member or error).');
+                                            }
+                                        }}
+                                    />
+                                ) : (
+                                    <Button
+                                        text="Join"
+                                        variant="primary"
+                                        size="small"
+                                        onClick={async () => {
+                                            if (!currentCommunity || !currentCommunity.id) return;
+                                            // Attempt to add member in Firestore
+                                            const success = await addMembers(currentCommunity.id, currentUserUid);
+                                            if (success) {
+                                                // Update local currentCommunity.members and posts state so UI reflects membership immediately
+                                                const updated = { ...currentCommunity };
+                                                updated.members = Array.isArray(updated.members) ? [...updated.members, currentUserUid] : [currentUserUid];
+                                                setCurrentCommunity(updated);
+
+                                                // Update topCommunities so the community appears with updated follower count in lists
+                                                setTopCommunities(prev => prev.map(c => c.id === updated.id ? { ...c, followers: (c.followers || 0) + 1, members: (c.members || []).concat([currentUserUid]) } : c));
+
+                                                // Optionally show the community in the 'Other Communities You Follow' sidebar
+                                                setTopCommunities(prev => prev); // trigger refresh
+                                            } else {
+                                                alert('Could not join community (already a member or error).');
+                                            }
+                                        }}
+                                    />
+                                )}
+                            </div>
                         )}
                     </section>
 
@@ -791,7 +839,7 @@ export default function CommunityFeedPage() {
                     {/* Other Communities You Follow (mock data) */}
                     <CommunitySection
                         title="Other Communities You Follow"
-                        communities={mockSidebarCommunities.followed}
+                        communities={followedCommunities}
                         onCommunityClick={handleCommunityClick}
                         isLoading={false}
                     />

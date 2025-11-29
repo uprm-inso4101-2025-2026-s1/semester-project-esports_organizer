@@ -62,7 +62,9 @@ export default function CommunityPage() {
   const location = useLocation();
   const [search, setSearch] = useState("");
   const [communities, setCommunities] = useState([]);
+  const [followedCommunities, setFollowedCommunities] = useState([]);
   const [isLoadingCommunities, setIsLoadingCommunities] = useState(true);
+  const [isLoadingFollowed, setIsLoadingFollowed] = useState(true);
   
   // State for create community modal
   const [isCreateCommunityModalOpen, setIsCreateCommunityModalOpen] = useState(false);
@@ -86,6 +88,7 @@ export default function CommunityPage() {
         
         if (!uid) {
           console.warn("No user UID found in localStorage");
+          setIsLoadingFollowed(false);
           return;
         }
         
@@ -118,10 +121,11 @@ export default function CommunityPage() {
           id: community.id,
           title: community.name,
           imageUrl: community.icon || null,
-          currentEvents: 0, // You can add this to your Firestore schema if needed
+          currentEvents: 0,
           followers: community.members ? community.members.length : 0,
           location: community.location || "Global",
           game: community.game,
+          members: community.members || [],
         }));
         
         setCommunities(transformedCommunities);
@@ -136,6 +140,33 @@ export default function CommunityPage() {
 
     fetchCommunities();
   }, []);
+
+  // Filter followed communities based on current user
+  useEffect(() => {
+    const filterFollowedCommunities = () => {
+      if (!currentUserUid || communities.length === 0) {
+        setIsLoadingFollowed(false);
+        return;
+      }
+
+      try {
+        // Filter communities where the current user is a member
+        const userCommunities = communities.filter(community => 
+          community.members && community.members.includes(currentUserUid)
+        );
+        
+        setFollowedCommunities(userCommunities);
+        console.log("Followed communities:", userCommunities);
+      } catch (error) {
+        console.error("Error filtering followed communities:", error);
+        setFollowedCommunities([]);
+      } finally {
+        setIsLoadingFollowed(false);
+      }
+    };
+
+    filterFollowedCommunities();
+  }, [currentUserUid, communities]);
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -191,6 +222,7 @@ export default function CommunityPage() {
         followers: community.members ? community.members.length : 0,
         location: community.location || "Global",
         game: community.game,
+        members: community.members || [],
       }));
       setCommunities(transformedCommunities);
       
@@ -231,21 +263,24 @@ export default function CommunityPage() {
         <aside className="sidebar" aria-label="Followed communities">
           <h2>COMMUNITIES YOU FOLLOW</h2>
           <div className="mini-community-list">
-            <MiniCommunityCard
-              title="Valorant"
-              imageUrl="/assets/images/valorant.png"
-              onView={() => handleNavigation("/community/valorant")}
-            />
-            <MiniCommunityCard
-              title="Super Smash Bros. Ultimate"
-              imageUrl="/assets/images/smash.png"
-              onView={() => handleNavigation("/community/smash")}
-            />
-            <MiniCommunityCard
-              title="Fortnite"
-              imageUrl="/assets/images/fortnite.png"
-              onView={() => handleNavigation("/community/fortnite")}
-            />
+            {isLoadingFollowed ? (
+              <div className="loading-message" style={{ padding: '1rem', textAlign: 'center' }}>
+                <p>Loading...</p>
+              </div>
+            ) : followedCommunities.length === 0 ? (
+              <div className="empty-message" style={{ padding: '1rem', textAlign: 'center', color: '#666' }}>
+                <p>You haven't joined any communities yet.</p>
+              </div>
+            ) : (
+              followedCommunities.map((community) => (
+                <MiniCommunityCard
+                  key={community.id}
+                  title={community.title}
+                  imageUrl={community.imageUrl}
+                  onView={() => handleNavigation(`/community/${community.id}`)}
+                />
+              ))
+            )}
           </div>
           
           {/* Create Community Button */}

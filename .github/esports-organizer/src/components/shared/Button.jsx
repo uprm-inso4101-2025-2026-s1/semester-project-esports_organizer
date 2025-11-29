@@ -7,10 +7,13 @@ function Button({
   variant = "primary",
   isUserProfileButton = false,
   imgSrc,
+  size = "normal",
+  className = "",
 }) {
   const resolvedImgSrc = imgSrc || defaultPfp;
+  const sizeClass = size === "small" ? "btn--small" : "";
   return (
-    <button className={`btn ${variant}`} onClick={onClick}>
+    <button className={`btn ${variant} ${sizeClass} ${className}`} onClick={onClick}>
       {isUserProfileButton ? (
         <img
           className="user-profile-icon"
