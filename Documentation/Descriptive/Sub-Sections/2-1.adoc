@@ -83,9 +83,9 @@ Figure 2.1.1 - Tournament and community interaction flow
 [.hl-green]#Figure Result Report Interaction Flow.
 This diagram illustrates the flow of the result report creation process.#  
 
-- [.hl-green]#**Blue rectangles** represent actions (Create array, trow error, etc).
+- **Blue rectangles** represent actions (Create array, trow error, etc).
 - **Purple diamonds** represent questions (Is the data empty?, Are there more teams to import.).
-- **Arrows** indicate the flow of interactions.#
+- **Arrows** indicate the flow of interactions.
 
 - [.hl-green]#*Tournament Data*: Data on the tournamnets, final standing, KDA etc. used to create the final ranking list.
 - *Ranking array*: Final ranking list. every team is placed on the order of where they finished on the ladder.#
@@ -249,30 +249,30 @@ Each element in this set contains fields such as teamId, teamName, members, capt
 
 === Operations
 
-==== [.hl-green]#addMember(team, player)
-Arity: binary  
+==== addMember(team, player)
+[.hl-green]#Arity: binary  
 Description: Adds a player to the team's members list.  
 Closure: The output remains in Team.  
 addMember(team, player) -> Team#
 
-==== [.hl-green]#removeMember(team, player)
-Arity: binary  
+==== removeMember(team, player)
+[.hl-green]#Arity: binary  
 Description: Removes a player from the team's members list.  
 Closure: The output remains in Team.  
 removeMember(team, player) -> Team#
 
-==== [.hl-green]#changeCaptain(team, player)
-Arity: binary  
+==== changeCaptain(team, player)
+[.hl-green]#Arity: binary  
 Description: Updates the captainId field of the team.  
 Closure: The resulting structure remains part of Team.#
 
-==== [.hl-green]#updateTeamName(team, newName)
-Arity: binary  
+==== updateTeamName(team, newName)
+[.hl-green]#Arity: binary  
 Description: Updates the teamName field.  
 Closure: Output remains a Team element.#
 
 === Benefits of This Algebra
-Defining Teams as an algebra highlights important system invariants:
+[.hl-green]#Defining Teams as an algebra highlights important system invariants:#
 
 [.hl-green]#- A team must always have a valid captain.  
 - All operations maintain a valid Team structure (closure).  
@@ -291,18 +291,18 @@ Notification = { all notification objects delivered to users }
 
 === Operations
 
-[.hl-green]#==== markRead(notification)
-Arity: unary  
+==== markRead(notification)
+[.hl-green]#Arity: unary  
 Description: Sets isRead to true.  
 Closure: The output remains an element of Notification.#
 
-[.hl-green]#==== updateMessage(notification, newMessage)
-Arity: binary  
+==== updateMessage(notification, newMessage)
+[.hl-green]#Arity: binary  
 Description: Updates the message text of the notification.  
 Closure: The output remains in Notification.#
 
-[.hl-green]#==== retarget(notification, newRecipient)
-Arity: binary  
+==== retarget(notification, newRecipient)
+[.hl-green]#Arity: binary  
 Description: Assigns the notification to a different user.  
 Closure: Output stays inside Notification.#
 
@@ -311,15 +311,15 @@ Closure: Output stays inside Notification.#
 Description: Changes the notification type.  
 Closure: The resulting object remains a Notification.#
 
-[.hl-green]# ===Benefits of This Algebra
-This algebraic approach reveals assumptions and prevents errors such as:#
+===Benefits of This Algebra
+[.hl-green]#This algebraic approach reveals assumptions and prevents errors such as:#
 
-[.hl-green]#- Incorrect deletion or modification of notifications when marked as read  
+- Incorrect deletion or modification of notifications when marked as read  
 - Producing notifications without required fields  
-- Targeting invalid or unauthorized recipients  #
+- Targeting invalid or unauthorized recipients
 
-Algebra clarifies valid state transitions and enforces structural consistency.
+[.hl-green]#Algebra clarifies valid state transitions and enforces structural consistency.#
 
-== [.hl-green]#Summary
-By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.  
+== Summary
+[.hl-green]#By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.  
 This method strengthens the requirements model, exposes hidden assumptions, clarifies subsystem behavior, and supports correctness and maintainability across the Esports Organizer system.#
