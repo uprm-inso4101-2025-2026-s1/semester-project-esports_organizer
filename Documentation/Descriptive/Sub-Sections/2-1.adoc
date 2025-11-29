@@ -80,10 +80,6 @@ Figure 2.1.1 - Tournament and community interaction flow
 
 - [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).#
 
-image::Descriptive/Sub-Sections/Simple_Example_Flowchart_Communities.JPG[align=center]
-[.text-center]
- Communities Flowchart
-
 [.hl-green]#Figure Result Report Interaction Flow.
 This diagram illustrates the flow of the result report creation process.#  
 
