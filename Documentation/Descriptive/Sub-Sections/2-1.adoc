@@ -78,9 +78,11 @@ Figure 2.1.1 - Tournament and community interaction flow
 
 - [.hl-yellow]#Organizer: A person or group that plans, schedules, and manages esports tournaments, defines eligibility rules, determines formats, and oversees match progression.#  
 
-- [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).# 
+- [.hl-yellow]#Tournament: A structured competitive event in which teams face one another according to a defined format (e.g., single elimination, double elimination, Swiss, round robin).#
 
-image::Result_Report_Flowchart.JPG[align=center]
+image::Descriptive/Sub-Sections/Simple_Example_Flowchart_Communities.JPG[align=center]
+[.text-center]
+ Communities Flowchart
 
 [.hl-green]#Figure Result Report Interaction Flow.
 This diagram illustrates the flow of the result report creation process.#  
@@ -160,7 +162,7 @@ These decisions require discussion and negotiation among the project team. For e
 Function signatures define how operations are represented programmatically, describing inputs, outputs, and failure conditions. They are grouped with their corresponding actions/operations to clarify how they support domain scenarios and observations.
 
 
-image::account_creation.png[align=center,scaledwidth=65%]
+image::Descriptive/Sub-Sections/account_creation.png[align=center,scaledwidth=65%]
 [.text-center]
 Figure 2.1.2 - Account creation flow
 
@@ -169,7 +171,7 @@ Figure 2.1.2 - Account creation flow
 * **registerTeam(team, tournament) → Confirmation | Waitlist | Denied**
 - Registers a team if it meets eligibility requirements and if slots are available.
 
-image::Visual diagram of state transitions.png[align=center]
+image::Descriptive/Sub-Sections/Visual diagram of state transitions.png[align=center]
 [.text-center]
 Figure 2.1.3 - Example registration flow
 
@@ -182,7 +184,7 @@ Figure 2.1.3 - Example registration flow
 * **checkInTeam(teamID, tournamentID) → StatusUpdated | Timeout**
 - Verifies attendance before match start; returns timeout if grace period expires.
 
-image::image1.png[align=center,scaledwidth=55%]
+image::Descriptive/Sub-Sections/image1.png[align=center,scaledwidth=55%]
 [.text-center]
 Figure 2.1.4 - Example check in flow
 

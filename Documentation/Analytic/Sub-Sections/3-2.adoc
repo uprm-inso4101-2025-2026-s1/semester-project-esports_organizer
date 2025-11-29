@@ -155,7 +155,7 @@ Examples include:
 === Risk Tree Diagram
 
 [%center]
-image::RiskAnalysisTeams.png[width=90%,opts=center]
+image::Analytic/Sub-Sections/RiskAnalysisTeams.png[width=90%,opts=center]
 
 
 === Risk Tree Structure and Branches
@@ -246,16 +246,16 @@ Mitigation strategies:
 
 Many risks originate from inconsistencies such as:
 
-* Terminological clashes: C1  
-* Structural mismatches: F1, D1  
-* Behavioral inconsistencies: F2, V1  
-* Process/documentation issues: C2, C3  
+* Terminological clashes: C1
+* Structural mismatches: F1, D1
+* Behavioral inconsistencies: F2, V1
+* Process/documentation issues: C2, C3
 
 This risk analysis supports the Identifying Inconsistencies task by showing exactly how mismatches propagate into invalid team states.
 
 === Conclusion
 
-This risk analysis shows how *Team Creation Failure* can arise from validation errors, inconsistent cross-component communication, incorrect member management, or weak data integrity rules.  
+This risk analysis shows how *Team Creation Failure* can arise from validation errors, inconsistent cross-component communication, incorrect member management, or weak data integrity rules.
 By identifying these risks and applying mitigation strategies, the Esports Organizer Manager improves the reliability of its team management and ensures consistent tournament operations.
 
 == 3.2.3 Risk Analysis Tree for Tournaments
@@ -264,7 +264,9 @@ By identifying these risks and applying mitigation strategies, the Esports Organ
 Risk Trees help identify the potential errors or failure points a program might encounter. By breaking down risks into smaller, traceable causes, they allow testers to design more targeted and efficient test cases. This structured view not only improves test coverage but also helps developers anticipate where bugs, crashes, or unexpected behaviors are most likely to occur during execution. 
 
 
-image::Risk-Analysis-Tree-For-Tournament.png[Tournament Risk Analysis Tree, 800, 600]
+image::Analytic/Sub-Sections/Risk-Analysis-Tree-For-Tournament.png[800, 600]
+[.text-center]
+Tournament Risk Analysis Tree
 
 = Analysis
 
@@ -274,7 +276,9 @@ Overall, these risks emphasize the importance of reliable database connectivity 
 
 == 3.2.4 Risk Tree and Analysis for Admin Banning User Permission
 
-image::AdminBanningPermissionRiskTree.png[Admin Banning Permission Risk Tree, align=center]
+image::Analytic/Sub-Sections/AdminBanningPermissionRiskTree.png[align=center]
+[.text-center]
+Admin Banning Permission Risk Tree
 
 This risk tree outlines the potential risks associated with granting the Admin role the permission to ban users. At the top the risk of such permission to an admin can have the risk of 2 things. It could take a permission misconfiguration route on where if not coded well this could lead to the action or permission of banning a user could be used by anyone since it never verified well if the user doing this action is really an admin which lead to a huge permission breach where anyone can just ban whoever they want. The other route is that even if the permission is well coded and verified, there is still a big risk that a rogue admin can be power hungry and ban users for no reason and because they wanted to at any time or any place, which this leads to user dissatisfaction due to the unfair banning of users because nobody likes to be banned for no reason.
 
@@ -363,9 +367,9 @@ Present our terminology definitions to stakeholders and ask for confirmation:
 * Doing so would prevent both incomplete event management and poor user experience. 
 
 
-image::TLA+1.png[ align=center]
-
-             TLA+ Model Checking Results
+image::Analytic/Sub-Sections/TLA+1.png[align=center]
+[.text-center]
+TLA+ Model Checking Results
 
 === 3.4.2 TLA+ Model for Dynamic Match Progression
 == Overview
