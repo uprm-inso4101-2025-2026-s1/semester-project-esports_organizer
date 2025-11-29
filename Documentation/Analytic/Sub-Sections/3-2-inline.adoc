@@ -1,0 +1,11 @@
+[pass]
+++++
+<style>
+.hl-green { background-color:#e6ffea; border-left:4px solid #2ecc71; padding:0.25em 0.5em; }
+.hl-red   { background-color:#ffe6e6; border-left:4px solid #e74c3c; padding:0.25em 0.5em; }
+.hl-yellow{ background-color:#fff8e1; border-left:4px solid #f1c40f; padding:0.25em 0.5em; }
+</style>
+++++
+
+// Include the original file; render this wrapper instead to get inline styles
+include::3-2.adoc[]
