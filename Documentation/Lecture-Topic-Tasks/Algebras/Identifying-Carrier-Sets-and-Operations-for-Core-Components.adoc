@@ -23,7 +23,6 @@ It shows:
 image::Identifying-Carrier-Sets-and-Operations-for-Core-Esports-Organizer-Components.png[width=850,align=center]
 
 
-
 == Component 1: Teams Algebra
 
 === Carrier Set

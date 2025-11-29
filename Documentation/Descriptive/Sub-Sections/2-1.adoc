@@ -211,3 +211,115 @@ The model ensures that all possible outcomes are explicitly defined—arriving o
 Each function maintains closure within the domain: the output (e.g., a BracketStructure or UpdatedTeam) can directly serve as input to another function in the system, supporting modularity and composability in software design.
 
 Design decisions about function parameters (e.g., using teamID vs. team object, updating scores via Match or Team) should be discussed and negotiated by the project team. Implementation may need to be revised as the domain model evolves.
+
+== 2.1.7 
+= Identifying Carrier Sets and Operations for Core Esports Organizer Components
+Yasser Alonso Ruiz, November 26, 2025
+
+== Introduction
+[.hl-green]#This task applies the concepts on algebras in requirements engineering. The goal is to identify the carrier sets, operations, arity, and closure properties for two small components in the Esports Organizer system. This clarifies how each subsystem behaves, what elements it manipulates, and what transformations are valid within that subsystem.3
+
+[.hl-green]#For this LTT, the selected components are:#
+
+[.hl-green]#1. Teams  
+2. Notifications#  
+
+[.hl-green]#These components were selected because they represent distinct system behaviors: one models group structure and membership, while the other models communication flow and event-triggered updates.#
+
+== Diagram: Teams and Notifications Algebras
+[.hl-green]#The following diagram visually presents the algebraic structure of the Teams and Notifications components.  
+It shows:#
+
+[.hl-green]#- The carrier set of each component  
+- The set of operations  
+- Arity  
+- Closure properties# 
+
+image::Identifying-Carrier-Sets-and-Operations-for-Core-Esports-Organizer-Components.png[width=850,align=center]
+
+
+== Component 1: Teams Algebra
+
+=== Carrier Set
+[.hl-green]#The carrier set for Teams is:#
+
+Team = { all team objects stored in Firestore }
+
+Each element in this set contains fields such as teamId, teamName, members, captainId, createdAt, and ranking or statistics.
+
+=== Operations
+
+==== [.hl-green]#addMember(team, player)
+Arity: binary  
+Description: Adds a player to the team's members list.  
+Closure: The output remains in Team.  
+addMember(team, player) -> Team#
+
+==== [.hl-green]#removeMember(team, player)
+Arity: binary  
+Description: Removes a player from the team's members list.  
+Closure: The output remains in Team.  
+removeMember(team, player) -> Team#
+
+==== [.hl-green]#changeCaptain(team, player)
+Arity: binary  
+Description: Updates the captainId field of the team.  
+Closure: The resulting structure remains part of Team.#
+
+==== [.hl-green]#updateTeamName(team, newName)
+Arity: binary  
+Description: Updates the teamName field.  
+Closure: Output remains a Team element.#
+
+=== Benefits of This Algebra
+Defining Teams as an algebra highlights important system invariants:
+
+[.hl-green]#- A team must always have a valid captain.  
+- All operations maintain a valid Team structure (closure).  
+- No operation produces malformed or incomplete team objects.#
+
+[.hl-green]#This reduces ambiguity, prevents invalid team states, and clarifies the preconditions and postconditions needed for testing.#
+
+== Component 2: Notifications Algebra
+
+=== [.hl-green]#Carrier Set
+The carrier set for Notifications is:#
+
+Notification = { all notification objects delivered to users }
+
+[.hl-green]#Each notification includes notificationId, recipientUserId, type, message, isRead, and timestamp.#
+
+=== Operations
+
+==== [.hl-green]#markRead(notification)
+Arity: unary  
+Description: Sets isRead to true.  
+Closure: The output remains an element of Notification.#
+
+==== [.hl-green]#updateMessage(notification, newMessage)
+Arity: binary  
+Description: Updates the message text of the notification.  
+Closure: The output remains in Notification.#
+
+==== [.hl-green]#retarget(notification, newRecipient)
+Arity: binary  
+Description: Assigns the notification to a different user.  
+Closure: Output stays inside Notification.#
+
+==== transformType(notification, newType)
+[.hl-green]#Arity: binary  
+Description: Changes the notification type.  
+Closure: The resulting object remains a Notification.#
+
+===[.hl-green]# Benefits of This Algebra
+This algebraic approach reveals assumptions and prevents errors such as:#
+
+[.hl-green]#- Incorrect deletion or modification of notifications when marked as read  
+- Producing notifications without required fields  
+- Targeting invalid or unauthorized recipients  #
+
+Algebra clarifies valid state transitions and enforces structural consistency.
+
+== [.hl-green]#Summary
+By analyzing Teams and Notifications as algebras, the carrier sets, operations, arity, and closure rules become explicit.  
+This method strengthens the requirements model, exposes hidden assumptions, clarifies subsystem behavior, and supports correctness and maintainability across the Esports Organizer system.#
