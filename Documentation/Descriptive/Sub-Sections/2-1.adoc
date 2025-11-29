@@ -350,4 +350,5 @@ image::Descriptive/Sub-Sections/Identifying-Carrier-Sets-and-Operations-for-Core
 [.hl-green]#*deleteEvent* : Takes an Event's ID, such as its name, and removes the corresponding event from the database if it was found. Returns true if the event was removed and false otherwise.#
 
 [.hl-green]#*isEventInDatabase* : Takes an Event and checks if an event in the database has the same ID/name as the provided event. Returns a Boolean to indicate if the event was found.#
+
 [.hl-green]#*getEventFromFirestore* : takes an Event ID and searches in the database for an event that has a matching ID. Returns the found event and a null object if the event was not found.#
