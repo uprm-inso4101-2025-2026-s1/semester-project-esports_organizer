@@ -1,5 +1,5 @@
-import Team from "../database/examples/Teams.js";
-import Bracket from "../database/examples/Brackets.js";
+import Team from "../database/core/Teams.js";
+import Bracket from "../database/core/Brackets.js";
 
 const registeredTeams = [];
 let eventStarted = false;
@@ -41,7 +41,8 @@ export function registerTeam(team,tournament) {
   }
 
   if (!(team instanceof Team)) {
-    throw new Error("Invalid team object.\n");
+    console.log("Invalid team object. Tournament is NOT valid.\n");
+    return false;
   }
 
   if (registeredTeams.some((t) => t.name === team.name)) {

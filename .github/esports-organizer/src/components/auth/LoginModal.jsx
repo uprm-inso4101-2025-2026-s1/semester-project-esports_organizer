@@ -4,6 +4,9 @@ import Modal from "../shared/Modal";
 import "../shared/Modal.css";
 import { Link, useNavigate } from "react-router-dom";
 import Label from "../shared/Label";
+import { loginUser } from "../../services/loginUser";
+import { isUserBanned } from "../../services/checkBans"; 
+
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -32,11 +35,23 @@ function LoginForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    console.log("Signup data:", form);
+    // Check first if user is banned then use loginUser to check credentials
+    const isBanned = await isUserBanned(form.emailOrUsername);
+    if (isBanned) {
+      setErrors({ form: "Your account has been banned. Contact support for more information." });
+      return;
+    }
+    const result = await loginUser(form.emailOrUsername, form.password);
+    if (!result.success) {
+      setErrors({ form: result.error });
+      return;
+    }
+
+    // Successful login
     navigate("/homepage");
   };
 
@@ -46,13 +61,13 @@ function LoginForm() {
       buttonsDirection="column"
       showLogo={true}
       buttons={[
-        <Button key="login" text="Log In" onClick={handleSubmit}></Button>,
-        <Button
-          key="signup"
-          text="Don't have an account? Sign Up"
-          variant="secondary"
-          onClick={() => navigate("/signup")}
-        ></Button>,
+         <Button key="login" text="Log In" onClick={handleSubmit}></Button>,
+         <Button
+          key="signup-secondary"
+           text="Don't have an account? Sign Up"
+           variant="secondary"
+           onClick={() => navigate("/signup")}
+         ></Button>,
       ]}
     >
       <Label required>E-mail or Username</Label>
@@ -81,6 +96,7 @@ function LoginForm() {
           required
         />
         {errors.password && <p className="error">{errors.password}</p>}
+        {errors.form && <p className="error">{errors.form}</p>}
       </form>
 
       <div id="forgotPassword">

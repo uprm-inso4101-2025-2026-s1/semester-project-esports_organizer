@@ -1,0 +1,203 @@
+.user-profile-popup {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: var(--container);
+    border: 1px solid var(--host-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 5000 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-option {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  text-align: left;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: white
+}   
+
+.user-option:hover {
+  background: var(--hover);
+}
+.user-option svg {
+  margin-right: 8px;
+}
+
+/* Base navbar layout (kept minimal and global-safe) */
+.nav-header {
+  background: var(--primary);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  width: 100%;
+  padding: clamp(0.5rem, 2vw, 1rem) clamp(0.75rem, 3vw, 1.25rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0.5rem;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+  height: 18px;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  height: 2px;
+  width: 100%;
+  background: white;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile behavior */
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0.75rem 1rem;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+  .mobile-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--primary);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Default link styles for navbar using global variables */
+.nav-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  font-family: var(--font-heading);
+  font-size: clamp(14px, 2.2vw, 16px);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  position: relative;
+}
+
+/* Responsive logo size */
+.logo-image {
+  width: clamp(36px, 6vw, 60px);
+  height: clamp(36px, 6vw, 60px);
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  color: white;
+  background: var(--hover);
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 3px;
+  background: var(--hover);
+  border-radius: 2px;
+}
+
+.mobile-nav-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-align: left;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.mobile-nav-link.active {
+  background: rgba(125, 91, 166, 0.2);
+  color: white;
+}
+
+.admin-panel {
+  animation: adminSlideDown 0.18s ease;
+}
+
+@keyframes adminSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

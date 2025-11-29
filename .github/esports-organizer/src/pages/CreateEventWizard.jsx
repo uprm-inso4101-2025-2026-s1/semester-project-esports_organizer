@@ -9,6 +9,8 @@ import './CreateEventWizard.css';
 const INITIAL_DATA = {
   title: "",
   game: "",
+  description:"",
+  location: "",
   modality: "Teams",
   date: "",
   time: "",
@@ -30,7 +32,8 @@ export default function CreateEventWizard() {
   const handleSubmit = () => {
     console.log("Submitted data:", formData);
     // TODO: save to Firebase or your backend here
-    alert("Event created!");
+    //I saved the event in the Step4Review file since I didn't see this file earlier.
+    //alert("Event created!");
   };
 
   return (

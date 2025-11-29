@@ -18,10 +18,10 @@ const db = admin.firestore();
 async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
   const mid = process.argv[3] || 'm2';
-  const ref = db.doc(`tournaments/${tid}/matches/${mid}`);
+  const ref = db.doc(`Tournaments/${tid}/matches/${mid}`);
   const snap = await ref.get();
   if (!snap.exists) {
-    console.error('Match doc not found:', `tournaments/${tid}/matches/${mid}`);
+    console.error('Match doc not found:', `Tournaments/${tid}/matches/${mid}`);
     process.exit(2);
   }
   console.log('Match doc:', JSON.stringify(snap.data(), null, 2));

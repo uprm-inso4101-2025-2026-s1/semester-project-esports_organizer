@@ -13,6 +13,20 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
 }
 
+/* Compact/smaller variant for toolbar-like buttons (e.g. Join/Leave) */
+.btn--small {
+  width: auto;
+  padding: 0.4rem 0.8rem;
+  height: 36px;
+  min-width: 84px;
+  aspect-ratio: auto;
+}
+
+.btn--small .pstyle {
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .pstyle {
   font-family: "Ubuntu", sans-serif;
   font-size: clamp(18px, 1vw, 23px);
@@ -68,4 +82,10 @@ button {
 .btn.secondary:disabled {
   background: #4e4e4e;
   color: black;
+}
+
+.user-profile-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }

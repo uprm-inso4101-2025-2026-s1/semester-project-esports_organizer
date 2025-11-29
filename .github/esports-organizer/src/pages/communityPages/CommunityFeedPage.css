@@ -1,0 +1,505 @@
+.community-feed-page {
+    min-height: 100vh;
+    background: var(--gradient);
+    color: var(--primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 8px;
+}
+
+/* CORRECTED THREE COLUMN LAYOUT */
+.community-feed-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr 280px; /* Events, Main content, Mini communities */
+    gap: 32px;
+    padding: 120px 32px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Left Column - UPCOMING EVENTS */
+.events-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.events-section {
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e5e9;
+}
+
+.events-section h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+/* Middle Column - MAIN CONTENT */
+.feed-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+/* 'Activity in marvel rivals community' words at top*/
+.community-header {
+    background: white;
+    color: var(--primary);
+    padding: 16px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e5e9;
+    text-align: center;
+}
+
+/* Align the header title and action vertically and center them */
+.community-header-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Create Post Form Styles */
+.create-post-form {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e5e9;
+}
+
+.create-post-content textarea {
+    width: 100%;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 12px;
+}
+
+/* Post button in creating a post section*/
+.create-post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*little word count/limit at bottom of create a post*/
+.character-count {
+    color: #666;
+    font-size: 12px;
+}
+
+/* post button */
+.post-submit-btn {
+    background: var(--link);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.post-submit-btn:hover:not(:disabled) {
+    background: var(--hover);
+    transform: translateY(-1px);
+}
+.post-submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/*recent activity section*/
+
+/*white card at back of post*/
+.post-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e5e9;
+    margin-bottom: 16px;
+}
+
+/*blue game indicator in post*/
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+/*make user info go to right of pfp*/
+.post-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--link);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 14px;
+}
+
+.user-username {
+    color: #666;
+    font-size: 12px;
+}
+
+.post-timestamp {
+    color: #999;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/*blue game community name */
+.post-community {
+    background: var(--link);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/*likes/comments/shares*/
+.post-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+/*make like/comments/share smaller*/
+.post-stats span {
+    color: #666;
+    font-size: 12px;
+}
+
+/*make the like/comments/share buttons line up*/
+.post-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/*make like/comments/share look pretty*/
+.post-action-btn {
+    flex: 1;
+    background: none;
+    border: 1px solid #e1e5e9;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #666;
+}
+.post-action-btn:hover {
+    background: #f8f9fa;
+    border-color: var(--link);
+}
+.post-action-btn.liked {
+    background: rgba(0, 168, 232, 0.1);
+    border-color: var(--link);
+    color: var(--link);
+}
+
+.action-icon {
+    font-size: 14px;
+}
+
+/* Event Card white background */
+.events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.events-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.load-more-section {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.load-more-btn {
+    background: none;
+    border: 2px solid var(--link);
+    color: var(--link);
+    padding: 12px 32px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.load-more-btn:hover {
+    background: var(--link);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Activity Feed section*/
+
+/*white box background for recent activity*/
+.activity-feed {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e5e9;
+}
+
+.activity-feed h2 {
+    font-family: var(--font-heading);
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+/* Right Column - MINI COMMUNITIES & ACTIONS */
+.communities-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+/* Action Cards */
+.sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.action-card {
+    background: var(--link) !important;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.action-card:hover {
+    background: var(--hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-color: var(--link);
+}
+
+.action-card-content h3 {
+    color: white !important;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Community Sections with Mini Cards */
+.community-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e5e9;
+}
+
+/*make mini card blue*/
+.mini-community-card {
+    background: var(--primary) !important; /* Dark blue background */
+    border: 1px solid var(--container);
+}
+/* White text in blue mini card */
+.mini-community-card .mini-card-title {
+    color: white !important;
+}
+.mini-community-card:hover {
+    background: var(--link) !important; /* Light blue on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 168, 232, 0.2);
+}
+
+.community-section h3 {
+    color: var(--primary);
+    font-family: var(--font-heading);
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e1e5e9;
+    font-weight: 600;
+}
+
+.community-section-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .community-feed-layout {
+        grid-template-columns: 1fr; /* Stack all columns on tablet */
+        gap: 24px;
+        padding: 100px 24px 32px;
+    }
+
+    .events-sidebar,
+    .communities-sidebar {
+        position: static;
+        order: -1; /* Move sidebars above main content */
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 16px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .nav-menu-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 16px;
+        border-top: 1px solid #e1e5e9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .community-feed-layout {
+        grid-template-columns: 1fr;
+        padding: 90px 16px 24px;
+        gap: 20px;
+    }
+
+    .community-header h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .create-post-section,
+    .activity-feed,
+    .events-section,
+    .action-card,
+    .community-section {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .community-feed-layout {
+        padding: 80px 12px 20px;
+    }
+}
+
+/* Hamburger menu animation */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.hamburger-open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Dark mode using the .darkmode implementation on global.css instead of previous implementation with @media (prefers-color-scheme: dark)*/
+.dark-mode .community-feed-page { background: var(--dark-gradient); }
+
+
+/*team forms modal overrides*/
+.team-form__input,
+.team-form__textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--container);
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: white;
+  color: black;
+}

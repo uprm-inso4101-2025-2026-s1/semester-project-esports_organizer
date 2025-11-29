@@ -1,10 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/shared/Navbar";
 import Button from "../../components/shared/Button";
-import { TEAMS } from "../../data/teams";
 import "./TeamProfilePage.css";
 import "./TeamForms.css";
+import Team from "../../services/TeamClass";
+
+import { joinTeam, leaveTeam } from "../../services/profile-service";
+import { getProfileById } from "../../services/profile-service";
 
 function TeamModal({ title, children, onClose, footer }) {
   return (
@@ -36,11 +39,38 @@ function TeamModal({ title, children, onClose, footer }) {
 export default function TeamProfilePage() {
   const { teamId } = useParams();
   const navigate = useNavigate();
+  const [team, setTeam] = useState({});
 
-  const team = useMemo(
-    () => TEAMS.find((entry) => entry.id === teamId) ?? null,
-    [teamId]
-  );
+  const [joinStatus, setJoinStatus] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmMsg, setConfirmMsg] = useState("");
+
+  const [userTeamId, setUserTeamId] = useState(null);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchUserProfile() {
+      const uid = localStorage.getItem("currentUserUid");
+      if (uid) {
+        const profile = await getProfileById(uid);
+        setUserTeamId(profile?.teamId || null);
+      }
+      setProfileLoaded(true);
+    }
+    fetchUserProfile();
+  }, [teamId, joinStatus, showConfirm]);
+
+  // const team = useMemo(
+  //   () => Team.getAll().find((entry) => entry.id === teamId) ?? null,
+  //   [ teamId ]
+  // );
+  useState(() => {
+    async function loadTeam() {
+      console.log(await Team.getById(teamId));
+      setTeam(await Team.getById(teamId));
+    }
+    loadTeam();
+  }, [ teamId ]);
 
   const [isEditTeamOpen, setIsEditTeamOpen] = useState(false);
   const [isManageRosterOpen, setIsManageRosterOpen] = useState(false);
@@ -54,29 +84,30 @@ export default function TeamProfilePage() {
     };
   }, [isEditTeamOpen, isManageRosterOpen]);
 
-  if (!team) {
-    return (
-      <div className="team-profile-page">
-        <Navbar />
-        <main className="team-profile team-profile--empty">
-          <div className="team-profile__empty-card">
-            <h1>We couldn’t find that team.</h1>
-            <p>
-              The roster you’re looking for might be private or still in the
-              works. Head back to the teams directory to explore active teams.
-            </p>
-            <Button
-              text="Back to teams"
-              onClick={() => navigate("/teams")}
-              variant="secondary"
-            />
-          </div>
-        </main>
-      </div>
-    );
-  }
+  // if (!team) {
+  //   return (
+  //     <div className="team-profile-page">
+  //       <Navbar />
+  //       <main className="team-profile team-profile--empty">
+  //         <div className="team-profile__empty-card">
+  //           <h1>We couldn’t find that team.</h1>
+  //           <p>
+  //             The roster you’re looking for might be private or still in the
+  //             works. Head back to the teams directory to explore active teams.
+  //           </p>
+  //           <Button
+  //             text="Back to teams"
+  //             onClick={() => navigate("/teams")}
+  //             variant="secondary"
+  //           />
+  //         </div>
+  //       </main>
+  //     </div>
+  //   );
+  // }
 
-  const userHasEditPermissions = Boolean(team.canEdit);
+  // TODO:
+  const userHasEditPermissions = false;
 
   const openEditTeamModal = () => setIsEditTeamOpen(true);
   const closeEditTeamModal = () => setIsEditTeamOpen(false);
@@ -102,10 +133,41 @@ export default function TeamProfilePage() {
           ← Back to teams
         </button>
 
+
+        {/* Modal for confirmation */}
+        {showConfirm && (
+          <TeamModal
+            title="Confirm Team Change"
+            onClose={() => setShowConfirm(false)}
+            footer={null}
+          >
+            <p>{confirmMsg}</p>
+            <div style={{ display: "flex", gap: "8px", marginTop: "16px" }}>
+              <Button
+                text="Confirm Join"
+                variant="danger"
+                style={{ width: "auto", minWidth: "120px" }}
+                onClick={async () => {
+                  // Overwrite teamId
+                  const result = await joinTeam(teamId, true);
+                  setJoinStatus(result.message || result.error);
+                  setShowConfirm(false);
+                }}
+              />
+              <Button
+                text="Cancel"
+                variant="ghost"
+                style={{ width: "auto", minWidth: "120px" }}
+                onClick={() => setShowConfirm(false)}
+              />
+            </div>
+          </TeamModal>
+        )}
+
         <section className="team-hero">
           <div
             className="team-hero__background"
-            style={{ backgroundImage: `url(${team.coverImage})` }}
+            style={{ backgroundImage: `url(${team ? team.coverImage : ''})` }}
             role="presentation"
           />
           <div className="team-hero__scrim" />
@@ -113,20 +175,58 @@ export default function TeamProfilePage() {
           <div className="team-hero__inner">
             <div className="team-hero__identity">
               <div className="team-hero__logo">
-                <img src={team.logo} alt={`${team.name} logo`} />
+                <img src={team?.logo ?? '../../src/assets/team-profile-pics/team1.png'} alt={`${team?.teamName} logo`} />
               </div>
               <div className="team-hero__meta">
                 <div className="team-hero__title-row">
-                  <h1 className="team-hero__title">{team.name.toUpperCase()}</h1>
-                  <span className="team-hero__game">{team.game}</span>
+                  <h1 className="team-hero__title">{(team?.teamName ?? "").toUpperCase()}</h1>
+                  <span className="team-hero__game">{team?.game}</span>
                 </div>
                 <div className="team-hero__record">
                   <span className="team-hero__record-value">
-                    {team.record.wins} - {team.record.losses}
+                    {
+                      (team && team.record ? team.record.wins : '0')
+                    } - {
+                      (team && team.record ? team.record.losses : '0')
+                    }
                   </span>
                   <span className="team-hero__record-label">Wins · Losses</span>
                 </div>
-                <p className="team-hero__description">{team.description}</p>
+                <p className="team-hero__description">{team?.description}</p>
+                {/* Join/Leave Team Buttons inside hero, hidden when modal is open */}
+                {profileLoaded && (
+                  <div style={{ display: "flex", gap: "8px", margin: "12px 0" }}>
+                    {userTeamId !== teamId && (
+                      <Button
+                        text="Join Team"
+                        variant="primary"
+                        style={{ width: "auto", minWidth: "120px" }}
+                        onClick={async () => {
+                          const result = await joinTeam(teamId);
+                          if (result.confirm) {
+                            setShowConfirm(true);
+                            setConfirmMsg(result.message);
+                          } else {
+                            setJoinStatus(result.message || result.error);
+                            setShowConfirm(false);
+                          }
+                        }}
+                      />
+                    )}
+                    {userTeamId === teamId && (
+                      <Button
+                        text="Leave Team"
+                        variant="secondary"
+                        style={{ width: "auto", minWidth: "120px" }}
+                        onClick={async () => {
+                          const result = await leaveTeam();
+                          setJoinStatus(result.message || result.error);
+                          setShowConfirm(false);
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
                 {userHasEditPermissions && (
                   <button
                     type="button"
@@ -140,7 +240,7 @@ export default function TeamProfilePage() {
             </div>
 
             <ul className="team-hero__socials" aria-label="Team social links">
-              {Object.entries(team.social)
+              {Object.entries(team?.social ?? {})
                 .filter(([, value]) => value)
                 .map(([network, url]) => (
                   <li key={network}>
@@ -154,7 +254,7 @@ export default function TeamProfilePage() {
                     </a>
                   </li>
                 ))}
-              {Object.values(team.social).every((value) => !value) && (
+              {Object.values(team?.social ?? {}).every((value) => !value) && (
                 <li className="team-hero__social-empty">
                   Social channels coming soon
                 </li>
@@ -179,14 +279,14 @@ export default function TeamProfilePage() {
               )}
             </header>
 
-            {team.matches.length === 0 ? (
+            {team?.matches && team.matches.length === 0 ? (
               <p className="team-empty-state">
                 This team hasn’t recorded any matches yet. Results will appear
                 here once the season starts.
               </p>
             ) : (
               <ul className="team-matches__list">
-                {team.matches.map((match) => (
+                {team?.matches && team?.matches.map((match) => (
                   <li key={match.id} className="team-match">
                     <div className="team-match__opponent">
                       <div className="team-match__logo">
@@ -217,7 +317,7 @@ export default function TeamProfilePage() {
             <header className="team-card__header">
               <div>
                 <h2>Roster</h2>
-                <span className="team-card__subtitle">{team.game}</span>
+                <span className="team-card__subtitle">{team?.game}</span>
               </div>
               {userHasEditPermissions && (
                 <button
@@ -230,7 +330,7 @@ export default function TeamProfilePage() {
               )}
             </header>
 
-            {team.roster.length === 0 ? (
+            {team?.roster && team.roster.length === 0 ? (
               <p className="team-empty-state">
                 No players have been added yet. Once roster slots are assigned,
                 each member will appear here with their role, socials, and
@@ -238,7 +338,7 @@ export default function TeamProfilePage() {
               </p>
             ) : (
               <div className="team-roster__grid">
-                {team.roster.map((player) => (
+                {team?.roster && team.roster.map((player) => (
                   <article key={player.id} className="team-player-card">
                     <div className="team-player-card__media">
                       <img src={player.photo} alt={`${player.gamerTag} avatar`} />

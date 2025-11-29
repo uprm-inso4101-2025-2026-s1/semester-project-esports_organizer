@@ -1,23 +1,52 @@
-function TournamentCard({ 
-  tournament, 
-  index, 
-  prefix = "", 
-  isSaved, 
-  onToggleSaved, 
-  onJoinEvent 
-}) {
-  const cardId = prefix ? `${prefix}-${index}` : index;
+import { useEffect, useState } from "react";
+import { addToGoogleCalendar } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+
+const MAPPING = {
+  "Apex Legends" : "Apex.png",
+  "Valorant" : "Valorant.png",
+  "League of Legends" : "League_of_Legends.png",
+  "Fortnite" : "Fortnite.png",
+  "Call of Duty" : "Call_of_Duty.png",
+  "Dota 2" : "Dota_2.png",
+  "Counter-Strike 2" : "CS_GO.png",
+  "Overwatch 2" : "Overwatch.png",
+  "Rocket League" : "Rocket_League.png",
+  "FIFA" : "Fifa25.png"
+}
+
+function TournamentCard({
+    tournament, 
+    index, 
+    prefix = "", 
+    isSaved, 
+    onJoinEvent,
+    isJoined
+  }) {
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+      navigate(path);
+    };
 
   return (
     <div className="tournament-card">
-      <div className="tournament-image-wrapper">
-        <img 
-          src="/assets/images/fortnite.png" 
-          alt="Tournament" 
+      <div
+        className="tournament-image-wrapper"
+        role="button"
+        tabIndex={0}
+        onClick={() => handleNavigation("/brackets-tournaments")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") handleNavigation("/brackets-tournaments");
+        }}
+      >
+        <img
+          src={"src/assets/images/" + MAPPING[tournament.game]}
+          alt="Tournament"
           className="tournament-image"
         />
         <div className="tournament-overlay">
-          <div className="tournament-type-overlay">CLASIFICATORIO</div>
+          <div className="tournament-type-overlay">TOURNAMENT</div>
         </div>
       </div>
       <div className="tournament-info">
@@ -43,30 +72,22 @@ function TournamentCard({
         <div className="tournament-actions">
           <button 
             type="button"
-            className="join-event-button"
-            onClick={() => onJoinEvent(tournament.title)}
+            className={`join-event-button ${isJoined ? 'joined' : ''}`}
+            onClick={isJoined ? undefined : () => onJoinEvent(tournament)}
+            disabled={isJoined}
+            style={{
+              background: isJoined ? '#aaa' : '',
+              cursor: isJoined ? 'not-allowed' : 'pointer',
+              opacity: isJoined ? 0.7 : 1
+            }}
           >
-            Join Event
+            {isJoined ? 'Event Joined' : 'Join Event'}
           </button>
           <button 
             type="button"
             className={`bookmark-button ${isSaved ? 'saved' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              
-              // Capture current scroll position
-              const currentScrollY = window.scrollY;
-              
-              // Execute the toggle
-              onToggleSaved(cardId);
-              
-              // Force scroll position to stay the same
-              requestAnimationFrame(() => {
-                window.scrollTo(0, currentScrollY);
-              });
-              
-              return false;
+            onClick={() => {
+              addToGoogleCalendar(tournament);
             }}
             onMouseDown={(e) => {
               e.preventDefault();
@@ -76,6 +97,7 @@ function TournamentCard({
               e.preventDefault();
               e.stopPropagation();
             }}
+
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>

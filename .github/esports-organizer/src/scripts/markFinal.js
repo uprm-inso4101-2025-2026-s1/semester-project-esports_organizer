@@ -19,7 +19,7 @@ async function main() {
   const tid = process.argv[2] || 'tourn_demo_1';
   const mid = process.argv[3] || 'm2';
 
-  const ref = db.doc(`tournaments/${tid}/matches/${mid}`);
+  const ref = db.doc(`Tournaments/${tid}/matches/${mid}`);
   await ref.set({ status: 'FINAL' }, { merge: true });
   console.log(`Match ${mid} in tournament ${tid} set to FINAL.`);
 }

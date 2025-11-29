@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../pages/CreateEventWizard.css";
+import { getAllCommunitiesFromDatabase } from "../../Comm-Social/CommunityCreation.js";
 
 export default function Step3Limits({ data, onNext, onBack }) {
   const [maxTeams, setMaxTeams] = useState(data.maxTeams);
   const [maxPlayersPerTeam, setMaxPlayersPerTeam] = useState(data.maxPlayersPerTeam);
+  const [community, setCommunity] = useState(data.community);
+  const [allCommunities, setAllCommunities] = useState([]);
+
+  async function loadCommunities() {
+      const data = await getAllCommunitiesFromDatabase();
+      setAllCommunities(data);
+  }
+
+  useEffect(() => {
+    loadCommunities();
+  }, []);
 
   function handleNext() {
     if (!maxTeams || !maxPlayersPerTeam) return alert("Both fields required");
-    onNext({ maxTeams, maxPlayersPerTeam });
+    onNext({ maxTeams, maxPlayersPerTeam, community: community ? community.toFirestore() : null });
   }
 
   return (
     <div className="wizard-container">
       <div className="wizard-step-card">
-        <h2 className="wizard-step-title">Step 3: Team & Player Limits</h2>
+        <h2 className="wizard-step-title">Step 3: Team, Player Limits & Community</h2>
 
         <div className="wizard-form-group">
           <label className="wizard-label">Max Teams *</label>
@@ -37,6 +49,24 @@ export default function Step3Limits({ data, onNext, onBack }) {
             onChange={(e) => setMaxPlayersPerTeam(e.target.value)}
             placeholder="e.g. 4"
           />
+        </div>
+
+        {/* Community */}
+        <div className="wizard-form-group">
+          <label className="wizard-label">Community</label>
+          <select
+              value={community ? community.name : ""}
+              onChange={(e) => {
+                const selected = allCommunities.find(c => c.name === e.target.value);
+                setCommunity(selected || null);
+              }}
+              className="wizard-select"
+          >
+            <option value="">No Community</option>
+            {allCommunities.map((community) => (
+                <option key={community.name} value={community.name}>{community.name}</option>
+            ))}
+          </select>
         </div>
 
         <div className="wizard-actions">

@@ -4,6 +4,7 @@ import {
     updateDoc, deleteDoc, query, orderBy, where, limit as qLimit,
     Timestamp, serverTimestamp
 } from "firebase/firestore";
+import Team from "../services/TeamClass.js";
 
 class UserProfile {
     constructor(username, email) {
@@ -49,21 +50,28 @@ export default class Event {
         description,
         dateValue,
         participants,
+        teams,
         game,
         location,
         createdBy, // UserProfile object
         community = null, // Community object
-        tournament = null // Tournament object
+        tournament = null, // Tournament object
+
+        maxTeams,
+        maxPlayersPerTeam
     }) {
         // Required fields
         this.title = title;
         this.id = id; // optional (if set, we'll upsert with this id)
         this.description = description;
         this.dateValue = dateValue; // JS Date, ms, ISO, or Firestore Timestamp are OK (we normalize)
-        this.participants = participants; // number for now
         this.game = game;
         this.location = location || "TBD"; // default to "TBD" if not specified
-
+        this.participants = participants;
+        this.teams = teams;
+        this.maxTeams = maxTeams;
+        this.maxPlayersPerTeam = maxPlayersPerTeam;
+        
         // Relations to other features
         this.createdBy = createdBy;
         this.community = community;
@@ -104,12 +112,12 @@ export default class Event {
     setDate(dateVal) {
         const d = (dateVal instanceof Date) ? dateVal : new Date(dateVal);
         if (isNaN(d.getTime())) throw new Error('Date must be a valid date');
-        this.dateTime = d;
+        this.dateValue = d;
     }
 
     setParticipants(participants) {
-        if (typeof participants !== 'number' || participants < 1) {
-            throw new Error('Participants must be a positive number');
+        if (!(Array.isArray(participants))) {
+            throw new Error('Participants must be an array');
         }
         this.participants = participants;
     }
@@ -126,6 +134,27 @@ export default class Event {
             throw new Error('Location must be a non-empty string');
         }
         this.location = location;
+    }
+
+    setTeams(teams) {
+        if (!(Array.isArray(teams))) {
+            throw new Error('Teams must be an array');
+        }
+        this.teams = teams;
+    }
+
+    setMaxTeams(maxTeams) {
+        if (typeof maxTeams !== 'number') {
+            throw new Error('Max teams must be a number');
+        }
+        this.maxTeams = maxTeams;
+    }
+
+    setMaxPlayersPerTeam(maxPlayersPerTeam) {
+        if (typeof maxPlayersPerTeam !== 'number') {
+            throw new Error('Max players per team must be a number');
+        }
+        this.maxPlayersPerTeam = maxPlayersPerTeam;
     }
 
     setCreatedBy(userProfile) { this.createdBy = userProfile; }
@@ -152,7 +181,7 @@ export default class Event {
         }
     }
 
-    async ListEvents(opts = {}) {
+    static async ListEvents(opts = {}) {
         const { status, from, to, max = 50 } = opts;
         const parts = [collection(db, "events")];
         if (status) parts.push(where("status", "==", String(status)));
@@ -167,35 +196,68 @@ export default class Event {
 
     /** READ: get one event by ID. Returns plain object or null. */
     async GetEventByID(ID) {
-        const theId = ID ?? this.ID;
+        const theId = ID ?? this.id;
         if (!theId) throw new Error("ID is required");
         const snap = await getDoc(doc(db, "events", theId));
         return snap.exists() ? fromDocData(snap.id, snap.data()) : null;
     }
 
     /** UPDATE: update fields by ID (uses current object values unless args are provided). */
-    async UpdateEvent(ID, title, description, dateValue, participants, game, location, community, tournament) {
+    async UpdateEvent(ID, title, description, dateValue, participants, teams, game, location, community, tournament, maxTeams, maxPlayersPerTeam) {
         const theId = ID ?? this.id;
         if (!theId) throw new Error("ID is required");
         // if args provided, overwrite the instance first
         if (title !== undefined) this.setTitle(title);
         if (dateValue !== undefined) this.setDate(dateValue);
-        if (location !== undefined) this.setLocation(Location);
+        if (location !== undefined) this.setLocation(location);
         if (description !== undefined) this.setDescription(description);
         if (participants !== undefined) this.setParticipants(participants);
+        if (teams !== undefined) this.setTeams(teams);
         if (game !== undefined) this.setGame(game);
         if (community !== undefined) this.setCommunity(community);
         if (tournament !== undefined) this.setTournament(tournament);
+        if (maxTeams !== undefined) this.setMaxTeams(maxTeams);
+        if (maxPlayersPerTeam !== undefined) this.setMaxPlayersPerTeam(maxPlayersPerTeam);
 
         const patch = toDocData(this, { isCreate: false }); // adds updatedAt
         await updateDoc(doc(db, "events", theId), patch);
         return theId;
     }
 
+    addTeam({teamID = null, organizerID = null, name}) {
+        for (let t of this.teams) {
+            if (t.name === name || t.organizer === organizerID) return false;
+        }
+
+        if (this.teams.length < this.maxTeams) {
+            this.teams.push(Team.createSubTeam({TeamID: teamID, name: name, organizer: organizerID, capacity: this.maxPlayersPerTeam}));
+            return true;
+        }
+
+        return false;
+    }
+
+    addToTeam(teamName, user) {
+        const team = this.teams.find(t => t.name === teamName);
+        if (!team) return;
+
+        if (!team.members.includes(user.uid)) {
+            if (team.members.length < team.capacity) {
+                team.members.push(user.uid);
+            } else {
+                console.warn("Team is full");
+                return;
+            }
+        }
+
+        if (!this.participants.includes(user.uid)) {
+            this.participants.push(user.uid);
+        }
+    }
 
     /** DELETE: remove by ID. */
     async DeleteEvent(ID)  {
-        const theId = ID ?? this.ID;
+        const theId = ID ?? this.id;
         if (!theId) throw new Error("ID is required");
         await deleteDoc(doc(db, "events", theId));
         return theId;
@@ -238,11 +300,14 @@ function toDocData(evt, { isCreate = false } = {}) {
         description: evt.description ?? "",
         dateValue: evt.dateValue,
         participants: evt.participants ?? [],
+        teams: evt.teams ?? [], 
         game: evt.game ?? "",
         location: evt.location ?? "",
         createdBy: evt.createdBy ?? null,
         community: evt.community ?? null,
         tournament: evt.tournament ?? null,
+        maxTeams: evt.maxTeams ?? 0,
+        maxPlayersPerTeam: evt.maxPlayersPerTeam ?? 0,
         startAt: toTs(evt.dateValue) ?? serverTimestamp(),
     };
     if (isCreate) data.createdAt = serverTimestamp();
@@ -259,19 +324,22 @@ function toDocData(evt, { isCreate = false } = {}) {
             description: data.description ?? "",
             dateValue: data.startAt instanceof Timestamp ? data.startAt.toDate() : data.startAt ?? null,
             participants: data.participants ?? [],
+            teams: data.teams ?? [],
             game: data.game ?? "",
             location: data.location ?? "",
             createdBy: data.createdBy ?? null,
             community: data.community ?? null,
             tournament: data.tournament ?? null,
+            maxTeams: data.maxTeams ?? 0,
+            maxPlayersPerTeam: data.maxPlayersPerTeam ?? 0
         };
     }
 
 // ================================
 // Use example
 // ================================
-
-    async function run() {
+/**
+    async function exampleFunction() {
         console.log("=== EventsClass + Firestore Emulator test ===");
         const evt = new Event({
             title: "Valorant Champions Qualifier 2024",
@@ -305,5 +373,4 @@ function toDocData(evt, { isCreate = false } = {}) {
         console.log("Deleted:", id);
         console.log("Finished running database test");
     }
-
-    run().catch(e => console.error("[EventsClass test error]", e));
+ */

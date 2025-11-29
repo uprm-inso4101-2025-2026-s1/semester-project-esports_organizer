@@ -6,7 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   // Ignore build output and example snippets
-  globalIgnores(['dist', 'src/database/examples/**']),
+  globalIgnores(['dist', 'src/database/core/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -34,6 +34,10 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: {
         ...globals.node,
+        exports: 'writable',
+        module: 'writable',
+        require: 'writable',
+        process: 'writable',
       },
       parserOptions: {
         ecmaVersion: 'latest',
@@ -66,6 +70,23 @@ export default defineConfig([
   // Node override for emulator-health utility
   {
     files: ['src/database/emulator-health.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node,
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  // Node override for emailnotifs
+  {
+    files: ['src/emailnotifs/**/*.js'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: {

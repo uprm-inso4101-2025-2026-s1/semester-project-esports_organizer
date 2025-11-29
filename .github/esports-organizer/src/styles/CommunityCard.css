@@ -2,22 +2,23 @@
   display: flex;
   flex-direction: column;
 
-
   /* Match EventCard width so they align nicely in the same row */
-  background: #fff;
+  background: white;
   flex: 0 0 260px;
   width: 260px;
+  color: white !important;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
   overflow: hidden;
   border: 1px solid rgba(12, 20, 34, 0.08);
-  min-height: 320px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 300px;
+  transition: all 0.2s ease;
 }
 
 .community-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  border-color: var(--link);;
 }
 
 /* Media */
@@ -36,19 +37,20 @@
 /* Body */
 .ccard__body {
   flex: 1;
-  padding: 18px 20px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   text-align: center;
 }
 
 .ccard__title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2px;
+  color: white !important;
 }
 
 .ccard__stats {
@@ -61,12 +63,15 @@
 }
 .ccard__label {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
+  color: white !important;
 }
 .ccard__value {
   margin-left: 6px;
   font-family: var(--font-body);
   font-weight: 600;
+  font-size: 15px;
+  color: white !important;
 }
 
 /* Footer with join button (same style language as EventCard) */
@@ -79,19 +84,21 @@
 
 .ccard__join-btn {
   flex: 1;
-  background: var(--light-link);
-  color: #fff;
+  background: var(--link);
+  color: white;
   border: none;
-  padding: 12px 16px;
+  padding: 12px 14px;
   border-radius: 12px;
   font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
 }
 
 .ccard__join-btn:hover {
-  background: var(hover);
+  background: var(--hover);
   transform: translateY(-1px);
   box-shadow: 0 16px 32px rgba(125, 91, 166, 0.28);
 }

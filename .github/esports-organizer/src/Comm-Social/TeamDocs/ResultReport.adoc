@@ -13,16 +13,15 @@ The `ResultReport.js` file provides a function to generate the results of a give
 
 == Purpose
 
-It takes a tournament bracket and processes the match results through the bracket progression system, ultimately generating a ranked list of teams alongside their respective placement (e.g. "1st", "2nd", "3rd"...).
+It takes a tournament object and processes the match results through the bracket progression system, ultimately generating a ranked list of teams alongside their respective placement (e.g. "1st", "2nd", "3rd"...).
 
 == Dependencies
 
 [source,javascript]
 ----
-import { runBracket } from "./MatchProgression.js";
 //The following imports are unused as of writing:
-import Tournament from "../database/examples/Tournament.js"; // <1>
-import Team from "../database/examples/Teams.js"; // <1>
+import Tournament from "../database/core/Tournament.js"; // <1>
+import { getTournamentData } from "./BracketTeamVisualization.js"; // <1>
 ----
 <1> The imports go unused in the current implementation as of writing.
 
@@ -49,16 +48,17 @@ export function resultReport(tournament)
 
 === Algorithm Description
 
-. Calls `runBracket(Tournament)` to get the final team list in reverse order, index 0 being the loser and n-1 being the winner
+. Calls `getTournamentData(Tournament)` and access the results property to get the final team list in reverse order, index 0 being the loser and n-1 being the winner
 . Reverses the list to place champion first, basically champion at index 0 and loser at n-1
 . Assigns placement strings ("1st", "2nd", "3rd", etc.) to each team
 . Returns array of [placement, team] pairs
 
 === Return Value
 
-Returns an array of tuples or a double-array where each element contains:
+Returns an object that contains all information about the tournament results:
 - Placement string (e.g., "1st", "2nd", "3rd")
-- Team object
+- Champion
+- Rounds with matches
 
 Example return structure:
 ```
@@ -75,6 +75,6 @@ javascript
 
 The function wraps the main logic in a try-catch block:
 
-* Catches any errors thrown by `runBracket()`
+* Catches any errors thrown by `getTournamentData` or other operations
 * Re-throws errors with the original message
 * Prevents silent failures

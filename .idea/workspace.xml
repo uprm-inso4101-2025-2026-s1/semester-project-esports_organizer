@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Fixes 2">
+    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment=" SignupModal; add guard clause in TournamentCard">
+      <change afterPath="$PROJECT_DIR$/docs/lecture-notes/backend-requirements-facets.md" afterDir="false" />
+    <list default="true" id="26028cff-23d3-433a-b77c-33e766e13536" name="Changes" comment="Image dupe">
+      <change afterPath="$PROJECT_DIR$/Documentation/End/Sub-Sections/ai_disclosure_statement.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Documentation/Analytic/Sub-Sections/3-2.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/Analytic/Sub-Sections/3-2.adoc" afterDir="false" />
     </list>
@@ -19,11 +22,19 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="all-my-ltt's" />
+        <entry key="$PROJECT_DIR$" value="beta-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "LectureTopic-Engineering-Requirements",
+    "last_opened_file_path": "/Users/wilsonmorales/AndroidStudioProjects/semester-project-esports_organizer/.github/Documents/Documentation/Lecture-Topic-Tasks",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external"
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
@@ -60,7 +71,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.github/Documents/Documentation/Lecture-Topic-Tasks" />

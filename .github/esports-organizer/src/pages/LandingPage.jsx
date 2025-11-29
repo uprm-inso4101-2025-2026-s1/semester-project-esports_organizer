@@ -1,81 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-import EventCard from "../components/EventCard.jsx";
-import CommunityCard from "../components/CommunityCard.jsx";
-import {
-  TagIcon,
-  CalendarIcon,
-  LocationIcon,
-  GamepadIcon,
-  BookmarkIcon,
-} from "../assets/icons"; // not used here directly, but keeping for reference
 
 // Demo images
 import logo from "../assets/images/Logo.png";
-import fortniteCover from "../assets/images/Fortnite.png";
-import valorantCover from "../assets/images/Valorant.png";
-import apexCover from "../assets/images/Apex.png";
-import marvelRivals from "../assets/images/marvel-rivals.png";
-import fifa25 from "../assets/images/Fifa25.png";
-import minecraft from "../assets/images/Minecraft.png";
 
 export default function LandingPage() {
-  const tournaments = [
-    {
-      id: 1,
-      title: "1 vs 1 Jungle Cup",
-      imageUrl: fortniteCover,
-      priceLabel: "Free",
-      date: "Sat, 11 Oct 2025",
-      location: "Online Tournament",
-      gameName: "Fortnite",
-      badge: "PLAYOFFS",
-    },
-    { 
-      id: 2,
-      title: "Trios Arena Rush",
-      imageUrl: valorantCover,
-      priceLabel: "$10",
-      date: "Sun, 16 Nov 2025",
-      location: "Online Tournament",
-      gameName: "Valorant",
-    },
-    {
-      id: 3,
-      title: "Open Scrims Night",
-      imageUrl: apexCover,
-      priceLabel: "Free",
-      date: "Fri, 20 Nov 2025",
-      location: "San Juan Arena",
-      gameName: "Apex Legends",
-      badge: "OPEN",
-    },
-  ];
-  const communities = [
-    {
-      id: 1,
-      title: "Marvel Rivals",
-      imageUrl: marvelRivals,
-      currentEvents: 3,
-      followers: 12450,
-    },
-    {
-      id: 2,
-      title: "EA Sports FC 25",
-      imageUrl: fifa25,
-      currentEvents: 5,
-      followers: 8019,
-    },
-    {
-      id: 3,
-      title: "Minecraft",
-      imageUrl: minecraft,
-      currentEvents: 12,
-      followers: 34917,
-    },
-  ];
-
   return (
     <div className="lp">
       {/* Top nav / header */}
@@ -100,7 +29,7 @@ export default function LandingPage() {
           <a href="/login" className="lp__auth-link">
             Login
           </a>
-          <span aria-hidden="true">/</span>
+          <span aria-hidden="true"> / </span>
           <a href="/signup" className="lp__auth-link">
             Sign Up
           </a>
@@ -154,53 +83,14 @@ export default function LandingPage() {
             </a>{" "}
             gathers it all together in a single platform.
           </p>
-          <Link to="/homepage" className="lp__cta">
+          <Link to="/login" className="lp__cta">
             Join Communities and Events Now
           </Link>
         </div>
       </section>
 
       {/* Cards grid */}
-      <section id="events" className="lp__section container">
-        <div className="lp__section-head container">
-          <h2>Ongoing Events</h2>
-        </div>
-
-        <div className="lp__cards">
-          {tournaments.map((t) => (
-            <EventCard
-              key={t.id}
-              title={t.title}
-              imageUrl={t.imageUrl}
-              priceLabel={t.priceLabel}
-              date={t.date}
-              location={t.location}
-              gameName={t.gameName}
-              badge={t.badge}
-              onJoin={() => alert(`Joining ${t.title}…`)}
-              onSave={() => alert(`Saved ${t.title}!`)}
-              isSaved={false}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section id="communities" className="lp__section container">
-        <div className="lp__section-head container">
-          <h2>Popular Communities</h2>
-        </div>
-        <div className="lp__cards">
-          {communities.map((t) => (
-            <CommunityCard
-              imageUrl={t.imageUrl}
-              title={t.title}
-              currentEvents={t.currentEvents}
-              followers={t.followers}
-              onJoin={() => alert("Joining Marvel Rivals community…")}
-            />
-          ))}
-        </div>
-      </section>
+     
 
       {/* Footer */}
       <footer className="lp__footer">

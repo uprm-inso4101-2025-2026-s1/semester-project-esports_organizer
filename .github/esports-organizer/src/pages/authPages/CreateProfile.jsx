@@ -5,13 +5,16 @@ import Modal from "../../components/shared/Modal";
 import "./AuthPages.css";
 import Label from "../../components/shared/Label";
 import { useNavigate } from "react-router-dom";
+import { updatePlayerProfile } from "../../services/profile-service.js";
+import { assignUserRole } from "../../Roles/assignUserRole";
+
 
 function CreateProfile() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     country: "",
-    role: "",
+    role: "", // <-- change GameRole to role
     bio: "",
   });
 
@@ -20,22 +23,26 @@ function CreateProfile() {
   const fileInputRef = useRef(null);
 
   const countries = [
-    { value: "country1", label: "Puerto Rico" },
-    { value: "country2", label: "United States" },
-    { value: "country3", label: "Spain" },
+    { value: "puerto-rico", label: "Puerto Rico" },
+    { value: "united-states", label: "United States" },
+    { value: "spain", label: "Spain" },
   ];
 
   const roles = [
-    { value: "role1", label: "Tank" },
-    { value: "role2", label: "Assault" },
-    { value: "role3", label: "Support" },
+    { value: "tank", label: "Tank" },
+    { value: "assault", label: "Assault" },
+    { value: "support", label: "Support" },
   ];
 
   // Handle File upload
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -58,7 +65,7 @@ function CreateProfile() {
       newErrors.username = "Max 14 characters.";
 
     if (!form.country) newErrors.country = "Select a country.";
-    if (!form.role) newErrors.role = "Select a role.";
+    if (!form.role) newErrors.role = "Select a role."; // <-- update role validation
 
     if (form.bio.length > 300)
       newErrors.bio = "Bio must be 300 characters or less.";
@@ -68,13 +75,53 @@ function CreateProfile() {
   };
 
   // Submit Handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    console.log("Profile created:", { ...form, preview });
-    alert("Profile successfully created!");
-    navigate("/homepage");
+    const uid = localStorage.getItem("uid");
+
+    if (!uid) {
+      alert("Error Fetching uid");
+      return;
+    }
+
+    const updateData = {
+      Username: form.username,
+      country: form.country === "puerto-rico" ? "Puerto Rico" : 
+               form.country === "united-states" ? "United States" : 
+               form.country === "spain" ? "Spain" : form.country,
+      gameRole: form.role === "tank" ? "Tank" :
+                form.role === "assault" ? "Assault" :
+                form.role === "support" ? "Support" : form.role,
+      bio: form.bio,
+      avatarUrl: preview || '',
+    };
+
+    try {
+      const result = await updatePlayerProfile(uid, updateData);
+      if (result.success) {
+        alert("Profile successfully created!");
+        await assignUserRole(uid,"Player",{
+          viewTournaments:true,
+          createCommunities: true,
+          canCreatePrivateTournaments: true,
+          canCreatePublicTournaments:true,
+          joinTournament:true,
+          joinCommunities:true,
+          canEditUserProfile:true,
+          requestToJoinTeam:true,
+          editUserEvent:true,
+          createUserEvent:true,
+          removeUserEvent:true,
+        })
+        navigate("/homepage");
+      } else {
+        alert(result.error || "Error updating profile.");
+      }
+    } catch {
+      alert("Error updating profile.");
+    }
   };
 
   // Cancel Handler
@@ -85,9 +132,7 @@ function CreateProfile() {
     navigate(-1);
   };
 
-  const _remainingBio = 300 - form.bio.length;
-
-  return (
+   return (
     <div className="auth-page centered">
       <div className="form-section">
         <Modal
@@ -95,13 +140,13 @@ function CreateProfile() {
           buttons={[
             <Button
               text={"Cancel"}
-              key={"cancel"}
+              key={"cancel-btn"}
               variant="secondary"
               onClick={handleCancel}
             />,
             <Button
               text={"Done"}
-              key={"done"}
+              key={"done-btn"}
               variant="primary"
               onClick={handleSubmit}
             />,
