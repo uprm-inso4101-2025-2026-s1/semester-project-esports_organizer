@@ -284,7 +284,6 @@ export async function removeEventFromUserProfile(uid, eventId) {
     }
 }
 
-
 /**
  * Join a team by setting the user's teamId
  * @param {string} teamId - Team ID to join
