@@ -266,8 +266,8 @@ Present our domain analysis directly to stakeholders:
 
 Present our terminology definitions to stakeholders and ask for confirmation:
 
-- Confirm that our definition of *Match* as individual competitions within tournaments aligns with how stakeholders use this term
-- Check that our concept boundaries between different domain entities match stakeholder understanding
+[.hl-green]#- Confirm that our definition of *Match* as individual competitions within tournaments aligns with how stakeholders use this term
+- Check that our concept boundaries between different domain entities match stakeholder understanding#
 
 ==== Verification Strategy
 
@@ -297,16 +297,16 @@ Present our terminology definitions to stakeholders and ask for confirmation:
 
 *Validation Success Indicators:*
 
-- Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate
+[.hl-green]#- Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate
 - Stakeholders agree with our concept definitions and the relationships we've identified between domain entities
-- When stakeholders suggest modifications, they represent refinements rather than fundamental misunderstandings of the domain
+- When stakeholders suggest modifications, they represent refinements rather than fundamental misunderstandings of the domain#
 
 *Verification Success Indicators:*
 
-- All cross-references between project documents are accurate and consistent
+[.hl-green]#- All cross-references between project documents are accurate and consistent
 - Domain concepts are used consistently across all development phases
 - Requirements properly trace to domain properties without gaps or contradictions
-- Software architecture adequately addresses all specified requirements without conflicts
+- Software architecture adequately addresses all specified requirements without conflicts#
 - [.hl-green]#Each requirement maps to at least one test case of the appropriate type(s)#
 
 == [.hl-green]#3.4 Checking relevant properties through TLA+#
@@ -326,10 +326,8 @@ Present our terminology definitions to stakeholders and ask for confirmation:
 [.hl-green]#Solution#
 
 [.hl-green]#* The Event class in the database code lacks a method to safely toggle the finished status with proper validation. It includes methods like addParticipant() and removeParticipant(), but no method to safely toggle the finished status while checking if participants exist.#
-[.hl-green]
-* Implement a method to the event class to safely toggle event status while ensuring there are no active users within it.
-[.hl-green]
-* Doing so would prevent both incomplete event management and poor user experience. 
+[.hl-green]#* Implement a method to the event class to safely toggle event status while ensuring there are no active users within it.#
+[.hl-green]#* Doing so would prevent both incomplete event management and poor user experience.#
 
 [.hl-green]
 image::TLA+1.png[ align=center]
@@ -343,14 +341,10 @@ image::TLA+1.png[ align=center]
 [.hl-green]
 == Objectives
 
-[.hl-green]
-* Model single-elimination tournament bracket progression
-[.hl-green]
-* Verify correct winner selection and elimination tracking  
-[.hl-green]
-* Detect potential flaws in round advancement logic
-[.hl-green]
-* Ensure valid tournament termination properties
+[.hl-green]#* Model single-elimination tournament bracket progression#
+[.hl-green]#* Verify correct winner selection and elimination tracking# 
+[.hl-green]#* Detect potential flaws in round advancement logic#
+[.hl-green]#* Ensure valid tournament termination properties#
 
 [.hl-green]
 == Model Configuration
@@ -379,10 +373,8 @@ include::DynamicMatchProgression.cfg[]
 [.hl-green]
 === Liveness Properties  
 
-[.hl-green]
-* *TournamentTerminates*: Tournament eventually completes with a champion
-[.hl-green]
-* *NoDeadlock*: System never gets stuck in non-terminal state
+[.hl-green]#* *TournamentTerminates*: Tournament eventually completes with a champion#
+[.hl-green]#* *NoDeadlock*: System never gets stuck in non-terminal state#
 
 [.hl-green]
 == Analysis Results
@@ -423,7 +415,7 @@ include::DynamicMatchProgression.cfg[]
 == Findings Report
 
 * [.hl-green]#After establishing basic functions like `CreateEvent`, `RemoveParticipant`, and `AddParticipant`, I moved onto `ToggleEventFinished`. The logic behind this function was to create an invariant that does not allow events to be toggled as finished if there are active participants in that event. When I went to revise the database logic, I realized there is no specific implementation for event lifecycle management.
-* In `Events.js`, the current boolean property `finished` currently acts only as a placeholder for event status. There is no specific method designed for safe event status toggling.# 
+[.hl-green]#* In `Events.js`, the current boolean property `finished` currently acts only as a placeholder for event status. There is no specific method designed for safe event status toggling.# 
 
 == Solution
 
@@ -480,9 +472,9 @@ include::DynamicMatchProgression.cfg[]
 == Mapping to the JavaScript Implementation
 
 .The following JavaScript behaviors are modeled:
-* `initializeBracket()` → `InitializeFirstRound()`
+[.hl-green]#* `initializeBracket()` → `InitializeFirstRound()`
 * `progressMatch()` → `ProgressMatch()`
 * Round advancement logic → `AdvanceRound()`
 * Elimination order tracking → `updatedEliminationOrder`
-* Tournament completion → `DeclareChampion`
+* Tournament completion → `DeclareChampion`#
 
