@@ -44,7 +44,7 @@
 
 === Real-Time System Design
 
-[.hl-red]#The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect()` and `useState()` hooks manage component state updates. This enables automatic bracket propagation when match results change.
+[.hl-red]#The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect()` and `useState()` hooks manage component state updates. This enables automatic bracket propagation when match results change.#
 
 [.hl-red]#The real-time updating feature ensures that tournament brackets in the eSports web app stay synchronized across all users without requiring manual refreshes.#
 
