@@ -6,18 +6,18 @@
 
 [.hl-green]#Tournament management within the *Esports Organizer* project involves complex coordination among teams, organizers, schedules, communications, and event policies. While technical risks (bugs, system crashes, data loss) are part of software engineering, this analysis focuses specifically on *non-technical organizational risks* the human, procedural, and managerial factors that threaten smooth tournament operations.#
 
-Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.
+[.hl-green]#Following the Risk Analysis lecture topic, this document identifies domain-relevant risks, classifies them, evaluates likelihood and impact qualitatively, and proposes managerial mitigation strategies. The assessment is grounded in our project’s structure and responsibilities as described in the course specification.#
 
 === Risk Identification and Classification
 
 ==== Risk 1 - Team No-Shows or Late Arrivals
-*Category:* Organizational / User-Behavior
-*Description:* Teams frequently arrive late or fail to show for scheduled matches, delaying the bracket and forcing last-minute adjustments.
+[.hl-green]#*Category:* Organizational / User-Behavior#
+[.hl-green]#*Description:* Teams frequently arrive late or fail to show for scheduled matches, delaying the bracket and forcing last-minute adjustments.#
 
-*Likelihood:* Moderate
-*Impact:* High (significant schedule disruption)
+[.hl-green]#*Likelihood:* Moderate#
+[.hl-green]#*Impact:* High (significant schedule disruption)#
 
-*Mitigation Strategies:*
+[.hl-green]#*Mitigation Strategies:*#
 
 - Mandatory pre-match check-in window (e.g., 10 minutes prior).
 - Automated reminders to team captains.
@@ -37,39 +37,39 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 
 *Mitigation Strategies:*
 
-- Centralized real-time schedule visible to all participants.
+[.hl-green]#- Centralized real-time schedule visible to all participants.
 - Manager-level verification before approving schedule adjustments.
-- Built-in buffer time between rounds.
+- Built-in buffer time between rounds.#
 
-*Residual Risk:* Delays may still occur if matches exceed expected duration.#
+[.hl-green]#*Residual Risk:* Delays may still occur if matches exceed expected duration.#
 
 '''
 
 ==== Risk 3 - Miscommunication Between Organizers and Participants
-[.hl-green]#*Category:* Organizational / User-Behavior
+[.hl-green]#*Category:* Organizational / User-Behavior#
 
-*Description:* Rules, bracket formats, or procedures may be misunderstood due to inconsistent or unclear communication.
+[.hl-green]#*Description:* Rules, bracket formats, or procedures may be misunderstood due to inconsistent or unclear communication.#
 
-*Likelihood:* High
-*Impact:* Moderate (disputes, delays, repeated clarifications)
+[.hl-green]#*Likelihood:* High#
+[.hl-green]#*Impact:* Moderate (disputes, delays, repeated clarifications)#
 
-*Mitigation Strategies:*
+[.hl-green]#*Mitigation Strategies:*#
 
 - Single official communication channel (Tournament Dashboard).
 - Rules overview and FAQ sections visible during registration.
 - Consistent announcements enforced by managers.
 
-*Residual Risk:* Some users may still ignore updates or fail to read instructions.#
+[.hl-green]#*Residual Risk:* Some users may still ignore updates or fail to read instructions.#
 
 '''
 
 ==== Risk 4 - Administrative Overload and Decision Bottlenecks
-[.hl-green]#*Category:* Organizational
+[.hl-green]#*Category:* Organizational#
 
-*Description:* Organizers may face simultaneous inquiries, appeals, and administrative tasks during peak periods.
+[.hl-green]#*Description:* Organizers may face simultaneous inquiries, appeals, and administrative tasks during peak periods.#
 
-*Likelihood:* High
-*Impact:* High (slower decisions, increased errors)
+[.hl-green]#*Likelihood:* High#
+[.hl-green]#*Impact:* High (slower decisions, increased errors)#
 
 *Mitigation Strategies:*
 
@@ -77,7 +77,7 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 - Escalation paths involving team leads and managers.
 - Standardized decision rubrics.
 
-*Residual Risk:* Peak-time volume may exceed staff capacity in large tournaments.
+[.hl-green]#*Residual Risk:* Peak-time volume may exceed staff capacity in large tournaments.#
 
 '''
 
@@ -94,18 +94,18 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 
 === Mitigation Philosophy
 
-The Risk Analysis lecture emphasizes *early identification, classification, and mitigation*. In tournament management this means:
+[.hl-green]#The Risk Analysis lecture emphasizes *early identification, classification, and mitigation*. In tournament management this means:#
 
 - establishing communication systems that prevent ambiguity,
 - improving organizational processes to minimize bottlenecks,
 - designing escalation policies to maintain fairness,
 - planning buffers and fallback procedures for inevitable disruptions.
 
-This document directly applies the lecture topic by converting theoretical principles into practical risks and controls specific to the Esports Organizer project.#
+[.hl-green]#This document directly applies the lecture topic by converting theoretical principles into practical risks and controls specific to the Esports Organizer project.#
 
 === Residual Risk Discussion
 
-Even with strong mitigation strategies, tournament environments retain inherent unpredictability. Residual risks include:
+[.hl-green]#Even with strong mitigation strategies, tournament environments retain inherent unpredictability. Residual risks include:#
 
 - last-minute team absences,
 - communication oversights,
@@ -113,20 +113,20 @@ Even with strong mitigation strategies, tournament environments retain inherent 
 - disputes arising from edge cases not covered in documentation,
 - user behavior influenced by competitive pressure.
 
-Residual risk requires ongoing monitoring, real-time adjustment, and post-event retrospectives.
+[.hl-green]#Residual risk requires ongoing monitoring, real-time adjustment, and post-event retrospectives.#
 
 === Conclusion
 
-Non-technical risks in tournament management are often more disruptive than technical ones due to their human and procedural nature. By identifying, classifying, and mitigating these risks and aligning with the organizational roles and communication expectations defined for the project, this analysis strengthens the reliability and fairness of the Esports Organizer's tournament module.
+[.hl-green]#Non-technical risks in tournament management are often more disruptive than technical ones due to their human and procedural nature. By identifying, classifying, and mitigating these risks and aligning with the organizational roles and communication expectations defined for the project, this analysis strengthens the reliability and fairness of the Esports Organizer's tournament module.#
 
 === 3.2.2 Risk Tree and Analysis for Team Creation
 
 === Introduction
-This section presents a risk analysis for the *Team Creation* subsystem within the Esports Organizer Manager platform.  
+[.hl-green]#This section presents a risk analysis for the *Team Creation* subsystem within the Esports Organizer Manager platform.  
 Team creation is essential for organizing group-based tournaments, assigning captains, managing rosters, and ensuring the integrity of competitive structures.  
 Failures in this subsystem can lead to inconsistent teams, broken tournament logic, or players being assigned to invalid or duplicated team states.
 
-This risk analysis decomposes potential failures into structured branches and identifies where inconsistencies, validation errors, backend–frontend mismatches, or documentation gaps might corrupt the team creation process.
+This risk analysis decomposes potential failures into structured branches and identifies where inconsistencies, validation errors, backend–frontend mismatches, or documentation gaps might corrupt the team creation process.#
 
 === Purpose of the Analysis
 The purpose of this analysis is to:
@@ -142,7 +142,7 @@ This analysis focuses on *how a valid team fails to be created or becomes incons
 === Top Event: Team Creation Failure
 
 ❌ *Team Creation Failure*  
-A failure occurs when the system creates an invalid team, fails to create a team, or produces inconsistent data that breaks tournament logic.
+[.hl-green]#A failure occurs when the system creates an invalid team, fails to create a team, or produces inconsistent data that breaks tournament logic.#
 
 Examples include:
 * Team created without a captain  
@@ -160,7 +160,7 @@ image::Analytic/Sub-Sections/RiskAnalysisTeams.png[width=90%,opts=center]
 
 === Risk Tree Structure and Branches
 
-The following sections detail the major risk branches contributing to Team Creation Failure.
+[.hl-green]#The following sections detail the major risk branches contributing to Team Creation Failure.#
 
 === 1. Validation & Constraint Risks (T1–T3)
 
@@ -251,17 +251,17 @@ Many risks originate from inconsistencies such as:
 * Behavioral inconsistencies: F2, V1
 * Process/documentation issues: C2, C3
 
-This risk analysis supports the Identifying Inconsistencies task by showing exactly how mismatches propagate into invalid team states.
+[.hl-green]#This risk analysis supports the Identifying Inconsistencies task by showing exactly how mismatches propagate into invalid team states.#
 
 === Conclusion
 
-This risk analysis shows how *Team Creation Failure* can arise from validation errors, inconsistent cross-component communication, incorrect member management, or weak data integrity rules.
-By identifying these risks and applying mitigation strategies, the Esports Organizer Manager improves the reliability of its team management and ensures consistent tournament operations.
+[.hl-green]#This risk analysis shows how *Team Creation Failure* can arise from validation errors, inconsistent cross-component communication, incorrect member management, or weak data integrity rules.
+By identifying these risks and applying mitigation strategies, the Esports Organizer Manager improves the reliability of its team management and ensures consistent tournament operations.#
 
 == 3.2.3 Risk Analysis Tree for Tournaments
 ---
 = Introduction
-Risk Trees help identify the potential errors or failure points a program might encounter. By breaking down risks into smaller, traceable causes, they allow testers to design more targeted and efficient test cases. This structured view not only improves test coverage but also helps developers anticipate where bugs, crashes, or unexpected behaviors are most likely to occur during execution. 
+[.hl-green]#Risk Trees help identify the potential errors or failure points a program might encounter. By breaking down risks into smaller, traceable causes, they allow testers to design more targeted and efficient test cases. This structured view not only improves test coverage but also helps developers anticipate where bugs, crashes, or unexpected behaviors are most likely to occur during execution.#
 
 
 image::Analytic/Sub-Sections/Risk-Analysis-Tree-For-Tournament.png[800, 600]
@@ -270,9 +270,9 @@ Tournament Risk Analysis Tree
 
 = Analysis
 
-Tournaments system can fail in some ways that could be fatal to the product. The first thing that could disrupt the process of tournaments would be the Time display not being correct. This could cause players to miss matches or lose time. This could happen because of a manual input error caused by the manager, but it could also be because the time logic in the system is not updated and database not provide the correct information for the program. 
+[.hl-green]#Tournaments system can fail in some ways that could be fatal to the product. The first thing that could disrupt the process of tournaments would be the Time display not being correct. This could cause players to miss matches or lose time. This could happen because of a manual input error caused by the manager, but it could also be because the time logic in the system is not updated and database not provide the correct information for the program. 
 Another issue that could interfere with a tournament would be Brackets not updating or failing. This could be caused by Incorrect bracket logic which would mean that brackets do not show up how they are supposed to. There could be a Sync delay within the tournaments causing brackets to show incorrect or incomplete information to a user. Database not responding correctly could also damage the integrity of the brackets since nothing would appear to a user causing a disruption to the process of tournaments in the program.
-Overall, these risks emphasize the importance of reliable database connectivity and well-designed system logic. By addressing these potential failures, developers and testers can ensure that tournaments run smoothly and maintain their integrity.
+Overall, these risks emphasize the importance of reliable database connectivity and well-designed system logic. By addressing these potential failures, developers and testers can ensure that tournaments run smoothly and maintain their integrity.#
 
 == 3.2.4 Risk Tree and Analysis for Admin Banning User Permission
 
@@ -280,9 +280,9 @@ image::Analytic/Sub-Sections/AdminBanningPermissionRiskTree.png[align=center]
 [.text-center]
 Admin Banning Permission Risk Tree
 
-This risk tree outlines the potential risks associated with granting the Admin role the permission to ban users. At the top the risk of such permission to an admin can have the risk of 2 things. It could take a permission misconfiguration route on where if not coded well this could lead to the action or permission of banning a user could be used by anyone since it never verified well if the user doing this action is really an admin which lead to a huge permission breach where anyone can just ban whoever they want. The other route is that even if the permission is well coded and verified, there is still a big risk that a rogue admin can be power hungry and ban users for no reason and because they wanted to at any time or any place, which this leads to user dissatisfaction due to the unfair banning of users because nobody likes to be banned for no reason.
+[.hl-green]#This risk tree outlines the potential risks associated with granting the Admin role the permission to ban users. At the top the risk of such permission to an admin can have the risk of 2 things. It could take a permission misconfiguration route on where if not coded well this could lead to the action or permission of banning a user could be used by anyone since it never verified well if the user doing this action is really an admin which lead to a huge permission breach where anyone can just ban whoever they want. The other route is that even if the permission is well coded and verified, there is still a big risk that a rogue admin can be power hungry and ban users for no reason and because they wanted to at any time or any place, which this leads to user dissatisfaction due to the unfair banning of users because nobody likes to be banned for no reason.#
 
-To avoid such risks, it is important to implement strict permission checks in the code to ensure that only users with the Admin role can execute the ban user action. Additionally, having some sort alternative to trust users that want to be admins and giving them the role only if they are trusted enough to not abuse their power can help mitigate the risk of rogue admins banning users unfairly.
+[.hl-green]#To avoid such risks, it is important to implement strict permission checks in the code to ensure that only users with the Admin role can execute the ban user action. Additionally, having some sort alternative to trust users that want to be admins and giving them the role only if they are trusted enough to not abuse their power can help mitigate the risk of rogue admins banning users unfairly.#
 == 3.3 Validation and Verification
 
 Validation determines whether stakeholders agree with our understanding of the esports domain as we have documented it.
@@ -336,7 +336,7 @@ Present our terminology definitions to stakeholders and ask for confirmation:
 
 *Validation Success Indicators:*
 
-- Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate
+[.hl-green]#- Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate#
 - Stakeholders agree with our concept definitions and the relationships we've identified between domain entities
 - When stakeholders suggest modifications, they represent refinements rather than fundamental misunderstandings of the domain
 
