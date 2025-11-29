@@ -146,6 +146,7 @@ This analysis focuses on *how a valid team fails to be created or becomes incons
 [.hl-green]#A failure occurs when the system creates an invalid team, fails to create a team, or produces inconsistent data that breaks tournament logic.#
 
 Examples include:
+
 * Team created without a captain  
 * Duplicate team names  
 * A user assigned to multiple teams simultaneously  
@@ -174,6 +175,7 @@ image::Analytic/Sub-Sections/RiskAnalysisTeams.png[width=90%,opts=center]
 |===
 
 Mitigation strategies:
+
 * Enforce server-side validation of all required fields.
 * Apply unique constraints on team names.
 * Add UI-level validation to prevent incomplete form submissions.
@@ -190,6 +192,7 @@ Mitigation strategies:
 |===
 
 Mitigation strategies:
+
 * Synchronize API schemas through OpenAPI.
 * Require documentation updates for all team-related changes.
 * Add design-time and runtime request/response validation.
@@ -206,6 +209,7 @@ Mitigation strategies:
 |===
 
 Mitigation strategies:
+
 * Enforce membership exclusivity rules.
 * Validate captain assignment at both UI and backend layers.
 * Use database transactions when updating rosters.
@@ -222,6 +226,7 @@ Mitigation strategies:
 |===
 
 Mitigation strategies:
+
 * Maintain a glossary for all team-related terminology.
 * Document constraints (size, eligibility, roles) in the wiki.
 * Track inconsistencies in the `#inconsistencies_channel`.
@@ -238,6 +243,7 @@ Mitigation strategies:
 |===
 
 Mitigation strategies:
+
 * Ensure atomic DB operations for team creation and updates.
 * Add unique and foreign-key constraints on team and user tables.
 * Use versioned updates or optimistic locking.
@@ -339,7 +345,7 @@ Admin Banning Permission Risk Tree
 
 *Validation Success Indicators:*
 
-[.hl-green]#- Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate#
+* [.hl-green]#Stakeholders recognize their experiences in our domain scenarios and confirm our understanding is accurate#
 * [.hl-green]#Stakeholders agree with our concept definitions and the relationships we've identified between domain entities#
 * [.hl-green]#When stakeholders suggest modifications, they represent refinements rather than fundamental misunderstandings of the domain#
 
@@ -356,18 +362,18 @@ Admin Banning Permission Risk Tree
 
 ==== Acceptance Criteria
 
-* TLA+ model checking successfully generated 327 states with 85 distinct states found. It managed complete state space exploration within defined constraints, and no safety property violations were detected. Execution was also completed in under a second. Insight into core operations is detailed below. 
+* [.hl-green]#TLA+ model checking successfully generated 327 states with 85 distinct states found. It managed complete state space exploration within defined constraints, and no safety property violations were detected. Execution was also completed in under a second. Insight into core operations is detailed below.#
 
 ==== Findings Report
 
-* After establishing basic functions like `CreateEvent`, `RemoveParticipant`, and `AddParticipant`, I moved onto `ToggleEventFinished`. The logic behind this function was to create an invariant that does not allow events to be toggled as finished if there are active participants in that event. When I went to revise the database logic, I realized there is no specific implementation for event lifecycle management.
-* In `Events.js`, the current boolean property `finished` currently acts only as a placeholder for event status. There is no specific method designed for safe event status toggling. 
+* [.hl-green]#After establishing basic functions like `CreateEvent`, `RemoveParticipant`, and `AddParticipant`, I moved onto `ToggleEventFinished`. The logic behind this function was to create an invariant that does not allow events to be toggled as finished if there are active participants in that event. When I went to revise the database logic, I realized there is no specific implementation for event lifecycle management.#
+* [.hl-green]#In `Events.js`, the current boolean property `finished` currently acts only as a placeholder for event status. There is no specific method designed for safe event status toggling.#
 
 ==== Solution
 
-* The Event class in the database code lacks a method to safely toggle the finished status with proper validation. It includes methods like addParticipant() and removeParticipant(), but no method to safely toggle the finished status while checking if participants exist. 
-* Implement a method to the event class to safely toggle event status while ensuring there are no active users within it.
-* Doing so would prevent both incomplete event management and poor user experience. 
+* [.hl-green]#The Event class in the database code lacks a method to safely toggle the finished status with proper validation. It includes methods like addParticipant() and removeParticipant(), but no method to safely toggle the finished status while checking if participants exist.#
+* [.hl-green]#Implement a method to the event class to safely toggle event status while ensuring there are no active users within it.#
+* [.hl-green]#Doing so would prevent both incomplete event management and poor user experience.#
 
 
 image::Analytic/Sub-Sections/TLA+1.png[align=center]
@@ -376,18 +382,18 @@ TLA+ Model Checking Results
 
 === 3.4.2 TLA+ Model for Dynamic Match Progression
 ==== Overview
-TLA+ specification for analyzing tournament bracket progression logic based on the implementations from `MatchProgression.js`, `ResultReport.js`, and `BracketsTournamentPage.jsx`.
+[.hl-green]#TLA+ specification for analyzing tournament bracket progression logic based on the implementations from `MatchProgression.js`, `ResultReport.js`, and `BracketsTournamentPage.jsx`.#
 
 ==== Objectives
-* Model single-elimination tournament bracket progression
-* Verify correct winner selection and elimination tracking  
-* Detect potential flaws in round advancement logic
-* Ensure valid tournament termination properties
+* [.hl-green]#Model single-elimination tournament bracket progression#
+* [.hl-green]#Verify correct winner selection and elimination tracking#
+* [.hl-green]#Detect potential flaws in round advancement logic#
+* [.hl-green]#Ensure valid tournament termination properties#
 
 
 ==== Model Configuration
 
-.Configuration for 8-team tournament
+.[.hl-green]#Configuration for 8-team tournament#
 [source,sub-sections]
 ----
 include::DynamicMatchProgression.cfg[]
@@ -396,17 +402,17 @@ include::DynamicMatchProgression.cfg[]
 ==== **Key Properties Verified**
 
 ==== Safety Properties
-* *TypeInvariant*: All tournament state values maintain correct types and ranges
-* *NoDuplicateEliminations*: No team appears more than once in the elimination order
-* *EveryTeamEliminatedOrChampion*: When a tournament completes, exactly N-1 teams are eliminated and 1 is champion
+* [.hl-green]#*TypeInvariant*: All tournament state values maintain correct types and ranges#
+* [.hl-green]#*NoDuplicateEliminations*: No team appears more than once in the elimination order#
+* [.hl-green]#*EveryTeamEliminatedOrChampion*: When a tournament completes, exactly N-1 teams are eliminated and 1 is champion#
 
 ==== Liveness Properties
-* *TournamentTerminates*: Tournament eventually completes with a champion
-* *NoDeadlock*: System never gets stuck in non-terminal state
+* [.hl-green]#*TournamentTerminates*: Tournament eventually completes with a champion#
+* [.hl-green]#*NoDeadlock*: System never gets stuck in non-terminal state#
 
 ==== Analysis Results
 
-.Possible Flaws Detected
+.[.hl-green]#Possible Flaws Detected#
 |===
 | Property | Status | Description
 
@@ -418,10 +424,10 @@ include::DynamicMatchProgression.cfg[]
 
 ==== Mapping to the JavaScript Implementation
 
-.The following JavaScript behaviors are modeled:
-* `initializeBracket()` → `InitializeFirstRound()`
-* `progressMatch()` → `ProgressMatch()`
-* Round advancement logic → `AdvanceRound()`
-* Elimination order tracking → `updatedEliminationOrder`
-* Tournament completion → `DeclareChampion`
+.[.hl-green]#The following JavaScript behaviors are modeled:#
+* [.hl-green]#`initializeBracket()` → `InitializeFirstRound()`#
+* [.hl-green]#`progressMatch()` → `ProgressMatch()`#
+* [.hl-green]#Round advancement logic → `AdvanceRound()`#
+* [.hl-green]#Elimination order tracking → `updatedEliminationOrder`#
+* [.hl-green]#Tournament completion → `DeclareChampion`#
 
