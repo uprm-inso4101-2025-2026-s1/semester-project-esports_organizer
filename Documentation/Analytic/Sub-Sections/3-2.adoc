@@ -123,11 +123,11 @@ Following the Risk Analysis lecture topic, this document identifies domain-relev
 === 3.2.2 Risk Tree and Analysis for Team Creation
 
 ==== Introduction
-[.hl-green]#This section presents a risk analysis for the *Team Creation* subsystem within the Esports Organizer Manager platform.  
-Team creation is essential for organizing group-based tournaments, assigning captains, managing rosters, and ensuring the integrity of competitive structures.  
-Failures in this subsystem can lead to inconsistent teams, broken tournament logic, or players being assigned to invalid or duplicated team states.
+[.hl-green]#This section presents a risk analysis for the *Team Creation* subsystem within the Esports Organizer Manager platform.#
+[.hl-green]#Team creation is essential for organizing group-based tournaments, assigning captains, managing rosters, and ensuring the integrity of competitive structures.#
+[.hl-green]#Failures in this subsystem can lead to inconsistent teams, broken tournament logic, or players being assigned to invalid or duplicated team states.#
 
-This risk analysis decomposes potential failures into structured branches and identifies where inconsistencies, validation errors, backend–frontend mismatches, or documentation gaps might corrupt the team creation process.#
+[.hl-green]#This risk analysis decomposes potential failures into structured branches and identifies where inconsistencies, validation errors, backend–frontend mismatches, or documentation gaps might corrupt the team creation process.#
 
 ==== Purpose of the Analysis
 The purpose of this analysis is to:
@@ -157,7 +157,6 @@ Examples include:
 
 [%center]
 image::Analytic/Sub-Sections/RiskAnalysisTeams.png[width=90%,opts=center]
-
 
 ==== Risk Tree Structure and Branches
 
