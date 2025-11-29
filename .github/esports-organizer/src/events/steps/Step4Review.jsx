@@ -63,8 +63,10 @@ export default function Step4Review({ data, onBack, onSubmit }) {
       console.log("Created event id:", id);
 
       // Add the created event to the creator's participated events
-      const uid = localStorage.getItem("currentUserUid");
-      await addEventToUserProfile(uid, id, title);
+        const uid =
+            localStorage.getItem("currentUserUid") || localStorage.getItem("uid");
+
+        await addEventToUserProfile(uid, id, title);
 
       // Let parent close/reset or navigate
       onSubmit?.(id);

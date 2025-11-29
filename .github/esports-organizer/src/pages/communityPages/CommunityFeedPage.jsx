@@ -8,6 +8,7 @@ import "./CommunityFeedPage.css";
 import Post from "../../Comm-Social/PostFolder/Post.js";
 import Navbar from "../../components/shared/Navbar.jsx";
 import { checkUserPermission } from "../../Roles/checkUserPermission.js";
+import Event from "../../events/EventClass.js";
 
 const uid = localStorage.getItem("uid");
 import { createCommunity, getAllCommunitiesFromDatabase, getCommunityFromFirestore, updateCommunity } from "../../Comm-Social/CommunityCreation.js";
@@ -354,6 +355,39 @@ export default function CommunityFeedPage() {
     const [currentUser, setCurrentUser] = useState(null);
     const [currentUserUid, setCurrentUserUid] = useState(null);
 
+    const[events, setEvents] = useState([]);
+
+    async function loadEvents() {
+        const data = await Event.ListEvents();
+        const displayEvents = data.map((event) => ({
+        id: event.id,
+        title: event.title,
+        game: event.game,
+        price: "Free",
+        date: event.dateValue.toDateString(),
+        location: event.location,
+
+        dateValue: event.dateValue,
+        participants: event.participants,
+        teams: event.teams,
+        maxTeams: event.maxTeams,
+        maxPlayersPerTeam: event.maxPlayersPerTeam,
+        community: event.community,
+        }));
+
+        setEvents(displayEvents);
+    }
+
+    const filteredEvents = events.filter(event => {
+        console.log("Event Community:", event.community ? event.community.name : "N/A");
+        console.log("Current Event:", event);
+        console.log("Current Community:", currentCommunity ? currentCommunity.name : "N/A");
+        if (event.community == null) return false;
+        return event.community.name === currentCommunity.name;
+    });
+
+    console.log("Filtered Events for Community:", filteredEvents);
+
     // Fetch the current user on component mount
     useEffect(() => {
         const fetchCurrentUser = async () => {
@@ -413,6 +447,7 @@ export default function CommunityFeedPage() {
         };
 
         fetchCurrentCommunity();
+        loadEvents();
     }, [communityId]);
 
     // Fetch communities from Firestore on component mount
@@ -684,17 +719,26 @@ export default function CommunityFeedPage() {
                     <section className="events-section">
                         <h2>Upcoming Events</h2>
                         <div className="events-container">
-                            {mockEvents.map((event, index) => (
+                            {filteredEvents.length > 0 ? (
+                            filteredEvents.map((event, index) => (
                                 <TournamentCard
-                                    key={event.id}
-                                    tournament={event}
-                                    index={index}
-                                    prefix="event"
-                                    isSaved={false}
-                                    onToggleSaved={handleToggleSaved}
-                                    onJoinEvent={handleJoinEvent}
+                                key={event.id}
+                                tournament={event}
+                                index={index}
+                                prefix="event"
+                                isSaved={false}
+                                onToggleSaved={() => {}}
+                                onJoinEvent={() => {
+                                    if (event && event.id) {
+                                        navigate("/tournaments", { state: { openEventId: event.id } });
+                                        setIsMobileMenuOpen(false);
+                                    }
+                                }}
                                 />
-                            ))}
+                            ))
+                            ) : (
+                            <p>No events found.</p>
+                            )}
                         </div>
                     </section>
                 </aside>

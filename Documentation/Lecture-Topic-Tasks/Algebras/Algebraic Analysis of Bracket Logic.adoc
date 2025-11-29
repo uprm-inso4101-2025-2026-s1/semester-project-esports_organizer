@@ -1,0 +1,225 @@
+= Algebraic Analysis of Tournament Logic
+:author: Ian Rivera Troche
+:revnumber: 1.0
+:toc: left
+:toclevels: 3
+:source-highlighter: rouge
+
+== Introduction
+
+This document aims to provide a formal algebraic specification of the tournament bracket system used in the Esports Organizer project. The specification mathematically defines the state transitions and operations to ensure logical consistency.
+
+=== Purpose
+* Create a rigorous mathematical model of bracket logic
+* Enable formal verification of system properties  
+* Provide foundation for comprehensive testing
+* Ensure reliable tournament operations
+
+=== Scope
+Covers the core Bracket class operations including:
+
+* Match creation and initialization
+* Result recording and validation
+* Winner advancement between rounds
+* Edge cases
+
+== Algebraic Foundation
+
+=== Bracket States
+The system evolves through five distinct states:
+
+[cols="1,3"]
+|===
+| State | Description
+
+| `Initialized`
+| Competitors loaded, no matches created
+
+| `FirstRound`
+| Initial matches created, no results recorded
+
+| `InProgress`  
+| Matches ongoing, results being recorded
+
+| `RoundTransition`
+| Between rounds (collecting winners for next round)
+
+| `Completed`
+| Tournament finished, champion determined
+|===
+
+.Formal State Definition
+[source,math]
+----
+B = { Initialized, FirstRound, InProgress, RoundTransition, Completed }
+----
+
+== Core Operations Specification
+
+=== createInitialMatches Operation
+
+.Purpose:: Generate first round matches from competitors
+
+.Formal Definition
+[source,math]
+----
+createInitialMatches: B → B
+
+Pre-conditions:
+  • state(b) = Initialized
+  • |competitors(b)| ≥ 2
+  • matches(b) = ∅
+
+Post-conditions:
+  • state(b) = FirstRound  
+  • |matches(b)| = ⌈|competitors(b)|/2⌉
+  • ∀m ∈ matches(b): winner(m) = null
+----
+
+=== recordResult Operation
+
+.Purpose:: Record the outcome of a match
+
+.Formal Definition
+[source,math]
+----
+recordResult: B × MatchId × WinnerId → B
+
+Pre-conditions:
+  • state(b) ∈ {FirstRound, InProgress}
+  • matchId ∈ dom(matches(b))
+  • winnerId ∈ {player1(m).id, player2(m)?.id}
+  • winner(matches(b)[matchId]) = null
+
+Post-conditions:
+  • winner(matches(b)[matchId]) = winnerId
+  • winnersCurrentRound(b) = winnersCurrentRound(b) ∪ {winnerId}
+  • if |winnersCurrentRound(b)| = 2 then state(b) = RoundTransition
+----
+
+=== advanceWinner Operation
+
+.Purpose:: Advance winners to next round
+
+.Formal Definition  
+[source,math]
+----
+advanceWinner: B × MatchId → B
+
+Pre-conditions:
+  • state(b) = RoundTransition
+  • |winnersCurrentRound(b)| = 2
+
+Post-conditions:
+  • nextRoundMatches(b) creates new match from winners
+  • winnersCurrentRound(b) = ∅
+  • if |nextRoundMatches(b)| = 1 then state(b) = Completed
+  • else state(b) = InProgress
+----
+
+=== Specialized Operations
+
+==== forfeitMatch Operation
+[source,math]
+----
+forfeitMatch: B × MatchId × ForfeitId → B
+
+Pre-conditions:
+  • matchId ∈ dom(matches(b))
+  • forfeitId ∈ {player1(m).id, player2(m)?.id}
+
+Post-conditions:
+  • winnerId = the opponent's id  
+  • recordResult(b, matchId, winnerId) is called
+----
+
+==== undoMatchResult Operation
+[source,math]
+----
+undoMatchResult: B × MatchId → B
+
+Pre-conditions:
+  • matchId ∈ dom(matches(b)) 
+  • winner(matches(b)[matchId]) ≠ null
+
+Post-conditions:
+  • winner(matches(b)[matchId]) = null
+  • winnersCurrentRound(b) = winnersCurrentRound(b) \ {previousWinner}
+----
+
+== System Invariants
+
+=== Valid Winners Invariant
+[source,math]
+----
+∀b ∈ B, ∀m ∈ matches(b): 
+winner(m) ≠ null ⇒ winner(m) ∈ {player1(m).id, player2(m)?.id}
+----
+*Ensures winners are always valid participants*
+
+=== Queue Size Invariant  
+[source,math]
+----
+∀b ∈ B: |winnersCurrentRound(b)| ≤ 2
+----
+*Prevents winner queue overflow*
+
+=== Unique Participants Invariant
+[source,math]
+----
+∀b ∈ B: ∀m1, m2 ∈ matches(b) where m1 ≠ m2:
+{player1(m1).id, player2(m1)?.id} ∩ {player1(m2).id, player2(m2)?.id} = ∅
+----
+*Ensures no competitor appears in multiple simultaneous matches*
+
+== Implementation Mapping
+
+.Operation Mapping Table
+[cols="2,2,2"]
+|===
+| Mathematical Operation | JavaScript Implementation | Description
+
+| `createInitialMatches(b)`
+| `bracket.createInitialMatches()`
+| Generate first round matches
+
+| `recordResult(b, m, w)`  
+| `bracket.recordResult(matchId, winnerId)`
+| Record match outcome with validation
+
+| `advanceWinner(b, m)`
+| `bracket.advanceWinner(matchId)`
+| Internal winner advancement
+
+| `forfeitMatch(b, m, f)`
+| `bracket.forfeitMatch(matchId, forfeitingId)`
+| Handle match forfeiture
+
+| `undoMatchResult(b, m)`
+| `bracket.undoMatchResult(matchId)`
+| Rollback match result
+|===
+
+== Edge Case Analysis
+
+=== BYE Match Handling
+[source,math]
+----
+recordResult(b, m, w) where player2(m) = null:
+  Pre-condition: w = player1(m).id
+  Post-condition: Immediate advancement without queue update
+----
+
+=== Tournament Completion
+[source,math]
+----
+advanceWinner(b, m) where |nextRoundMatches(b)| = 1:
+  Post-condition: state(b) = Completed
+----
+
+=== Invalid Operations
+[source,math]
+----
+recordResult(b, m, w) where winner(m) ≠ null:
+  Result: Operation undefined (throws Error)
+----
