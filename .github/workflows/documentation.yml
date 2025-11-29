@@ -68,6 +68,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add Documentation/documentation.pdf Documentation/documentation_clean.pdf
+          git add Documentation/documentation.pdf
           git commit -m "Update generated PDFs (highlighted + clean)" || echo "No changes to commit"
           git push
