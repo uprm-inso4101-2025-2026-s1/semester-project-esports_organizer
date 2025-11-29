@@ -49,39 +49,39 @@
 
 ==== Persona 1: Alex the Competitive Player
 
-* [.hl-red]#**Age:** 21#
-* [.hl-red]#**Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.#
+* [.hl-yellow]#**Age:** 21#
+* [.hl-yellow]#**Background:** University student, plays multiple esports titles, highly motivated by rankings and performance.#
 * [.hl-green]#Alex lives for the thrill of competition. Between coding labs and tutoring sessions, he sinks hours into ranked matches of CS:GO and League of Legends, tracking every stat and win rate like a data analyst studying performance trends. His drive to improve is relentless, he watches replays late at night, runs through strategy breakdowns, and celebrates even the smallest jumps in rank.#
-* [.hl-red]#**Goals:**#
-- [.hl-red]#Find tournaments to test and improve skills.#
-- [.hl-red]#Track rankings and stats across games.#
-* [.hl-red]#**Frustrations:**#
-- [.hl-red]#Difficult to keep up with scattered tournament announcements.#
-- [.hl-red]#Lacks a centralized platform to measure performance.#
+* [.hl-yellow]#**Goals:**#
+- [.hl-yellow]#Find tournaments to test and improve skills.#
+- [.hl-yellow]#Track rankings and stats across games.#
+* [.hl-yellow]#**Frustrations:**#
+- [.hl-yellow]#Difficult to keep up with scattered tournament announcements.#
+- [.hl-yellow]#Lacks a centralized platform to measure performance.#
 * [.hl-red]#Alex dreams of a platform that automates what he does manually: collecting scores, comparing results, and pinpointing weaknesses. He hungers for clear data, sleek dashboards, and a competitive community that keeps him sharp.#
 
 ==== Persona 2: Maria the Organizer
 
-* [.hl-red]#**Age:** 34#
-* [.hl-red]#**Background:** Works in event management, organizes local gaming tournaments on weekends.#
+* [.hl-yellow]#**Age:** 34#
+* [.hl-yellow]#**Background:** Works in event management, organizes local gaming tournaments on weekends.#
 * [.hl-green]#Maria thrives on order and energy. Her weekdays are filled with logistics meetings and community programs; her weekends revolve around bringing gamers together. She’s the mastermind behind local tournaments from planning the brackets and registration forms to juggling the chaotic last-minute messages from participants.#
-* [.hl-red]#**Goals:**#
-- [.hl-red]#Announce tournaments easily to the right audience.#
-- [.hl-red]#Manage brackets and notify participants quickly.#
-* [.hl-red]#**Frustrations:**#
-- [.hl-red]#Promotion spread thin across many platforms.#
-- [.hl-red]#Hard to build consistent communities for recurring events.#
-* [.hl-green]#Maria wants an all-in-one event management platform that gives her time back. Something with simple event creation, instant notifications, and built-in communication tools to keep players updated. For her, efficiency equals stronger, more loyal communities.#
+* [.hl-yellow]#**Goals:**#
+- [.hl-yellow]#Announce tournaments easily to the right audience.#
+- [.hl-yellow]#Manage brackets and notify participants quickly.#
+* [.hl-yellow]#**Frustrations:**#
+- [.hl-yellow]#Promotion spread thin across many platforms.#
+- [.hl-yellow]#Hard to build consistent communities for recurring events.#
+* [.hl-red]#Maria wants an all-in-one event management platform that gives her time back. Something with simple event creation, instant notifications, and built-in communication tools to keep players updated. For her, efficiency equals stronger, more loyal communities.#
 
 ==== Persona 3: Liam the Casual Gamer
 
-* [.hl-red]#**Age:** 26#
-* [.hl-red]#**Background:** Plays games for fun after work, sometimes interested in casual competitions.#
+* [.hl-yellow]#**Age:** 26#
+* [.hl-yellow]#**Background:** Plays games for fun after work, sometimes interested in casual competitions.#
 * [.hl-green]#After long days designing interfaces and color palettes, Liam logs on to disconnect. He hops into Marvel Rivals or LOL matches with friends, not for glory, but for laughs and connection. Still, he enjoys the occasional weekend competition when it’s easy to join.#
-* [.hl-red]#**Goals:**#
-- [.hl-red]#Discover local communities for his favorite games.#
-- [.hl-red]#Join teams to participate in friendly competitions.#
-* [.hl-red]#**Frustrations:**#
-- [.hl-red]#Overwhelmed by too many platforms and event sources.#
-- [.hl-red]#Wants simple notifications without constantly monitoring social media.#
+* [.hl-yellow]#**Goals:**#
+- [.hl-yellow]#Discover local communities for his favorite games.#
+- [.hl-yellow]#Join teams to participate in friendly competitions.#
+* [.hl-yellow]#**Frustrations:**#
+- [.hl-yellow]#Overwhelmed by too many platforms and event sources.#
+- [.hl-yellow]#Wants simple notifications without constantly monitoring social media.#
 * [.hl-red]#Liam wants a smooth, minimalist system that curates nearby casual tournaments, lets him sign up in a few taps, and keeps things friendly. Convenience and community matter more to him than competition.#
