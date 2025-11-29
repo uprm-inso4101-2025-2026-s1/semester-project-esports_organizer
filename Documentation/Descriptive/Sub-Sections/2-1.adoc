@@ -282,7 +282,7 @@ Defining Teams as an algebra highlights important system invariants:
 
 == Component 2: Notifications Algebra
 
-=== [.hl-green]#Carrier Set
+[.hl-green]#=== Carrier Set
 The carrier set for Notifications is:#
 
 Notification = { all notification objects delivered to users }
@@ -291,17 +291,17 @@ Notification = { all notification objects delivered to users }
 
 === Operations
 
-==== [.hl-green]#markRead(notification)
+[.hl-green]#==== markRead(notification)
 Arity: unary  
 Description: Sets isRead to true.  
 Closure: The output remains an element of Notification.#
 
-==== [.hl-green]#updateMessage(notification, newMessage)
+[.hl-green]#==== updateMessage(notification, newMessage)
 Arity: binary  
 Description: Updates the message text of the notification.  
 Closure: The output remains in Notification.#
 
-==== [.hl-green]#retarget(notification, newRecipient)
+[.hl-green]#==== retarget(notification, newRecipient)
 Arity: binary  
 Description: Assigns the notification to a different user.  
 Closure: Output stays inside Notification.#
@@ -311,7 +311,7 @@ Closure: Output stays inside Notification.#
 Description: Changes the notification type.  
 Closure: The resulting object remains a Notification.#
 
-===[.hl-green]# Benefits of This Algebra
+[.hl-green]# ===Benefits of This Algebra
 This algebraic approach reveals assumptions and prevents errors such as:#
 
 [.hl-green]#- Incorrect deletion or modification of notifications when marked as read  
