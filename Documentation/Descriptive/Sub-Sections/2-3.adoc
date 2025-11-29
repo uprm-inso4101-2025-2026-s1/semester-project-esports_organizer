@@ -44,7 +44,7 @@ The **software design** explains how each phenomenon in the domain becomes a con
 
 '''
 
-== 2.3.1 Selected Fragments of the Implementation
+=== 2.3.1 Selected Fragments of the Implementation
 
 [.hl-yellow]#Selected fragments appear only to clarify how domain behaviors become implemented actions. They are not included merely for displaying code but for illustrating how the system operationalizes the phenomena discussed in Section 2.2.#  
 
@@ -78,3 +78,11 @@ export async function updateProfile(email, updates) { ... }
 [.hl-green]#These operations embody the concept that “a player in the domain has persistent identity data that evolves over time”. Each function ensures integrity via timestamps, validating that the system remains consistent even as players make changes across tournaments or communities.#  
 
 [.hl-green]#This alignment between domain concepts and implementation ensures that the system grows naturally from the world it observes, rather than forcing features into an artificial structure.#
+
+=== 2.3.2 Real-Time System Design
+[.hl-green]#The implementation uses Firebase's real-time capabilities with React state management for live bracket updates. Cloud Firestore's `onSnapshot()` listeners provide immediate data synchronization, while React's `useEffect()` and `useState()` hooks manage component state updates. This enables automatic bracket propagation when match results change.#
+
+[.hl-green]#The real-time updating feature ensures that tournament brackets in the eSports web app stay synchronized across all users without requiring manual refreshes.#
+
+=== 2.3.3 Tournament Algorithms
+[.hl-green]#Single elimination bracket generation implements mathematical models using power-of-two calculations, bye allocations, and balanced binary tree structures. The system handles various tournament formats with algorithms for participant counting, round calculation `ceiling(log2 n)`, and fair seeding through random shuffling or rank-based sorting.#
