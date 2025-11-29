@@ -1,0 +1,35 @@
+Layered Architecture Overview for Player & Team Profiles
+This document provides a concise explanation of how the Player & Team Profiles subsystem is organized using the Layered Architecture model discussed in class. The purpose of this structure is to separate responsibilities across layers to ensure maintainability, clarity, and scalability as the system evolves.
+
+1. Layer Responsibilities
+Layer
+Presentation (UI)
+Application (Use Cases)
+Domain (Business Rules)
+Infrastructure (Data / External)
+
+Responsibility
+Presentation (UI)-Display information and gather user input. No business logic.
+Application (Use Cases)-Coordinates actions. Calls domain logic. Does not know about the database.
+Domain (Business Rules)-Defines core concepts and rules. Independent of UI and database.
+Infrastructure (Data / External)-Handles persistence and external services. Implements interfaces defined above.
+
+
+Example in Profiles
+Presentation (UI)-Screens where a player edits their profile.
+Application (Use Cases)-“Create Profile” or “Join Team” process orchestrator.
+Domain (Business Rules)-Player, Team, role validation, membership rules.
+Infrastructure (Data / External)-Firestore profile storage, notifications, etc.
+
+2. Data Flow Diagram 
+
+Presentation (UI)
+        ↓
+Application (Use Cases)
+        ↓
+Domain (Business Logic)
+        ↓
+Infrastructure (Firestore / External Services)
+
+3. Why This Matters 
+Separating the Profiles functionality into these layers prevents UI components, business rules, and Firestore operations from becoming tangled together. This makes the system easier to maintain, test, and extend. For example, the database can change without modifying the domain logic, and UI screens can change without affecting data storage. This follows the lecture guidance on encapsulation, clear layering, and dependency boundaries.  
