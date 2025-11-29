@@ -5,6 +5,7 @@ on:
     branches: [ documentation-branch ]
 permissions:
   contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,6 +25,7 @@ jobs:
         run: |
           pwd
           ls -R
+
       - name: Check asciidoctor-pdf version
         run: asciidoctor-pdf -v
 
@@ -36,8 +38,9 @@ jobs:
           fi
           echo "Found pdf-theme.yml"
           head -n 10 Documentation/pdf-theme.yml
-        
-      - name: Build PDF
+
+      # 1) Build PDF WITH highlights + red content (current behavior)
+      - name: Build highlighted PDF
         run: |
           asciidoctor-pdf \
             -a pdf-themesdir=Documentation \
@@ -46,11 +49,25 @@ jobs:
             Documentation/mainDoc.adoc \
             -o Documentation/documentation.pdf
 
+      # 2) Create a cleaned copy of the AsciiDoc (no highlights, no red deletions)
+      - name: Generate clean AsciiDoc copy
+        run: |
+          python scripts/make_clean_docs.py
 
-      - name: Commit PDF
+      # 3) Build PDF from cleaned AsciiDoc
+      - name: Build clean PDF
+        run: |
+          asciidoctor-pdf \
+            -a pdf-themesdir=Documentation \
+            -a pdf-theme=pdf-theme.yml \
+            -a allow-uri-read \
+            Documentation_clean/mainDoc.adoc \
+            -o Documentation/documentation_clean.pdf
+
+      - name: Commit PDFs
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add Documentation/documentation.pdf
-          git commit -m "Update generated documentation.pdf" || echo "No changes to commit"
+          git add Documentation/documentation.pdf Documentation/documentation_clean.pdf
+          git commit -m "Update generated PDFs (highlighted + clean)" || echo "No changes to commit"
           git push
