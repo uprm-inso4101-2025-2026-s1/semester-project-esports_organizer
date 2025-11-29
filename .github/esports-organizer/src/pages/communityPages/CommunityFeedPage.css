@@ -67,6 +67,15 @@
     text-align: center;
 }
 
+/* Align the header title and action vertically and center them */
+.community-header-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 /* Create Post Form Styles */
 .create-post-form {
     background: white;

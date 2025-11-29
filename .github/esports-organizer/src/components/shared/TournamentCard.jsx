@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { addToGoogleCalendar } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 
@@ -15,17 +16,19 @@ const MAPPING = {
 }
 
 function TournamentCard({
-  tournament, 
-  index, 
-  prefix = "", 
-  isSaved, 
-  onJoinEvent
-}) {
-  const navigate = useNavigate();
+    tournament, 
+    index, 
+    prefix = "", 
+    isSaved, 
+    onJoinEvent,
+    isJoined
+  }) {
+    const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
+    const handleNavigation = (path) => {
+      navigate(path);
+    };
+
   return (
     <div className="tournament-card">
       <div
@@ -69,10 +72,16 @@ function TournamentCard({
         <div className="tournament-actions">
           <button 
             type="button"
-            className="join-event-button"
-            onClick={() => onJoinEvent(tournament)}
+            className={`join-event-button ${isJoined ? 'joined' : ''}`}
+            onClick={isJoined ? undefined : () => onJoinEvent(tournament)}
+            disabled={isJoined}
+            style={{
+              background: isJoined ? '#aaa' : '',
+              cursor: isJoined ? 'not-allowed' : 'pointer',
+              opacity: isJoined ? 0.7 : 1
+            }}
           >
-            Join Event
+            {isJoined ? 'Event Joined' : 'Join Event'}
           </button>
           <button 
             type="button"
